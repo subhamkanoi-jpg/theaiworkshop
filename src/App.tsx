@@ -26,9 +26,7 @@ import {
   Menu,
   X,
   Linkedin,
-  Cpu,
-  Lightbulb,
-  TrendingUp,
+
 } from "lucide-react";
 
 function App() {
@@ -430,10 +428,14 @@ function App() {
           <div className="grid md:grid-cols-3 gap-6">
             {/* Subham */}
             <Card className="group relative overflow-hidden border-border/50 hover:border-primary/30 transition-colors">
-              <CardContent className="pt-8 pb-6 px-6 text-center">
-                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-accent/10 text-accent group-hover:bg-accent group-hover:text-accent-foreground transition-colors">
-                  <Lightbulb className="h-8 w-8" />
-                </div>
+              <div className="w-full aspect-square overflow-hidden">
+                <img
+                  src="/subham.jpg"
+                  alt="Subham Kanoi"
+                  className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+              <CardContent className="pt-5 pb-6 px-6 text-center">
                 <h3 className="text-xl font-semibold text-foreground">Subham Kanoi</h3>
                 <p className="text-sm font-medium text-primary mt-1">The Instigator</p>
                 <p className="text-sm text-muted-foreground mt-3 leading-relaxed">
@@ -453,10 +455,14 @@ function App() {
 
             {/* Yogesh */}
             <Card className="group relative overflow-hidden border-border/50 hover:border-primary/30 transition-colors">
-              <CardContent className="pt-8 pb-6 px-6 text-center">
-                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                  <Cpu className="h-8 w-8" />
-                </div>
+              <div className="w-full aspect-square overflow-hidden">
+                <img
+                  src="/yogesh.jpg"
+                  alt="Yogesh Kanoi"
+                  className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+              <CardContent className="pt-5 pb-6 px-6 text-center">
                 <h3 className="text-xl font-semibold text-foreground">Yogesh Kanoi</h3>
                 <p className="text-sm font-medium text-primary mt-1">The Backbone</p>
                 <p className="text-sm text-muted-foreground mt-3 leading-relaxed">
@@ -476,10 +482,14 @@ function App() {
 
             {/* Neeraj */}
             <Card className="group relative overflow-hidden border-border/50 hover:border-primary/30 transition-colors">
-              <CardContent className="pt-8 pb-6 px-6 text-center">
-                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                  <TrendingUp className="h-8 w-8" />
-                </div>
+              <div className="w-full aspect-square overflow-hidden">
+                <img
+                  src="/neeraj.jpg"
+                  alt="Neeraj Kanoi"
+                  className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+              <CardContent className="pt-5 pb-6 px-6 text-center">
                 <h3 className="text-xl font-semibold text-foreground">Neeraj Kanoi</h3>
                 <p className="text-sm font-medium text-primary mt-1">The Growth Guy</p>
                 <p className="text-sm text-muted-foreground mt-3 leading-relaxed">
