@@ -138,6 +138,33 @@ function App() {
         <div className="absolute top-20 left-10 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
         <div className="absolute bottom-10 right-10 h-96 w-96 rounded-full bg-accent/10 blur-3xl" />
 
+        {/* Kolkata skyline sketch - Howrah Bridge */}
+        <div className="absolute bottom-0 left-0 right-0 pointer-events-none opacity-[0.04]">
+          <svg viewBox="0 0 1200 200" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
+            {/* Howrah Bridge structure */}
+            <path d="M0 200 L0 160 Q100 140 200 155 L300 160 L350 80 L370 40 L380 20 L400 10 L420 20 L430 40 L450 80 L500 160 L700 160 L750 80 L770 40 L780 20 L800 10 L820 20 L830 40 L850 80 L900 160 L1000 155 Q1100 140 1200 160 L1200 200Z" stroke="currentColor" strokeWidth="2" fill="currentColor"/>
+            {/* Bridge cables */}
+            <line x1="400" y1="10" x2="350" y2="160" stroke="currentColor" strokeWidth="1"/>
+            <line x1="400" y1="10" x2="370" y2="160" stroke="currentColor" strokeWidth="1"/>
+            <line x1="400" y1="10" x2="400" y2="160" stroke="currentColor" strokeWidth="1"/>
+            <line x1="400" y1="10" x2="430" y2="160" stroke="currentColor" strokeWidth="1"/>
+            <line x1="400" y1="10" x2="460" y2="160" stroke="currentColor" strokeWidth="1"/>
+            <line x1="800" y1="10" x2="750" y2="160" stroke="currentColor" strokeWidth="1"/>
+            <line x1="800" y1="10" x2="770" y2="160" stroke="currentColor" strokeWidth="1"/>
+            <line x1="800" y1="10" x2="800" y2="160" stroke="currentColor" strokeWidth="1"/>
+            <line x1="800" y1="10" x2="830" y2="160" stroke="currentColor" strokeWidth="1"/>
+            <line x1="800" y1="10" x2="860" y2="160" stroke="currentColor" strokeWidth="1"/>
+            {/* Cross cables */}
+            <line x1="380" y1="20" x2="450" y2="160" stroke="currentColor" strokeWidth="0.5"/>
+            <line x1="420" y1="20" x2="350" y2="160" stroke="currentColor" strokeWidth="0.5"/>
+            <line x1="780" y1="20" x2="850" y2="160" stroke="currentColor" strokeWidth="0.5"/>
+            <line x1="820" y1="20" x2="750" y2="160" stroke="currentColor" strokeWidth="0.5"/>
+            {/* Water ripples */}
+            <path d="M0 185 Q150 180 300 185 Q450 190 600 185 Q750 180 900 185 Q1050 190 1200 185" stroke="currentColor" strokeWidth="0.8" fill="none"/>
+            <path d="M0 195 Q150 190 300 195 Q450 200 600 195 Q750 190 900 195 Q1050 200 1200 195" stroke="currentColor" strokeWidth="0.5" fill="none"/>
+          </svg>
+        </div>
+
         <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-20 sm:py-32">
           <div className="text-center max-w-3xl mx-auto">
             <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary mb-8">
@@ -185,7 +212,38 @@ function App() {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-20 sm:py-28">
+      <section id="about" className="py-20 sm:py-28 relative overflow-hidden">
+        {/* Victoria Memorial sketch */}
+        <div className="absolute top-10 right-0 pointer-events-none opacity-[0.03]">
+          <svg viewBox="0 0 400 300" fill="currentColor" xmlns="http://www.w3.org/2000/svg" className="w-64 sm:w-80">
+            {/* Dome */}
+            <ellipse cx="200" cy="80" rx="60" ry="50"/>
+            <rect x="160" y="70" width="80" height="10" rx="2"/>
+            {/* Central structure */}
+            <rect x="140" y="130" width="120" height="100" rx="4"/>
+            {/* Columns */}
+            <rect x="155" y="130" width="6" height="100"/>
+            <rect x="175" y="130" width="6" height="100"/>
+            <rect x="195" y="130" width="6" height="100"/>
+            <rect x="215" y="130" width="6" height="100"/>
+            <rect x="235" y="130" width="6" height="100"/>
+            {/* Side domes */}
+            <ellipse cx="110" cy="150" rx="35" ry="25"/>
+            <rect x="90" y="160" width="40" height="70" rx="2"/>
+            <ellipse cx="290" cy="150" rx="35" ry="25"/>
+            <rect x="270" y="160" width="40" height="70" rx="2"/>
+            {/* Base */}
+            <rect x="80" y="230" width="240" height="12" rx="2"/>
+            <rect x="70" y="242" width="260" height="8" rx="2"/>
+            {/* Steps */}
+            <rect x="90" y="250" width="220" height="6" rx="1"/>
+            <rect x="100" y="256" width="200" height="6" rx="1"/>
+            <rect x="110" y="262" width="180" height="6" rx="1"/>
+            {/* Flag pole */}
+            <line x1="200" y1="30" x2="200" y2="5" stroke="currentColor" strokeWidth="2"/>
+          </svg>
+        </div>
+
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
