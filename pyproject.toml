@@ -1,7 +1,7 @@
 [project]
-name = "react-app"
+name = "ai-for-all"
 version = "0.1.0"
-description = "React App with FastAPI Backend"
+description = "AI for All — Offline AI Workshops in Kolkata for Non-Technical Folks"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
