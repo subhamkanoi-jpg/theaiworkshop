@@ -104,7 +104,7 @@ function App() {
             <div className="hidden md:flex items-center gap-8">
               <button onClick={() => scrollTo("about")} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">About</button>
               <button onClick={() => scrollTo("workshop")} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Workshop</button>
-              <button onClick={() => scrollTo("team")} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Team</button>
+              <button onClick={() => scrollTo("team")} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Workshop Hosts</button>
               <button onClick={() => scrollTo("faq")} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">FAQ</button>
               <Button onClick={() => scrollTo("register")} size="sm">
                 Book Your Spot <ArrowRight className="ml-1 h-4 w-4" />
@@ -123,7 +123,7 @@ function App() {
             <div className="md:hidden pb-4 space-y-3">
               <button onClick={() => scrollTo("about")} className="block w-full text-left text-sm font-medium text-muted-foreground hover:text-foreground py-2">About</button>
               <button onClick={() => scrollTo("workshop")} className="block w-full text-left text-sm font-medium text-muted-foreground hover:text-foreground py-2">Workshop</button>
-              <button onClick={() => scrollTo("team")} className="block w-full text-left text-sm font-medium text-muted-foreground hover:text-foreground py-2">Team</button>
+              <button onClick={() => scrollTo("team")} className="block w-full text-left text-sm font-medium text-muted-foreground hover:text-foreground py-2">Workshop Hosts</button>
               <button onClick={() => scrollTo("faq")} className="block w-full text-left text-sm font-medium text-muted-foreground hover:text-foreground py-2">FAQ</button>
               <Button onClick={() => scrollTo("register")} size="sm" className="w-full">
                 Book Your Spot <ArrowRight className="ml-1 h-4 w-4" />
@@ -419,7 +419,7 @@ function App() {
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
-              The People Behind This
+              Meet Your Workshop Hosts
             </h2>
             <p className="mt-4 text-lg text-muted-foreground">
               Three brothers who believe AI should be for everyone — not just engineers.
