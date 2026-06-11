@@ -439,7 +439,7 @@ function App() {
                   A Xavier's grad and founder of Urban Rasoi — Kolkata's own cloud kitchen for gourmet house parties and B2B corporate catering. The non-techie who started it all out of pure FOMO. If The AI Workshop had a first beta tester, it's him.
                 </p>
                 <a
-                  href="https://www.linkedin.com/in/subhamkanoi"
+                  href="https://www.linkedin.com/in/subhamkanoi/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 mt-4 text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
@@ -462,7 +462,7 @@ function App() {
                   AI/ML engineer at LTI with half a decade of deep learning under his belt since 2020. He's the architect — the one who turns "can we do this?" into a working system. Every workshop blueprint runs through him first.
                 </p>
                 <a
-                  href="https://www.linkedin.com/in/yogeshkanoi"
+                  href="https://www.linkedin.com/in/yogesh-kanoi-37219a63/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 mt-4 text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
@@ -485,7 +485,7 @@ function App() {
                   The Bangalore techie who walked away from a safe IT job to join an AI startup as their Growth Lead at Wokelo AI. He knows what it takes to go from zero to scale — and he's bringing that energy here.
                 </p>
                 <a
-                  href="https://www.linkedin.com/in/neerajkanoi"
+                  href="https://www.linkedin.com/in/neeraj-kanoi-marketing/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 mt-4 text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
