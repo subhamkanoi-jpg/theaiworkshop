@@ -18,6 +18,7 @@ import {
   ArrowRight,
   CheckCircle2,
   Rocket,
+  MessageCircle,
   Palette,
   Server,
   BadgeCheck,
@@ -577,6 +578,29 @@ function App() {
         </div>
       </section>
 
+      {/* WhatsApp Community Section */}
+      <section className="py-12 bg-[#25D366]/5 border-y border-[#25D366]/20">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#25D366]/10 text-[#25D366]">
+              <MessageCircle className="h-6 w-6" />
+            </div>
+            <div className="text-center sm:text-left">
+              <h3 className="text-lg font-semibold text-foreground">Join Our WhatsApp Community</h3>
+              <p className="text-sm text-muted-foreground">Stay updated on workshops, tips, and AI news. Be the first to know.</p>
+            </div>
+            <a
+              href="https://chat.whatsapp.com/DNIePdAGNfL2cs1LDIs0DG"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full bg-[#25D366] px-6 py-3 text-sm font-semibold text-white hover:bg-[#1ebe57] transition-colors"
+            >
+              Join Now <ArrowRight className="h-4 w-4" />
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* Registration Section */}
       <section id="register" className="py-20 sm:py-28">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
@@ -647,9 +671,20 @@ function App() {
               </div>
               <span className="font-bold text-foreground">The AI Workshop</span>
             </div>
-            <p className="text-sm text-muted-foreground">
-              Making AI accessible, one workshop at a time. Kolkata, India.
-            </p>
+            <div className="flex items-center gap-4">
+              <p className="text-sm text-muted-foreground">
+                Making AI accessible, one workshop at a time. Kolkata, India.
+              </p>
+              <a
+                href="https://chat.whatsapp.com/DNIePdAGNfL2cs1LDIs0DG"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-[#25D366] hover:underline"
+              >
+                <MessageCircle className="h-4 w-4" />
+                Community
+              </a>
+            </div>
           </div>
         </div>
       </footer>
