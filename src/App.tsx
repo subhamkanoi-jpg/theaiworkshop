@@ -19,6 +19,7 @@ import {
   CheckCircle2,
   Rocket,
   MessageCircle,
+  Mail,
   Palette,
   Server,
   BadgeCheck,
@@ -671,10 +672,14 @@ function App() {
               </div>
               <span className="font-bold text-foreground">The AI Workshop</span>
             </div>
-            <div className="flex items-center gap-4">
-              <p className="text-sm text-muted-foreground">
-                Making AI accessible, one workshop at a time. Kolkata, India.
-              </p>
+            <div className="flex items-center gap-5">
+              <a
+                href="mailto:theaiworkshop.in@gmail.com"
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <Mail className="h-4 w-4" />
+                theaiworkshop.in@gmail.com
+              </a>
               <a
                 href="https://chat.whatsapp.com/DNIePdAGNfL2cs1LDIs0DG"
                 target="_blank"
