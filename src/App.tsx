@@ -33,26 +33,14 @@ function App() {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [submitted, setSubmitted] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !email) return;
-    setSubmitting(true);
-    try {
-      await fetch("/api/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email }),
-      });
-      setSubmitted(true);
-    } catch {
-      // still show success for better UX
-      setSubmitted(true);
-    } finally {
-      setSubmitting(false);
-    }
+    const message = `Hi! I'd like to register for The AI Workshop on 28 June 2026.%0A%0A*Name:* ${encodeURIComponent(name)}%0A*Email:* ${encodeURIComponent(email)}`;
+    window.open(`https://wa.me/919830715557?text=${message}`, "_blank");
+    setSubmitted(true);
   };
 
   const scrollTo = (id: string) => {
@@ -607,9 +595,9 @@ function App() {
                     <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-accent/10 text-accent">
                       <CheckCircle2 className="h-8 w-8" />
                     </div>
-                    <h3 className="text-xl font-bold text-foreground mb-2">You're In!</h3>
+                    <h3 className="text-xl font-bold text-foreground mb-2">Almost Done!</h3>
                     <p className="text-muted-foreground">
-                      We'll reach out to you with venue details and preparation info soon. See you on June 28th!
+                      A WhatsApp chat has opened with your details. Just hit send — we'll confirm your spot!
                     </p>
                   </div>
                 ) : (
@@ -635,8 +623,8 @@ function App() {
                         className="h-12"
                       />
                     </div>
-                    <Button type="submit" size="lg" className="w-full mt-2" disabled={submitting}>
-                      {submitting ? "Registering..." : "Register for Workshop"} <ArrowRight className="ml-2 h-5 w-5" />
+                    <Button type="submit" size="lg" className="w-full mt-2">
+                      Register for Workshop <ArrowRight className="ml-2 h-5 w-5" />
                     </Button>
                     <p className="text-xs text-muted-foreground mt-2">
                       By registering, you'll receive workshop updates. No spam, ever.
@@ -668,7 +656,7 @@ function App() {
 
       {/* WhatsApp Floating Button */}
       <a
-        href="https://wa.me/919876543210?text=Hi!%20I'm%20interested%20in%20The%20AI%20Workshop"
+        href="https://wa.me/919830715557?text=Hi!%20I'm%20interested%20in%20The%20AI%20Workshop"
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg hover:bg-[#1ebe57] hover:scale-110 transition-all duration-200"
