@@ -428,14 +428,14 @@ function App() {
           <div className="grid md:grid-cols-3 gap-6">
             {/* Subham */}
             <Card className="group relative overflow-hidden border-border/50 hover:border-primary/30 transition-colors">
-              <div className="w-full aspect-square overflow-hidden">
-                <img
-                  src="/subham.jpg"
-                  alt="Subham Kanoi"
-                  className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-              <CardContent className="pt-5 pb-6 px-6 text-center">
+              <CardContent className="pt-8 pb-6 px-6 text-center">
+                <div className="mx-auto mb-5 h-36 w-36 rounded-full overflow-hidden ring-4 ring-primary/20 group-hover:ring-primary/50 transition-all bg-muted">
+                  <img
+                    src="/subham.png"
+                    alt="Subham Kanoi"
+                    className="w-full h-full object-cover object-top"
+                  />
+                </div>
                 <h3 className="text-xl font-semibold text-foreground">Subham Kanoi</h3>
                 <p className="text-sm font-medium text-primary mt-1">The Instigator</p>
                 <p className="text-sm text-muted-foreground mt-3 leading-relaxed">
@@ -455,14 +455,14 @@ function App() {
 
             {/* Yogesh */}
             <Card className="group relative overflow-hidden border-border/50 hover:border-primary/30 transition-colors">
-              <div className="w-full aspect-square overflow-hidden">
-                <img
-                  src="/yogesh.jpg"
-                  alt="Yogesh Kanoi"
-                  className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-              <CardContent className="pt-5 pb-6 px-6 text-center">
+              <CardContent className="pt-8 pb-6 px-6 text-center">
+                <div className="mx-auto mb-5 h-36 w-36 rounded-full overflow-hidden ring-4 ring-primary/20 group-hover:ring-primary/50 transition-all bg-muted">
+                  <img
+                    src="/yogesh.png"
+                    alt="Yogesh Kanoi"
+                    className="w-full h-full object-cover object-top"
+                  />
+                </div>
                 <h3 className="text-xl font-semibold text-foreground">Yogesh Kanoi</h3>
                 <p className="text-sm font-medium text-primary mt-1">The Backbone</p>
                 <p className="text-sm text-muted-foreground mt-3 leading-relaxed">
@@ -482,14 +482,14 @@ function App() {
 
             {/* Neeraj */}
             <Card className="group relative overflow-hidden border-border/50 hover:border-primary/30 transition-colors">
-              <div className="w-full aspect-square overflow-hidden">
-                <img
-                  src="/neeraj.jpg"
-                  alt="Neeraj Kanoi"
-                  className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-              <CardContent className="pt-5 pb-6 px-6 text-center">
+              <CardContent className="pt-8 pb-6 px-6 text-center">
+                <div className="mx-auto mb-5 h-36 w-36 rounded-full overflow-hidden ring-4 ring-primary/20 group-hover:ring-primary/50 transition-all bg-muted">
+                  <img
+                    src="/neeraj.png"
+                    alt="Neeraj Kanoi"
+                    className="w-full h-full object-cover object-top"
+                  />
+                </div>
                 <h3 className="text-xl font-semibold text-foreground">Neeraj Kanoi</h3>
                 <p className="text-sm font-medium text-primary mt-1">The Growth Guy</p>
                 <p className="text-sm text-muted-foreground mt-3 leading-relaxed">
