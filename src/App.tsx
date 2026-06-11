@@ -23,7 +23,6 @@ import {
   BadgeCheck,
   Menu,
   X,
-  ChevronDown,
   Linkedin,
   Cpu,
   Lightbulb,
