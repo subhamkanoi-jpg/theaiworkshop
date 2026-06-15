@@ -77,7 +77,14 @@ class VerifyPaymentRequest(BaseModel):
 
 @app.get("/api/health")
 def health():
-    return {"ok": True}
+    key_id = os.environ.get("RAZORPAY_KEY_ID", "")
+    key_secret = os.environ.get("RAZORPAY_KEY_SECRET", "")
+    return {
+        "ok": True,
+        "razorpay_key_id_present": bool(key_id),
+        "razorpay_key_id_prefix": key_id[:12] + "..." if len(key_id) > 12 else key_id,
+        "razorpay_secret_length": len(key_secret),
+    }
 
 
 @app.post("/api/create-order")
