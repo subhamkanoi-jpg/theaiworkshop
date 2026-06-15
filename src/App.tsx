@@ -26,21 +26,102 @@ import {
   Menu,
   X,
   Linkedin,
-
 } from "lucide-react";
 
 function App() {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const WORKSHOP_AMOUNT = 79900; // amount in paise (₹799)
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name || !email) return;
-    const message = `Hi! I'd like to register for The AI Workshop on 28 June 2026.%0A%0A*Name:* ${encodeURIComponent(name)}%0A*Email:* ${encodeURIComponent(email)}`;
-    window.open(`https://wa.me/919830715557?text=${message}`, "_blank");
-    setSubmitted(true);
+    if (!name || !email || !phone) return;
+    setLoading(true);
+
+    try {
+      // Step 1: Create Razorpay order
+      const orderRes = await fetch("/api/create-order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          amount: WORKSHOP_AMOUNT,
+          currency: "INR",
+          receipt: `workshop_${Date.now()}`,
+        }),
+      });
+
+      if (!orderRes.ok) {
+        const err = await orderRes.json();
+        alert(err.detail || "Failed to create order. Please try again.");
+        setLoading(false);
+        return;
+      }
+
+      const orderData = await orderRes.json();
+
+      // Step 2: Open Razorpay checkout
+      const options = {
+        key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+        amount: orderData.amount,
+        currency: orderData.currency,
+        name: "The AI Workshop",
+        description: "Workshop Registration - 28 June 2026",
+        order_id: orderData.order_id,
+        prefill: {
+          name: name,
+          email: email,
+          contact: phone,
+        },
+        theme: {
+          color: "#7c3aed",
+        },
+        handler: async function (response: {
+          razorpay_payment_id: string;
+          razorpay_order_id: string;
+          razorpay_signature: string;
+        }) {
+          // Step 3: Verify payment
+          const verifyRes = await fetch("/api/verify-payment", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(response),
+          });
+
+          if (verifyRes.ok) {
+            // Step 4: Register user after successful payment
+            await fetch("/api/register", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ name, email, phone }),
+            });
+            setSubmitted(true);
+          } else {
+            alert("Payment verification failed. Please contact support.");
+          }
+          setLoading(false);
+        },
+        modal: {
+          ondismiss: function () {
+            setLoading(false);
+          },
+        },
+      };
+
+      const rzp = new (window as any).Razorpay(options);
+      rzp.on("payment.failed", function (response: any) {
+        alert(`Payment failed: ${response.error.description}`);
+        setLoading(false);
+      });
+      rzp.open();
+    } catch {
+      alert("Something went wrong. Please try again.");
+      setLoading(false);
+    }
   };
 
   const scrollTo = (id: string) => {
@@ -630,9 +711,9 @@ function App() {
                     <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-accent/10 text-accent">
                       <CheckCircle2 className="h-8 w-8" />
                     </div>
-                    <h3 className="text-xl font-bold text-foreground mb-2">Almost Done!</h3>
+                    <h3 className="text-xl font-bold text-foreground mb-2">You're Registered!</h3>
                     <p className="text-muted-foreground">
-                      A WhatsApp chat has opened with your details. Just hit send — we'll confirm your spot!
+                      Payment successful! Your spot is confirmed for the workshop on 28 June 2026. Check your email for details.
                     </p>
                   </div>
                 ) : (
@@ -648,6 +729,17 @@ function App() {
                       />
                     </div>
                     <div className="space-y-2 text-left">
+                      <label className="text-sm font-medium text-foreground">Phone Number</label>
+                      <Input
+                        type="tel"
+                        placeholder="+91 98XXX XXXXX"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        required
+                        className="h-12"
+                      />
+                    </div>
+                    <div className="space-y-2 text-left">
                       <label className="text-sm font-medium text-foreground">Email Address</label>
                       <Input
                         type="email"
@@ -658,11 +750,11 @@ function App() {
                         className="h-12"
                       />
                     </div>
-                    <Button type="submit" size="lg" className="w-full mt-2">
-                      Register for Workshop <ArrowRight className="ml-2 h-5 w-5" />
+                    <Button type="submit" size="lg" className="w-full mt-2" disabled={loading}>
+                      {loading ? "Processing..." : "Register for Workshop"} {!loading && <ArrowRight className="ml-2 h-5 w-5" />}
                     </Button>
                     <p className="text-xs text-muted-foreground mt-2">
-                      By registering, you'll receive workshop updates. No spam, ever.
+                      By registering, you'll be redirected to secure payment. No spam, ever.
                     </p>
                   </form>
                 )}
