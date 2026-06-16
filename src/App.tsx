@@ -62,20 +62,20 @@ const portfolio = [
 // ──────────────────────────────────────────────────────────────────────────
 const hosts = [
   {
-    name: "Subham Kanoi",
-    role: "The Instigator",
-    image: "/subham.png",
-    link: "https://www.linkedin.com/in/subhamkanoi/",
-    linkType: "linkedin" as const,
-    bio: `A Xavier's grad and founder of Urban Rasoi — Kolkata's own cloud kitchen for gourmet house parties and B2B corporate catering. The non-techie who started it all out of pure FOMO. If The AI Workshop had a first beta tester, it's him.`,
-  },
-  {
     name: "Yogesh Kanoi",
     role: "The Backbone",
     image: "/yogesh.png",
     link: "https://www.linkedin.com/in/yogesh-kanoi-37219a63/",
     linkType: "linkedin" as const,
     bio: `AI/ML engineer at LTI with half a decade of deep learning under his belt since 2020. He's the architect — the one who turns "can we do this?" into a working system. Every workshop blueprint runs through him first.`,
+  },
+  {
+    name: "Subham Kanoi",
+    role: "The Instigator",
+    image: "/subham.png",
+    link: "https://www.linkedin.com/in/subhamkanoi/",
+    linkType: "linkedin" as const,
+    bio: `A Xavier's grad and founder of Urban Rasoi — Kolkata's own cloud kitchen for gourmet house parties and B2B corporate catering. The non-techie who started it all out of pure FOMO. If The AI Workshop had a first beta tester, it's him.`,
   },
   {
     name: "Neeraj Kanoi",
