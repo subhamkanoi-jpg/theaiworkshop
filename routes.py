@@ -146,6 +146,7 @@ def create_app(static_dir: str) -> FastAPI:
             "order_id": order["id"],
             "amount": order["amount"],
             "currency": order["currency"],
+            "razorpay_key_id": key_id,
         }
 
     @api.post("/verify-payment")

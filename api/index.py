@@ -111,6 +111,7 @@ def create_order(req: CreateOrderRequest):
         "order_id": order["id"],
         "amount": order["amount"],
         "currency": order["currency"],
+        "razorpay_key_id": key_id,
     }
 
 

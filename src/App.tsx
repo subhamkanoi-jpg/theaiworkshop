@@ -64,9 +64,15 @@ function App() {
 
       const orderData = await orderRes.json();
 
+      if (!orderData.razorpay_key_id) {
+        alert("Payment configuration error: Razorpay key not available. Please contact support.");
+        setLoading(false);
+        return;
+      }
+
       // Step 2: Open Razorpay checkout
       const options = {
-        key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+        key: orderData.razorpay_key_id,
         amount: orderData.amount,
         currency: orderData.currency,
         name: "The AI Workshop",
