@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -43,12 +43,10 @@ import {
 // ──────────────────────────────────────────────────────────────────────────
 const WORKSHOP_AMOUNT = 79900; // amount in paise (₹799)
 const PRICE = 799; // early-bird price (₹)
-const MARKET_VALUE = 15000; // what an agency typically charges (₹10k–20k)
-const TOTAL_SEATS = 25; // total seats in this batch
-const SEATS_LEFT = 9; // ⚠️ keep this honest — update as registrations come in
+const MARKET_VALUE = 1599; // workshop's regular list price (early-bird is ₹799)
+const TOTAL_SEATS = 25; // we cap each batch here so everyone gets real attention
 const WORKSHOP_DATE_LABEL = "Sunday, 28 June 2026";
 const WORKSHOP_TIME_LABEL = "12:00 – 4:00 PM";
-const WORKSHOP_START = new Date("2026-06-28T12:00:00+05:30");
 
 const SAVINGS = MARKET_VALUE - PRICE;
 const SAVINGS_PCT = Math.round((SAVINGS / MARKET_VALUE) * 100);
@@ -98,44 +96,6 @@ const hosts = [
     bio: `The Bangalore techie who walked away from a safe IT job to join an AI startup as their Growth Lead at Wokelo AI. He knows what it takes to go from zero to scale — and he's bringing that energy here.`,
   },
 ];
-
-function Countdown({ target }: { target: Date }) {
-  const remaining = () => Math.max(0, target.getTime() - Date.now());
-  const [ms, setMs] = useState(remaining());
-
-  useEffect(() => {
-    const t = setInterval(() => setMs(remaining()), 1000);
-    return () => clearInterval(t);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const days = Math.floor(ms / 86400000);
-  const hrs = Math.floor((ms % 86400000) / 3600000);
-  const mins = Math.floor((ms % 3600000) / 60000);
-  const secs = Math.floor((ms % 60000) / 1000);
-  const units: [string, number][] = [
-    ["Days", days],
-    ["Hrs", hrs],
-    ["Min", mins],
-    ["Sec", secs],
-  ];
-
-  return (
-    <div className="flex items-center gap-2 sm:gap-3">
-      {units.map(([label, value]) => (
-        <div
-          key={label}
-          className="flex flex-col items-center justify-center rounded-xl border border-border bg-background/80 backdrop-blur px-3 py-2 min-w-[58px] shadow-sm"
-        >
-          <span className="text-xl sm:text-2xl font-bold tabular-nums text-foreground">
-            {String(value).padStart(2, "0")}
-          </span>
-          <span className="text-[10px] uppercase tracking-wide text-muted-foreground">{label}</span>
-        </div>
-      ))}
-    </div>
-  );
-}
 
 function PortfolioThumb({ name, tag, image, url }: (typeof portfolio)[number]) {
   const [broken, setBroken] = useState(false);
@@ -339,7 +299,13 @@ function App() {
   };
 
   const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    const el = document.getElementById(id);
+    if (el) {
+      // Offset for the sticky nav so headings (and the form) aren't hidden under it.
+      const NAV_OFFSET = 72;
+      const y = el.getBoundingClientRect().top + window.scrollY - NAV_OFFSET;
+      window.scrollTo({ top: y, behavior: "smooth" });
+    }
     setMobileMenuOpen(false);
   };
 
@@ -385,18 +351,18 @@ function App() {
   ];
 
   return (
-    <div className="min-h-screen bg-background pb-16 md:pb-0">
+    <div className="min-h-screen bg-background pb-20 md:pb-0">
       {/* Announcement Bar */}
       <button
         onClick={() => scrollTo("register")}
         className="block w-full bg-gradient-to-r from-primary to-accent text-primary-foreground text-center text-xs sm:text-sm font-medium py-2.5 px-4 hover:opacity-95 transition-opacity"
       >
-        <span className="inline-flex items-center gap-1.5 flex-wrap justify-center">
-          <Zap className="h-3.5 w-3.5" />
-          Early-bird <strong>{inr(PRICE)}</strong>
-          <span className="line-through opacity-80">{inr(MARKET_VALUE)} value</span>
-          · Only {SEATS_LEFT} seats left · Sun 28 June, 12–4 PM
-          <span className="underline underline-offset-2">Book now →</span>
+        <span className="inline-flex items-center gap-x-1.5 gap-y-0.5 flex-wrap justify-center">
+          <Sparkles className="h-3.5 w-3.5 flex-shrink-0" />
+          <span>Workshop #1 · Build your own website</span>
+          <span className="hidden sm:inline">· Kolkata, Sun 28 June</span>
+          <span>· Early-bird <strong>{inr(PRICE)}</strong></span>
+          <span className="underline underline-offset-2">Reserve your spot →</span>
         </span>
       </button>
 
@@ -411,6 +377,7 @@ function App() {
 
             <div className="hidden md:flex items-center gap-7">
               <button onClick={() => scrollTo("workshop")} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Workshop</button>
+              <button onClick={() => scrollTo("roadmap")} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">What's Next</button>
               <button onClick={() => scrollTo("work")} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Our Work</button>
               <button onClick={() => scrollTo("team")} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Hosts</button>
               <button onClick={() => scrollTo("faq")} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">FAQ</button>
@@ -430,6 +397,7 @@ function App() {
           {mobileMenuOpen && (
             <div className="md:hidden pb-4 space-y-3">
               <button onClick={() => scrollTo("workshop")} className="block w-full text-left text-sm font-medium text-muted-foreground hover:text-foreground py-2">Workshop</button>
+              <button onClick={() => scrollTo("roadmap")} className="block w-full text-left text-sm font-medium text-muted-foreground hover:text-foreground py-2">What's Next</button>
               <button onClick={() => scrollTo("work")} className="block w-full text-left text-sm font-medium text-muted-foreground hover:text-foreground py-2">Our Work</button>
               <button onClick={() => scrollTo("team")} className="block w-full text-left text-sm font-medium text-muted-foreground hover:text-foreground py-2">Hosts</button>
               <button onClick={() => scrollTo("faq")} className="block w-full text-left text-sm font-medium text-muted-foreground hover:text-foreground py-2">FAQ</button>
@@ -448,7 +416,16 @@ function App() {
         <div className="absolute bottom-10 right-10 h-96 w-96 rounded-full bg-accent/10 blur-3xl" />
 
         <div className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24 text-center">
-          <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary mb-6">
+          <div className="inline-flex items-center gap-2.5 rounded-full bg-primary/10 px-5 py-2 text-base sm:text-lg font-bold text-primary mb-4">
+            <Sparkles className="h-5 w-5 sm:h-6 sm:w-6" />
+            AI is for everyone
+          </div>
+
+          <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-accent">
+            Workshop #01 · Build Your Own Website
+          </p>
+
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary">
             <MapPin className="h-4 w-4" />
             Offline in Kolkata · {WORKSHOP_DATE_LABEL}
           </div>
@@ -461,11 +438,22 @@ function App() {
             in one Sunday afternoon.
           </h1>
 
-          <p className="mt-6 text-lg sm:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-            No code. No jargon. In 4 hours you'll build, deploy, and go live with a real website you
-            own — the exact thing agencies charge{" "}
-            <strong className="text-foreground">₹10,000–₹20,000</strong> for.
-          </p>
+          {/* Compact value pointers — replaces the long paragraphs */}
+          <div className="mt-8 flex flex-wrap items-start justify-center gap-x-8 sm:gap-x-12 gap-y-6">
+            {[
+              { icon: <Sparkles className="h-6 w-6" />, label: "No code" },
+              { icon: <Clock className="h-6 w-6" />, label: "4 hours" },
+              { icon: <Rocket className="h-6 w-6" />, label: "Go live" },
+              { icon: <Globe className="h-6 w-6" />, label: "You own it" },
+            ].map((p) => (
+              <div key={p.label} className="flex flex-col items-center gap-2.5">
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+                  {p.icon}
+                </div>
+                <span className="text-sm font-semibold text-foreground">{p.label}</span>
+              </div>
+            ))}
+          </div>
 
           {/* Price pill */}
           <div className="mt-8 inline-flex items-center gap-3 rounded-full border border-primary/20 bg-card px-5 py-2.5 shadow-sm">
@@ -475,6 +463,10 @@ function App() {
               SAVE {SAVINGS_PCT}%
             </span>
           </div>
+
+          <p className="mt-3 text-sm text-muted-foreground">
+            Agencies charge <strong className="text-foreground">₹10,000–₹20,000</strong> for the same thing.
+          </p>
 
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button size="lg" onClick={() => scrollTo("register")} className="text-base px-8 py-6 w-full sm:w-auto">
@@ -490,14 +482,6 @@ function App() {
             100% beginner-friendly · Secure Razorpay payment · Walk away with a live site
           </p>
 
-          {/* Countdown */}
-          <div className="mt-10 flex flex-col items-center gap-3">
-            <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-              Workshop starts in
-            </span>
-            <Countdown target={WORKSHOP_START} />
-          </div>
-
           {/* Meta row */}
           <div className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-muted-foreground">
             <div className="flex items-center gap-2">
@@ -510,7 +494,7 @@ function App() {
             </div>
             <div className="flex items-center gap-2">
               <Users className="h-4 w-4 text-primary" />
-              <span>Only {SEATS_LEFT} of {TOTAL_SEATS} seats left</span>
+              <span>A small batch of {TOTAL_SEATS}</span>
             </div>
           </div>
         </div>
@@ -575,8 +559,9 @@ function App() {
               AI is for everyone — not just engineers
             </h2>
             <p className="mt-4 text-lg text-muted-foreground">
-              We're an education company in Kolkata on a simple mission: demystify AI and make it
-              practical for everyday people.
+              We're building an AI community in Kolkata for the common person — business owners,
+              freelancers, students, anyone curious. Our mission is simple: demystify AI and make it
+              genuinely useful in your everyday life and work, one hands-on workshop at a time.
             </p>
           </div>
 
@@ -801,6 +786,81 @@ function App() {
         </div>
       </section>
 
+      {/* What's Next / Roadmap Section */}
+      <section id="roadmap" className="py-20 sm:py-24">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-14">
+            <div className="inline-flex items-center gap-2 rounded-full bg-accent/10 px-4 py-1.5 text-sm font-medium text-accent mb-4">
+              <TrendingUp className="h-4 w-4" />
+              This is just the beginning
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
+              One workshop. The first of many.
+            </h2>
+            <p className="mt-4 text-lg text-muted-foreground">
+              Building your website is use-case #1 — the easiest way to see what AI can do for you.
+              From here, every workshop tackles a real problem you face in your business.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-3 gap-5">
+            <Card className="relative border-primary/40 bg-primary/5 shadow-sm">
+              <div className="absolute -top-3 left-6 rounded-full bg-primary px-3 py-1 text-xs font-bold text-primary-foreground">
+                HAPPENING NOW
+              </div>
+              <CardContent className="p-7">
+                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                  <Globe className="h-6 w-6" />
+                </div>
+                <p className="text-xs font-semibold uppercase tracking-wide text-primary">Workshop #01</p>
+                <h3 className="mt-1 text-lg font-semibold text-foreground">Build Your Own Website</h3>
+                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                  Go from idea to a live website you own — in a single afternoon, no code.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-border/60">
+              <CardContent className="p-7">
+                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-muted text-muted-foreground">
+                  <Zap className="h-6 w-6" />
+                </div>
+                <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Coming next</p>
+                <h3 className="mt-1 text-lg font-semibold text-foreground">AI for Your Business</h3>
+                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                  Automate the busywork, market smarter, and serve customers faster — with everyday AI tools.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-border/60">
+              <CardContent className="p-7">
+                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-muted text-muted-foreground">
+                  <Sparkles className="h-6 w-6" />
+                </div>
+                <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">You decide</p>
+                <h3 className="mt-1 text-lg font-semibold text-foreground">Your Use-Case, Next</h3>
+                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                  Tell us the problem you want solved. The community shapes which use-case we build next.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+
+          <p className="mt-8 text-center text-muted-foreground">
+            First-of-its-kind, use-case-based, and fully offline.{" "}
+            <a
+              href="https://chat.whatsapp.com/DNIePdAGNfL2cs1LDIs0DG"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-primary hover:underline"
+            >
+              Join the community to shape what's next →
+            </a>
+          </p>
+        </div>
+      </section>
+
       {/* Our Work / Portfolio Section */}
       <section id="work" className="py-20 sm:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
@@ -981,13 +1041,14 @@ function App() {
               Reserve your seat
             </h2>
             <p className="mt-4 text-lg text-muted-foreground">
-              Only {SEATS_LEFT} of {TOTAL_SEATS} seats left for {WORKSHOP_DATE_LABEL}. Once they're gone, they're gone.
+              We keep each batch to just {TOTAL_SEATS} people, so everyone gets real, hands-on
+              attention. Save your spot for {WORKSHOP_DATE_LABEL}.
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6 items-start">
             {/* Offer summary */}
-            <Card className="border-primary/20 bg-primary/5">
+            <Card className="order-2 md:order-1 border-primary/20 bg-primary/5">
               <CardContent className="p-7 sm:p-8">
                 <div className="flex items-end gap-3">
                   <span className="text-4xl font-extrabold text-foreground flex items-center">
@@ -1012,13 +1073,19 @@ function App() {
                   ))}
                 </div>
 
-                <div className="mt-6 flex items-center justify-between border-t border-border pt-4">
-                  <span className="text-sm font-medium text-muted-foreground">Total value</span>
-                  <span className="text-lg font-bold text-foreground">{inr(MARKET_VALUE)}+</span>
-                </div>
-                <div className="mt-1 flex items-center justify-between">
-                  <span className="text-sm font-semibold text-foreground">You pay today</span>
-                  <span className="text-lg font-extrabold text-primary">{inr(PRICE)}</span>
+                <div className="mt-6 border-t border-border pt-5">
+                  <p className="text-sm font-semibold text-muted-foreground mb-2">
+                    How much you actually save
+                  </p>
+                  <div className="rounded-xl bg-accent/10 border border-accent/20 p-4 flex items-start gap-3">
+                    <TrendingUp className="h-5 w-5 text-accent flex-shrink-0 mt-1" />
+                    <div>
+                      <p className="text-2xl font-extrabold text-foreground">₹10,000–₹20,000</p>
+                      <p className="text-sm text-muted-foreground mt-0.5">
+                        what an agency charges to build a website — done yourself, in one afternoon.
+                      </p>
+                    </div>
+                  </div>
                 </div>
 
                 <p className="mt-3 text-xs text-muted-foreground leading-relaxed">
@@ -1036,7 +1103,7 @@ function App() {
             </Card>
 
             {/* Form */}
-            <Card>
+            <Card className="order-1 md:order-2">
               <CardContent className="pt-8 pb-6 px-6">
                 {submitted ? (
                   <div className="text-center py-6">
@@ -1129,7 +1196,7 @@ function App() {
               <Logo className="h-8 w-8" />
               <span className="font-bold text-foreground">The AI Workshop</span>
             </div>
-            <div className="flex items-center gap-5">
+            <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
               <a
                 href="tel:+919830715557"
                 className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
@@ -1165,7 +1232,7 @@ function App() {
             <span className="text-lg font-extrabold text-foreground">{inr(PRICE)}</span>
             <span className="text-sm text-muted-foreground line-through">{inr(MARKET_VALUE)}</span>
           </div>
-          <p className="text-[11px] text-muted-foreground">Only {SEATS_LEFT} seats left</p>
+          <p className="text-[11px] text-muted-foreground">Small batch of {TOTAL_SEATS}</p>
         </div>
         <Button onClick={() => scrollTo("register")} className="flex-1 max-w-[60%]">
           Book your seat <ArrowRight className="ml-1.5 h-4 w-4" />
