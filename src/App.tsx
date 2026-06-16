@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -27,7 +27,208 @@ import {
   Menu,
   X,
   Linkedin,
+  ShieldCheck,
+  Star,
+  ExternalLink,
+  Gift,
+  Zap,
+  TrendingUp,
+  IndianRupee,
+  Lock,
+  Phone,
 } from "lucide-react";
+
+// ──────────────────────────────────────────────────────────────────────────
+// Editable config — update these as the workshop fills up / details change.
+// ──────────────────────────────────────────────────────────────────────────
+const WORKSHOP_AMOUNT = 79900; // amount in paise (₹799)
+const PRICE = 799; // early-bird price (₹)
+const MARKET_VALUE = 15000; // what an agency typically charges (₹10k–20k)
+const TOTAL_SEATS = 25; // total seats in this batch
+const SEATS_LEFT = 9; // ⚠️ keep this honest — update as registrations come in
+const WORKSHOP_DATE_LABEL = "Sunday, 28 June 2026";
+const WORKSHOP_TIME_LABEL = "12:00 – 4:00 PM";
+const WORKSHOP_START = new Date("2026-06-28T12:00:00+05:30");
+
+const SAVINGS = MARKET_VALUE - PRICE;
+const SAVINGS_PCT = Math.round((SAVINGS / MARKET_VALUE) * 100);
+const inr = (n: number) => "₹" + n.toLocaleString("en-IN");
+
+// ──────────────────────────────────────────────────────────────────────────
+// Portfolio — sites built with vibe coding.
+// 👉 Drop screenshots into /public/portfolio/ and fill in real URLs below.
+//    If an image is missing, a gradient placeholder shows automatically.
+// ──────────────────────────────────────────────────────────────────────────
+const portfolio = [
+  { name: "UR Hospitality", tag: "Corporate Catering", url: "https://www.urhospitality.in", image: "/portfolio/ur-hospitality.png" },
+  { name: "Shree Jee Infotech", tag: "IT Distribution", url: "https://www.shreejeeinfotech.com", image: "/portfolio/shreejee-infotech.png" },
+  { name: "Subham Kanoi", tag: "Founder Portfolio", url: "https://www.subhamkanoi.com", image: "/portfolio/subham-kanoi.png" },
+  // aakashdamani.com was down when we captured — gradient placeholder shows until a screenshot
+  // is added at /portfolio/aakash-damani.png
+  { name: "Aakash Damani", tag: "Personal Site", url: "https://www.aakashdamani.com", image: "/portfolio/aakash-damani.png" },
+  { name: "The AI Workshop", tag: "This very site", url: "#", image: "/portfolio/aiworkshop.png" },
+];
+
+// ──────────────────────────────────────────────────────────────────────────
+// Workshop hosts. Drop portraits in /public (square images work best).
+// ──────────────────────────────────────────────────────────────────────────
+const hosts = [
+  {
+    name: "Subham Kanoi",
+    role: "The Instigator",
+    image: "/subham.png",
+    link: "https://www.linkedin.com/in/subhamkanoi/",
+    linkType: "linkedin" as const,
+    bio: `A Xavier's grad and founder of Urban Rasoi — Kolkata's own cloud kitchen for gourmet house parties and B2B corporate catering. The non-techie who started it all out of pure FOMO. If The AI Workshop had a first beta tester, it's him.`,
+  },
+  {
+    name: "Yogesh Kanoi",
+    role: "The Backbone",
+    image: "/yogesh.png",
+    link: "https://www.linkedin.com/in/yogesh-kanoi-37219a63/",
+    linkType: "linkedin" as const,
+    bio: `AI/ML engineer at LTI with half a decade of deep learning under his belt since 2020. He's the architect — the one who turns "can we do this?" into a working system. Every workshop blueprint runs through him first.`,
+  },
+  {
+    name: "Neeraj Kanoi",
+    role: "The Growth Guy",
+    image: "/neeraj.png",
+    link: "https://www.linkedin.com/in/neeraj-kanoi-marketing/",
+    linkType: "linkedin" as const,
+    bio: `The Bangalore techie who walked away from a safe IT job to join an AI startup as their Growth Lead at Wokelo AI. He knows what it takes to go from zero to scale — and he's bringing that energy here.`,
+  },
+];
+
+function Countdown({ target }: { target: Date }) {
+  const remaining = () => Math.max(0, target.getTime() - Date.now());
+  const [ms, setMs] = useState(remaining());
+
+  useEffect(() => {
+    const t = setInterval(() => setMs(remaining()), 1000);
+    return () => clearInterval(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const days = Math.floor(ms / 86400000);
+  const hrs = Math.floor((ms % 86400000) / 3600000);
+  const mins = Math.floor((ms % 3600000) / 60000);
+  const secs = Math.floor((ms % 60000) / 1000);
+  const units: [string, number][] = [
+    ["Days", days],
+    ["Hrs", hrs],
+    ["Min", mins],
+    ["Sec", secs],
+  ];
+
+  return (
+    <div className="flex items-center gap-2 sm:gap-3">
+      {units.map(([label, value]) => (
+        <div
+          key={label}
+          className="flex flex-col items-center justify-center rounded-xl border border-border bg-background/80 backdrop-blur px-3 py-2 min-w-[58px] shadow-sm"
+        >
+          <span className="text-xl sm:text-2xl font-bold tabular-nums text-foreground">
+            {String(value).padStart(2, "0")}
+          </span>
+          <span className="text-[10px] uppercase tracking-wide text-muted-foreground">{label}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function PortfolioThumb({ name, tag, image, url }: (typeof portfolio)[number]) {
+  const [broken, setBroken] = useState(false);
+  return (
+    <a
+      href={url}
+      target={url !== "#" ? "_blank" : undefined}
+      rel="noopener noreferrer"
+      className="group relative block overflow-hidden rounded-2xl border border-border/60 bg-card hover:border-primary/40 hover:shadow-lg transition-all"
+    >
+      <div className="relative aspect-[16/10] overflow-hidden">
+        {!broken ? (
+          <img
+            src={image}
+            alt={name}
+            loading="lazy"
+            onError={() => setBroken(true)}
+            className="h-full w-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+          />
+        ) : (
+          <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-primary/15 via-accent/10 to-primary/20">
+            <Globe className="h-10 w-10 text-primary/50" />
+          </div>
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-foreground/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+        <div className="absolute bottom-3 right-3 flex h-8 w-8 items-center justify-center rounded-full bg-background/90 text-foreground opacity-0 group-hover:opacity-100 transition-opacity">
+          <ExternalLink className="h-4 w-4" />
+        </div>
+      </div>
+      <div className="flex items-center justify-between px-4 py-3">
+        <span className="font-semibold text-foreground">{name}</span>
+        <span className="text-xs font-medium text-muted-foreground rounded-full bg-muted px-2.5 py-1">{tag}</span>
+      </div>
+    </a>
+  );
+}
+
+function HostCard({
+  name,
+  role,
+  bio,
+  image,
+  link,
+  linkType,
+}: {
+  name: string;
+  role: string;
+  bio: string;
+  image: string;
+  link: string;
+  linkType: "linkedin" | "website";
+}) {
+  const [broken, setBroken] = useState(false);
+  const initials = name
+    .split(" ")
+    .map((w) => w[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+  return (
+    <div className="flex flex-col items-center text-center">
+      <a href={link} target="_blank" rel="noopener noreferrer" className="group" aria-label={name}>
+        <div className="h-32 w-32 sm:h-36 sm:w-36 overflow-hidden rounded-full ring-1 ring-border shadow-sm bg-muted">
+          {!broken ? (
+            <img
+              src={image}
+              alt={name}
+              loading="lazy"
+              onError={() => setBroken(true)}
+              className="h-full w-full object-cover object-top grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105"
+            />
+          ) : (
+            <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-muted to-secondary">
+              <span className="text-3xl font-bold text-muted-foreground">{initials}</span>
+            </div>
+          )}
+        </div>
+      </a>
+      <h3 className="mt-5 text-lg font-semibold text-foreground">{name}</h3>
+      <p className="text-sm font-medium text-primary mt-0.5">{role}</p>
+      <p className="mt-3 max-w-xs text-sm text-muted-foreground leading-relaxed">{bio}</p>
+      <a
+        href={link}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-1.5 mt-4 text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+      >
+        {linkType === "website" ? <Globe className="h-4 w-4" /> : <Linkedin className="h-4 w-4" />}
+        {linkType === "website" ? "Website" : "LinkedIn"}
+      </a>
+    </div>
+  );
+}
 
 function App() {
   const [email, setEmail] = useState("");
@@ -36,8 +237,6 @@ function App() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  const WORKSHOP_AMOUNT = 79900; // amount in paise (₹799)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -140,22 +339,22 @@ function App() {
     {
       icon: <Globe className="h-6 w-6" />,
       title: "Buying a Domain",
-      desc: "Learn how to pick and purchase the perfect domain name for your brand or business.",
+      desc: "Pick and purchase the perfect domain name for your brand or business — the right way.",
     },
     {
       icon: <Palette className="h-6 w-6" />,
       title: "Vibe Coding Your Website",
-      desc: "Design a beautiful website using AI-powered vibe coding — no traditional coding needed.",
+      desc: "Design a beautiful, modern website using AI — describe what you want, watch it appear.",
     },
     {
       icon: <Server className="h-6 w-6" />,
       title: "Free Hosting on Vercel",
-      desc: "Deploy your website to the internet for free using Vercel's powerful platform.",
+      desc: "Put your website on the internet for free using the same platform top startups use.",
     },
     {
       icon: <Rocket className="h-6 w-6" />,
       title: "Going Live",
-      desc: "Connect your domain, hit deploy, and watch your site go live for the world to see.",
+      desc: "Connect your domain, hit deploy, and watch your site go live for the whole world to see.",
     },
   ];
 
@@ -167,16 +366,32 @@ function App() {
     "Anyone curious about AI — no tech background needed",
   ];
 
-  const whatYouGet = [
-    "Hands-on, instructor-led workshop",
-    "Walk away with a live website you built yourself",
-    "Printed cheat sheets & resources",
-    "Post-workshop WhatsApp support group",
-    "Certificate of completion",
+  const valueStack = [
+    { item: "4-hour live, hands-on workshop", value: "₹5,000" },
+    { item: "A real website — built, deployed & live", value: "₹10,000+" },
+    { item: "Help buying & connecting your domain", value: "Included" },
+    { item: "Free lifetime hosting setup (Vercel)", value: "₹2,000" },
+    { item: "Printed cheat sheets & resource kit", value: "₹500" },
+    { item: "Lifetime WhatsApp support community", value: "Priceless" },
+    { item: "Certificate of completion", value: "✓" },
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background pb-16 md:pb-0">
+      {/* Announcement Bar */}
+      <button
+        onClick={() => scrollTo("register")}
+        className="block w-full bg-gradient-to-r from-primary to-accent text-primary-foreground text-center text-xs sm:text-sm font-medium py-2.5 px-4 hover:opacity-95 transition-opacity"
+      >
+        <span className="inline-flex items-center gap-1.5 flex-wrap justify-center">
+          <Zap className="h-3.5 w-3.5" />
+          Early-bird <strong>{inr(PRICE)}</strong>
+          <span className="line-through opacity-80">{inr(MARKET_VALUE)} value</span>
+          · Only {SEATS_LEFT} seats left · Sun 28 June, 12–4 PM
+          <span className="underline underline-offset-2">Book now →</span>
+        </span>
+      </button>
+
       {/* Navigation */}
       <nav className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-lg">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
@@ -186,13 +401,13 @@ function App() {
               <span className="text-lg font-bold text-foreground">The AI Workshop</span>
             </button>
 
-            <div className="hidden md:flex items-center gap-8">
-              <button onClick={() => scrollTo("about")} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">About</button>
+            <div className="hidden md:flex items-center gap-7">
               <button onClick={() => scrollTo("workshop")} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Workshop</button>
-              <button onClick={() => scrollTo("team")} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Meet Your Hosts</button>
+              <button onClick={() => scrollTo("work")} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Our Work</button>
+              <button onClick={() => scrollTo("team")} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Hosts</button>
               <button onClick={() => scrollTo("faq")} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">FAQ</button>
               <Button onClick={() => scrollTo("register")} size="sm">
-                Book Your Spot <ArrowRight className="ml-1 h-4 w-4" />
+                Book Your Seat — {inr(PRICE)} <ArrowRight className="ml-1 h-4 w-4" />
               </Button>
             </div>
 
@@ -206,12 +421,12 @@ function App() {
 
           {mobileMenuOpen && (
             <div className="md:hidden pb-4 space-y-3">
-              <button onClick={() => scrollTo("about")} className="block w-full text-left text-sm font-medium text-muted-foreground hover:text-foreground py-2">About</button>
               <button onClick={() => scrollTo("workshop")} className="block w-full text-left text-sm font-medium text-muted-foreground hover:text-foreground py-2">Workshop</button>
-              <button onClick={() => scrollTo("team")} className="block w-full text-left text-sm font-medium text-muted-foreground hover:text-foreground py-2">Meet Your Hosts</button>
+              <button onClick={() => scrollTo("work")} className="block w-full text-left text-sm font-medium text-muted-foreground hover:text-foreground py-2">Our Work</button>
+              <button onClick={() => scrollTo("team")} className="block w-full text-left text-sm font-medium text-muted-foreground hover:text-foreground py-2">Hosts</button>
               <button onClick={() => scrollTo("faq")} className="block w-full text-left text-sm font-medium text-muted-foreground hover:text-foreground py-2">FAQ</button>
               <Button onClick={() => scrollTo("register")} size="sm" className="w-full">
-                Book Your Spot <ArrowRight className="ml-1 h-4 w-4" />
+                Book Your Seat — {inr(PRICE)} <ArrowRight className="ml-1 h-4 w-4" />
               </Button>
             </div>
           )}
@@ -224,62 +439,136 @@ function App() {
         <div className="absolute top-20 left-10 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
         <div className="absolute bottom-10 right-10 h-96 w-96 rounded-full bg-accent/10 blur-3xl" />
 
-        <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-20 sm:py-32">
-          <div className="text-center max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary mb-8">
-              <MapPin className="h-4 w-4" />
-              Offline Workshop in Kolkata
+        <div className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24 text-center">
+          <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary mb-6">
+            <MapPin className="h-4 w-4" />
+            Offline in Kolkata · {WORKSHOP_DATE_LABEL}
+          </div>
+
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground leading-[1.08]">
+            Build & launch{" "}
+            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              your own website
+            </span>{" "}
+            in one Sunday afternoon.
+          </h1>
+
+          <p className="mt-6 text-lg sm:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+            No code. No jargon. In 4 hours you'll build, deploy, and go live with a real website you
+            own — the exact thing agencies charge{" "}
+            <strong className="text-foreground">₹10,000–₹20,000</strong> for.
+          </p>
+
+          {/* Price pill */}
+          <div className="mt-8 inline-flex items-center gap-3 rounded-full border border-primary/20 bg-card px-5 py-2.5 shadow-sm">
+            <span className="text-2xl font-extrabold text-foreground">{inr(PRICE)}</span>
+            <span className="text-base text-muted-foreground line-through">{inr(MARKET_VALUE)}</span>
+            <span className="rounded-full bg-accent/15 px-2.5 py-1 text-xs font-bold text-accent">
+              SAVE {SAVINGS_PCT}%
+            </span>
+          </div>
+
+          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Button size="lg" onClick={() => scrollTo("register")} className="text-base px-8 py-6 w-full sm:w-auto">
+              Book Your Seat — {inr(PRICE)} <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+            <Button size="lg" variant="outline" onClick={() => scrollTo("work")} className="text-base px-8 py-6 w-full sm:w-auto">
+              See sites we built
+            </Button>
+          </div>
+
+          <p className="mt-4 text-sm text-muted-foreground flex items-center justify-center gap-1.5">
+            <ShieldCheck className="h-4 w-4 text-accent" />
+            100% beginner-friendly · Secure Razorpay payment · Walk away with a live site
+          </p>
+
+          {/* Countdown */}
+          <div className="mt-10 flex flex-col items-center gap-3">
+            <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+              Workshop starts in
+            </span>
+            <Countdown target={WORKSHOP_START} />
+          </div>
+
+          {/* Meta row */}
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-muted-foreground">
+            <div className="flex items-center gap-2">
+              <Calendar className="h-4 w-4 text-primary" />
+              <span>{WORKSHOP_DATE_LABEL}</span>
             </div>
-
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground leading-[1.1]">
-              AI is for{" "}
-              <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                Everyone
-              </span>
-            </h1>
-
-            <p className="mt-6 text-lg sm:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-              We believe AI shouldn't be locked behind code and jargon. Join our hands-on workshops
-              in Kolkata designed specially for people with <strong className="text-foreground">no technical background</strong>.
-            </p>
-
-            <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button size="lg" onClick={() => scrollTo("register")} className="text-base px-8 py-6">
-                Register for Workshop <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-              <Button size="lg" variant="outline" onClick={() => scrollTo("workshop")} className="text-base px-8 py-6">
-                See What You'll Learn
-              </Button>
+            <div className="flex items-center gap-2">
+              <Clock className="h-4 w-4 text-primary" />
+              <span>{WORKSHOP_TIME_LABEL} (4 hrs)</span>
             </div>
-
-            <div className="mt-12 flex items-center justify-center gap-8 text-sm text-muted-foreground">
-              <div className="flex items-center gap-2">
-                <Calendar className="h-4 w-4 text-primary" />
-                <span>28 June 2026</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Clock className="h-4 w-4 text-primary" />
-                <span>3 Hours</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Users className="h-4 w-4 text-primary" />
-                <span>Limited Seats</span>
-              </div>
+            <div className="flex items-center gap-2">
+              <Users className="h-4 w-4 text-primary" />
+              <span>Only {SEATS_LEFT} of {TOTAL_SEATS} seats left</span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* About Section */}
-      <section id="about" className="py-20 sm:py-28">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-16">
+      {/* Price Anchor / "The Math" Section */}
+      <section className="py-16 sm:py-20 border-y border-border bg-muted/30">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-10">
             <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
-              Making AI Accessible for All
+              The same website. A fraction of the price.
             </h2>
             <p className="mt-4 text-lg text-muted-foreground">
-              We're an education company based in Kolkata on a simple mission: demystify AI and
-              make it practical for everyday people.
+              You could hire someone — or you could learn to do it yourself in an afternoon and never
+              pay for a website again.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-5">
+            {/* Agency */}
+            <Card className="border-border/60 bg-background/60">
+              <CardContent className="p-7">
+                <p className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Hire an agency</p>
+                <p className="mt-2 text-3xl font-extrabold text-foreground">₹10,000–₹20,000</p>
+                <ul className="mt-5 space-y-3 text-sm text-muted-foreground">
+                  <li className="flex items-start gap-2"><X className="h-4 w-4 text-destructive flex-shrink-0 mt-0.5" /> 2–3 week wait, endless back-and-forth</li>
+                  <li className="flex items-start gap-2"><X className="h-4 w-4 text-destructive flex-shrink-0 mt-0.5" /> Pay again for every small change</li>
+                  <li className="flex items-start gap-2"><X className="h-4 w-4 text-destructive flex-shrink-0 mt-0.5" /> You don't control or understand it</li>
+                </ul>
+              </CardContent>
+            </Card>
+
+            {/* Workshop */}
+            <Card className="relative border-primary/40 bg-primary/5 shadow-lg">
+              <div className="absolute -top-3 left-7 rounded-full bg-primary px-3 py-1 text-xs font-bold text-primary-foreground">
+                BEST VALUE
+              </div>
+              <CardContent className="p-7">
+                <p className="text-sm font-semibold uppercase tracking-wide text-primary">This workshop</p>
+                <p className="mt-2 text-3xl font-extrabold text-foreground">{inr(PRICE)} <span className="text-base font-medium text-muted-foreground">/ early bird</span></p>
+                <ul className="mt-5 space-y-3 text-sm text-foreground">
+                  <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-accent flex-shrink-0 mt-0.5" /> Go live in a single 4-hour session</li>
+                  <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-accent flex-shrink-0 mt-0.5" /> Edit & rebuild anytime — for free, forever</li>
+                  <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-accent flex-shrink-0 mt-0.5" /> A skill you keep for life, not a one-off</li>
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
+
+          <p className="mt-6 text-center text-sm text-muted-foreground flex items-center justify-center gap-2">
+            <TrendingUp className="h-4 w-4 text-accent" />
+            One website pays for the workshop ~15× over. The skill pays forever.
+          </p>
+        </div>
+      </section>
+
+      {/* About Section */}
+      <section id="about" className="py-20 sm:py-24">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-14">
+            <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
+              AI is for everyone — not just engineers
+            </h2>
+            <p className="mt-4 text-lg text-muted-foreground">
+              We're an education company in Kolkata on a simple mission: demystify AI and make it
+              practical for everyday people.
             </p>
           </div>
 
@@ -316,10 +605,10 @@ function App() {
       </section>
 
       {/* AI Tools Section */}
-      <section className="py-16 border-y border-border bg-muted/20">
+      <section className="py-14 border-y border-border bg-muted/20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <p className="text-center text-sm font-medium text-muted-foreground mb-10 tracking-wide uppercase">
-            AI Tools We Trust & Teach
+            The AI tools you'll actually use
           </p>
           <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6">
             {/* ChatGPT */}
@@ -341,7 +630,7 @@ function App() {
             {/* Claude */}
             <div className="flex items-center gap-2.5 opacity-60 hover:opacity-100 transition-opacity">
               <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#d97757]/10">
-                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="#d97757"><circle cx="12" cy="12" r="10"/><path d="M8 12l2-6 2 6m-3.5-2h3" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="#d97757"><circle cx="12" cy="12" r="10"/><path d="M8 12l2-6 2 6m-3.5-2h3" fill="none" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
               </div>
               <span className="text-base font-semibold text-foreground">Claude</span>
             </div>
@@ -390,18 +679,18 @@ function App() {
       </section>
 
       {/* Workshop Section */}
-      <section id="workshop" className="py-20 sm:py-28 bg-muted/30">
+      <section id="workshop" className="py-20 sm:py-24 bg-muted/30">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-16">
+          <div className="text-center max-w-2xl mx-auto mb-14">
             <div className="inline-flex items-center gap-2 rounded-full bg-accent/10 px-4 py-1.5 text-sm font-medium text-accent mb-4">
               <Rocket className="h-4 w-4" />
-              Workshop #1
+              Workshop #1 · Create & Host Your Website
             </div>
             <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
-              Create & Host Your Website
+              From zero to a live website — in 4 hours
             </h2>
             <p className="mt-4 text-lg text-muted-foreground">
-              From zero to a live website on the internet — in just 3 hours. No coding experience needed.
+              Walk in with an idea. Walk out with a real website on the internet. No coding experience needed.
             </p>
           </div>
 
@@ -432,15 +721,15 @@ function App() {
                       <div className="flex items-center gap-3">
                         <Calendar className="h-5 w-5 text-primary flex-shrink-0" />
                         <div>
-                          <p className="font-medium text-foreground">Sunday, 28 June 2026</p>
-                          <p className="text-sm text-muted-foreground">Morning session</p>
+                          <p className="font-medium text-foreground">{WORKSHOP_DATE_LABEL}</p>
+                          <p className="text-sm text-muted-foreground">Mark your calendar</p>
                         </div>
                       </div>
                       <div className="flex items-center gap-3">
                         <Clock className="h-5 w-5 text-primary flex-shrink-0" />
                         <div>
-                          <p className="font-medium text-foreground">3 Hours</p>
-                          <p className="text-sm text-muted-foreground">Hands-on instruction</p>
+                          <p className="font-medium text-foreground">{WORKSHOP_TIME_LABEL}</p>
+                          <p className="text-sm text-muted-foreground">4 hours, hands-on</p>
                         </div>
                       </div>
                       <div className="flex items-center gap-3">
@@ -453,14 +742,14 @@ function App() {
                       <div className="flex items-center gap-3">
                         <Users className="h-5 w-5 text-primary flex-shrink-0" />
                         <div>
-                          <p className="font-medium text-foreground">Limited Seats</p>
+                          <p className="font-medium text-foreground">Just {TOTAL_SEATS} seats</p>
                           <p className="text-sm text-muted-foreground">Small batch for personal attention</p>
                         </div>
                       </div>
                     </div>
                   </div>
                   <Button onClick={() => scrollTo("register")} className="mt-8 w-full" size="lg">
-                    Register Now <ArrowRight className="ml-2 h-5 w-5" />
+                    Book Your Seat — {inr(PRICE)} <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
                 </div>
               </div>
@@ -484,25 +773,62 @@ function App() {
             </Card>
             <Card>
               <CardContent className="pt-8 pb-6 px-6">
-                <h3 className="text-xl font-bold text-foreground mb-6">What You Get</h3>
-                <ul className="space-y-3">
-                  {whatYouGet.map((item, i) => (
-                    <li key={i} className="flex items-start gap-3">
-                      <BadgeCheck className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                      <span className="text-muted-foreground">{item}</span>
-                    </li>
-                  ))}
-                </ul>
+                <h3 className="text-xl font-bold text-foreground mb-6">No experience? Perfect.</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  This workshop is built from the ground up for absolute beginners. We don't assume you
+                  know anything technical — we start from "what's a domain?" and end with your site live
+                  on the internet.
+                </p>
+                <p className="mt-4 text-muted-foreground leading-relaxed">
+                  If you can browse the web and type, you'll keep up. Three of us will be in the room to
+                  make sure no one gets left behind.
+                </p>
+                <div className="mt-6 flex items-center gap-2 text-sm font-medium text-primary">
+                  <Sparkles className="h-4 w-4" />
+                  You'll leave with a website — guaranteed.
+                </div>
               </CardContent>
             </Card>
           </div>
         </div>
       </section>
 
-      {/* Team Section */}
-      <section id="team" className="py-20 sm:py-28">
+      {/* Our Work / Portfolio Section */}
+      <section id="work" className="py-20 sm:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-16">
+          <div className="text-center max-w-2xl mx-auto mb-14">
+            <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary mb-4">
+              <Star className="h-4 w-4" />
+              Built with vibe coding
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
+              Real sites we built — with the exact tools we teach
+            </h2>
+            <p className="mt-4 text-lg text-muted-foreground">
+              No agencies. No traditional coding. Every one of these started as a sentence typed into AI —
+              the same way yours will.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {portfolio.map((p) => (
+              <PortfolioThumb key={p.name} {...p} />
+            ))}
+          </div>
+
+          <p className="mt-8 text-center text-muted-foreground">
+            This very website? Vibe-coded too.{" "}
+            <button onClick={() => scrollTo("register")} className="font-semibold text-primary hover:underline">
+              Learn how to build your own →
+            </button>
+          </p>
+        </div>
+      </section>
+
+      {/* Team Section */}
+      <section id="team" className="py-20 sm:py-24 bg-muted/30">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-14">
             <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
               Meet Your Workshop Hosts
             </h2>
@@ -511,95 +837,18 @@ function App() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
-            {/* Subham */}
-            <Card className="group relative overflow-hidden border-border/50 hover:border-primary/30 transition-colors">
-              <div className="w-full aspect-square overflow-hidden bg-muted">
-                <img
-                  src="/subham.png"
-                  alt="Subham Kanoi"
-                  className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-              <CardContent className="pt-5 pb-6 px-6 text-center">
-                <h3 className="text-xl font-semibold text-foreground">Subham Kanoi</h3>
-                <p className="text-sm font-medium text-primary mt-1">The Instigator</p>
-                <p className="text-sm text-muted-foreground mt-3 leading-relaxed">
-                  A Xavier's grad and founder of Urban Rasoi — Kolkata's own cloud kitchen for gourmet house parties and B2B corporate catering. The non-techie who started it all out of pure FOMO. If The AI Workshop had a first beta tester, it's him.
-                </p>
-                <a
-                  href="https://www.linkedin.com/in/subhamkanoi/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 mt-4 text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
-                >
-                  <Linkedin className="h-4 w-4" />
-                  LinkedIn
-                </a>
-              </CardContent>
-            </Card>
-
-            {/* Yogesh */}
-            <Card className="group relative overflow-hidden border-border/50 hover:border-primary/30 transition-colors">
-              <div className="w-full aspect-square overflow-hidden bg-muted">
-                <img
-                  src="/yogesh.png"
-                  alt="Yogesh Kanoi"
-                  className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-              <CardContent className="pt-5 pb-6 px-6 text-center">
-                <h3 className="text-xl font-semibold text-foreground">Yogesh Kanoi</h3>
-                <p className="text-sm font-medium text-primary mt-1">The Backbone</p>
-                <p className="text-sm text-muted-foreground mt-3 leading-relaxed">
-                  AI/ML engineer at LTI with half a decade of deep learning under his belt since 2020. He's the architect — the one who turns "can we do this?" into a working system. Every workshop blueprint runs through him first.
-                </p>
-                <a
-                  href="https://www.linkedin.com/in/yogesh-kanoi-37219a63/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 mt-4 text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
-                >
-                  <Linkedin className="h-4 w-4" />
-                  LinkedIn
-                </a>
-              </CardContent>
-            </Card>
-
-            {/* Neeraj */}
-            <Card className="group relative overflow-hidden border-border/50 hover:border-primary/30 transition-colors">
-              <div className="w-full aspect-square overflow-hidden bg-muted">
-                <img
-                  src="/neeraj.png"
-                  alt="Neeraj Kanoi"
-                  className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-              <CardContent className="pt-5 pb-6 px-6 text-center">
-                <h3 className="text-xl font-semibold text-foreground">Neeraj Kanoi</h3>
-                <p className="text-sm font-medium text-primary mt-1">The Growth Guy</p>
-                <p className="text-sm text-muted-foreground mt-3 leading-relaxed">
-                  The Bangalore techie who walked away from a safe IT job to join an AI startup as their Growth Lead at Wokelo AI. He knows what it takes to go from zero to scale — and he's bringing that energy here.
-                </p>
-                <a
-                  href="https://www.linkedin.com/in/neeraj-kanoi-marketing/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 mt-4 text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
-                >
-                  <Linkedin className="h-4 w-4" />
-                  LinkedIn
-                </a>
-              </CardContent>
-            </Card>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-8 max-w-4xl mx-auto">
+            {hosts.map((h) => (
+              <HostCard key={h.name} {...h} />
+            ))}
           </div>
         </div>
       </section>
 
       {/* FAQ Section */}
-      <section id="faq" className="py-20 sm:py-28 bg-muted/30">
+      <section id="faq" className="py-20 sm:py-24">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+          <div className="text-center mb-14">
             <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
               Frequently Asked Questions
             </h2>
@@ -618,6 +867,33 @@ function App() {
               </AccordionContent>
             </AccordionItem>
 
+            <AccordionItem value="q-price" className="border rounded-lg px-6 bg-background">
+              <AccordionTrigger className="text-left font-medium text-foreground hover:no-underline">
+                Why is it only {inr(PRICE)} when websites cost so much more?
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground pb-4">
+                {inr(PRICE)} is our early-bird price for Workshop #1 — we'd rather fill the room with people who'll spread the word than maximise ticket price. A website built by an agency runs ₹10,000–₹20,000. Here you learn to build it yourself, keep the skill, and never pay for a basic website again.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="q-domain" className="border rounded-lg px-6 bg-background">
+              <AccordionTrigger className="text-left font-medium text-foreground hover:no-underline">
+                Is a domain name included in the {inr(PRICE)}?
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground pb-4">
+                The {inr(PRICE)} covers the full workshop and everything you build in it. The one thing it doesn't include is your domain name — you'll buy your own for ₹199–599 depending on availability, and we'll help you pick and purchase it live in the session. Already own a domain? Bring it and we'll connect it for you, no extra cost.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="q3" className="border rounded-lg px-6 bg-background">
+              <AccordionTrigger className="text-left font-medium text-foreground hover:no-underline">
+                Will I actually have a live website by the end?
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground pb-4">
+                Yes! By the end of the 4 hours, you'll have a real website live on the internet that you built yourself. You'll walk away with something tangible — not just theory.
+              </AccordionContent>
+            </AccordionItem>
+
             <AccordionItem value="q2" className="border rounded-lg px-6 bg-background">
               <AccordionTrigger className="text-left font-medium text-foreground hover:no-underline">
                 What do I need to bring?
@@ -627,21 +903,12 @@ function App() {
               </AccordionContent>
             </AccordionItem>
 
-            <AccordionItem value="q3" className="border rounded-lg px-6 bg-background">
-              <AccordionTrigger className="text-left font-medium text-foreground hover:no-underline">
-                Will I actually have a live website by the end?
-              </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground pb-4">
-                Yes! By the end of the 3 hours, you'll have a real website live on the internet that you built yourself. You'll walk away with something tangible — not just theory.
-              </AccordionContent>
-            </AccordionItem>
-
             <AccordionItem value="q4" className="border rounded-lg px-6 bg-background">
               <AccordionTrigger className="text-left font-medium text-foreground hover:no-underline">
                 Is hosting really free?
               </AccordionTrigger>
               <AccordionContent className="text-muted-foreground pb-4">
-                Yes. We'll teach you how to deploy on Vercel's free tier, which is more than enough for personal sites, portfolios, and small business pages. No hidden costs.
+                Yes. We'll teach you how to deploy on Vercel's free tier, which is more than enough for personal sites, portfolios, and small business pages. The only extra cost is your domain name (₹199–599 depending on availability) — or nothing at all if you already own one.
               </AccordionContent>
             </AccordionItem>
 
@@ -683,8 +950,8 @@ function App() {
               <MessageCircle className="h-6 w-6" />
             </div>
             <div className="text-center sm:text-left">
-              <h3 className="text-lg font-semibold text-foreground">Join Our WhatsApp Community</h3>
-              <p className="text-sm text-muted-foreground">Stay updated on workshops, tips, and AI news. Be the first to know.</p>
+              <h3 className="text-lg font-semibold text-foreground">Not ready to book yet?</h3>
+              <p className="text-sm text-muted-foreground">Join our WhatsApp community for AI tips and first dibs on future workshops.</p>
             </div>
             <a
               href="https://chat.whatsapp.com/DNIePdAGNfL2cs1LDIs0DG"
@@ -692,34 +959,94 @@ function App() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-full bg-[#25D366] px-6 py-3 text-sm font-semibold text-white hover:bg-[#1ebe57] transition-colors"
             >
-              Join Now <ArrowRight className="h-4 w-4" />
+              Join the Community <ArrowRight className="h-4 w-4" />
             </a>
           </div>
         </div>
       </section>
 
       {/* Registration Section */}
-      <section id="register" className="py-20 sm:py-28">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="max-w-xl mx-auto text-center">
+      <section id="register" className="py-20 sm:py-24">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
-              Reserve Your Spot
+              Reserve your seat
             </h2>
             <p className="mt-4 text-lg text-muted-foreground">
-              Seats are limited to keep the workshop personal. Register now to secure your place.
+              Only {SEATS_LEFT} of {TOTAL_SEATS} seats left for {WORKSHOP_DATE_LABEL}. Once they're gone, they're gone.
             </p>
+          </div>
 
-            <Card className="mt-10">
+          <div className="grid md:grid-cols-2 gap-6 items-start">
+            {/* Offer summary */}
+            <Card className="border-primary/20 bg-primary/5">
+              <CardContent className="p-7 sm:p-8">
+                <div className="flex items-end gap-3">
+                  <span className="text-4xl font-extrabold text-foreground flex items-center">
+                    <IndianRupee className="h-7 w-7" />{PRICE}
+                  </span>
+                  <span className="text-lg text-muted-foreground line-through mb-1">{inr(MARKET_VALUE)}</span>
+                  <span className="mb-1.5 rounded-full bg-accent/15 px-2.5 py-1 text-xs font-bold text-accent">
+                    SAVE {SAVINGS_PCT}%
+                  </span>
+                </div>
+                <p className="mt-1 text-sm font-medium text-primary">Early-bird price · Workshop #1</p>
+
+                <div className="mt-6 space-y-3">
+                  {valueStack.map((row, i) => (
+                    <div key={i} className="flex items-center justify-between gap-3 text-sm">
+                      <span className="flex items-start gap-2 text-foreground">
+                        <BadgeCheck className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
+                        {row.item}
+                      </span>
+                      <span className="text-muted-foreground whitespace-nowrap">{row.value}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-6 flex items-center justify-between border-t border-border pt-4">
+                  <span className="text-sm font-medium text-muted-foreground">Total value</span>
+                  <span className="text-lg font-bold text-foreground">{inr(MARKET_VALUE)}+</span>
+                </div>
+                <div className="mt-1 flex items-center justify-between">
+                  <span className="text-sm font-semibold text-foreground">You pay today</span>
+                  <span className="text-lg font-extrabold text-primary">{inr(PRICE)}</span>
+                </div>
+
+                <p className="mt-3 text-xs text-muted-foreground leading-relaxed">
+                  * Domain not included. You'll buy your own for <strong className="text-foreground">₹199–599</strong> (depending on availability) — or use one you already own. It's the only extra, and we help you do it live in the session.
+                </p>
+
+                <div className="mt-5 rounded-xl bg-background/70 border border-border p-4 flex gap-3">
+                  <ShieldCheck className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
+                  <p className="text-sm text-muted-foreground">
+                    <strong className="text-foreground">Our promise:</strong> spend the 4 hours with us and
+                    you'll leave with a live website — or we'll work with you 1:1 until you do.
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Form */}
+            <Card>
               <CardContent className="pt-8 pb-6 px-6">
                 {submitted ? (
                   <div className="text-center py-6">
                     <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-accent/10 text-accent">
                       <CheckCircle2 className="h-8 w-8" />
                     </div>
-                    <h3 className="text-xl font-bold text-foreground mb-2">You're Registered!</h3>
+                    <h3 className="text-xl font-bold text-foreground mb-2">You're in! 🎉</h3>
                     <p className="text-muted-foreground">
-                      Payment successful! Your spot is confirmed for the workshop on 28 June 2026. Check your email for details.
+                      Payment successful — your seat is confirmed for {WORKSHOP_DATE_LABEL}. Check your email for details, and join the WhatsApp group to meet the cohort.
                     </p>
+                    <a
+                      href="https://chat.whatsapp.com/DNIePdAGNfL2cs1LDIs0DG"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 mt-6 rounded-full bg-[#25D366] px-6 py-3 text-sm font-semibold text-white hover:bg-[#1ebe57] transition-colors"
+                    >
+                      <MessageCircle className="h-4 w-4" /> Join the WhatsApp group
+                    </a>
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-4">
@@ -756,10 +1083,17 @@ function App() {
                       />
                     </div>
                     <Button type="submit" size="lg" className="w-full mt-2" disabled={loading}>
-                      {loading ? "Processing..." : "Register for Workshop"} {!loading && <ArrowRight className="ml-2 h-5 w-5" />}
+                      {loading ? "Processing..." : `Pay ${inr(PRICE)} & confirm my seat`} {!loading && <ArrowRight className="ml-2 h-5 w-5" />}
                     </Button>
-                    <p className="text-xs text-muted-foreground mt-2">
-                      By registering, you'll be redirected to secure payment. No spam, ever.
+                    <div className="flex items-center justify-center gap-4 pt-1 text-xs text-muted-foreground">
+                      <span className="inline-flex items-center gap-1"><Lock className="h-3.5 w-3.5" /> Secured by Razorpay</span>
+                      <span className="inline-flex items-center gap-1"><Gift className="h-3.5 w-3.5" /> UPI · Cards · Netbanking</span>
+                    </div>
+                    <p className="text-center text-sm text-muted-foreground pt-2">
+                      Questions before you pay?{" "}
+                      <a href="tel:+919830715557" className="inline-flex items-center gap-1 font-semibold text-primary hover:underline">
+                        <Phone className="h-3.5 w-3.5" /> +91 98307 15557
+                      </a>
                     </p>
                   </form>
                 )}
@@ -778,6 +1112,13 @@ function App() {
               <span className="font-bold text-foreground">The AI Workshop</span>
             </div>
             <div className="flex items-center gap-5">
+              <a
+                href="tel:+919830715557"
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <Phone className="h-4 w-4" />
+                +91 98307 15557
+              </a>
               <a
                 href="mailto:theaiworkshop.in@gmail.com"
                 className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
@@ -799,12 +1140,26 @@ function App() {
         </div>
       </footer>
 
+      {/* Sticky mobile CTA bar */}
+      <div className="fixed bottom-0 inset-x-0 z-40 md:hidden border-t border-border bg-background/95 backdrop-blur-lg px-4 py-3 flex items-center justify-between gap-3">
+        <div>
+          <div className="flex items-baseline gap-2">
+            <span className="text-lg font-extrabold text-foreground">{inr(PRICE)}</span>
+            <span className="text-sm text-muted-foreground line-through">{inr(MARKET_VALUE)}</span>
+          </div>
+          <p className="text-[11px] text-muted-foreground">Only {SEATS_LEFT} seats left</p>
+        </div>
+        <Button onClick={() => scrollTo("register")} className="flex-1 max-w-[60%]">
+          Book your seat <ArrowRight className="ml-1.5 h-4 w-4" />
+        </Button>
+      </div>
+
       {/* WhatsApp Floating Button */}
       <a
         href="https://chat.whatsapp.com/DNIePdAGNfL2cs1LDIs0DG"
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg hover:bg-[#1ebe57] hover:scale-110 transition-all duration-200"
+        className="fixed bottom-24 right-6 md:bottom-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg hover:bg-[#1ebe57] hover:scale-110 transition-all duration-200"
         aria-label="Join WhatsApp Community"
       >
         <svg viewBox="0 0 32 32" className="h-7 w-7" fill="currentColor">
