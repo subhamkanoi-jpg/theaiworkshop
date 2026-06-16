@@ -8,6 +8,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Logo } from "@/components/Logo";
 import {
   Globe,
   Sparkles,
@@ -181,9 +182,7 @@ function App() {
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <button onClick={() => scrollTo("hero")} className="flex items-center gap-2">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
-                <Sparkles className="h-5 w-5 text-primary-foreground" />
-              </div>
+              <Logo className="h-9 w-9" />
               <span className="text-lg font-bold text-foreground">The AI Workshop</span>
             </button>
 
@@ -775,9 +774,7 @@ function App() {
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-12">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-                <Sparkles className="h-4 w-4 text-primary-foreground" />
-              </div>
+              <Logo className="h-8 w-8" />
               <span className="font-bold text-foreground">The AI Workshop</span>
             </div>
             <div className="flex items-center gap-5">
