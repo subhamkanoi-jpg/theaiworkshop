@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import {
   Accordion,
   AccordionContent,
@@ -9,7 +8,15 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Logo } from "@/components/Logo";
-import { trackBeginCheckout, trackPurchase } from "@/analytics";
+import {
+  PRICE,
+  MARKET_VALUE,
+  SAVINGS_PCT,
+  TOTAL_SEATS,
+  WORKSHOP_DATE_LABEL,
+  WORKSHOP_TIME_LABEL,
+  inr,
+} from "@/config";
 import {
   Globe,
   Sparkles,
@@ -24,34 +31,16 @@ import {
   Mail,
   Palette,
   Server,
-  BadgeCheck,
   Menu,
   X,
   Linkedin,
   ShieldCheck,
   Star,
   ExternalLink,
-  Gift,
   Zap,
   TrendingUp,
-  IndianRupee,
-  Lock,
   Phone,
 } from "lucide-react";
-
-// ──────────────────────────────────────────────────────────────────────────
-// Editable config — update these as the workshop fills up / details change.
-// ──────────────────────────────────────────────────────────────────────────
-const WORKSHOP_AMOUNT = 79900; // amount in paise (₹799)
-const PRICE = 799; // early-bird price (₹)
-const MARKET_VALUE = 1599; // workshop's regular list price (early-bird is ₹799)
-const TOTAL_SEATS = 25; // we cap each batch here so everyone gets real attention
-const WORKSHOP_DATE_LABEL = "Sunday, 28 June 2026";
-const WORKSHOP_TIME_LABEL = "12:00 – 4:00 PM";
-
-const SAVINGS = MARKET_VALUE - PRICE;
-const SAVINGS_PCT = Math.round((SAVINGS / MARKET_VALUE) * 100);
-const inr = (n: number) => "₹" + n.toLocaleString("en-IN");
 
 // ──────────────────────────────────────────────────────────────────────────
 // Portfolio — sites built with vibe coding.
@@ -192,124 +181,23 @@ function HostCard({
 }
 
 function App() {
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!name || !email || !phone) return;
-    setLoading(true);
-    trackBeginCheckout(PRICE);
-
-    try {
-      // Step 1: Create Razorpay order
-      const orderRes = await fetch("/api/create-order", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          amount: WORKSHOP_AMOUNT,
-          currency: "INR",
-          receipt: `workshop_${Date.now()}`,
-          name,
-          email,
-          phone,
-        }),
-      });
-
-      if (!orderRes.ok) {
-        const err = await orderRes.json();
-        alert(err.detail || "Failed to create order. Please try again.");
-        setLoading(false);
-        return;
-      }
-
-      const orderData = await orderRes.json();
-
-      if (!orderData.razorpay_key_id) {
-        alert("Payment configuration error: Razorpay key not available. Please contact support.");
-        setLoading(false);
-        return;
-      }
-
-      // Step 2: Open Razorpay checkout
-      const options = {
-        key: orderData.razorpay_key_id,
-        amount: orderData.amount,
-        currency: orderData.currency,
-        name: "The AI Workshop",
-        description: "Workshop Registration - 28 June 2026",
-        order_id: orderData.order_id,
-        prefill: {
-          name: name,
-          email: email,
-          contact: phone,
-        },
-        theme: {
-          color: "#7c3aed",
-        },
-        handler: async function (response: {
-          razorpay_payment_id: string;
-          razorpay_order_id: string;
-          razorpay_signature: string;
-        }) {
-          // Step 3: Verify payment
-          const verifyRes = await fetch("/api/verify-payment", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(response),
-          });
-
-          if (verifyRes.ok) {
-            // Step 4: Register user after successful payment
-            await fetch("/api/register", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                name,
-                email,
-                phone,
-                payment_id: response.razorpay_payment_id,
-              }),
-            });
-            trackPurchase(PRICE);
-            setSubmitted(true);
-          } else {
-            alert("Payment verification failed. Please contact support.");
-          }
-          setLoading(false);
-        },
-        modal: {
-          ondismiss: function () {
-            setLoading(false);
-          },
-        },
-      };
-
-      const rzp = new (window as any).Razorpay(options);
-      rzp.on("payment.failed", function (response: any) {
-        alert(`Payment failed: ${response.error.description}`);
-        setLoading(false);
-      });
-      rzp.open();
-    } catch {
-      alert("Something went wrong. Please try again.");
-      setLoading(false);
-    }
-  };
 
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
-      // Offset for the sticky nav so headings (and the form) aren't hidden under it.
+      // Offset for the sticky nav so headings aren't hidden under it.
       const NAV_OFFSET = 72;
       const y = el.getBoundingClientRect().top + window.scrollY - NAV_OFFSET;
       window.scrollTo({ top: y, behavior: "smooth" });
     }
     setMobileMenuOpen(false);
+  };
+
+  // All "Book your seat" CTAs lead to the dedicated booking page.
+  const goToBook = () => {
+    setMobileMenuOpen(false);
+    window.location.href = "/book";
   };
 
   const workshopTopics = [
@@ -343,21 +231,11 @@ function App() {
     "Anyone curious about AI — no tech background needed",
   ];
 
-  const valueStack = [
-    { item: "4-hour live, hands-on workshop", value: "₹5,000" },
-    { item: "A real website — built, deployed & live", value: "₹10,000+" },
-    { item: "Help buying & connecting your domain", value: "Included" },
-    { item: "Free lifetime hosting setup (Vercel)", value: "₹2,000" },
-    { item: "Printed cheat sheets & resource kit", value: "₹500" },
-    { item: "Lifetime WhatsApp support community", value: "Priceless" },
-    { item: "Certificate of completion", value: "✓" },
-  ];
-
   return (
     <div className="min-h-screen bg-background pb-20 md:pb-0">
       {/* Announcement Bar */}
       <button
-        onClick={() => scrollTo("register")}
+        onClick={goToBook}
         className="block w-full bg-gradient-to-r from-primary to-accent text-primary-foreground text-center text-xs sm:text-sm font-medium py-2.5 px-4 hover:opacity-95 transition-opacity"
       >
         <span className="inline-flex items-center gap-x-1.5 gap-y-0.5 flex-wrap justify-center">
@@ -384,7 +262,7 @@ function App() {
               <button onClick={() => scrollTo("work")} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Our Work</button>
               <button onClick={() => scrollTo("team")} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Hosts</button>
               <button onClick={() => scrollTo("faq")} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">FAQ</button>
-              <Button onClick={() => scrollTo("register")} size="sm">
+              <Button onClick={goToBook} size="sm">
                 Book Your Seat — {inr(PRICE)} <ArrowRight className="ml-1 h-4 w-4" />
               </Button>
             </div>
@@ -404,7 +282,7 @@ function App() {
               <button onClick={() => scrollTo("work")} className="block w-full text-left text-sm font-medium text-muted-foreground hover:text-foreground py-2">Our Work</button>
               <button onClick={() => scrollTo("team")} className="block w-full text-left text-sm font-medium text-muted-foreground hover:text-foreground py-2">Hosts</button>
               <button onClick={() => scrollTo("faq")} className="block w-full text-left text-sm font-medium text-muted-foreground hover:text-foreground py-2">FAQ</button>
-              <Button onClick={() => scrollTo("register")} size="sm" className="w-full">
+              <Button onClick={goToBook} size="sm" className="w-full">
                 Book Your Seat — {inr(PRICE)} <ArrowRight className="ml-1 h-4 w-4" />
               </Button>
             </div>
@@ -472,7 +350,7 @@ function App() {
           </p>
 
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button size="lg" onClick={() => scrollTo("register")} className="text-base px-8 py-6 w-full sm:w-auto">
+            <Button size="lg" onClick={goToBook} className="text-base px-8 py-6 w-full sm:w-auto">
               Book Your Seat — {inr(PRICE)} <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
             <Button size="lg" variant="outline" onClick={() => scrollTo("work")} className="text-base px-8 py-6 w-full sm:w-auto">
@@ -744,7 +622,7 @@ function App() {
                       </div>
                     </div>
                   </div>
-                  <Button onClick={() => scrollTo("register")} className="mt-8 w-full" size="lg">
+                  <Button onClick={goToBook} className="mt-8 w-full" size="lg">
                     Book Your Seat — {inr(PRICE)} <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
                 </div>
@@ -889,7 +767,7 @@ function App() {
 
           <p className="mt-8 text-center text-muted-foreground">
             This very website? Vibe-coded too.{" "}
-            <button onClick={() => scrollTo("register")} className="font-semibold text-primary hover:underline">
+            <button onClick={goToBook} className="font-semibold text-primary hover:underline">
               Learn how to build your own →
             </button>
           </p>
@@ -1036,158 +914,23 @@ function App() {
         </div>
       </section>
 
-      {/* Registration Section */}
-      <section id="register" className="py-20 sm:py-24">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
-              Reserve your seat
-            </h2>
-            <p className="mt-4 text-lg text-muted-foreground">
-              We keep each batch to just {TOTAL_SEATS} people, so everyone gets real, hands-on
-              attention. Save your spot for {WORKSHOP_DATE_LABEL}.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-6 items-start">
-            {/* Offer summary */}
-            <Card className="order-2 md:order-1 border-primary/20 bg-primary/5">
-              <CardContent className="p-7 sm:p-8">
-                <div className="flex items-end gap-3">
-                  <span className="text-4xl font-extrabold text-foreground flex items-center">
-                    <IndianRupee className="h-7 w-7" />{PRICE}
-                  </span>
-                  <span className="text-lg text-muted-foreground line-through mb-1">{inr(MARKET_VALUE)}</span>
-                  <span className="mb-1.5 rounded-full bg-accent/15 px-2.5 py-1 text-xs font-bold text-accent">
-                    SAVE {SAVINGS_PCT}%
-                  </span>
-                </div>
-                <p className="mt-1 text-sm font-medium text-primary">Early-bird price · Workshop #1</p>
-
-                <div className="mt-6 space-y-3">
-                  {valueStack.map((row, i) => (
-                    <div key={i} className="flex items-center justify-between gap-3 text-sm">
-                      <span className="flex items-start gap-2 text-foreground">
-                        <BadgeCheck className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
-                        {row.item}
-                      </span>
-                      <span className="text-muted-foreground whitespace-nowrap">{row.value}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="mt-6 border-t border-border pt-5">
-                  <p className="text-sm font-semibold text-muted-foreground mb-2">
-                    How much you actually save
-                  </p>
-                  <div className="rounded-xl bg-accent/10 border border-accent/20 p-4 flex items-start gap-3">
-                    <TrendingUp className="h-5 w-5 text-accent flex-shrink-0 mt-1" />
-                    <div>
-                      <p className="text-2xl font-extrabold text-foreground">₹10,000–₹20,000</p>
-                      <p className="text-sm text-muted-foreground mt-0.5">
-                        what an agency charges to build a website — done yourself, in one afternoon.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <p className="mt-3 text-xs text-muted-foreground leading-relaxed">
-                  * Domain not included. You'll buy your own for <strong className="text-foreground">₹199–599</strong> (depending on availability) — or use one you already own. It's the only extra, and we help you do it live in the session.
-                </p>
-
-                <div className="mt-5 rounded-xl bg-background/70 border border-border p-4 flex gap-3">
-                  <ShieldCheck className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
-                  <p className="text-sm text-muted-foreground">
-                    <strong className="text-foreground">Our promise:</strong> spend the 4 hours with us and
-                    you'll leave with a live website — or we'll work with you 1:1 until you do.
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Form */}
-            <Card className="order-1 md:order-2">
-              <CardContent className="pt-8 pb-6 px-6">
-                {submitted ? (
-                  <div className="text-center py-6">
-                    <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-accent/10 text-accent">
-                      <CheckCircle2 className="h-8 w-8" />
-                    </div>
-                    <h3 className="text-xl font-bold text-foreground mb-2">You're in! 🎉</h3>
-                    <p className="text-muted-foreground">
-                      Payment successful — your seat for {WORKSHOP_DATE_LABEL} is confirmed, and a confirmation email is on its way.
-                    </p>
-
-                    <div className="mt-6 rounded-xl border border-[#25D366]/30 bg-[#25D366]/5 p-5 text-left">
-                      <p className="text-sm font-bold text-foreground flex items-center gap-2">
-                        <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#25D366] text-white text-xs">1</span>
-                        One last step
-                      </p>
-                      <p className="text-sm text-muted-foreground mt-2">
-                        Join the workshop WhatsApp group — it's where we'll share the venue, timings, reminders, and where you'll meet your cohort. Don't skip this!
-                      </p>
-                      <a
-                        href="https://chat.whatsapp.com/DNIePdAGNfL2cs1LDIs0DG"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 py-3 text-sm font-semibold text-white hover:bg-[#1ebe57] transition-colors"
-                      >
-                        <MessageCircle className="h-5 w-5" /> Join the Workshop Group
-                      </a>
-                    </div>
-                  </div>
-                ) : (
-                  <form onSubmit={handleSubmit} className="space-y-4">
-                    <div className="space-y-2 text-left">
-                      <label className="text-sm font-medium text-foreground">Full Name</label>
-                      <Input
-                        placeholder="Enter your name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        required
-                        className="h-12"
-                      />
-                    </div>
-                    <div className="space-y-2 text-left">
-                      <label className="text-sm font-medium text-foreground">Phone Number</label>
-                      <Input
-                        type="tel"
-                        placeholder="+91 98XXX XXXXX"
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
-                        required
-                        className="h-12"
-                      />
-                    </div>
-                    <div className="space-y-2 text-left">
-                      <label className="text-sm font-medium text-foreground">Email Address</label>
-                      <Input
-                        type="email"
-                        placeholder="you@example.com"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                        className="h-12"
-                      />
-                    </div>
-                    <Button type="submit" size="lg" className="w-full mt-2" disabled={loading}>
-                      {loading ? "Processing..." : `Pay ${inr(PRICE)} & confirm my seat`} {!loading && <ArrowRight className="ml-2 h-5 w-5" />}
-                    </Button>
-                    <div className="flex items-center justify-center gap-4 pt-1 text-xs text-muted-foreground">
-                      <span className="inline-flex items-center gap-1"><Lock className="h-3.5 w-3.5" /> Secured by Razorpay</span>
-                      <span className="inline-flex items-center gap-1"><Gift className="h-3.5 w-3.5" /> UPI · Cards · Netbanking</span>
-                    </div>
-                    <p className="text-center text-sm text-muted-foreground pt-2">
-                      Questions before you pay?{" "}
-                      <a href="tel:+919830715557" className="inline-flex items-center gap-1 font-semibold text-primary hover:underline">
-                        <Phone className="h-3.5 w-3.5" /> +91 98307 15557
-                      </a>
-                    </p>
-                  </form>
-                )}
-              </CardContent>
-            </Card>
-          </div>
+      {/* Final CTA */}
+      <section className="py-20 sm:py-24">
+        <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
+            Ready to build your own website?
+          </h2>
+          <p className="mt-4 text-lg text-muted-foreground">
+            We keep each batch to just {TOTAL_SEATS} people, so everyone gets real, hands-on
+            attention. Save your spot for {WORKSHOP_DATE_LABEL}.
+          </p>
+          <Button size="lg" onClick={goToBook} className="mt-8 text-base px-8 py-6">
+            Book your seat — {inr(PRICE)} <ArrowRight className="ml-2 h-5 w-5" />
+          </Button>
+          <p className="mt-4 text-sm text-muted-foreground flex items-center justify-center gap-1.5">
+            <ShieldCheck className="h-4 w-4 text-accent" />
+            Secure Razorpay payment · Walk away with a live site
+          </p>
         </div>
       </section>
 
@@ -1237,7 +980,7 @@ function App() {
           </div>
           <p className="text-[11px] text-muted-foreground">Small batch of {TOTAL_SEATS}</p>
         </div>
-        <Button onClick={() => scrollTo("register")} className="flex-1 max-w-[60%]">
+        <Button onClick={goToBook} className="flex-1 max-w-[60%]">
           Book your seat <ArrowRight className="ml-1.5 h-4 w-4" />
         </Button>
       </div>

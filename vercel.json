@@ -9,6 +9,8 @@
   },
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api" },
+    { "source": "/book", "destination": "/book.html" },
+    { "source": "/book/", "destination": "/book.html" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
