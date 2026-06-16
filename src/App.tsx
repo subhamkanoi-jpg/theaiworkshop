@@ -9,6 +9,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Logo } from "@/components/Logo";
+import { trackBeginCheckout, trackPurchase } from "@/analytics";
 import {
   Globe,
   Sparkles,
@@ -202,6 +203,7 @@ function App() {
     e.preventDefault();
     if (!name || !email || !phone) return;
     setLoading(true);
+    trackBeginCheckout(PRICE);
 
     try {
       // Step 1: Create Razorpay order
@@ -273,6 +275,7 @@ function App() {
                 payment_id: response.razorpay_payment_id,
               }),
             });
+            trackPurchase(PRICE);
             setSubmitted(true);
           } else {
             alert("Payment verification failed. Please contact support.");
