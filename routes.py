@@ -1,5 +1,6 @@
 import os
 import json
+import html
 import hmac
 import hashlib
 import smtplib
@@ -11,10 +12,47 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from fastapi import FastAPI, APIRouter, Request, HTTPException
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 import razorpay
+
+
+def render_admin_html(rows: list) -> str:
+    """Render a simple registrations table. `rows` are dicts with keys:
+    name, email, phone, amount, reference, date."""
+    body_rows = ""
+    for i, r in enumerate(rows, 1):
+        cells = "".join(
+            f"<td>{html.escape(str(r.get(k, '') or ''))}</td>"
+            for k in ("name", "email", "phone", "amount", "reference", "date")
+        )
+        body_rows += f"<tr><td>{i}</td>{cells}</tr>"
+
+    table = (
+        "<table><thead><tr><th>#</th><th>Name</th><th>Email</th><th>Phone</th>"
+        "<th>Amount</th><th>Reference</th><th>Date</th></tr></thead><tbody>"
+        f"{body_rows}</tbody></table>"
+        if rows
+        else '<p class="empty">No registrations yet.</p>'
+    )
+
+    return f"""<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Registrations — The AI Workshop</title>
+<style>
+  body{{font-family:system-ui,-apple-system,Arial,sans-serif;margin:0;background:#f8f7fc;color:#1e1b2e}}
+  .wrap{{max-width:960px;margin:0 auto;padding:32px 16px}}
+  h1{{font-size:22px;margin:0 0 16px}} .count{{color:#7c3aed}}
+  table{{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.08)}}
+  th,td{{text-align:left;padding:10px 12px;border-bottom:1px solid #eee;font-size:14px;white-space:nowrap}}
+  th{{background:#f3f0fb;color:#5b4b8a;font-weight:600}}
+  tr:last-child td{{border-bottom:none}}
+  .empty{{padding:24px;color:#888}}
+</style></head><body><div class="wrap">
+<h1>Workshop Registrations · <span class="count">{len(rows)}</span></h1>
+{table}
+</div></body></html>"""
 
 
 def send_confirmation_email(name: str, email: str) -> bool:
@@ -37,7 +75,7 @@ def send_confirmation_email(name: str, email: str) -> bool:
             <p>Your payment is confirmed and your spot is secured for <strong>The AI Workshop</strong>.</p>
             <div style="background: #f8f5ff; border-radius: 8px; padding: 20px; margin: 20px 0;">
                 <p style="margin: 5px 0;"><strong>📅 Date:</strong> Sunday, 28 June 2026</p>
-                <p style="margin: 5px 0;"><strong>⏰ Duration:</strong> 3 Hours</p>
+                <p style="margin: 5px 0;"><strong>⏰ Time:</strong> 12:00 PM – 4:00 PM (4 hours)</p>
                 <p style="margin: 5px 0;"><strong>📍 Location:</strong> Kolkata (venue details coming soon)</p>
             </div>
             <p><strong>What to bring:</strong> Just your laptop and curiosity!</p>
@@ -63,6 +101,48 @@ def send_confirmation_email(name: str, email: str) -> bool:
         return False
 
 
+def send_admin_notification(name: str, email: str, phone: str, payment_id: str = "") -> bool:
+    """Notify the organiser inbox of a new registration."""
+    smtp_email = os.environ.get("SMTP_EMAIL")
+    smtp_password = os.environ.get("SMTP_APP_PASSWORD")
+    if not smtp_email or not smtp_password:
+        return False
+    admin_email = os.environ.get("ADMIN_EMAIL", "theaiworkshop.in@gmail.com")
+
+    msg = MIMEMultipart("alternative")
+    msg["Subject"] = f"🎉 New registration: {name}"
+    msg["From"] = f"The AI Workshop <{smtp_email}>"
+    msg["To"] = admin_email
+    msg["Reply-To"] = email
+
+    html = f"""\
+    <html>
+    <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+        <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
+            <h2 style="color: #7c3aed;">New workshop registration 🎉</h2>
+            <div style="background: #f8f5ff; border-radius: 8px; padding: 20px; margin: 16px 0;">
+                <p style="margin: 5px 0;"><strong>Name:</strong> {name}</p>
+                <p style="margin: 5px 0;"><strong>Email:</strong> {email}</p>
+                <p style="margin: 5px 0;"><strong>Phone:</strong> {phone}</p>
+                <p style="margin: 5px 0;"><strong>Payment ID:</strong> {payment_id or "—"}</p>
+            </div>
+            <p style="font-size: 13px; color: #777;">Workshop: Sunday, 28 June 2026 · 12:00–4:00 PM · Kolkata</p>
+        </div>
+    </body>
+    </html>
+    """
+    msg.attach(MIMEText(html, "html"))
+    try:
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
+            server.login(smtp_email, smtp_password)
+            server.sendmail(smtp_email, admin_email, msg.as_string())
+        print(f"[ADMIN EMAIL] Notified {admin_email} of new registration: {name}")
+        return True
+    except Exception as e:
+        print(f"[ADMIN EMAIL ERROR] Failed to notify admin: {e}")
+        return False
+
+
 REGISTRATIONS_FILE = Path("registrations.json")
 
 
@@ -80,12 +160,16 @@ class Registration(BaseModel):
     name: str
     email: str
     phone: str
+    payment_id: str = ""
 
 
 class CreateOrderRequest(BaseModel):
     amount: int  # in paise
     currency: str = "INR"
     receipt: str = "workshop_receipt"
+    name: str = ""
+    email: str = ""
+    phone: str = ""
 
 
 class VerifyPaymentRequest(BaseModel):
@@ -106,7 +190,12 @@ def create_app(static_dir: str) -> FastAPI:
         registrations = load_registrations()
         already_registered = any(r.get("email") == reg.email for r in registrations)
         if not already_registered:
-            registrations.append({"name": reg.name, "email": reg.email, "phone": reg.phone})
+            registrations.append({
+                "name": reg.name,
+                "email": reg.email,
+                "phone": reg.phone,
+                "payment_id": reg.payment_id,
+            })
             save_registrations(registrations)
         # Always send the confirmation email (including on re-registration), so a
         # paid user reliably receives their confirmation even if their email is
@@ -114,6 +203,8 @@ def create_app(static_dir: str) -> FastAPI:
         print(f"[REGISTER] Sending email to {reg.email}...")
         email_sent = send_confirmation_email(reg.name, reg.email)
         print(f"[REGISTER] Email result: {email_sent}")
+        # Notify the organiser inbox of every paid registration.
+        send_admin_notification(reg.name, reg.email, reg.phone, reg.payment_id)
         if already_registered:
             return {"status": "already_registered", "message": "This email is already registered! We've re-sent your confirmation."}
         return {"status": "registered", "message": f"Welcome, {reg.name}! You're registered for the workshop."}
@@ -121,6 +212,21 @@ def create_app(static_dir: str) -> FastAPI:
     @api.get("/registrations")
     def list_registrations():
         return load_registrations()
+
+    @api.get("/admin", response_class=HTMLResponse)
+    def admin_view():
+        rows = [
+            {
+                "name": r.get("name", ""),
+                "email": r.get("email", ""),
+                "phone": r.get("phone", ""),
+                "amount": "₹799",
+                "reference": r.get("payment_id", ""),
+                "date": "",
+            }
+            for r in load_registrations()
+        ]
+        return HTMLResponse(render_admin_html(rows))
 
     @api.post("/create-order")
     def create_order(req: CreateOrderRequest):
@@ -138,6 +244,7 @@ def create_app(static_dir: str) -> FastAPI:
                 "amount": req.amount,
                 "currency": req.currency,
                 "receipt": req.receipt,
+                "notes": {"name": req.name, "email": req.email, "phone": req.phone},
             })
         except Exception as e:
             raise HTTPException(status_code=500, detail=f"Failed to create order: {str(e)}")

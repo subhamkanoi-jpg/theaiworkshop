@@ -252,6 +252,9 @@ function App() {
           amount: WORKSHOP_AMOUNT,
           currency: "INR",
           receipt: `workshop_${Date.now()}`,
+          name,
+          email,
+          phone,
         }),
       });
 
@@ -303,7 +306,12 @@ function App() {
             await fetch("/api/register", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ name, email, phone }),
+              body: JSON.stringify({
+                name,
+                email,
+                phone,
+                payment_id: response.razorpay_payment_id,
+              }),
             });
             setSubmitted(true);
           } else {
@@ -1037,16 +1045,26 @@ function App() {
                     </div>
                     <h3 className="text-xl font-bold text-foreground mb-2">You're in! 🎉</h3>
                     <p className="text-muted-foreground">
-                      Payment successful — your seat is confirmed for {WORKSHOP_DATE_LABEL}. Check your email for details, and join the WhatsApp group to meet the cohort.
+                      Payment successful — your seat for {WORKSHOP_DATE_LABEL} is confirmed, and a confirmation email is on its way.
                     </p>
-                    <a
-                      href="https://chat.whatsapp.com/DNIePdAGNfL2cs1LDIs0DG"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 mt-6 rounded-full bg-[#25D366] px-6 py-3 text-sm font-semibold text-white hover:bg-[#1ebe57] transition-colors"
-                    >
-                      <MessageCircle className="h-4 w-4" /> Join the WhatsApp group
-                    </a>
+
+                    <div className="mt-6 rounded-xl border border-[#25D366]/30 bg-[#25D366]/5 p-5 text-left">
+                      <p className="text-sm font-bold text-foreground flex items-center gap-2">
+                        <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#25D366] text-white text-xs">1</span>
+                        One last step
+                      </p>
+                      <p className="text-sm text-muted-foreground mt-2">
+                        Join the workshop WhatsApp group — it's where we'll share the venue, timings, reminders, and where you'll meet your cohort. Don't skip this!
+                      </p>
+                      <a
+                        href="https://chat.whatsapp.com/DNIePdAGNfL2cs1LDIs0DG"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 py-3 text-sm font-semibold text-white hover:bg-[#1ebe57] transition-colors"
+                      >
+                        <MessageCircle className="h-5 w-5" /> Join the Workshop Group
+                      </a>
+                    </div>
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-4">
