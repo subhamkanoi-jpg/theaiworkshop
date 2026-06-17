@@ -14,7 +14,7 @@ import {
   Gift,
   Phone,
 } from "lucide-react";
-import { trackBeginCheckout, trackPurchase } from "@/analytics";
+import { trackBeginCheckout, trackPurchase, trackContact } from "@/analytics";
 import {
   WORKSHOP_AMOUNT,
   PRICE,
@@ -43,7 +43,7 @@ export function Registration() {
     e.preventDefault();
     if (!name || !email || !phone) return;
     setLoading(true);
-    trackBeginCheckout(PRICE);
+    trackBeginCheckout(PRICE, email, phone, name);
 
     try {
       // Step 1: Create Razorpay order
@@ -115,7 +115,7 @@ export function Registration() {
                 payment_id: response.razorpay_payment_id,
               }),
             });
-            trackPurchase(PRICE);
+            trackPurchase(PRICE, email, phone, name);
             setSubmitted(true);
           } else {
             alert("Payment verification failed. Please contact support.");
@@ -225,6 +225,7 @@ export function Registration() {
                   href={WHATSAPP_URL}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackContact("whatsapp")}
                   className="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 py-3 text-sm font-semibold text-white hover:bg-[#1ebe57] transition-colors"
                 >
                   <MessageCircle className="h-5 w-5" /> Join the Workshop Group
@@ -274,7 +275,11 @@ export function Registration() {
               </div>
               <p className="text-center text-sm text-muted-foreground pt-2">
                 Questions before you pay?{" "}
-                <a href={`tel:${PHONE_TEL}`} className="inline-flex items-center gap-1 font-semibold text-primary hover:underline">
+                <a
+                  href={`tel:${PHONE_TEL}`}
+                  onClick={() => trackContact("phone")}
+                  className="inline-flex items-center gap-1 font-semibold text-primary hover:underline"
+                >
                   <Phone className="h-3.5 w-3.5" /> {PHONE_DISPLAY}
                 </a>
               </p>

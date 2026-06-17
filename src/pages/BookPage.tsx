@@ -11,6 +11,7 @@ import {
   PHONE_DISPLAY,
   SUPPORT_EMAIL,
 } from "@/config";
+import { trackViewContent, trackContact } from "@/analytics";
 import {
   ArrowLeft,
   Sparkles,
@@ -30,6 +31,7 @@ import {
 export default function BookPage() {
   useEffect(() => {
     document.title = "Book Your Seat — The AI Workshop #1 | Kolkata, 28 June";
+    trackViewContent("Workshop Booking Page", "Workshop Registration", PRICE);
   }, []);
 
   const facts = [
@@ -107,10 +109,18 @@ export default function BookPage() {
             <span className="font-bold text-foreground">The AI Workshop</span>
           </a>
           <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
-            <a href={`tel:${PHONE_TEL}`} className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+            <a
+              href={`tel:${PHONE_TEL}`}
+              onClick={() => trackContact("phone")}
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+            >
               <Phone className="h-4 w-4" /> {PHONE_DISPLAY}
             </a>
-            <a href={`mailto:${SUPPORT_EMAIL}`} className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+            <a
+              href={`mailto:${SUPPORT_EMAIL}`}
+              onClick={() => trackContact("email")}
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+            >
               <Mail className="h-4 w-4" /> {SUPPORT_EMAIL}
             </a>
           </div>

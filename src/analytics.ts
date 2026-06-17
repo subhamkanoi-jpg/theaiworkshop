@@ -68,14 +68,42 @@ export function initAnalytics() {
 }
 
 /** Fire when the user starts the payment flow (form submitted). */
-export function trackBeginCheckout(value: number) {
-  if (META_PIXEL_ID) w().fbq?.("track", "InitiateCheckout", { value, currency: "INR" });
+export function trackBeginCheckout(value: number, email?: string, phone?: string, name?: string) {
+  if (META_PIXEL_ID) {
+    if (email || phone || name) {
+      const matchingData: any = {};
+      if (email) matchingData.em = email.trim().toLowerCase();
+      if (phone) matchingData.ph = phone.trim().replace(/\D/g, "");
+      if (name) {
+        const parts = name.trim().split(/\s+/);
+        matchingData.fn = parts[0]?.toLowerCase();
+        if (parts.length > 1) {
+          matchingData.ln = parts.slice(1).join(" ").toLowerCase();
+        }
+      }
+      w().fbq("init", META_PIXEL_ID, matchingData);
+    }
+    w().fbq?.("track", "InitiateCheckout", { value, currency: "INR" });
+  }
   if (GA_ID) w().gtag?.("event", "begin_checkout", { value, currency: "INR" });
 }
 
 /** Fire on confirmed, paid registration — this is the ad conversion. */
-export function trackPurchase(value: number) {
+export function trackPurchase(value: number, email?: string, phone?: string, name?: string) {
   if (META_PIXEL_ID) {
+    if (email || phone || name) {
+      const matchingData: any = {};
+      if (email) matchingData.em = email.trim().toLowerCase();
+      if (phone) matchingData.ph = phone.trim().replace(/\D/g, "");
+      if (name) {
+        const parts = name.trim().split(/\s+/);
+        matchingData.fn = parts[0]?.toLowerCase();
+        if (parts.length > 1) {
+          matchingData.ln = parts.slice(1).join(" ").toLowerCase();
+        }
+      }
+      w().fbq("init", META_PIXEL_ID, matchingData);
+    }
     w().fbq?.("track", "Purchase", { value, currency: "INR" });
     w().fbq?.("track", "CompleteRegistration", { value, currency: "INR" });
   }
@@ -86,5 +114,38 @@ export function trackPurchase(value: number) {
       value,
       currency: "INR",
     });
+  }
+}
+
+/** Fire when a user views a page or key section. */
+export function trackViewContent(contentName: string, category: string, value?: number) {
+  if (META_PIXEL_ID) {
+    w().fbq?.("track", "ViewContent", {
+      content_name: contentName,
+      content_category: category,
+      value: value,
+      currency: value ? "INR" : undefined,
+    });
+  }
+  if (GA_ID) {
+    w().gtag?.("event", "view_item", {
+      items: [{
+        item_name: contentName,
+        item_category: category,
+        price: value,
+      }],
+      value: value,
+      currency: value ? "INR" : undefined,
+    });
+  }
+}
+
+/** Fire when a user clicks a contact link (WhatsApp, Phone, Email). */
+export function trackContact(method: "whatsapp" | "phone" | "email") {
+  if (META_PIXEL_ID) {
+    w().fbq?.("track", "Contact", { method });
+  }
+  if (GA_ID) {
+    w().gtag?.("event", "contact", { method });
   }
 }

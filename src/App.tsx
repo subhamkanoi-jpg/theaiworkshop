@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { trackViewContent, trackContact } from "@/analytics";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -182,6 +183,10 @@ function HostCard({
 
 function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    trackViewContent("Homepage", "Lander");
+  }, []);
 
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
@@ -910,6 +915,7 @@ function App() {
               href="https://chat.whatsapp.com/DNIePdAGNfL2cs1LDIs0DG"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackContact("whatsapp")}
               className="inline-flex items-center gap-2 rounded-full bg-[#25D366] px-6 py-3 text-sm font-semibold text-white hover:bg-[#1ebe57] transition-colors"
             >
               Join the Community <ArrowRight className="h-4 w-4" />
@@ -949,6 +955,7 @@ function App() {
             <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
               <a
                 href="tel:+919830715557"
+                onClick={() => trackContact("phone")}
                 className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
               >
                 <Phone className="h-4 w-4" />
@@ -956,6 +963,7 @@ function App() {
               </a>
               <a
                 href="mailto:theaiworkshop.in@gmail.com"
+                onClick={() => trackContact("email")}
                 className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
               >
                 <Mail className="h-4 w-4" />
@@ -965,6 +973,7 @@ function App() {
                 href="https://chat.whatsapp.com/DNIePdAGNfL2cs1LDIs0DG"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackContact("whatsapp")}
                 className="inline-flex items-center gap-1.5 text-sm font-medium text-[#25D366] hover:underline"
               >
                 <MessageCircle className="h-4 w-4" />
@@ -994,6 +1003,7 @@ function App() {
         href="https://chat.whatsapp.com/DNIePdAGNfL2cs1LDIs0DG"
         target="_blank"
         rel="noopener noreferrer"
+        onClick={() => trackContact("whatsapp")}
         className="fixed bottom-24 right-6 md:bottom-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg hover:bg-[#1ebe57] hover:scale-110 transition-all duration-200"
         aria-label="Join WhatsApp Community"
       >
