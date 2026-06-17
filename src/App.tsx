@@ -296,11 +296,15 @@ function App() {
         <div className="absolute top-20 left-10 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
         <div className="absolute bottom-10 right-10 h-96 w-96 rounded-full bg-accent/10 blur-3xl" />
 
-        <div className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24 text-center">
+        <div className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 pt-8 pb-16 sm:pt-12 sm:pb-24 text-center">
           <div className="inline-flex items-center gap-2.5 rounded-full bg-primary/10 px-5 py-2 text-base sm:text-lg font-bold text-primary mb-4">
             <Sparkles className="h-5 w-5 sm:h-6 sm:w-6" />
             AI is for everyone
           </div>
+
+          <p className="mb-8 sm:mb-10 text-xl sm:text-2xl font-semibold text-foreground/90">
+            Implementing real business use cases for AI — one Sunday workshop at a time.
+          </p>
 
           <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-accent">
             Workshop #01 · Build Your Own Website
@@ -346,7 +350,7 @@ function App() {
           </div>
 
           <p className="mt-3 text-sm text-muted-foreground">
-            Agencies charge <strong className="text-foreground">₹10,000–₹20,000</strong> for the same thing.
+            Agencies charge <strong className="text-foreground">₹10,000–₹20,000</strong> minimum for the same thing.
           </p>
 
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
