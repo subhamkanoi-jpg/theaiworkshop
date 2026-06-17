@@ -1,28 +1,40 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="The AI Workshop logo">
   <defs>
-    <linearGradient id="g" x1="8" y1="4" x2="56" y2="60" gradientUnits="userSpaceOnUse">
+    <linearGradient id="aiw-logo-grad" x1="8" y1="6" x2="56" y2="58" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#7c3aed"/>
       <stop offset="0.55" stop-color="#4f46e5"/>
       <stop offset="1" stop-color="#06b6d4"/>
     </linearGradient>
   </defs>
-  <polygon points="32,4 56.2,18 56.2,46 32,60 7.8,46 7.8,18" fill="url(#g)"/>
-  <g stroke="#fff" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" fill="none" opacity="0.95">
-    <polygon points="32,18 44,25 44,39 32,46 20,39 20,25"/>
-    <line x1="32" y1="18" x2="32" y2="32"/>
-    <line x1="44" y1="25" x2="32" y2="32"/>
-    <line x1="44" y1="39" x2="32" y2="32"/>
-    <line x1="32" y1="46" x2="32" y2="32"/>
-    <line x1="20" y1="39" x2="32" y2="32"/>
-    <line x1="20" y1="25" x2="32" y2="32"/>
+  <g stroke="url(#aiw-logo-grad)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
+    <polygon points="32,6 54.5,19 54.5,45 32,58 9.5,45 9.5,19"/>
+    <polygon points="32,17.7 44.4,24.85 44.4,39.15 32,46.3 19.6,39.15 19.6,24.85"/>
+    <line x1="32" y1="17.7" x2="32" y2="6"/>
+    <line x1="44.4" y1="24.85" x2="54.5" y2="19"/>
+    <line x1="44.4" y1="39.15" x2="54.5" y2="45"/>
+    <line x1="32" y1="46.3" x2="32" y2="58"/>
+    <line x1="19.6" y1="39.15" x2="9.5" y2="45"/>
+    <line x1="19.6" y1="24.85" x2="9.5" y2="19"/>
+    <line x1="32" y1="17.7" x2="32" y2="32"/>
+    <line x1="44.4" y1="24.85" x2="32" y2="32"/>
+    <line x1="44.4" y1="39.15" x2="32" y2="32"/>
+    <line x1="32" y1="46.3" x2="32" y2="32"/>
+    <line x1="19.6" y1="39.15" x2="32" y2="32"/>
+    <line x1="19.6" y1="24.85" x2="32" y2="32"/>
   </g>
-  <g fill="#fff">
-    <circle cx="32" cy="18" r="3"/>
-    <circle cx="44" cy="25" r="3"/>
-    <circle cx="44" cy="39" r="3"/>
-    <circle cx="32" cy="46" r="3"/>
-    <circle cx="20" cy="39" r="3"/>
-    <circle cx="20" cy="25" r="3"/>
-    <circle cx="32" cy="32" r="4"/>
+  <polygon points="32,25 38.06,28.5 38.06,35.5 32,39 25.94,35.5 25.94,28.5" fill="url(#aiw-logo-grad)"/>
+  <g fill="url(#aiw-logo-grad)">
+    <circle cx="32" cy="6" r="2.4"/>
+    <circle cx="54.5" cy="19" r="2.4"/>
+    <circle cx="54.5" cy="45" r="2.4"/>
+    <circle cx="32" cy="58" r="2.4"/>
+    <circle cx="9.5" cy="45" r="2.4"/>
+    <circle cx="9.5" cy="19" r="2.4"/>
+    <circle cx="32" cy="17.7" r="3"/>
+    <circle cx="44.4" cy="24.85" r="3"/>
+    <circle cx="44.4" cy="39.15" r="3"/>
+    <circle cx="32" cy="46.3" r="3"/>
+    <circle cx="19.6" cy="39.15" r="3"/>
+    <circle cx="19.6" cy="24.85" r="3"/>
   </g>
 </svg>

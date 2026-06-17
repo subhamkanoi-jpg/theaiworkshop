@@ -54,8 +54,8 @@ const portfolio = [
   { name: "Subham Kanoi", tag: "Founder Portfolio", url: "https://www.subhamkanoi.com", image: "/portfolio/subham-kanoi.png" },
   // aakashdamani.com was down when we captured — gradient placeholder shows until a screenshot
   // is added at /portfolio/aakash-damani.png
-  { name: "Aakash Damani", tag: "Personal Site", url: "https://www.aakashdamani.com", image: "/portfolio/aakash-damani.png" },
-  { name: "The AI Workshop", tag: "This very site", url: "#", image: "/portfolio/aiworkshop.png" },
+  { name: "Aakash Damani", tag: "Personal Site", url: "https://www.aakashdamani.in", image: "/portfolio/aakash-damani.png" },
+  { name: "The AI Workshop", tag: "This very site", url: "https://www.theaiworkshop.in", image: "/portfolio/aiworkshop.png" },
 ];
 
 // ──────────────────────────────────────────────────────────────────────────
