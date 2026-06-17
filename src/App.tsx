@@ -55,6 +55,7 @@ const portfolio = [
   // aakashdamani.com was down when we captured — gradient placeholder shows until a screenshot
   // is added at /portfolio/aakash-damani.png
   { name: "Aakash Damani", tag: "Personal Site", url: "https://www.aakashdamani.in", image: "/portfolio/aakash-damani.png" },
+  { name: "Amos Aerospace", tag: "Aerospace", url: "https://amosaerospace.com", image: "/portfolio/amos-aerospace.png" },
   { name: "The AI Workshop", tag: "This very site", url: "https://www.theaiworkshop.in", image: "/portfolio/aiworkshop.png" },
 ];
 
