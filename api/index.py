@@ -140,6 +140,47 @@ def send_admin_notification(name: str, email: str, phone: str, payment_id: str =
         return False
 
 
+def send_host_application_notification(name: str, phone: str, use_case: str, workshop_date: str) -> bool:
+    """Notify the organiser inbox of a new 'become a host' application."""
+    smtp_email = os.environ.get("SMTP_EMAIL")
+    smtp_password = os.environ.get("SMTP_APP_PASSWORD")
+    if not smtp_email or not smtp_password:
+        return False
+    admin_email = os.environ.get("ADMIN_EMAIL", "theaiworkshop.in@gmail.com")
+
+    msg = MIMEMultipart("alternative")
+    msg["Subject"] = f"🙋 New host application: {name}"
+    msg["From"] = f"The AI Workshop <{smtp_email}>"
+    msg["To"] = admin_email
+
+    body = f"""\
+    <html>
+    <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+        <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
+            <h2 style="color: #7c3aed;">New host application 🙋</h2>
+            <p>Someone wants to teach a workshop. Reach out to plan the details.</p>
+            <div style="background: #f8f5ff; border-radius: 8px; padding: 20px; margin: 16px 0;">
+                <p style="margin: 5px 0;"><strong>Name:</strong> {html.escape(name)}</p>
+                <p style="margin: 5px 0;"><strong>Phone:</strong> {html.escape(phone)}</p>
+                <p style="margin: 5px 0;"><strong>Use case:</strong> {html.escape(use_case)}</p>
+                <p style="margin: 5px 0;"><strong>Preferred date:</strong> {html.escape(workshop_date)}</p>
+            </div>
+        </div>
+    </body>
+    </html>
+    """
+    msg.attach(MIMEText(body, "html"))
+    try:
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
+            server.login(smtp_email, smtp_password)
+            server.sendmail(smtp_email, admin_email, msg.as_string())
+        print(f"[HOST EMAIL] Notified {admin_email} of new host application: {name}")
+        return True
+    except Exception as e:
+        print(f"[HOST EMAIL ERROR] Failed to notify admin: {e}")
+        return False
+
+
 class Registration(BaseModel):
     name: str
     email: str
@@ -160,6 +201,13 @@ class VerifyPaymentRequest(BaseModel):
     razorpay_order_id: str
     razorpay_payment_id: str
     razorpay_signature: str
+
+
+class HostApplication(BaseModel):
+    name: str
+    phone: str
+    use_case: str
+    workshop_date: str  # ISO date (YYYY-MM-DD); must fall on a weekend
 
 
 @app.get("/api/health")
@@ -233,6 +281,22 @@ def register(reg: Registration):
     # Notify the organiser inbox of every paid registration.
     send_admin_notification(reg.name, reg.email, reg.phone, reg.payment_id)
     return {"status": "registered", "message": f"Welcome, {reg.name}! You're registered for the workshop."}
+
+
+@app.post("/api/become-host")
+def become_host(application: HostApplication):
+    # Validate the chosen date is a weekend (workshops only run Sat/Sun).
+    try:
+        d = datetime.strptime(application.workshop_date, "%Y-%m-%d").date()
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Invalid date.")
+    if d.weekday() not in (5, 6):  # 5 = Sat, 6 = Sun
+        raise HTTPException(status_code=400, detail="Workshop date must be a Saturday or Sunday.")
+
+    send_host_application_notification(
+        application.name, application.phone, application.use_case, application.workshop_date
+    )
+    return {"status": "received", "message": f"Thanks, {application.name}! We'll be in touch."}
 
 
 @app.get("/api/admin", response_class=HTMLResponse)
