@@ -11,6 +11,7 @@ import {
 import { Logo } from "@/components/Logo";
 import { BecomeHost } from "@/components/BecomeHost";
 import { WhatsAppIcon } from "@/components/WhatsAppIcon";
+import { cn } from "@/lib/utils";
 import {
   PRICE,
   MARKET_VALUE,
@@ -186,6 +187,8 @@ function HostCard({
 
 function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  // Mobile: the WhatsApp CTA starts as a compact bubble and "blows" open on tap.
+  const [waOpen, setWaOpen] = useState(false);
 
   useEffect(() => {
     trackViewContent("Homepage", "Lander");
@@ -1050,17 +1053,27 @@ function App() {
         </Button>
       </div>
 
-      {/* WhatsApp Floating CTA — a labelled pill converts far better than a bare
-          icon: the value prop ("Join the community") is always visible, a live
-          pulse + notification dot draw the eye, and it stays clear of the mobile
-          sticky CTA bar. */}
+      {/* WhatsApp Floating CTA.
+          Desktop: a full labelled pill — the value prop is always visible.
+          Mobile: a compact icon-only bubble so it doesn't crowd the screen; the
+          first tap "blows" it open into the full CTA, and a second tap joins. */}
       <a
         href={WHATSAPP_URL}
         target="_blank"
         rel="noopener noreferrer"
-        onClick={() => trackContact("whatsapp")}
-        className="group fixed bottom-24 right-4 sm:right-6 md:bottom-6 z-50 flex items-center gap-2.5 rounded-full bg-[#25D366] py-3 pl-3.5 pr-4 sm:pr-5 text-white shadow-lg ring-1 ring-black/5 transition-all duration-200 hover:bg-[#1ebe57] hover:shadow-xl hover:-translate-y-0.5"
+        onClick={(e) => {
+          // On mobile, the first tap just expands the bubble into the full CTA;
+          // only once it's open does a tap actually open WhatsApp.
+          if (window.innerWidth < 768 && !waOpen) {
+            e.preventDefault();
+            setWaOpen(true);
+            return;
+          }
+          trackContact("whatsapp");
+        }}
+        className="group fixed bottom-24 right-4 sm:right-6 md:bottom-6 z-50 flex items-center rounded-full bg-[#25D366] p-3.5 text-white shadow-lg ring-1 ring-black/5 transition-all duration-300 hover:bg-[#1ebe57] hover:shadow-xl md:hover:-translate-y-0.5"
         aria-label="Join the free WhatsApp community"
+        aria-expanded={waOpen}
       >
         {/* Pulsing notification dot — classic "you've got something" attention cue */}
         <span className="absolute -right-1 -top-1 flex h-3.5 w-3.5">
@@ -1068,7 +1081,15 @@ function App() {
           <span className="relative inline-flex h-3.5 w-3.5 rounded-full bg-red-500 ring-2 ring-background" />
         </span>
         <WhatsAppIcon className="h-7 w-7 shrink-0 transition-transform duration-200 group-hover:scale-110" />
-        <span className="flex flex-col items-start leading-tight">
+        {/* Label expands from 0-width so the bubble "blows" open smoothly. */}
+        <span
+          className={cn(
+            "flex flex-col items-start overflow-hidden whitespace-nowrap pr-1 leading-tight transition-all duration-300",
+            waOpen
+              ? "ml-2.5 max-w-[220px] opacity-100"
+              : "max-w-0 opacity-0 md:ml-2.5 md:max-w-[220px] md:opacity-100",
+          )}
+        >
           <span className="text-sm font-bold">Join the community</span>
           <span className="text-[11px] font-medium text-white/85">New &amp; growing daily — get in early</span>
         </span>
