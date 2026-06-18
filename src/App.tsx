@@ -193,10 +193,24 @@ function App() {
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
-      // Offset for the sticky nav so headings aren't hidden under it.
+      // Offset for the sticky nav so content isn't hidden under it.
       const NAV_OFFSET = 72;
-      const y = el.getBoundingClientRect().top + window.scrollY - NAV_OFFSET;
-      window.scrollTo({ top: y, behavior: "smooth" });
+
+      // Center the target in the usable viewport (the space between the sticky
+      // nav and, on mobile, the bottom CTA bar) so it lands in the middle of
+      // the screen. If the target is taller than that space, pin its top just
+      // below the nav instead. When a section contains a form, we center the
+      // form itself so the *whole form* is on screen — not just the heading.
+      const target = el.querySelector("form") ?? el;
+      const rect = target.getBoundingClientRect();
+      const targetTop = rect.top + window.scrollY;
+      const bottomInset = window.innerWidth < 768 ? 80 : 0; // mobile sticky CTA bar
+      const usable = window.innerHeight - NAV_OFFSET - bottomInset;
+      const y =
+        rect.height >= usable
+          ? targetTop - NAV_OFFSET - 12
+          : targetTop - NAV_OFFSET - (usable - rect.height) / 2;
+      window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
     }
     setMobileMenuOpen(false);
   };
