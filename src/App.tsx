@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/accordion";
 import { Logo } from "@/components/Logo";
 import { BecomeHost } from "@/components/BecomeHost";
+import { WhatsAppIcon } from "@/components/WhatsAppIcon";
 import {
   PRICE,
   MARKET_VALUE,
@@ -17,6 +18,7 @@ import {
   TOTAL_SEATS,
   WORKSHOP_DATE_LABEL,
   WORKSHOP_TIME_LABEL,
+  WHATSAPP_URL,
   inr,
 } from "@/config";
 import {
@@ -29,7 +31,6 @@ import {
   ArrowRight,
   CheckCircle2,
   Rocket,
-  MessageCircle,
   Mail,
   Palette,
   Server,
@@ -956,11 +957,11 @@ function App() {
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#25D366]/10 text-[#25D366]">
-              <MessageCircle className="h-6 w-6" />
+              <WhatsAppIcon className="h-6 w-6" />
             </div>
             <div className="text-center sm:text-left">
-              <h3 className="text-lg font-semibold text-foreground">Not ready to book yet?</h3>
-              <p className="text-sm text-muted-foreground">Join our WhatsApp community for AI tips and first dibs on future workshops.</p>
+              <h3 className="text-lg font-semibold text-foreground">Get in early on a growing community</h3>
+              <p className="text-sm text-muted-foreground">We're just getting started — join now to help shape it, swap AI tips, and get first dibs on every future workshop.</p>
             </div>
             <a
               href="https://chat.whatsapp.com/DNIePdAGNfL2cs1LDIs0DG"
@@ -1027,7 +1028,7 @@ function App() {
                 onClick={() => trackContact("whatsapp")}
                 className="inline-flex items-center gap-1.5 text-sm font-medium text-[#25D366] hover:underline"
               >
-                <MessageCircle className="h-4 w-4" />
+                <WhatsAppIcon className="h-4 w-4" />
                 Community
               </a>
             </div>
@@ -1049,18 +1050,28 @@ function App() {
         </Button>
       </div>
 
-      {/* WhatsApp Floating Button */}
+      {/* WhatsApp Floating CTA — a labelled pill converts far better than a bare
+          icon: the value prop ("Join the community") is always visible, a live
+          pulse + notification dot draw the eye, and it stays clear of the mobile
+          sticky CTA bar. */}
       <a
-        href="https://chat.whatsapp.com/DNIePdAGNfL2cs1LDIs0DG"
+        href={WHATSAPP_URL}
         target="_blank"
         rel="noopener noreferrer"
         onClick={() => trackContact("whatsapp")}
-        className="fixed bottom-24 right-6 md:bottom-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg hover:bg-[#1ebe57] hover:scale-110 transition-all duration-200"
-        aria-label="Join WhatsApp Community"
+        className="group fixed bottom-24 right-4 sm:right-6 md:bottom-6 z-50 flex items-center gap-2.5 rounded-full bg-[#25D366] py-3 pl-3.5 pr-4 sm:pr-5 text-white shadow-lg ring-1 ring-black/5 transition-all duration-200 hover:bg-[#1ebe57] hover:shadow-xl hover:-translate-y-0.5"
+        aria-label="Join the free WhatsApp community"
       >
-        <svg viewBox="0 0 32 32" className="h-7 w-7" fill="currentColor">
-          <path d="M16.004 0h-.008C7.174 0 0 7.176 0 16c0 3.5 1.132 6.744 3.054 9.378L1.056 31.17l5.998-1.924C9.592 30.924 12.66 32 16.004 32 24.826 32 32 24.822 32 16S24.826 0 16.004 0zm9.314 22.61c-.39 1.1-1.932 2.014-3.168 2.28-.844.18-1.948.324-5.662-1.216-4.754-1.97-7.814-6.788-8.054-7.104-.232-.316-1.932-2.574-1.932-4.908s1.222-3.482 1.654-3.956c.432-.474.944-.592 1.26-.592.316 0 .632.004.908.016.292.014.684-.112 1.068.816.39.94 1.33 3.248 1.448 3.482.118.236.196.512.04.828-.158.316-.236.512-.472.79-.236.276-.498.618-.71.828-.236.236-.482.49-.206.962.276.474 1.226 2.024 2.632 3.278 1.81 1.612 3.336 2.112 3.81 2.35.474.236.75.196 1.028-.118.276-.316 1.186-1.382 1.502-1.856.316-.474.632-.394 1.068-.236.434.158 2.754 1.3 3.228 1.536.474.236.79.354.908.55.118.196.118 1.126-.272 2.226z"/>
-        </svg>
+        {/* Pulsing notification dot — classic "you've got something" attention cue */}
+        <span className="absolute -right-1 -top-1 flex h-3.5 w-3.5">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75" />
+          <span className="relative inline-flex h-3.5 w-3.5 rounded-full bg-red-500 ring-2 ring-background" />
+        </span>
+        <WhatsAppIcon className="h-7 w-7 shrink-0 transition-transform duration-200 group-hover:scale-110" />
+        <span className="flex flex-col items-start leading-tight">
+          <span className="text-sm font-bold">Join the community</span>
+          <span className="text-[11px] font-medium text-white/85">New &amp; growing daily — get in early</span>
+        </span>
       </a>
     </div>
   );
