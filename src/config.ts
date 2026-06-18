@@ -16,6 +16,7 @@ export const SAVINGS_PCT = Math.round((SAVINGS / MARKET_VALUE) * 100);
 export const inr = (n: number) => "₹" + n.toLocaleString("en-IN");
 
 export const WHATSAPP_URL = "https://chat.whatsapp.com/DNIePdAGNfL2cs1LDIs0DG";
+export const HOST_WHATSAPP_URL = "https://chat.whatsapp.com/EeAC3WtfJdGIDIt1AeWyLK";
 export const PHONE_TEL = "+919830715557";
 export const PHONE_DISPLAY = "+91 98307 15557";
 export const SUPPORT_EMAIL = "theaiworkshop.in@gmail.com";

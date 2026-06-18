@@ -9,6 +9,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Logo } from "@/components/Logo";
+import { BecomeHost } from "@/components/BecomeHost";
 import {
   PRICE,
   MARKET_VALUE,
@@ -267,6 +268,7 @@ function App() {
               <button onClick={() => scrollTo("roadmap")} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">What's Next</button>
               <button onClick={() => scrollTo("work")} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Our Work</button>
               <button onClick={() => scrollTo("team")} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Hosts</button>
+              <button onClick={() => scrollTo("host")} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Become a Host</button>
               <button onClick={() => scrollTo("faq")} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">FAQ</button>
               <Button onClick={goToBook} size="sm">
                 Book Your Seat — {inr(PRICE)} <ArrowRight className="ml-1 h-4 w-4" />
@@ -287,6 +289,7 @@ function App() {
               <button onClick={() => scrollTo("roadmap")} className="block w-full text-left text-sm font-medium text-muted-foreground hover:text-foreground py-2">What's Next</button>
               <button onClick={() => scrollTo("work")} className="block w-full text-left text-sm font-medium text-muted-foreground hover:text-foreground py-2">Our Work</button>
               <button onClick={() => scrollTo("team")} className="block w-full text-left text-sm font-medium text-muted-foreground hover:text-foreground py-2">Hosts</button>
+              <button onClick={() => scrollTo("host")} className="block w-full text-left text-sm font-medium text-muted-foreground hover:text-foreground py-2">Become a Host</button>
               <button onClick={() => scrollTo("faq")} className="block w-full text-left text-sm font-medium text-muted-foreground hover:text-foreground py-2">FAQ</button>
               <Button onClick={goToBook} size="sm" className="w-full">
                 Book Your Seat — {inr(PRICE)} <ArrowRight className="ml-1 h-4 w-4" />
@@ -749,6 +752,15 @@ function App() {
               Join the community to shape what's next →
             </a>
           </p>
+
+          <div className="mt-6 flex flex-col items-center gap-2">
+            <Button variant="outline" size="sm" onClick={() => scrollTo("host")}>
+              <Sparkles className="mr-1.5 h-4 w-4" /> Become a Host
+            </Button>
+            <p className="text-sm text-muted-foreground">
+              Got a use-case of your own? Teach it in the next workshop.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -801,6 +813,28 @@ function App() {
               <HostCard key={h.name} {...h} />
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Become a Host Section */}
+      <section id="host" className="py-20 sm:py-24 border-t border-border">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <div className="inline-flex items-center gap-2 rounded-full bg-accent/10 px-4 py-1.5 text-sm font-medium text-accent mb-4">
+              <Sparkles className="h-4 w-4" />
+              Become a host
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
+              Implemented AI in your business? Teach it.
+            </h2>
+            <p className="mt-4 text-lg text-muted-foreground">
+              We want to democratize The AI Workshop into a community of learners — and that starts
+              with hosts who've actually done the work. If you're confident enough to teach your
+              use-case in a 3-hour hands-on live workshop, fill out the form.
+            </p>
+          </div>
+
+          <BecomeHost />
         </div>
       </section>
 

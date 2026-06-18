@@ -140,6 +140,12 @@ export function trackViewContent(contentName: string, category: string, value?: 
   }
 }
 
+/** Fire when a user submits a non-payment lead form (e.g. host application). */
+export function trackLead() {
+  if (META_PIXEL_ID) w().fbq?.("track", "Lead");
+  if (GA_ID) w().gtag?.("event", "generate_lead");
+}
+
 /** Fire when a user clicks a contact link (WhatsApp, Phone, Email). */
 export function trackContact(method: "whatsapp" | "phone" | "email") {
   if (META_PIXEL_ID) {
