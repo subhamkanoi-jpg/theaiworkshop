@@ -46,9 +46,8 @@ export default function BookPage() {
       {/* Slim header */}
       <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-lg">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 flex h-16 items-center justify-between">
-          <a href="/" className="flex items-center gap-2">
-            <Logo className="h-9 w-9" />
-            <span className="text-lg font-bold text-foreground">The AI Workshop</span>
+          <a href="/" className="flex items-center">
+            <Logo iconClassName="h-9 w-auto" textClassName="text-xl" />
           </a>
           <a
             href="/"
@@ -104,9 +103,8 @@ export default function BookPage() {
       {/* Slim footer */}
       <footer className="border-t border-border bg-muted/30">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <a href="/" className="flex items-center gap-2">
-            <Logo className="h-7 w-7" />
-            <span className="font-bold text-foreground">The AI Workshop</span>
+          <a href="/" className="flex items-center">
+            <Logo iconClassName="h-7 w-auto" textClassName="text-base" />
           </a>
           <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
             <a

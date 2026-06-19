@@ -185,6 +185,84 @@ function HostCard({
   );
 }
 
+// Eased "quart" curve: a slow, weighty start and a soft, decelerating settle —
+// noticeably more refined than the browser's built-in `behavior: "smooth"`.
+function easeInOutQuart(t: number): number {
+  return t < 0.5 ? 8 * t * t * t * t : 1 - Math.pow(-2 * t + 2, 4) / 2;
+}
+
+let scrollRAF = 0;
+
+// Animate the window scroll to `targetY` with a distance-scaled duration, then
+// run `onDone`. Bails out (without firing `onDone`) the moment the user takes
+// over with the wheel, a touch, or the keyboard — so we never fight their input.
+function animatedScrollTo(targetY: number, onDone?: () => void) {
+  cancelAnimationFrame(scrollRAF);
+
+  const startY = window.scrollY;
+  const distance = targetY - startY;
+  if (Math.abs(distance) < 2) {
+    onDone?.();
+    return;
+  }
+
+  // Respect users who ask for less motion: jump instantly, skip the flourish.
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    window.scrollTo(0, targetY);
+    return;
+  }
+
+  // Longer jumps take a little longer, but stay snappy (clamped 450–1000ms).
+  const duration = Math.min(1000, Math.max(450, Math.abs(distance) * 0.5));
+  const start = performance.now();
+
+  const cleanup = () => {
+    window.removeEventListener("wheel", onInterrupt);
+    window.removeEventListener("touchstart", onInterrupt);
+    window.removeEventListener("keydown", onInterrupt);
+  };
+  const onInterrupt = () => {
+    cancelAnimationFrame(scrollRAF);
+    cleanup();
+  };
+  window.addEventListener("wheel", onInterrupt, { passive: true });
+  window.addEventListener("touchstart", onInterrupt, { passive: true });
+  window.addEventListener("keydown", onInterrupt);
+
+  const step = (now: number) => {
+    const t = Math.min(1, (now - start) / duration);
+    window.scrollTo(0, startY + distance * easeInOutQuart(t));
+    if (t < 1) {
+      scrollRAF = requestAnimationFrame(step);
+    } else {
+      cleanup();
+      onDone?.();
+    }
+  };
+  scrollRAF = requestAnimationFrame(step);
+}
+
+// On arrival, the section's first heading rises into place and an accent
+// underline sweeps beneath it (see .arrive-heading in index.css). The underline
+// is aligned to the heading's own text-align so it sits correctly under both
+// centred and left-aligned headings.
+function highlightArrival(section: HTMLElement) {
+  const heading = section.querySelector<HTMLElement>("h1, h2, h3");
+  if (!heading) return;
+
+  const align = getComputedStyle(heading).textAlign;
+  const isCenter = align === "center";
+  const isRight = align === "right" || align === "end";
+  heading.style.setProperty("--arrive-ml", isCenter || isRight ? "auto" : "0");
+  heading.style.setProperty("--arrive-mr", isCenter || !isRight ? "auto" : "0");
+
+  // Re-trigger the animation even if the class is already present.
+  heading.classList.remove("arrive-heading");
+  void heading.offsetWidth; // force reflow
+  heading.classList.add("arrive-heading");
+  window.setTimeout(() => heading.classList.remove("arrive-heading"), 1800);
+}
+
 function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   // Mobile: the WhatsApp CTA starts as a compact bubble and "blows" open on tap.
@@ -195,30 +273,42 @@ function App() {
   }, []);
 
   const scrollTo = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) {
+    // Close the mobile menu *first*. While it's open, the expanded menu adds
+    // height to the sticky nav, which shifts the whole page down. If we measured
+    // the target now and then let the menu collapse, the page would jump up and
+    // the scroll would overshoot — landing mid-section. So we defer the measure
+    // until after the menu has collapsed and the layout is final.
+    setMobileMenuOpen(false);
+
+    const run = () => {
+      const el = document.getElementById(id);
+      if (!el) return;
+
       // Offset for the sticky nav so content isn't hidden under it.
       const NAV_OFFSET = 72;
 
-      // Centre the target in the usable viewport (the space between the sticky
-      // nav and, on mobile, the bottom CTA bar) so a section/form that fits
-      // lands in the middle of the screen. If the target is taller than that
-      // space, pin its top just below the nav instead — so you start at the
-      // heading (or a form's first field) rather than mid-content. When a
-      // section contains a form, we measure the form itself so the *whole form*
-      // is on screen — not just the heading.
-      const target = el.querySelector("form") ?? el;
-      const rect = target.getBoundingClientRect();
+      // Always anchor to the section's own top so you land on its heading —
+      // e.g. "Become a Host" lands on the heading, not the form below it.
+      const rect = el.getBoundingClientRect();
       const targetTop = rect.top + window.scrollY;
-      const bottomInset = window.innerWidth < 768 ? 80 : 0; // mobile sticky CTA bar
+      const isMobile = window.innerWidth < 768;
+      const bottomInset = isMobile ? 80 : 0; // mobile sticky CTA bar
       const usable = window.innerHeight - NAV_OFFSET - bottomInset;
+
+      // On mobile, always pin the target's top just below the nav so you land
+      // at the start of the section rather than mid-content. On desktop, centre
+      // a short target in the usable viewport for a nicer look; if it's taller
+      // than that space, pin its top below the nav instead.
       const y =
-        rect.height >= usable
+        isMobile || rect.height >= usable
           ? targetTop - NAV_OFFSET - 12
           : targetTop - NAV_OFFSET - (usable - rect.height) / 2;
-      window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
-    }
-    setMobileMenuOpen(false);
+      animatedScrollTo(Math.max(0, y), () => highlightArrival(el));
+    };
+
+    // Two frames: one for React to re-render with the menu closed, one for the
+    // browser to lay out before we read the target's final position.
+    requestAnimationFrame(() => requestAnimationFrame(run));
   };
 
   // All "Book your seat" CTAs lead to the dedicated booking page.
@@ -278,9 +368,8 @@ function App() {
       <nav className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-lg">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
-            <button onClick={() => scrollTo("hero")} className="flex items-center gap-2">
-              <Logo className="h-9 w-9" />
-              <span className="text-lg font-bold text-foreground">The AI Workshop</span>
+            <button onClick={() => scrollTo("hero")} className="flex items-center">
+              <Logo iconClassName="h-9 w-auto" textClassName="text-xl" />
             </button>
 
             <div className="hidden md:flex items-center gap-7">
@@ -1003,9 +1092,8 @@ function App() {
       <footer className="border-t border-border bg-muted/30">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-12">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-2">
-              <Logo className="h-8 w-8" />
-              <span className="font-bold text-foreground">The AI Workshop</span>
+            <div className="flex items-center">
+              <Logo iconClassName="h-8 w-auto" textClassName="text-lg" />
             </div>
             <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
               <a

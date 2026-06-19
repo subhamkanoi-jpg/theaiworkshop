@@ -58,3 +58,68 @@
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
   }
 }
+
+/* Arrival flourish: when an eased scroll settles on a section, its heading
+   rises gently into place and an accent underline draws beneath it, then fades.
+   The underline aligns to the heading's text alignment via the --arrive-*
+   custom properties set in JS. Disabled under reduced-motion. */
+@keyframes arrive-rise {
+  from {
+    opacity: 0.4;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes arrive-underline {
+  0% {
+    width: 0;
+    opacity: 0;
+  }
+  35% {
+    width: 3.5rem;
+    opacity: 1;
+  }
+  70% {
+    width: 3.5rem;
+    opacity: 1;
+  }
+  100% {
+    width: 3.5rem;
+    opacity: 0;
+  }
+}
+
+.arrive-heading {
+  animation: arrive-rise 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.arrive-heading::after {
+  content: "";
+  display: block;
+  height: 3px;
+  width: 0;
+  margin-top: 0.4rem;
+  margin-left: var(--arrive-ml, 0);
+  margin-right: var(--arrive-mr, auto);
+  border-radius: 9999px;
+  background: linear-gradient(
+    90deg,
+    hsl(var(--primary)),
+    hsl(var(--accent))
+  );
+  animation: arrive-underline 1.6s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arrive-heading,
+  .arrive-heading::after {
+    animation: none;
+  }
+  .arrive-heading::after {
+    content: none;
+  }
+}
