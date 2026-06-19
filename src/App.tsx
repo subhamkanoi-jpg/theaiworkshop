@@ -1056,44 +1056,58 @@ function App() {
       {/* WhatsApp Floating CTA.
           Desktop: a full labelled pill — the value prop is always visible.
           Mobile: a compact icon-only bubble so it doesn't crowd the screen; the
-          first tap "blows" it open into the full CTA, and a second tap joins. */}
-      <a
-        href={WHATSAPP_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        onClick={(e) => {
-          // On mobile, the first tap just expands the bubble into the full CTA;
-          // only once it's open does a tap actually open WhatsApp.
-          if (window.innerWidth < 768 && !waOpen) {
-            e.preventDefault();
-            setWaOpen(true);
-            return;
-          }
-          trackContact("whatsapp");
-        }}
-        className="group fixed bottom-24 right-4 sm:right-6 md:bottom-6 z-50 flex items-center rounded-full bg-[#25D366] p-3.5 text-white shadow-lg ring-1 ring-black/5 transition-all duration-300 hover:bg-[#1ebe57] hover:shadow-xl md:hover:-translate-y-0.5"
-        aria-label="Join the free WhatsApp community"
-        aria-expanded={waOpen}
-      >
-        {/* Pulsing notification dot — classic "you've got something" attention cue */}
-        <span className="absolute -right-1 -top-1 flex h-3.5 w-3.5">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75" />
-          <span className="relative inline-flex h-3.5 w-3.5 rounded-full bg-red-500 ring-2 ring-background" />
-        </span>
-        <WhatsAppIcon className="h-7 w-7 shrink-0 transition-transform duration-200 group-hover:scale-110" />
-        {/* Label expands from 0-width so the bubble "blows" open smoothly. */}
-        <span
-          className={cn(
-            "flex flex-col items-start overflow-hidden whitespace-nowrap pr-1 leading-tight transition-all duration-300",
-            waOpen
-              ? "ml-2.5 max-w-[220px] opacity-100"
-              : "max-w-0 opacity-0 md:ml-2.5 md:max-w-[220px] md:opacity-100",
-          )}
+          first tap "blows" it open into the full CTA, and a second tap joins. A
+          small × lets you contract it back to the bubble. */}
+      <div className="fixed bottom-24 right-4 sm:right-6 md:bottom-6 z-50">
+        <a
+          href={WHATSAPP_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={(e) => {
+            // On mobile, the first tap just expands the bubble into the full CTA;
+            // only once it's open does a tap actually open WhatsApp.
+            if (window.innerWidth < 768 && !waOpen) {
+              e.preventDefault();
+              setWaOpen(true);
+              return;
+            }
+            trackContact("whatsapp");
+          }}
+          className="group relative flex items-center rounded-full bg-[#25D366] p-3.5 text-white shadow-lg ring-1 ring-black/5 transition-all duration-300 hover:bg-[#1ebe57] hover:shadow-xl md:hover:-translate-y-0.5"
+          aria-label="Join the free WhatsApp community"
+          aria-expanded={waOpen}
         >
-          <span className="text-sm font-bold">Join the community</span>
-          <span className="text-[11px] font-medium text-white/85">New &amp; growing daily — get in early</span>
-        </span>
-      </a>
+          {/* Pulsing notification dot — classic "you've got something" attention cue */}
+          <span className="absolute -right-1 -top-1 flex h-3.5 w-3.5">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75" />
+            <span className="relative inline-flex h-3.5 w-3.5 rounded-full bg-red-500 ring-2 ring-background" />
+          </span>
+          <WhatsAppIcon className="h-7 w-7 shrink-0 transition-transform duration-200 group-hover:scale-110" />
+          {/* Label expands from 0-width so the bubble "blows" open smoothly. */}
+          <span
+            className={cn(
+              "flex flex-col items-start overflow-hidden whitespace-nowrap pr-1 leading-tight transition-all duration-300",
+              waOpen
+                ? "ml-2.5 max-w-[220px] opacity-100"
+                : "max-w-0 opacity-0 md:ml-2.5 md:max-w-[220px] md:opacity-100",
+            )}
+          >
+            <span className="text-sm font-bold">Join the community</span>
+            <span className="text-[11px] font-medium text-white/85">New &amp; growing daily — get in early</span>
+          </span>
+        </a>
+        {/* Mobile-only: contract the expanded CTA back into the bubble. */}
+        {waOpen && (
+          <button
+            type="button"
+            onClick={() => setWaOpen(false)}
+            className="absolute -left-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-background text-muted-foreground shadow-md ring-1 ring-border transition-colors hover:text-foreground md:hidden"
+            aria-label="Collapse the community button"
+          >
+            <X className="h-3.5 w-3.5" />
+          </button>
+        )}
+      </div>
     </div>
   );
 }
