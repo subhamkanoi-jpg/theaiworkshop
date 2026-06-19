@@ -1058,7 +1058,7 @@ function App() {
           Mobile: a compact icon-only bubble so it doesn't crowd the screen.
           Tapping the WhatsApp icon toggles it open ("blows up" into the full
           CTA) and closed again; tapping the label joins the community. */}
-      <div className="group relative fixed bottom-24 right-4 sm:right-6 md:bottom-6 z-50 flex items-center rounded-full bg-[#25D366] p-3.5 text-white shadow-lg ring-1 ring-black/5 transition-all duration-300 hover:bg-[#1ebe57] hover:shadow-xl md:hover:-translate-y-0.5">
+      <div className="group fixed bottom-24 right-4 sm:right-6 md:bottom-6 z-50 flex items-center rounded-full bg-[#25D366] p-3.5 text-white shadow-lg ring-1 ring-black/5 transition-all duration-300 hover:bg-[#1ebe57] hover:shadow-xl md:hover:-translate-y-0.5">
         {/* Pulsing notification dot — classic "you've got something" attention cue */}
         <span className="absolute -right-1 -top-1 flex h-3.5 w-3.5">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75" />
