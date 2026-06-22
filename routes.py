@@ -55,7 +55,7 @@ def render_admin_html(rows: list) -> str:
 </div></body></html>"""
 
 
-def send_confirmation_email(name: str, email: str) -> bool:
+def send_confirmation_email(name: str, email: str, pay_at_venue: bool = False) -> bool:
     """Send workshop registration confirmation email."""
     smtp_email = os.environ.get("SMTP_EMAIL")
     smtp_password = os.environ.get("SMTP_APP_PASSWORD")
@@ -63,16 +63,23 @@ def send_confirmation_email(name: str, email: str) -> bool:
         return False
 
     msg = MIMEMultipart("alternative")
-    msg["Subject"] = "You're In! The AI Workshop — 28 June 2026"
+    msg["Subject"] = "Seat Reserved! The AI Workshop — 28 June 2026" if pay_at_venue else "You're In! The AI Workshop — 28 June 2026"
     msg["From"] = f"The AI Workshop <{smtp_email}>"
     msg["To"] = email
 
-    html = f"""\
+    payment_note = (
+        '<p>Your seat is <strong>reserved</strong> — please bring <strong>₹799 cash</strong> to pay at the venue. '
+        'We\'ll hold your spot until 15 minutes before the session starts.</p>'
+        if pay_at_venue
+        else '<p>Your payment is confirmed and your spot is secured for <strong>The AI Workshop</strong>.</p>'
+    )
+
+    html_body = f"""\
     <html>
     <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
         <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
             <h2 style="color: #7c3aed;">Hey {name}, you're registered! 🎉</h2>
-            <p>Your payment is confirmed and your spot is secured for <strong>The AI Workshop</strong>.</p>
+            {payment_note}
             <div style="background: #f8f5ff; border-radius: 8px; padding: 20px; margin: 20px 0;">
                 <p style="margin: 5px 0;"><strong>📅 Date:</strong> Sunday, 28 June 2026</p>
                 <p style="margin: 5px 0;"><strong>⏰ Time:</strong> 12:00 PM – 4:00 PM (4 hours)</p>
@@ -88,7 +95,7 @@ def send_confirmation_email(name: str, email: str) -> bool:
     </html>
     """
 
-    msg.attach(MIMEText(html, "html"))
+    msg.attach(MIMEText(html_body, "html"))
 
     try:
         with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
@@ -248,6 +255,7 @@ def create_app(static_dir: str) -> FastAPI:
 
     @api.post("/register")
     def register(reg: Registration):
+        pay_at_venue = reg.payment_id == "PAY_AT_VENUE"
         registrations = load_registrations()
         already_registered = any(r.get("email") == reg.email for r in registrations)
         if not already_registered:
@@ -258,13 +266,9 @@ def create_app(static_dir: str) -> FastAPI:
                 "payment_id": reg.payment_id,
             })
             save_registrations(registrations)
-        # Always send the confirmation email (including on re-registration), so a
-        # paid user reliably receives their confirmation even if their email is
-        # already on file.
         print(f"[REGISTER] Sending email to {reg.email}...")
-        email_sent = send_confirmation_email(reg.name, reg.email)
+        email_sent = send_confirmation_email(reg.name, reg.email, pay_at_venue=pay_at_venue)
         print(f"[REGISTER] Email result: {email_sent}")
-        # Notify the organiser inbox of every paid registration.
         send_admin_notification(reg.name, reg.email, reg.phone, reg.payment_id)
         if already_registered:
             return {"status": "already_registered", "message": "This email is already registered! We've re-sent your confirmation."}
@@ -281,8 +285,8 @@ def create_app(static_dir: str) -> FastAPI:
                 "name": r.get("name", ""),
                 "email": r.get("email", ""),
                 "phone": r.get("phone", ""),
-                "amount": "₹799",
-                "reference": r.get("payment_id", ""),
+                "amount": "Pay at Venue" if r.get("payment_id") == "PAY_AT_VENUE" else "₹799",
+                "reference": r.get("payment_id", "") if r.get("payment_id") != "PAY_AT_VENUE" else "—",
                 "date": "",
             }
             for r in load_registrations()

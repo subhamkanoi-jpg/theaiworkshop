@@ -5,7 +5,6 @@ import {
   PRICE,
   WORKSHOP_DATE_LABEL,
   WORKSHOP_TIME_LABEL,
-  TOTAL_SEATS,
   inr,
   PHONE_TEL,
   PHONE_DISPLAY,
@@ -38,7 +37,7 @@ export default function BookPage() {
     { icon: <Calendar className="h-4 w-4 text-primary" />, label: WORKSHOP_DATE_LABEL },
     { icon: <Clock className="h-4 w-4 text-primary" />, label: `${WORKSHOP_TIME_LABEL} (4 hrs)` },
     { icon: <MapPin className="h-4 w-4 text-primary" />, label: "Offline in Kolkata" },
-    { icon: <Users className="h-4 w-4 text-primary" />, label: `A small batch of ${TOTAL_SEATS}` },
+    { icon: <Users className="h-4 w-4 text-primary" />, label: "A small batch" },
   ];
 
   return (

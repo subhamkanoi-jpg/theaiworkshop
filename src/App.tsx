@@ -16,7 +16,6 @@ import {
   PRICE,
   MARKET_VALUE,
   SAVINGS_PCT,
-  TOTAL_SEATS,
   WORKSHOP_DATE_LABEL,
   WORKSHOP_TIME_LABEL,
   WHATSAPP_URL,
@@ -181,6 +180,48 @@ function HostCard({
         {linkType === "website" ? <Globe className="h-4 w-4" /> : <Linkedin className="h-4 w-4" />}
         {linkType === "website" ? "Website" : "LinkedIn"}
       </a>
+    </div>
+  );
+}
+
+function PortfolioCarousel() {
+  const [current, setCurrent] = useState(0);
+  const count = portfolio.length;
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setCurrent((c) => (c + 1) % count);
+    }, 2500);
+    return () => clearInterval(id);
+  }, [current, count]);
+
+  return (
+    <div>
+      <div className="relative overflow-hidden rounded-2xl">
+        <div
+          className="flex transition-transform duration-500 ease-in-out"
+          style={{ transform: `translateX(-${current * 100}%)` }}
+        >
+          {portfolio.map((p) => (
+            <div key={p.name} className="w-full flex-shrink-0">
+              <PortfolioThumb {...p} />
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="flex justify-center gap-1.5 mt-4">
+        {portfolio.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setCurrent(i)}
+            className={cn(
+              "h-1.5 rounded-full transition-all duration-300",
+              i === current ? "w-5 bg-primary" : "w-1.5 bg-muted-foreground/30"
+            )}
+            aria-label={`Go to slide ${i + 1}`}
+          />
+        ))}
+      </div>
     </div>
   );
 }
@@ -375,7 +416,7 @@ function App() {
             <div className="hidden md:flex items-center gap-7">
               <button onClick={() => scrollTo("workshop")} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Workshop</button>
               <button onClick={() => scrollTo("roadmap")} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">What's Next</button>
-              <button onClick={() => scrollTo("work")} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Our Work</button>
+              <button onClick={() => scrollTo("work")} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Community Builds</button>
               <button onClick={() => scrollTo("team")} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Hosts</button>
               <button onClick={() => scrollTo("host")} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Become a Host</button>
               <button onClick={() => scrollTo("faq")} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">FAQ</button>
@@ -396,7 +437,7 @@ function App() {
             <div className="md:hidden pb-4 space-y-3">
               <button onClick={() => scrollTo("workshop")} className="block w-full text-left text-sm font-medium text-muted-foreground hover:text-foreground py-2">Workshop</button>
               <button onClick={() => scrollTo("roadmap")} className="block w-full text-left text-sm font-medium text-muted-foreground hover:text-foreground py-2">What's Next</button>
-              <button onClick={() => scrollTo("work")} className="block w-full text-left text-sm font-medium text-muted-foreground hover:text-foreground py-2">Our Work</button>
+              <button onClick={() => scrollTo("work")} className="block w-full text-left text-sm font-medium text-muted-foreground hover:text-foreground py-2">Community Builds</button>
               <button onClick={() => scrollTo("team")} className="block w-full text-left text-sm font-medium text-muted-foreground hover:text-foreground py-2">Hosts</button>
               <button onClick={() => scrollTo("host")} className="block w-full text-left text-sm font-medium text-muted-foreground hover:text-foreground py-2">Become a Host</button>
               <button onClick={() => scrollTo("faq")} className="block w-full text-left text-sm font-medium text-muted-foreground hover:text-foreground py-2">FAQ</button>
@@ -497,7 +538,7 @@ function App() {
             </div>
             <div className="flex items-center gap-2">
               <Users className="h-4 w-4 text-primary" />
-              <span>A small batch of {TOTAL_SEATS}</span>
+              <span>A small batch</span>
             </div>
           </div>
         </div>
@@ -554,6 +595,44 @@ function App() {
         </div>
       </section>
 
+      {/* Community Builds / Portfolio Section */}
+      <section id="work" className="py-20 sm:py-24">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-14">
+            <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary mb-4">
+              <Star className="h-4 w-4" />
+              Community Builds
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
+              Real websites, built with the exact tools we'll teach you
+            </h2>
+            <p className="mt-4 text-lg text-muted-foreground">
+              No agencies. No traditional coding. Every one of these started as a sentence typed into AI —
+              the same way yours will.
+            </p>
+          </div>
+
+          {/* Desktop: 3-col grid */}
+          <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {portfolio.map((p) => (
+              <PortfolioThumb key={p.name} {...p} />
+            ))}
+          </div>
+
+          {/* Mobile: auto-advancing carousel */}
+          <div className="sm:hidden">
+            <PortfolioCarousel />
+          </div>
+
+          <p className="mt-8 text-center text-muted-foreground">
+            This very website? Vibe-coded too.{" "}
+            <button onClick={goToBook} className="font-semibold text-primary hover:underline">
+              Learn how to build your own →
+            </button>
+          </p>
+        </div>
+      </section>
+
       {/* About Section */}
       <section id="about" className="py-20 sm:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
@@ -564,7 +643,8 @@ function App() {
             <p className="mt-4 text-lg text-muted-foreground">
               We're building an AI community in Kolkata for the common person — business owners,
               freelancers, students, anyone curious. Our mission is simple: demystify AI and make it
-              genuinely useful in your everyday life and work, one hands-on workshop at a time.
+              genuinely useful in your everyday life and work, one hands-on workshop at a time. The
+              price covers our costs — any surplus goes back into building this community.
             </p>
           </div>
 
@@ -738,7 +818,7 @@ function App() {
                       <div className="flex items-center gap-3">
                         <Users className="h-5 w-5 text-primary flex-shrink-0" />
                         <div>
-                          <p className="font-medium text-foreground">Just {TOTAL_SEATS} seats</p>
+                          <p className="font-medium text-foreground">Limited seats</p>
                           <p className="text-sm text-muted-foreground">Small batch for personal attention</p>
                         </div>
                       </div>
@@ -873,38 +953,6 @@ function App() {
         </div>
       </section>
 
-      {/* Our Work / Portfolio Section */}
-      <section id="work" className="py-20 sm:py-24">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-14">
-            <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary mb-4">
-              <Star className="h-4 w-4" />
-              Built with vibe coding
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
-              Real sites we built — with the exact tools we teach
-            </h2>
-            <p className="mt-4 text-lg text-muted-foreground">
-              No agencies. No traditional coding. Every one of these started as a sentence typed into AI —
-              the same way yours will.
-            </p>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {portfolio.map((p) => (
-              <PortfolioThumb key={p.name} {...p} />
-            ))}
-          </div>
-
-          <p className="mt-8 text-center text-muted-foreground">
-            This very website? Vibe-coded too.{" "}
-            <button onClick={goToBook} className="font-semibold text-primary hover:underline">
-              Learn how to build your own →
-            </button>
-          </p>
-        </div>
-      </section>
-
       {/* Team Section */}
       <section id="team" className="py-20 sm:py-24 bg-muted/30">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
@@ -974,7 +1022,7 @@ function App() {
                 Why is it only {inr(PRICE)} when websites cost so much more?
               </AccordionTrigger>
               <AccordionContent className="text-muted-foreground pb-4">
-                {inr(PRICE)} is our early-bird price for Workshop #1 — we'd rather fill the room with people who'll spread the word than maximise ticket price. A website built by an agency runs ₹10,000–₹20,000. Here you learn to build it yourself, keep the skill, and never pay for a basic website again.
+                {inr(PRICE)} covers our venue, setup, and running costs — this is a community, not a business. Any surplus goes straight back into growing it. A website built by an agency runs ₹10,000–₹20,000. Here you learn to build it yourself, keep the skill, and never pay for a basic website again.
               </AccordionContent>
             </AccordionItem>
 
@@ -1075,8 +1123,7 @@ function App() {
             Ready to build your own website?
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            We keep each batch to just {TOTAL_SEATS} people, so everyone gets real, hands-on
-            attention. Save your spot for {WORKSHOP_DATE_LABEL}.
+            We keep each batch small so everyone gets real, hands-on attention. Save your spot for {WORKSHOP_DATE_LABEL}.
           </p>
           <Button size="lg" onClick={goToBook} className="mt-8 text-base px-8 py-6">
             Book your seat — {inr(PRICE)} <ArrowRight className="ml-2 h-5 w-5" />
@@ -1134,7 +1181,7 @@ function App() {
             <span className="text-lg font-extrabold text-foreground">{inr(PRICE)}</span>
             <span className="text-sm text-muted-foreground line-through">{inr(MARKET_VALUE)}</span>
           </div>
-          <p className="text-[11px] text-muted-foreground">Small batch of {TOTAL_SEATS}</p>
+          <p className="text-[11px] text-muted-foreground">Small batch</p>
         </div>
         <Button onClick={goToBook} className="flex-1 max-w-[60%]">
           Book your seat <ArrowRight className="ml-1.5 h-4 w-4" />

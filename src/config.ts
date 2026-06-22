@@ -4,9 +4,9 @@
 // NOTE: prices & dates are also hard-coded in index.html (SEO structured data
 // and the OG image) — keep those in sync when you change anything here.
 // ──────────────────────────────────────────────────────────────────────────
-export const WORKSHOP_AMOUNT = 79900; // amount in paise (₹799)
-export const PRICE = 799; // early-bird price (₹)
-export const MARKET_VALUE = 1599; // workshop's regular list price (early-bird is ₹799)
+export const WORKSHOP_AMOUNT = 59900; // amount in paise (₹599)
+export const PRICE = 599; // early-bird price (₹)
+export const MARKET_VALUE = 1599; // workshop's regular list price (early-bird is ₹599)
 export const TOTAL_SEATS = 25; // we cap each batch here so everyone gets real attention
 export const WORKSHOP_DATE_LABEL = "Sunday, 28 June 2026";
 export const WORKSHOP_TIME_LABEL = "12:00 – 4:00 PM";

@@ -38,10 +38,32 @@ export function Registration() {
   const [phone, setPhone] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState<"online" | "venue">("online");
+
+  const handleVenuePayment = async () => {
+    setLoading(true);
+    try {
+      await fetch("/api/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, phone, payment_id: "PAY_AT_VENUE" }),
+      });
+      setSubmitted(true);
+    } catch {
+      alert("Something went wrong. Please try again.");
+    }
+    setLoading(false);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !email || !phone) return;
+
+    if (paymentMethod === "venue") {
+      await handleVenuePayment();
+      return;
+    }
+
     setLoading(true);
     trackBeginCheckout(PRICE, email, phone, name);
 
@@ -157,7 +179,7 @@ export function Registration() {
               SAVE {SAVINGS_PCT}%
             </span>
           </div>
-          <p className="mt-1 text-sm font-medium text-primary">Early-bird price · Workshop #1</p>
+          <p className="mt-1 text-sm font-medium text-primary">Community pricing · Workshop #1</p>
 
           <div className="mt-6 space-y-3">
             {valueStack.map((row, i) => (
@@ -187,7 +209,7 @@ export function Registration() {
           </div>
 
           <p className="mt-3 text-xs text-muted-foreground leading-relaxed">
-            * Domain not included. You'll buy your own for <strong className="text-foreground">₹199–599</strong> (depending on availability) — or use one you already own. It's the only extra, and we help you do it live in the session.
+            * Domain not included. You'll buy your own for <strong className="text-foreground">₹199–599</strong> (depending on availability) — or use one you already own. It's the only extra, and we help you do it live in the session. The {inr(PRICE)} covers our costs — any surplus goes back into the community.
           </p>
 
           <div className="mt-5 rounded-xl bg-background/70 border border-border p-4 flex gap-3">
@@ -208,9 +230,13 @@ export function Registration() {
               <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-accent/10 text-accent">
                 <CheckCircle2 className="h-8 w-8" />
               </div>
-              <h3 className="text-xl font-bold text-foreground mb-2">You're in! 🎉</h3>
+              <h3 className="text-xl font-bold text-foreground mb-2">
+                {paymentMethod === "venue" ? "Seat reserved! 🎉" : "You're in! 🎉"}
+              </h3>
               <p className="text-muted-foreground">
-                Payment successful — your seat for {WORKSHOP_DATE_LABEL} is confirmed, and a confirmation email is on its way.
+                {paymentMethod === "venue"
+                  ? `Your seat for ${WORKSHOP_DATE_LABEL} is reserved. Please bring ${inr(PRICE)} cash to pay at the venue — we'll hold your spot until 15 minutes before the session.`
+                  : `Payment successful — your seat for ${WORKSHOP_DATE_LABEL} is confirmed, and a confirmation email is on its way.`}
               </p>
 
               <div className="mt-6 rounded-xl border border-[#25D366]/30 bg-[#25D366]/5 p-5 text-left">
@@ -234,6 +260,44 @@ export function Registration() {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
+              {/* Payment method toggle */}
+              <div className="space-y-2 text-left">
+                <label className="text-sm font-medium text-foreground">How would you like to pay?</label>
+                <div className="grid grid-cols-2 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setPaymentMethod("online")}
+                    className={`flex flex-col items-center justify-center gap-1 rounded-xl border-2 p-3 text-sm font-medium transition-colors ${
+                      paymentMethod === "online"
+                        ? "border-primary bg-primary/10 text-primary"
+                        : "border-border bg-background text-muted-foreground hover:border-primary/40"
+                    }`}
+                  >
+                    <Lock className="h-4 w-4" />
+                    Pay Online
+                    <span className="text-xs font-normal opacity-75">UPI · Cards · Netbanking</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setPaymentMethod("venue")}
+                    className={`flex flex-col items-center justify-center gap-1 rounded-xl border-2 p-3 text-sm font-medium transition-colors ${
+                      paymentMethod === "venue"
+                        ? "border-primary bg-primary/10 text-primary"
+                        : "border-border bg-background text-muted-foreground hover:border-primary/40"
+                    }`}
+                  >
+                    <Phone className="h-4 w-4" />
+                    Pay at Venue
+                    <span className="text-xs font-normal opacity-75">Cash on the day</span>
+                  </button>
+                </div>
+                {paymentMethod === "venue" && (
+                  <p className="text-xs text-muted-foreground bg-muted/50 rounded-lg px-3 py-2">
+                    Reserve your seat now — bring <strong className="text-foreground">{inr(PRICE)} cash</strong> on the day. We'll hold your spot until 15 minutes before the session starts.
+                  </p>
+                )}
+              </div>
+
               <div className="space-y-2 text-left">
                 <label className="text-sm font-medium text-foreground">Full Name</label>
                 <Input
@@ -267,12 +331,19 @@ export function Registration() {
                 />
               </div>
               <Button type="submit" size="lg" className="w-full mt-2" disabled={loading}>
-                {loading ? "Processing..." : `Pay ${inr(PRICE)} & confirm my seat`} {!loading && <ArrowRight className="ml-2 h-5 w-5" />}
+                {loading
+                  ? "Processing..."
+                  : paymentMethod === "venue"
+                  ? `Reserve my seat (Pay ${inr(PRICE)} at venue)`
+                  : `Pay ${inr(PRICE)} & confirm my seat`}
+                {!loading && <ArrowRight className="ml-2 h-5 w-5" />}
               </Button>
-              <div className="flex items-center justify-center gap-4 pt-1 text-xs text-muted-foreground">
-                <span className="inline-flex items-center gap-1"><Lock className="h-3.5 w-3.5" /> Secured by Razorpay</span>
-                <span className="inline-flex items-center gap-1"><Gift className="h-3.5 w-3.5" /> UPI · Cards · Netbanking</span>
-              </div>
+              {paymentMethod === "online" && (
+                <div className="flex items-center justify-center gap-4 pt-1 text-xs text-muted-foreground">
+                  <span className="inline-flex items-center gap-1"><Lock className="h-3.5 w-3.5" /> Secured by Razorpay</span>
+                  <span className="inline-flex items-center gap-1"><Gift className="h-3.5 w-3.5" /> UPI · Cards · Netbanking</span>
+                </div>
+              )}
               <p className="text-center text-sm text-muted-foreground pt-2">
                 Questions before you pay?{" "}
                 <a
