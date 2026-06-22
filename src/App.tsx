@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/accordion";
 import { Logo } from "@/components/Logo";
 import { BecomeHost } from "@/components/BecomeHost";
+import { ScrollButtons } from "@/components/ScrollToTop";
 import { WhatsAppIcon } from "@/components/WhatsAppIcon";
 import { cn } from "@/lib/utils";
 import {
@@ -1187,6 +1188,8 @@ function App() {
           Book your seat <ArrowRight className="ml-1.5 h-4 w-4" />
         </Button>
       </div>
+
+      <ScrollButtons />
 
       {/* WhatsApp Floating CTA.
           Desktop: a full labelled pill — the value prop is always visible.

@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Logo } from "@/components/Logo";
 import { Registration } from "@/components/Registration";
+import { ScrollButtons } from "@/components/ScrollToTop";
 import {
   PRICE,
   WORKSHOP_DATE_LABEL,
@@ -123,6 +124,7 @@ export default function BookPage() {
           </div>
         </div>
       </footer>
+      <ScrollButtons />
     </div>
   );
 }
