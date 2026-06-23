@@ -4,48 +4,50 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222 47% 11%;
-    --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
-    --primary: 252 56% 57%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 220 14% 96%;
-    --secondary-foreground: 222 47% 11%;
-    --muted: 220 14% 96%;
-    --muted-foreground: 220 9% 46%;
-    --accent: 174 72% 46%;
-    --accent-foreground: 0 0% 100%;
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 252 56% 57%;
+    /* Earthy, community palette — warm cream paper, terracotta + sage.
+       Replaces the stark-white / violet+teal SaaS look. */
+    --background: 38 30% 97%;
+    --foreground: 24 14% 16%;
+    --card: 40 33% 99%;
+    --card-foreground: 24 14% 16%;
+    --popover: 40 33% 99%;
+    --popover-foreground: 24 14% 16%;
+    --primary: 14 58% 50%;
+    --primary-foreground: 40 33% 98%;
+    --secondary: 36 24% 92%;
+    --secondary-foreground: 24 14% 16%;
+    --muted: 36 24% 92%;
+    --muted-foreground: 28 8% 42%;
+    --accent: 145 24% 40%;
+    --accent-foreground: 40 33% 98%;
+    --destructive: 4 64% 50%;
+    --destructive-foreground: 40 33% 98%;
+    --border: 34 20% 87%;
+    --input: 34 20% 87%;
+    --ring: 14 58% 50%;
     --radius: 0.75rem;
   }
 
   .dark {
-    --background: 224 71% 4%;
-    --foreground: 210 20% 98%;
-    --card: 224 71% 4%;
-    --card-foreground: 210 20% 98%;
-    --popover: 224 71% 4%;
-    --popover-foreground: 210 20% 98%;
-    --primary: 252 56% 67%;
-    --primary-foreground: 224 71% 4%;
-    --secondary: 215 28% 17%;
-    --secondary-foreground: 210 20% 98%;
-    --muted: 215 28% 17%;
-    --muted-foreground: 218 11% 65%;
-    --accent: 174 72% 46%;
-    --accent-foreground: 0 0% 100%;
-    --destructive: 0 63% 31%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 215 28% 17%;
-    --input: 215 28% 17%;
-    --ring: 252 56% 67%;
+    --background: 24 18% 9%;
+    --foreground: 38 25% 92%;
+    --card: 24 16% 12%;
+    --card-foreground: 38 25% 92%;
+    --popover: 24 16% 12%;
+    --popover-foreground: 38 25% 92%;
+    --primary: 14 62% 57%;
+    --primary-foreground: 24 18% 9%;
+    --secondary: 24 12% 18%;
+    --secondary-foreground: 38 25% 92%;
+    --muted: 24 12% 18%;
+    --muted-foreground: 34 12% 64%;
+    --accent: 145 30% 52%;
+    --accent-foreground: 24 18% 9%;
+    --destructive: 4 60% 50%;
+    --destructive-foreground: 38 25% 92%;
+    --border: 24 12% 18%;
+    --input: 24 12% 18%;
+    --ring: 14 62% 57%;
   }
 }
 
@@ -56,6 +58,23 @@
   body {
     @apply bg-background text-foreground;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+  /* Friendlier, rounded display face for headings — warmer than geometric Inter. */
+  h1, h2, h3, h4 {
+    font-family: 'Nunito', 'Inter', system-ui, sans-serif;
+  }
+  /* Subtle paper-grain texture behind everything — warms the flat cream and
+     softens the clinical look. Sits behind app content (the page root is
+     transparent), so it shows through the light sections only. pointer-events
+     stay off the way. */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.5;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
   }
 }
 
