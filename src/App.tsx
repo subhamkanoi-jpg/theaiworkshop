@@ -261,6 +261,49 @@ function HostCard({
   );
 }
 
+// Mobile-only: the host portraits slide through one at a time, auto-advancing.
+function HostCarousel() {
+  const [current, setCurrent] = useState(0);
+  const count = hosts.length;
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setCurrent((c) => (c + 1) % count);
+    }, 3500);
+    return () => clearInterval(id);
+  }, [current, count]);
+
+  return (
+    <div>
+      <div className="relative overflow-hidden">
+        <div
+          className="flex items-start transition-transform duration-500 ease-in-out"
+          style={{ transform: `translateX(-${current * 100}%)` }}
+        >
+          {hosts.map((h) => (
+            <div key={h.name} className="w-full flex-shrink-0 px-4">
+              <HostCard {...h} />
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="flex justify-center gap-1.5 mt-6">
+        {hosts.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setCurrent(i)}
+            className={cn(
+              "h-1.5 rounded-full transition-all duration-300",
+              i === current ? "w-5 bg-primary" : "w-1.5 bg-muted-foreground/30"
+            )}
+            aria-label={`Go to host ${i + 1}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function PortfolioCarousel() {
   const [current, setCurrent] = useState(0);
   const count = portfolio.length;
@@ -740,10 +783,14 @@ function App() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-8 max-w-4xl mx-auto">
+          {/* Desktop: 3-up grid. Mobile: an auto-advancing carousel. */}
+          <div className="hidden sm:grid sm:grid-cols-3 gap-10 sm:gap-8 max-w-4xl mx-auto">
             {hosts.map((h) => (
               <HostCard key={h.name} {...h} />
             ))}
+          </div>
+          <div className="sm:hidden">
+            <HostCarousel />
           </div>
         </div>
       </section>
