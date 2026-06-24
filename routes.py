@@ -68,7 +68,7 @@ def send_confirmation_email(name: str, email: str, pay_at_venue: bool = False) -
     msg["To"] = email
 
     payment_note = (
-        '<p>Your seat is <strong>reserved</strong> — please bring <strong>₹799 cash</strong> to pay at the venue. '
+        '<p>Your seat is <strong>reserved</strong> — please bring <strong>₹599 cash</strong> to pay at the venue. '
         'We\'ll hold your spot until 15 minutes before the session starts.</p>'
         if pay_at_venue
         else '<p>Your payment is confirmed and your spot is secured for <strong>The AI Workshop</strong>.</p>'
@@ -83,7 +83,7 @@ def send_confirmation_email(name: str, email: str, pay_at_venue: bool = False) -
             <div style="background: #f8f5ff; border-radius: 8px; padding: 20px; margin: 20px 0;">
                 <p style="margin: 5px 0;"><strong>📅 Date:</strong> Sunday, 28 June 2026</p>
                 <p style="margin: 5px 0;"><strong>⏰ Time:</strong> 12:00 PM – 4:00 PM (4 hours)</p>
-                <p style="margin: 5px 0;"><strong>📍 Location:</strong> Kolkata (venue details coming soon)</p>
+                <p style="margin: 5px 0;"><strong>📍 Location:</strong> Salt Lake, Kolkata (exact location shared after registration)</p>
             </div>
             <p><strong>What to bring:</strong> Just your laptop and curiosity!</p>
             <p>We'll share the exact venue and timings closer to the date via WhatsApp/email.</p>
@@ -133,7 +133,7 @@ def send_admin_notification(name: str, email: str, phone: str, payment_id: str =
                 <p style="margin: 5px 0;"><strong>Phone:</strong> {phone}</p>
                 <p style="margin: 5px 0;"><strong>Payment ID:</strong> {payment_id or "—"}</p>
             </div>
-            <p style="font-size: 13px; color: #777;">Workshop: Sunday, 28 June 2026 · 12:00–4:00 PM · Kolkata</p>
+            <p style="font-size: 13px; color: #777;">Workshop: Sunday, 28 June 2026 · 12:00–4:00 PM · Salt Lake, Kolkata</p>
         </div>
     </body>
     </html>
@@ -191,6 +191,46 @@ def send_host_application_notification(name: str, phone: str, use_case: str, wor
         return False
 
 
+def send_interest_notification(name: str, contact: str, interest: str) -> bool:
+    """Notify the organiser inbox of a new 'show of interest' submission."""
+    smtp_email = os.environ.get("SMTP_EMAIL")
+    smtp_password = os.environ.get("SMTP_APP_PASSWORD")
+    if not smtp_email or not smtp_password:
+        return False
+    admin_email = os.environ.get("ADMIN_EMAIL", "theaiworkshop.in@gmail.com")
+
+    msg = MIMEMultipart("alternative")
+    msg["Subject"] = f"🔔 New interest: {name}"
+    msg["From"] = f"The AI Workshop <{smtp_email}>"
+    msg["To"] = admin_email
+
+    body = f"""\
+    <html>
+    <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+        <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
+            <h2 style="color: #7c3aed;">New show of interest 🔔</h2>
+            <p>Someone wants to hear about future / similar workshops.</p>
+            <div style="background: #f8f5ff; border-radius: 8px; padding: 20px; margin: 16px 0;">
+                <p style="margin: 5px 0;"><strong>Name:</strong> {html.escape(name)}</p>
+                <p style="margin: 5px 0;"><strong>Contact:</strong> {html.escape(contact)}</p>
+                <p style="margin: 5px 0;"><strong>Interested in:</strong> {html.escape(interest) or "—"}</p>
+            </div>
+        </div>
+    </body>
+    </html>
+    """
+    msg.attach(MIMEText(body, "html"))
+    try:
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
+            server.login(smtp_email, smtp_password)
+            server.sendmail(smtp_email, admin_email, msg.as_string())
+        print(f"[INTEREST EMAIL] Notified {admin_email} of new interest: {name}")
+        return True
+    except Exception as e:
+        print(f"[INTEREST EMAIL ERROR] Failed to notify admin: {e}")
+        return False
+
+
 REGISTRATIONS_FILE = Path("registrations.json")
 
 
@@ -217,6 +257,19 @@ def save_host_applications(data: list) -> None:
     HOST_APPLICATIONS_FILE.write_text(json.dumps(data, indent=2))
 
 
+INTEREST_FILE = Path("interest.json")
+
+
+def load_interest() -> list:
+    if INTEREST_FILE.exists():
+        return json.loads(INTEREST_FILE.read_text())
+    return []
+
+
+def save_interest(data: list) -> None:
+    INTEREST_FILE.write_text(json.dumps(data, indent=2))
+
+
 class Registration(BaseModel):
     name: str
     email: str
@@ -229,6 +282,12 @@ class HostApplication(BaseModel):
     phone: str
     use_case: str
     workshop_date: str  # ISO date (YYYY-MM-DD); must fall on a weekend
+
+
+class InterestSubmission(BaseModel):
+    name: str
+    contact: str
+    interest: str = ""
 
 
 class CreateOrderRequest(BaseModel):
@@ -285,7 +344,7 @@ def create_app(static_dir: str) -> FastAPI:
                 "name": r.get("name", ""),
                 "email": r.get("email", ""),
                 "phone": r.get("phone", ""),
-                "amount": "Pay at Venue" if r.get("payment_id") == "PAY_AT_VENUE" else "₹799",
+                "amount": "Pay at Venue" if r.get("payment_id") == "PAY_AT_VENUE" else "₹599",
                 "reference": r.get("payment_id", "") if r.get("payment_id") != "PAY_AT_VENUE" else "—",
                 "date": "",
             }
@@ -320,6 +379,27 @@ def create_app(static_dir: str) -> FastAPI:
     @api.get("/host-applications")
     def list_host_applications():
         return load_host_applications()
+
+    @api.post("/interest")
+    def show_interest(submission: InterestSubmission):
+        name = submission.name.strip()
+        contact = submission.contact.strip()
+        if not name or not contact:
+            raise HTTPException(status_code=400, detail="Name and contact are required.")
+
+        entries = load_interest()
+        entries.append({
+            "name": name,
+            "contact": contact,
+            "interest": submission.interest.strip(),
+        })
+        save_interest(entries)
+        send_interest_notification(name, contact, submission.interest.strip())
+        return {"status": "received", "message": f"Thanks, {name}! We'll keep you posted."}
+
+    @api.get("/interest")
+    def list_interest():
+        return load_interest()
 
     @api.post("/create-order")
     def create_order(req: CreateOrderRequest):

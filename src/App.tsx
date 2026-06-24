@@ -10,12 +10,12 @@ import {
 } from "@/components/ui/accordion";
 import { Logo } from "@/components/Logo";
 import { BecomeHost } from "@/components/BecomeHost";
+import { InterestForm } from "@/components/InterestForm";
 import { ScrollButtons } from "@/components/ScrollToTop";
 import { WhatsAppIcon } from "@/components/WhatsAppIcon";
 import { cn } from "@/lib/utils";
 import {
   PRICE,
-  TOTAL_SEATS,
   WORKSHOP_DATE_LABEL,
   WORKSHOP_TIME_LABEL,
   WHATSAPP_URL,
@@ -43,10 +43,11 @@ import {
   Zap,
   TrendingUp,
   Phone,
+  Bell,
 } from "lucide-react";
 
 // ──────────────────────────────────────────────────────────────────────────
-// Portfolio — sites built with vibe coding.
+// Portfolio — websites built with vibe coding.
 // 👉 Drop screenshots into /public/portfolio/ and fill in real URLs below.
 //    If an image is missing, a gradient placeholder shows automatically.
 // ──────────────────────────────────────────────────────────────────────────
@@ -56,9 +57,9 @@ const portfolio = [
   { name: "Subham Kanoi", tag: "Founder Portfolio", url: "https://www.subhamkanoi.com", image: "/portfolio/subham-kanoi.png" },
   // aakashdamani.com was down when we captured — gradient placeholder shows until a screenshot
   // is added at /portfolio/aakash-damani.png
-  { name: "Aakash Damani", tag: "Personal Site", url: "https://www.aakashdamani.in", image: "/portfolio/aakash-damani.png" },
+  { name: "Aakash Damani", tag: "Personal Website", url: "https://www.aakashdamani.in", image: "/portfolio/aakash-damani.png" },
   { name: "Amos Aerospace", tag: "Aerospace", url: "https://amosaerospace.com", image: "/portfolio/amos-aerospace.png" },
-  { name: "The AI Workshop", tag: "This very site", url: "https://www.theaiworkshop.in", image: "/portfolio/aiworkshop.png" },
+  { name: "The AI Workshop", tag: "This very website", url: "https://www.theaiworkshop.in", image: "/portfolio/aiworkshop.png" },
 ];
 
 // ──────────────────────────────────────────────────────────────────────────
@@ -449,41 +450,103 @@ function App() {
         </div>
       </nav>
 
-      {/* Hero Section */}
+      {/* Hero Section — community first. Before the workshop pitch, we lead with
+          who we are: the mission, the vision, and an invitation to the community. */}
       <section id="hero" className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-accent/5 to-primary/10" />
         <div className="absolute top-20 left-10 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
         <div className="absolute bottom-10 right-10 h-96 w-96 rounded-full bg-accent/10 blur-3xl" />
 
-        <div className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 pt-8 pb-16 sm:pt-12 sm:pb-24 text-center">
-          {/* Brand mission — the first thing a visitor sees and resonates with. */}
-          <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-5 py-2 text-base sm:text-lg font-bold text-primary mb-5">
-            <Sparkles className="h-5 w-5" />
-            AI is for everyone — not just engineers
+        <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 pt-10 pb-16 sm:pt-14 sm:pb-20 text-center">
+          <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-5 py-2 text-sm sm:text-base font-bold text-primary mb-5">
+            <Users className="h-5 w-5" />
+            The AI Workshop Community
           </div>
 
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground leading-[1.08]">
+            AI is for{" "}
+            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              everyone
+            </span>{" "}
+            — not just engineers.
+          </h1>
+
+          <p className="mx-auto mt-6 max-w-2xl text-lg sm:text-xl text-muted-foreground">
+            We're a Kolkata community making AI practical and hands-on for everyone —
+            business owners, freelancers, students, anyone curious. No jargon, no gatekeeping.
+          </p>
+
+          {/* Mission / vision as visual artifact cards */}
+          <div className="mt-12 grid sm:grid-cols-3 gap-5 text-left">
+            {[
+              {
+                icon: <Sparkles className="h-6 w-6" />,
+                label: "Our Mission",
+                text: "Put real, working AI skills in the hands of non-techies — one hands-on, offline workshop at a time.",
+              },
+              {
+                icon: <Rocket className="h-6 w-6" />,
+                label: "Our Vision",
+                text: "A community where anyone with a proven AI use-case can teach it, and anyone curious can learn it.",
+              },
+              {
+                icon: <Users className="h-6 w-6" />,
+                label: "Our People",
+                text: "50+ members and growing daily — swapping tips, building in public, shaping what we create next.",
+              },
+            ].map((c) => (
+              <div key={c.label} className="rounded-2xl border border-border/60 bg-card/70 backdrop-blur-sm p-6 shadow-sm">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                  {c.icon}
+                </div>
+                <h3 className="mt-4 text-base font-bold text-foreground">{c.label}</h3>
+                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{c.text}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackContact("whatsapp")}
+              className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-[#25D366] px-8 py-4 text-base font-semibold text-white hover:bg-[#1ebe57] transition-colors"
+            >
+              <WhatsAppIcon className="h-5 w-5" /> Join the community
+            </a>
+            <Button size="lg" variant="outline" onClick={() => scrollTo("workshop")} className="text-base px-8 py-6 w-full sm:w-auto">
+              Explore Workshop #01 <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Workshop pitch — the current use-case the community is running. */}
+      <section id="workshop-pitch" className="relative overflow-hidden border-t border-border bg-muted/20">
+        <div className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 pt-14 pb-16 sm:pt-16 sm:pb-20 text-center">
           <p className="mb-4 text-sm font-semibold uppercase tracking-wider text-accent">
             Workshop #01 · Build Your Own Website
           </p>
 
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground leading-[1.08]">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-foreground leading-[1.1]">
             Build & launch{" "}
             <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
               your own website
             </span>{" "}
             in one Sunday afternoon.
-          </h1>
+          </h2>
 
           <p className="mx-auto mt-6 max-w-xl text-lg sm:text-xl text-muted-foreground">
-            No code. No agency. Walk in with an idea — walk out with a live site you own.
+            No code. No agency. Walk in with an idea — walk out with a live website you own.
           </p>
 
           <div className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary">
             <MapPin className="h-4 w-4" />
-            Offline in Kolkata · {WORKSHOP_DATE_LABEL}
+            Salt Lake, Kolkata · {WORKSHOP_DATE_LABEL}
           </div>
 
-          {/* Compact value pointers — replaces the long paragraphs */}
+          {/* Compact value pointers */}
           <div className="mt-8 flex flex-wrap items-start justify-center gap-x-8 sm:gap-x-12 gap-y-6">
             {[
               { icon: <Sparkles className="h-6 w-6" />, label: "No code" },
@@ -515,13 +578,13 @@ function App() {
               Book Your Seat — {inr(PRICE)} <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
             <Button size="lg" variant="outline" onClick={() => scrollTo("work")} className="text-base px-8 py-6 w-full sm:w-auto">
-              See sites we built
+              See websites we built
             </Button>
           </div>
 
           <p className="mt-4 text-sm text-muted-foreground flex items-center justify-center gap-1.5">
             <ShieldCheck className="h-4 w-4 text-accent" />
-            100% beginner-friendly · Secure Razorpay payment · Walk away with a live site
+            100% beginner-friendly · Secure Razorpay payment · Walk away with a live website
           </p>
 
           {/* Meta row */}
@@ -536,7 +599,7 @@ function App() {
             </div>
             <div className="flex items-center gap-2">
               <Users className="h-4 w-4 text-primary" />
-              <span>Only {TOTAL_SEATS} seats</span>
+              <span>Small batch · real attention</span>
             </div>
           </div>
         </div>
@@ -548,10 +611,10 @@ function App() {
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-10">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-8 text-center">
             {[
-              { value: "30+", label: "in the community, growing daily" },
-              { value: `${TOTAL_SEATS}`, label: "seats this batch" },
+              { value: "50+", label: "in the community, growing daily" },
+              { value: "Small", label: "batch — everyone gets real attention" },
               { value: "100%", label: "beginner-friendly" },
-              { value: "Sun 28", label: "go live this Sunday" },
+              { value: "Sun 28", label: "your build-&-launch day" },
             ].map((s) => (
               <div key={s.label}>
                 <p className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
@@ -618,10 +681,10 @@ function App() {
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-14">
             <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
-              AI is for everyone — not just engineers
+              Built for people, not programmers
             </h2>
             <p className="mt-4 text-lg text-muted-foreground">
-              Built for business owners, freelancers, students — anyone curious.
+              Made for business owners, freelancers, students — anyone curious.
             </p>
           </div>
 
@@ -671,6 +734,14 @@ function App() {
             <p className="mt-4 text-lg text-muted-foreground">
               Walk in with an idea. Walk out with a real website on the internet. No coding experience needed.
             </p>
+            {/* Why a website at all — the basic, important case, kept short. */}
+            <p className="mt-5 inline-flex items-start gap-2 rounded-xl bg-accent/5 border border-accent/15 px-4 py-3 text-left text-sm text-muted-foreground">
+              <Globe className="h-4 w-4 text-accent flex-shrink-0 mt-0.5" />
+              <span>
+                <strong className="text-foreground">Why a website?</strong> In 2026 it's the basic minimum —
+                it's how people find you, judge you, and decide to trust you before you ever speak. Not having one quietly costs you.
+              </span>
+            </p>
           </div>
 
           {/* Workshop Details Card */}
@@ -714,14 +785,14 @@ function App() {
                       <div className="flex items-center gap-3">
                         <MapPin className="h-5 w-5 text-primary flex-shrink-0" />
                         <div>
-                          <p className="font-medium text-foreground">Kolkata</p>
-                          <p className="text-sm text-muted-foreground">Venue details on registration</p>
+                          <p className="font-medium text-foreground">Salt Lake, Kolkata</p>
+                          <p className="text-sm text-muted-foreground">Exact location shared after registration</p>
                         </div>
                       </div>
                       <div className="flex items-center gap-3">
                         <Users className="h-5 w-5 text-primary flex-shrink-0" />
                         <div>
-                          <p className="font-medium text-foreground">Just {TOTAL_SEATS} seats</p>
+                          <p className="font-medium text-foreground">Small batch</p>
                           <p className="text-sm text-muted-foreground">Founding cohort — small enough for real attention</p>
                         </div>
                       </div>
@@ -773,6 +844,36 @@ function App() {
               </CardContent>
             </Card>
           </div>
+
+          {/* The same website, a fraction of the price — compact comparison strip. */}
+          <div className="mt-10 rounded-2xl border border-primary/20 bg-primary/5 p-6 sm:p-8">
+            <div className="grid sm:grid-cols-2 gap-6 items-center">
+              <div>
+                <h3 className="text-xl sm:text-2xl font-bold text-foreground">
+                  The same website. A fraction of the price.
+                </h3>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  Pay an agency once. Or learn it once — and never pay again.
+                </p>
+                <p className="mt-3 text-sm text-foreground flex items-center gap-2">
+                  <TrendingUp className="h-4 w-4 text-accent flex-shrink-0" />
+                  One website pays for the workshop ~15× over. The skill pays forever.
+                </p>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <div className="flex-1 rounded-xl border border-border/60 bg-background/60 p-4 text-center">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Hire an agency</p>
+                  <p className="mt-1 text-xl font-extrabold text-foreground line-through decoration-destructive/60">₹10,000+</p>
+                  <p className="mt-1 text-xs text-muted-foreground">Weeks of waiting · pay for every change</p>
+                </div>
+                <div className="flex-1 rounded-xl border border-primary/40 bg-card p-4 text-center shadow-sm">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-primary">This workshop</p>
+                  <p className="mt-1 text-xl font-extrabold text-foreground">{inr(PRICE)}</p>
+                  <p className="mt-1 text-xs text-muted-foreground">Live in 4 hours · a skill you keep for life</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -796,57 +897,6 @@ function App() {
         </div>
       </section>
 
-      {/* Price Anchor / "The Math" Section — placed after the curriculum, so price
-          lands once desire is built rather than before the pitch is made. */}
-      <section className="py-16 sm:py-20 border-y border-border">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-10">
-            <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
-              The same website. A fraction of the price.
-            </h2>
-            <p className="mt-4 text-lg text-muted-foreground">
-              Pay an agency once. Or learn it once — and never pay again.
-            </p>
-          </div>
-
-          <div className="grid sm:grid-cols-2 gap-5">
-            {/* Agency */}
-            <Card className="border-border/60 bg-background/60">
-              <CardContent className="p-7">
-                <p className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Hire an agency</p>
-                <p className="mt-2 text-3xl font-extrabold text-foreground">₹10,000–₹20,000</p>
-                <ul className="mt-5 space-y-3 text-sm text-muted-foreground">
-                  <li className="flex items-start gap-2"><X className="h-4 w-4 text-destructive flex-shrink-0 mt-0.5" /> 2–3 week wait, endless back-and-forth</li>
-                  <li className="flex items-start gap-2"><X className="h-4 w-4 text-destructive flex-shrink-0 mt-0.5" /> Pay again for every small change</li>
-                  <li className="flex items-start gap-2"><X className="h-4 w-4 text-destructive flex-shrink-0 mt-0.5" /> You don't control or understand it</li>
-                </ul>
-              </CardContent>
-            </Card>
-
-            {/* Workshop */}
-            <Card className="relative border-primary/40 bg-primary/5 shadow-lg">
-              <div className="absolute -top-3 left-7 rounded-full bg-accent/15 px-3 py-1 text-xs font-semibold text-accent">
-                The community way
-              </div>
-              <CardContent className="p-7">
-                <p className="text-sm font-semibold uppercase tracking-wide text-primary">This workshop</p>
-                <p className="mt-2 text-3xl font-extrabold text-foreground">{inr(PRICE)} <span className="text-base font-medium text-muted-foreground">/ early bird</span></p>
-                <ul className="mt-5 space-y-3 text-sm text-foreground">
-                  <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-accent flex-shrink-0 mt-0.5" /> Go live in a single 4-hour session</li>
-                  <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-accent flex-shrink-0 mt-0.5" /> Edit & rebuild anytime — for free, forever</li>
-                  <li className="flex items-start gap-2"><CheckCircle2 className="h-4 w-4 text-accent flex-shrink-0 mt-0.5" /> A skill you keep for life, not a one-off</li>
-                </ul>
-              </CardContent>
-            </Card>
-          </div>
-
-          <p className="mt-6 text-center text-sm text-muted-foreground flex items-center justify-center gap-2">
-            <TrendingUp className="h-4 w-4 text-accent" />
-            One website pays for the workshop ~15× over. The skill pays forever.
-          </p>
-        </div>
-      </section>
-
       {/* What's Next / Roadmap Section */}
       <section id="roadmap" className="py-20 sm:py-24 bg-muted/30">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
@@ -866,7 +916,7 @@ function App() {
           <div className="grid sm:grid-cols-3 gap-5">
             <Card className="relative border-primary/40 bg-primary/5 shadow-sm">
               <div className="absolute -top-3 left-6 rounded-full bg-accent/15 px-3 py-1 text-xs font-semibold text-accent">
-                This Sunday
+                Up first
               </div>
               <CardContent className="p-7">
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
@@ -927,6 +977,27 @@ function App() {
               Got a use-case of your own? Teach it in the next workshop.
             </p>
           </div>
+        </div>
+      </section>
+
+      {/* Show of Interest Section — for people who want similar / future workshops. */}
+      <section id="interest" className="py-20 sm:py-24">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-10">
+            <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary mb-4">
+              <Bell className="h-4 w-4" />
+              Show of interest
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
+              Want workshops like this in the future?
+            </h2>
+            <p className="mt-4 text-lg text-muted-foreground">
+              Can't make this one, or curious about a different use-case? Leave your details and
+              we'll let you know when the next workshop that fits you is announced.
+            </p>
+          </div>
+
+          <InterestForm />
         </div>
       </section>
 
@@ -1047,7 +1118,7 @@ function App() {
                 What do I need to bring?
               </AccordionTrigger>
               <AccordionContent className="text-muted-foreground pb-4">
-                Just your laptop and a willingness to learn. We'll guide you through everything else — from setting up free tools to deploying your site. No software installs needed beforehand.
+                Just your laptop and a willingness to learn. We'll guide you through everything else — from setting up free tools to deploying your website. No software installs needed beforehand.
               </AccordionContent>
             </AccordionItem>
 
@@ -1056,7 +1127,7 @@ function App() {
                 Is hosting really free?
               </AccordionTrigger>
               <AccordionContent className="text-muted-foreground pb-4">
-                Yes — we deploy on Vercel's free tier, plenty for personal and small-business sites. The only possible extra is your domain (₹199–599).
+                Yes — we deploy on Vercel's free tier, plenty for personal and small-business websites. The only possible extra is your domain (₹199–599).
               </AccordionContent>
             </AccordionItem>
 
@@ -1074,7 +1145,7 @@ function App() {
                 Where in Kolkata is the workshop?
               </AccordionTrigger>
               <AccordionContent className="text-muted-foreground pb-4">
-                Shared with registered participants before the date — a comfortable, well-connected spot in Kolkata.
+                In Salt Lake, Kolkata — a comfortable, well-connected spot. The exact location is shared with participants after registration.
               </AccordionContent>
             </AccordionItem>
 
@@ -1098,7 +1169,7 @@ function App() {
               <WhatsAppIcon className="h-6 w-6" />
             </div>
             <div className="text-center sm:text-left">
-              <h3 className="text-lg font-semibold text-foreground">30+ members and growing daily</h3>
+              <h3 className="text-lg font-semibold text-foreground">50+ members and growing daily</h3>
               <p className="text-sm text-muted-foreground">Join the founding community — swap AI tips, help shape what we build next, and get first dibs on every future workshop.</p>
             </div>
             <a
@@ -1130,7 +1201,7 @@ function App() {
           </Button>
           <p className="mt-4 text-sm text-muted-foreground flex items-center justify-center gap-1.5">
             <ShieldCheck className="h-4 w-4 text-accent" />
-            Secure Razorpay payment · Walk away with a live site
+            Secure Razorpay payment · Walk away with a live website
           </p>
         </div>
       </section>
@@ -1184,7 +1255,7 @@ function App() {
             <span className="text-lg font-extrabold text-foreground">{inr(PRICE)}</span>
             <span className="text-xs font-medium text-muted-foreground">early-bird</span>
           </div>
-          <p className="text-[11px] text-muted-foreground">Only {TOTAL_SEATS} seats</p>
+          <p className="text-[11px] text-muted-foreground">Small batch · limited seats</p>
         </div>
         <Button onClick={goToBook} className="flex-1 max-w-[60%]">
           Book your seat <ArrowRight className="ml-1.5 h-4 w-4" />

@@ -37,7 +37,7 @@ export default function BookPage() {
   const facts = [
     { icon: <Calendar className="h-4 w-4 text-primary" />, label: WORKSHOP_DATE_LABEL },
     { icon: <Clock className="h-4 w-4 text-primary" />, label: `${WORKSHOP_TIME_LABEL} (4 hrs)` },
-    { icon: <MapPin className="h-4 w-4 text-primary" />, label: "Offline in Kolkata" },
+    { icon: <MapPin className="h-4 w-4 text-primary" />, label: "Salt Lake, Kolkata" },
     { icon: <Users className="h-4 w-4 text-primary" />, label: "A small batch" },
   ];
 
@@ -53,7 +53,7 @@ export default function BookPage() {
             href="/"
             className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
           >
-            <ArrowLeft className="h-4 w-4" /> Back to site
+            <ArrowLeft className="h-4 w-4" /> Back to website
           </a>
         </div>
       </header>
@@ -95,7 +95,7 @@ export default function BookPage() {
 
           <p className="mt-8 text-center text-sm text-muted-foreground flex items-center justify-center gap-2">
             <ShieldCheck className="h-4 w-4 text-accent" />
-            100% beginner-friendly · Secure Razorpay payment · Walk away with a live site
+            100% beginner-friendly · Secure Razorpay payment · Walk away with a live website
           </p>
         </div>
       </section>
