@@ -91,6 +91,83 @@ const hosts = [
   },
 ];
 
+// ──────────────────────────────────────────────────────────────────────────
+// Community mission / vision / people — the three hero "artifact" cards.
+// Desktop shows them as a 3-up grid; mobile cycles them as a carousel.
+// ──────────────────────────────────────────────────────────────────────────
+const missionCards = [
+  {
+    icon: <Sparkles className="h-6 w-6" />,
+    label: "Our Mission",
+    text: "Put real, working AI skills in the hands of non-techies — one hands-on, offline workshop at a time.",
+  },
+  {
+    icon: <Rocket className="h-6 w-6" />,
+    label: "Our Vision",
+    text: "A community where anyone with a proven AI use-case can teach it, and anyone curious can learn it.",
+  },
+  {
+    icon: <Users className="h-6 w-6" />,
+    label: "Our People",
+    text: "50+ members and growing daily — swapping tips, building in public, shaping what we create next.",
+  },
+];
+
+function MissionCard({ icon, label, text }: (typeof missionCards)[number]) {
+  return (
+    <div className="h-full rounded-2xl border border-border/60 bg-card/70 backdrop-blur-sm p-6 shadow-sm text-left">
+      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+        {icon}
+      </div>
+      <h3 className="mt-4 text-base font-bold text-foreground">{label}</h3>
+      <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{text}</p>
+    </div>
+  );
+}
+
+// Mobile-only: the three cards slide through one at a time, auto-advancing.
+function MissionCarousel() {
+  const [current, setCurrent] = useState(0);
+  const count = missionCards.length;
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setCurrent((c) => (c + 1) % count);
+    }, 3000);
+    return () => clearInterval(id);
+  }, [current, count]);
+
+  return (
+    <div>
+      <div className="relative overflow-hidden rounded-2xl">
+        <div
+          className="flex items-stretch transition-transform duration-500 ease-in-out"
+          style={{ transform: `translateX(-${current * 100}%)` }}
+        >
+          {missionCards.map((c) => (
+            <div key={c.label} className="w-full flex-shrink-0">
+              <MissionCard {...c} />
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="flex justify-center gap-1.5 mt-4">
+        {missionCards.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setCurrent(i)}
+            className={cn(
+              "h-1.5 rounded-full transition-all duration-300",
+              i === current ? "w-5 bg-primary" : "w-1.5 bg-muted-foreground/30"
+            )}
+            aria-label={`Go to card ${i + 1}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function PortfolioThumb({ name, tag, image, url }: (typeof portfolio)[number]) {
   const [broken, setBroken] = useState(false);
   return (
@@ -467,33 +544,17 @@ function App() {
             business owners, freelancers, students, anyone curious. No jargon, no gatekeeping.
           </p>
 
-          {/* Mission / vision as visual artifact cards */}
-          <div className="mt-12 grid sm:grid-cols-3 gap-5 text-left">
-            {[
-              {
-                icon: <Sparkles className="h-6 w-6" />,
-                label: "Our Mission",
-                text: "Put real, working AI skills in the hands of non-techies — one hands-on, offline workshop at a time.",
-              },
-              {
-                icon: <Rocket className="h-6 w-6" />,
-                label: "Our Vision",
-                text: "A community where anyone with a proven AI use-case can teach it, and anyone curious can learn it.",
-              },
-              {
-                icon: <Users className="h-6 w-6" />,
-                label: "Our People",
-                text: "50+ members and growing daily — swapping tips, building in public, shaping what we create next.",
-              },
-            ].map((c) => (
-              <div key={c.label} className="rounded-2xl border border-border/60 bg-card/70 backdrop-blur-sm p-6 shadow-sm">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                  {c.icon}
-                </div>
-                <h3 className="mt-4 text-base font-bold text-foreground">{c.label}</h3>
-                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{c.text}</p>
-              </div>
-            ))}
+          {/* Mission / vision artifact cards.
+              Desktop: 3-up grid. Mobile: an auto-advancing carousel. */}
+          <div className="mt-12">
+            <div className="hidden sm:grid sm:grid-cols-3 gap-5">
+              {missionCards.map((c) => (
+                <MissionCard key={c.label} {...c} />
+              ))}
+            </div>
+            <div className="sm:hidden">
+              <MissionCarousel />
+            </div>
           </div>
 
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
