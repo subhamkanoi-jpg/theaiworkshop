@@ -29,7 +29,6 @@ import {
   Calendar,
   Clock,
   ArrowRight,
-  CheckCircle2,
   Rocket,
   Mail,
   Palette,
@@ -382,14 +381,6 @@ function App() {
     },
   ];
 
-  const whoIsThisFor = [
-    "Small business owners who want a web presence",
-    "Freelancers building their portfolio",
-    "Students exploring AI and web tech",
-    "Creatives & artists showcasing their work",
-    "Anyone curious about AI — no tech background needed",
-  ];
-
   return (
     <div className="min-h-screen pb-20 md:pb-0">
       {/* Announcement Bar */}
@@ -676,47 +667,24 @@ function App() {
         </div>
       </section>
 
-      {/* About Section */}
-      <section id="about" className="py-20 sm:py-24 bg-muted/30">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-14">
+      {/* Become a Host Section — pulled up to follow the real-websites proof,
+          riding the momentum from "look what the community built". */}
+      <section id="host" className="py-20 sm:py-24 border-t border-border">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <div className="inline-flex items-center gap-2 rounded-full bg-accent/10 px-4 py-1.5 text-sm font-medium text-accent mb-4">
+              <Sparkles className="h-4 w-4" />
+              Become a host
+            </div>
             <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
-              Built for people, not programmers
+              Implemented AI in your business? Teach it.
             </h2>
             <p className="mt-4 text-lg text-muted-foreground">
-              Made for business owners, freelancers, students — anyone curious.
+              Can you run a 3-hour hands-on session on your use-case? Fill out the form below.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
-            {[
-              {
-                icon: <Users className="h-8 w-8" />,
-                title: "For Non-Techies",
-                desc: "No coding prerequisites. If you can use WhatsApp, you can learn this.",
-              },
-              {
-                icon: <Sparkles className="h-8 w-8" />,
-                title: "Learn by Doing",
-                desc: "Every workshop is hands-on. You leave with something real you've built.",
-              },
-              {
-                icon: <MapPin className="h-8 w-8" />,
-                title: "Offline & In-Person",
-                desc: "Real human connection. Learn face-to-face with instructors who care.",
-              },
-            ].map((item, i) => (
-              <Card key={i} className="group relative overflow-hidden border-border/50 hover:border-primary/30 transition-colors">
-                <CardContent className="pt-8 pb-6 px-6">
-                  <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                    {item.icon}
-                  </div>
-                  <h3 className="text-xl font-semibold text-foreground mb-2">{item.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed">{item.desc}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          <BecomeHost />
         </div>
       </section>
 
@@ -805,45 +773,6 @@ function App() {
               </div>
             </CardContent>
           </Card>
-
-          {/* Who is this for + What you get */}
-          <div className="grid md:grid-cols-2 gap-6">
-            <Card>
-              <CardContent className="pt-8 pb-6 px-6">
-                <h3 className="text-xl font-bold text-foreground mb-6">Who Is This For?</h3>
-                <ul className="space-y-3">
-                  {whoIsThisFor.map((item, i) => (
-                    <li key={i} className="flex items-start gap-3">
-                      <CheckCircle2 className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
-                      <span className="text-muted-foreground">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="pt-8 pb-6 px-6">
-                <h3 className="text-xl font-bold text-foreground mb-6">No experience? Perfect.</h3>
-                <ul className="space-y-3">
-                  {[
-                    "Built for absolute beginners",
-                    'We start from "what\'s a domain?"',
-                    "Can browse & type? You'll keep up",
-                    "3 hosts in the room — no one left behind",
-                  ].map((item) => (
-                    <li key={item} className="flex items-start gap-3">
-                      <CheckCircle2 className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
-                      <span className="text-muted-foreground">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-                <div className="mt-6 flex items-center gap-2 text-sm font-medium text-primary">
-                  <Sparkles className="h-4 w-4" />
-                  You'll leave with a website — guaranteed.
-                </div>
-              </CardContent>
-            </Card>
-          </div>
 
           {/* The same website, a fraction of the price — compact comparison strip. */}
           <div className="mt-10 rounded-2xl border border-primary/20 bg-primary/5 p-6 sm:p-8">
@@ -998,26 +927,6 @@ function App() {
           </div>
 
           <InterestForm />
-        </div>
-      </section>
-
-      {/* Become a Host Section */}
-      <section id="host" className="py-20 sm:py-24 border-t border-border">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <div className="inline-flex items-center gap-2 rounded-full bg-accent/10 px-4 py-1.5 text-sm font-medium text-accent mb-4">
-              <Sparkles className="h-4 w-4" />
-              Become a host
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
-              Implemented AI in your business? Teach it.
-            </h2>
-            <p className="mt-4 text-lg text-muted-foreground">
-              Can you run a 3-hour hands-on session on your use-case? Fill out the form below.
-            </p>
-          </div>
-
-          <BecomeHost />
         </div>
       </section>
 
