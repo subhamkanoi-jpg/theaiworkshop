@@ -667,6 +667,26 @@ function App() {
         </div>
       </section>
 
+      {/* Team Section — right after the community builds: who teaches builds trust early. */}
+      <section id="team" className="py-20 sm:py-24 bg-muted/30">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-14">
+            <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
+              Meet Your Workshop Hosts
+            </h2>
+            <p className="mt-4 text-lg text-muted-foreground">
+              Three brothers who believe AI should be for everyone — not just engineers.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-8 max-w-4xl mx-auto">
+            {hosts.map((h) => (
+              <HostCard key={h.name} {...h} />
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Become a Host Section — pulled up to follow the real-websites proof,
           riding the momentum from "look what the community built". */}
       <section id="host" className="py-20 sm:py-24 border-t border-border">
@@ -802,26 +822,6 @@ function App() {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Team Section — pulled up: who teaches builds trust before the price ask. */}
-      <section id="team" className="py-20 sm:py-24 bg-muted/30">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-14">
-            <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
-              Meet Your Workshop Hosts
-            </h2>
-            <p className="mt-4 text-lg text-muted-foreground">
-              Three brothers who believe AI should be for everyone — not just engineers.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-8 max-w-4xl mx-auto">
-            {hosts.map((h) => (
-              <HostCard key={h.name} {...h} />
-            ))}
           </div>
         </div>
       </section>
