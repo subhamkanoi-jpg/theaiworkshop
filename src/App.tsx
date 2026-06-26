@@ -151,17 +151,19 @@ function MissionCarousel() {
           ))}
         </div>
       </div>
-      <div className="flex justify-center gap-1.5 mt-4">
+      <div className="flex justify-center gap-0.5 mt-4">
         {missionCards.map((_, i) => (
           <button
             key={i}
             onClick={() => setCurrent(i)}
-            className={cn(
-              "h-1.5 rounded-full transition-all duration-300",
-              i === current ? "w-5 bg-primary" : "w-1.5 bg-muted-foreground/30"
-            )}
+            className="flex items-center justify-center p-3 -m-1"
             aria-label={`Go to card ${i + 1}`}
-          />
+          >
+            <span className={cn(
+              "h-1.5 rounded-full transition-all duration-300 block",
+              i === current ? "w-5 bg-primary" : "w-1.5 bg-muted-foreground/30"
+            )} />
+          </button>
         ))}
       </div>
     </div>
@@ -287,17 +289,19 @@ function HostCarousel() {
           ))}
         </div>
       </div>
-      <div className="flex justify-center gap-1.5 mt-6">
+      <div className="flex justify-center gap-0.5 mt-6">
         {hosts.map((_, i) => (
           <button
             key={i}
             onClick={() => setCurrent(i)}
-            className={cn(
-              "h-1.5 rounded-full transition-all duration-300",
-              i === current ? "w-5 bg-primary" : "w-1.5 bg-muted-foreground/30"
-            )}
+            className="flex items-center justify-center p-3 -m-1"
             aria-label={`Go to host ${i + 1}`}
-          />
+          >
+            <span className={cn(
+              "h-1.5 rounded-full transition-all duration-300 block",
+              i === current ? "w-5 bg-primary" : "w-1.5 bg-muted-foreground/30"
+            )} />
+          </button>
         ))}
       </div>
     </div>
@@ -329,17 +333,19 @@ function PortfolioCarousel() {
           ))}
         </div>
       </div>
-      <div className="flex justify-center gap-1.5 mt-4">
+      <div className="flex justify-center gap-0.5 mt-4">
         {portfolio.map((_, i) => (
           <button
             key={i}
             onClick={() => setCurrent(i)}
-            className={cn(
-              "h-1.5 rounded-full transition-all duration-300",
-              i === current ? "w-5 bg-primary" : "w-1.5 bg-muted-foreground/30"
-            )}
+            className="flex items-center justify-center p-3 -m-1"
             aria-label={`Go to slide ${i + 1}`}
-          />
+          >
+            <span className={cn(
+              "h-1.5 rounded-full transition-all duration-300 block",
+              i === current ? "w-5 bg-primary" : "w-1.5 bg-muted-foreground/30"
+            )} />
+          </button>
         ))}
       </div>
     </div>
@@ -538,8 +544,10 @@ function App() {
             </div>
 
             <button
-              className="md:hidden text-foreground"
+              className="md:hidden text-foreground p-2 -mr-2"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileMenuOpen}
             >
               {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
@@ -669,7 +677,7 @@ function App() {
           </p>
 
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button size="lg" onClick={goToBook} className="text-base px-8 py-6 w-full sm:w-auto">
+            <Button size="lg" onClick={goToBook} className="text-base px-8 py-6 w-full sm:w-auto font-bold shadow-md hover:shadow-lg transition-shadow">
               Book Your Seat — {inr(PRICE)} <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
             <Button size="lg" variant="outline" onClick={() => scrollTo("work")} className="text-base px-8 py-6 w-full sm:w-auto">
@@ -894,7 +902,7 @@ function App() {
                       </div>
                     </div>
                   </div>
-                  <Button onClick={goToBook} className="mt-8 w-full" size="lg">
+                  <Button onClick={goToBook} className="mt-8 w-full font-bold shadow-md hover:shadow-lg transition-shadow" size="lg">
                     Save my seat — {inr(PRICE)} <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
                 </div>
@@ -1213,7 +1221,7 @@ function App() {
           <p className="mt-4 text-lg text-muted-foreground">
             Small batch. Real attention. {WORKSHOP_DATE_LABEL}.
           </p>
-          <Button size="lg" onClick={goToBook} className="mt-8 text-base px-8 py-6">
+          <Button size="lg" onClick={goToBook} className="mt-8 text-base px-8 py-6 font-bold shadow-md hover:shadow-lg transition-shadow">
             Join the founding cohort — {inr(PRICE)} <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
           <p className="mt-4 text-sm text-muted-foreground flex items-center justify-center gap-1.5">
@@ -1274,7 +1282,7 @@ function App() {
           </div>
           <p className="text-[11px] text-muted-foreground">Small batch · limited seats</p>
         </div>
-        <Button onClick={goToBook} className="flex-1 max-w-[60%]">
+        <Button onClick={goToBook} className="flex-1 max-w-[60%] font-bold">
           Book your seat <ArrowRight className="ml-1.5 h-4 w-4" />
         </Button>
       </div>
