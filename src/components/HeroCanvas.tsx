@@ -29,8 +29,14 @@ export function HeroCanvas() {
       if (disposed || !mountRef.current) return;
 
       const isMobile = window.innerWidth < 768;
-      const COUNT = isMobile ? 42 : 90;
+      // Density scales with canvas area so small heroes (e.g. the booking
+      // page) stay airy instead of crowding the same node count into less
+      // space. ~1 node per 11k px², clamped to a sane range.
+      const area = mount.clientWidth * mount.clientHeight;
+      const COUNT = Math.max(18, Math.min(isMobile ? 42 : 90, Math.round(area / 11000)));
       const LINK_DIST = isMobile ? 130 : 170; // px in world units (1 unit = 1px at z=0)
+      // Small heroes (booking page) get fainter lines so text always wins.
+      const LINE_OPACITY = area < 500_000 ? 0.09 : 0.14;
 
       const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -90,7 +96,7 @@ export function HeroCanvas() {
       const lineMat = new THREE.LineBasicMaterial({
         color: terracotta,
         transparent: true,
-        opacity: 0.14,
+        opacity: LINE_OPACITY,
         depthWrite: false,
       });
       const lines = new THREE.LineSegments(lineGeo, lineMat);

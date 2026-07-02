@@ -23,7 +23,8 @@ export function initSiteAnimations(): () => void {
 
   mm.add("(prefers-reduced-motion: no-preference)", () => {
     // ── Hero headline: words rise softly on load ─────────────────────────
-    const h1 = document.querySelector("#hero h1");
+    // Any page can opt its headline in with data-hero-words.
+    const h1 = document.querySelector("[data-hero-words]");
     if (h1) {
       const alreadyWrapped = !!h1.querySelector(".gsap-word");
       const wrapWords = (el: Element) => {

@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 import { Logo } from "@/components/Logo";
+import { HeroCanvas } from "@/components/HeroCanvas";
+import { initSiteAnimations } from "@/lib/animations";
 import { Registration } from "@/components/Registration";
 import { ScrollButtons } from "@/components/ScrollToTop";
 import {
@@ -34,6 +36,10 @@ export default function BookPage() {
     trackViewContent("Workshop Booking Page", "Workshop Registration", PRICE);
   }, []);
 
+  // Same GSAP micro-animation engine as the homepage (scroll reveals, word
+  // rise, drift blobs…). Returns its own cleanup — StrictMode-safe.
+  useEffect(() => initSiteAnimations(), []);
+
   const facts = [
     { icon: <Calendar className="h-4 w-4 text-primary" />, label: WORKSHOP_DATE_LABEL },
     { icon: <Clock className="h-4 w-4 text-primary" />, label: `${WORKSHOP_TIME_LABEL} (2 hrs)` },
@@ -43,6 +49,12 @@ export default function BookPage() {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Reading progress — same hairline gradient as the homepage. */}
+      <div
+        id="scroll-progress"
+        className="fixed top-0 inset-x-0 z-[60] h-[3px] origin-left scale-x-0 bg-gradient-to-r from-primary to-accent"
+      />
+
       {/* Slim header */}
       <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-lg">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 flex h-16 items-center justify-between">
@@ -61,23 +73,28 @@ export default function BookPage() {
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-border">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-accent/5 to-primary/10" />
+        <div data-drift className="absolute -top-16 -left-16 h-64 w-64 rounded-full bg-primary/10 blur-3xl" />
+        <div data-drift className="absolute -bottom-20 -right-10 h-72 w-72 rounded-full bg-accent/10 blur-3xl" />
+        {/* Living constellation — same brand node network as the homepage. */}
+        <HeroCanvas />
+
         <div className="relative mx-auto max-w-3xl px-4 sm:px-6 py-12 sm:py-16 text-center">
-          <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-bold text-primary mb-3">
+          <div data-reveal className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-bold text-primary mb-3">
             <Sparkles className="h-4 w-4" />
             AI is for everyone
           </div>
-          <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-accent">
+          <p data-reveal className="mb-2 text-sm font-semibold uppercase tracking-wider text-accent">
             Workshop #02 · Automate Video Editing with AI
           </p>
-          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground">
+          <h1 data-hero-words className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground">
             Reserve your seat
           </h1>
-          <p className="mt-3 text-lg text-muted-foreground max-w-xl mx-auto">
+          <p data-reveal className="mt-3 text-lg text-muted-foreground max-w-xl mx-auto">
             Turn raw footage into a polished, subtitled reel — by talking to Claude, no editing
             software. Early-bird <strong className="text-foreground">{inr(PRICE)}</strong>.
           </p>
 
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
+          <div data-reveal-children className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
             {facts.map((f) => (
               <div key={f.label} className="flex items-center gap-2">
                 {f.icon}
@@ -93,7 +110,7 @@ export default function BookPage() {
         <div className="mx-auto max-w-5xl px-4 sm:px-6">
           <Registration />
 
-          <p className="mt-8 text-center text-sm text-muted-foreground flex items-center justify-center gap-2">
+          <p data-reveal className="mt-8 text-center text-sm text-muted-foreground flex items-center justify-center gap-2">
             <ShieldCheck className="h-4 w-4 text-accent" />
             100% beginner-friendly · Secure Razorpay payment · Walk away with a finished reel
           </p>

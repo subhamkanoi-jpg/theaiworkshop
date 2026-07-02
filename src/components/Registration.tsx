@@ -166,7 +166,7 @@ export function Registration() {
   };
 
   return (
-    <div className="grid md:grid-cols-2 gap-6 items-start">
+    <div data-reveal-children className="grid md:grid-cols-2 gap-6 items-start">
       {/* Offer summary */}
       <Card className="order-2 md:order-1 border-primary/20 bg-primary/5">
         <CardContent className="p-7 sm:p-8">
