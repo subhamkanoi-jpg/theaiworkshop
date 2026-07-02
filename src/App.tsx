@@ -18,6 +18,7 @@ import { WhatsAppIcon } from "@/components/WhatsAppIcon";
 import { cn } from "@/lib/utils";
 import {
   PRICE,
+  TOTAL_SEATS,
   WORKSHOP_DATE_LABEL,
   WORKSHOP_TIME_LABEL,
   WORKSHOP_DURATION_LABEL,
@@ -47,6 +48,8 @@ import {
   Scissors,
   Wand2,
   MessageSquare,
+  CheckCircle2,
+  XCircle,
 } from "lucide-react";
 
 // ──────────────────────────────────────────────────────────────────────────
@@ -103,17 +106,17 @@ const missionCards = [
   {
     icon: <Sparkles className="h-6 w-6" />,
     label: "Our Mission",
-    text: "Put real, working AI skills in the hands of non-techies — one hands-on, offline workshop at a time.",
+    text: "Put real, working AI skills into the hands of Kolkata business owners who are serious about using them — one offline, hands-on session at a time.",
   },
   {
     icon: <Rocket className="h-6 w-6" />,
     label: "Our Vision",
-    text: "A community where anyone with a proven AI use-case can teach it, and anyone curious can learn it.",
+    text: "A small, in-person room where anyone with a proven AI use-case teaches it, and anyone committed to showing up learns it. No drop-ins.",
   },
   {
     icon: <Users className="h-6 w-6" />,
     label: "Our People",
-    text: "60+ members and growing daily — swapping tips, building in public, shaping what we create next.",
+    text: "60+ committed members and growing — showing up in person, building in public, shaping what we teach next.",
   },
 ];
 
@@ -517,9 +520,28 @@ function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   // Mobile: the WhatsApp CTA starts as a compact bubble and "blows" open on tap.
   const [waOpen, setWaOpen] = useState(false);
+  // Live seat count from /api/seats-taken — a real number, not a guess. Stays
+  // null (and the indicator stays hidden) until it loads or if it fails; we
+  // never show a fabricated or stale placeholder in its place.
+  const [seatsTaken, setSeatsTaken] = useState<number | null>(null);
 
   useEffect(() => {
     trackViewContent("Homepage", "Lander");
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/seats-taken")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        if (!cancelled && data && typeof data.taken === "number") {
+          setSeatsTaken(data.taken);
+        }
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   // GSAP micro-animations (scroll reveals, counters, magnetic CTAs…).
@@ -538,14 +560,20 @@ function App() {
       const el = document.getElementById(id);
       if (!el) return;
 
-      // Offset for the sticky nav so content isn't hidden under it.
-      const NAV_OFFSET = 72;
+      // Offset for the sticky nav so content isn't hidden under it. Measured
+      // live off the actual <nav> rather than a hardcoded guess — a hardcoded
+      // number silently goes stale the moment the nav's content (link count,
+      // wrapping, font-loading reflow) changes its rendered height.
+      const navEl = document.querySelector("nav");
+      const NAV_OFFSET = navEl ? navEl.getBoundingClientRect().height : 72;
 
       // Always anchor to the section's own top so you land on its heading —
       // e.g. "Become a Host" lands on the heading, not the form below it.
       const rect = el.getBoundingClientRect();
       const targetTop = rect.top + window.scrollY;
-      const isMobile = window.innerWidth < 768;
+      // Below lg (1024px) the nav collapses to a hamburger and a sticky
+      // bottom CTA bar takes over — match that breakpoint here too.
+      const isMobile = window.innerWidth < 1024;
       const bottomInset = isMobile ? 80 : 0; // mobile sticky CTA bar
       const usable = window.innerHeight - NAV_OFFSET - bottomInset;
 
@@ -595,7 +623,7 @@ function App() {
   ];
 
   return (
-    <div className="min-h-screen pb-20 md:pb-0">
+    <div className="min-h-screen pb-20 lg:pb-0">
       {/* Reading progress — a hairline gradient that fills as you scroll. */}
       <div
         id="scroll-progress"
@@ -624,20 +652,25 @@ function App() {
               <Logo iconClassName="h-9 w-auto" textClassName="text-xl" />
             </button>
 
-            <div className="hidden md:flex items-center gap-7">
+            {/* Desktop nav: capped at 5 links + CTA on purpose — the full 7-link
+                set only fits comfortably at lg+ (1024px). At md (768–1024px)
+                it wrapped onto a second line and broke the sticky nav's fixed
+                height, which also threw off scroll-offset math (see NAV_OFFSET
+                below). Roadmap/Hosts are still one scroll away and in the
+                mobile menu — just not worth a horizontal-nav slot. */}
+            <div className="hidden lg:flex items-center gap-6">
+              <button onClick={() => scrollTo("who")} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Who It's For</button>
               <button onClick={() => scrollTo("workshop")} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Workshop</button>
-              <button onClick={() => scrollTo("roadmap")} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">What's Next</button>
-              <button onClick={() => scrollTo("work")} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Community Builds</button>
-              <button onClick={() => scrollTo("team")} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Hosts</button>
-              <button onClick={() => scrollTo("host")} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Become a Host</button>
+              <button onClick={() => scrollTo("work")} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Builds</button>
+              <button onClick={() => scrollTo("host")} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Teach</button>
               <button onClick={() => scrollTo("faq")} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">FAQ</button>
               <Button onClick={goToBook} size="sm">
-                Book Your Seat — {inr(PRICE)} <ArrowRight className="ml-1 h-4 w-4" />
+                Book Seat — {inr(PRICE)} <ArrowRight className="ml-1 h-4 w-4" />
               </Button>
             </div>
 
             <button
-              className="md:hidden text-foreground p-2 -mr-2"
+              className="lg:hidden text-foreground p-2 -mr-2"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileMenuOpen}
@@ -647,7 +680,8 @@ function App() {
           </div>
 
           {mobileMenuOpen && (
-            <div className="md:hidden pb-4 space-y-3">
+            <div className="lg:hidden pb-4 space-y-3">
+              <button onClick={() => scrollTo("who")} className="block w-full text-left text-sm font-medium text-muted-foreground hover:text-foreground py-2">Who It's For</button>
               <button onClick={() => scrollTo("workshop")} className="block w-full text-left text-sm font-medium text-muted-foreground hover:text-foreground py-2">Workshop</button>
               <button onClick={() => scrollTo("roadmap")} className="block w-full text-left text-sm font-medium text-muted-foreground hover:text-foreground py-2">What's Next</button>
               <button onClick={() => scrollTo("work")} className="block w-full text-left text-sm font-medium text-muted-foreground hover:text-foreground py-2">Community Builds</button>
@@ -689,8 +723,9 @@ function App() {
               </h1>
 
               <p className="mx-auto lg:mx-0 mt-6 max-w-2xl text-lg sm:text-xl text-muted-foreground">
-                We're a Kolkata community making AI practical and hands-on for everyone —
-                business owners, freelancers, students, anyone curious. No jargon, no gatekeeping.
+                Kolkata's most welcoming — and most focused — offline room for people who are
+                serious about putting AI to work in their business. No jargon. No dabblers.
+                Just people who show up, build, and ship.
               </p>
 
               <div className="mt-8 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
@@ -744,6 +779,68 @@ function App() {
         </div>
       </section>
 
+      {/* Manifesto — the filter. States plainly who this room welcomes and who
+          it doesn't, so "welcoming" reads as deliberate rather than generic.
+          Sits right after the hero, before any pitch, so it's read as identity
+          first and offer second. */}
+      <section id="who" className="relative py-20 sm:py-24 border-t border-border">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <div data-reveal className="text-center max-w-2xl mx-auto mb-12">
+            <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary mb-4">
+              <ShieldCheck className="h-4 w-4" />
+              Who this room is for
+            </div>
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-foreground leading-[1.15]">
+              Welcoming to anyone serious.{" "}
+              <span className="italic text-primary">Not built for everyone else.</span>
+            </h2>
+            <p className="mt-5 text-lg text-muted-foreground">
+              That's not a contradiction — it's the whole design. Zero technical background is
+              fine. Zero follow-through isn't.
+            </p>
+          </div>
+
+          <div data-reveal className="invite-card grid sm:grid-cols-2 gap-0 rounded-2xl border border-border/60 bg-card overflow-hidden">
+            <div className="p-8 sm:p-10">
+              <p className="text-xs font-semibold uppercase tracking-wider text-accent mb-5">You belong here if</p>
+              <ul className="space-y-4">
+                {[
+                  "You run a business — or side hustle — and want AI to actually move the needle, not just fill a feed.",
+                  "You're based in Kolkata and can show up in person. This is offline, always.",
+                  "You're happy to start from zero. No jargon, no prior experience needed.",
+                  "You're here to build something real and ship it — not collect another certificate.",
+                ].map((t) => (
+                  <li key={t} className="flex gap-3 text-sm sm:text-base text-foreground/90 leading-relaxed">
+                    <CheckCircle2 className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
+                    <span>{t}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="p-8 sm:p-10 bg-muted/30 border-t sm:border-t-0 sm:border-l border-border/60">
+              <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-5">This isn't for you if</p>
+              <ul className="space-y-4">
+                {[
+                  "You want a webinar you can half-watch while doing something else.",
+                  "You're looking for a self-paced course to finish \"someday.\"",
+                  "You can't make it to Kolkata in person, or want this fully online.",
+                  "You want AI hype and talk — not two hours of actually building.",
+                ].map((t) => (
+                  <li key={t} className="flex gap-3 text-sm sm:text-base text-muted-foreground leading-relaxed">
+                    <XCircle className="h-5 w-5 text-muted-foreground/60 flex-shrink-0 mt-0.5" />
+                    <span>{t}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <p className="font-hand mt-8 text-center text-2xl text-muted-foreground">
+            small room, real attention, on purpose
+          </p>
+        </div>
+      </section>
+
       {/* Workshop pitch — the current use-case the community is running. */}
       <section id="workshop-pitch" className="relative overflow-hidden border-t border-border bg-muted/20">
         <div className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 pt-14 pb-16 sm:pt-16 sm:pb-20 text-center">
@@ -791,6 +888,20 @@ function App() {
             <span className="text-sm font-medium text-muted-foreground">community early-bird</span>
           </div>
 
+          {/* Live seat count — real data from /api/seats-taken, hidden until it
+              loads. Never a fabricated or stale number. */}
+          {seatsTaken !== null && (
+            <div className="mt-4 flex justify-center">
+              <div className="inline-flex items-center gap-2 rounded-full bg-accent/10 px-4 py-1.5 text-sm font-semibold text-accent">
+                <Users className="h-4 w-4" />
+                {seatsTaken} of {TOTAL_SEATS} seats claimed
+                {TOTAL_SEATS - seatsTaken <= 5 && TOTAL_SEATS - seatsTaken > 0 && (
+                  <span>· only {TOTAL_SEATS - seatsTaken} left</span>
+                )}
+              </div>
+            </div>
+          )}
+
           <p className="mt-3 text-sm text-muted-foreground">
             Editors charge <strong className="text-foreground">₹2,000–₹5,000 per video</strong> for the same thing.
           </p>
@@ -836,7 +947,7 @@ function App() {
               { value: "50+", label: "in the community, growing daily" },
               { value: "Small", label: "batch — everyone gets real attention" },
               { value: "100%", label: "beginner-friendly" },
-              { value: "Sun 28", label: "your build-&-launch day" },
+              { value: "Sun 26", label: "your build-&-launch day" },
             ].map((s) => (
               <div key={s.label}>
                 <p className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
@@ -870,10 +981,11 @@ function App() {
               Community Builds
             </div>
             <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
-              Real websites, built with the exact tools we'll teach you
+              Real Kolkata businesses, built with the exact tools we'll teach you
             </h2>
             <p className="mt-4 text-lg text-muted-foreground">
               No agencies. No code. Each one started as a sentence typed into AI — same as yours will.
+              This is what "committed" looks like once it ships.
             </p>
           </div>
 
@@ -906,7 +1018,8 @@ function App() {
               Meet Your Workshop Hosts
             </h2>
             <p className="mt-4 text-lg text-muted-foreground">
-              Three brothers who believe AI should be for everyone — not just engineers.
+              Three brothers building the room they wished existed — hands-on, offline, no
+              gatekeeping on skill, and zero patience for dabbling.
             </p>
           </div>
 
@@ -935,7 +1048,8 @@ function App() {
               Implemented AI in your business? Teach it.
             </h2>
             <p className="mt-4 text-lg text-muted-foreground">
-              Can you run a 3-hour hands-on session on your use-case? Fill out the form below.
+              Not a slide deck, not theory — a real use-case you've actually shipped. Can you run
+              a 3-hour hands-on session on it? Fill out the form below.
             </p>
           </div>
 
@@ -1308,6 +1422,18 @@ function App() {
           </div>
 
           <Accordion data-reveal-children type="single" collapsible className="space-y-3">
+            <AccordionItem value="q-commit" className="border rounded-lg px-6 bg-background">
+              <AccordionTrigger className="text-left font-medium text-foreground hover:no-underline">
+                The site says it's "not built for everyone else" — am I still welcome?
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground pb-4">
+                Almost certainly, yes. That line is about commitment, not skill — we're not filtering
+                on how much you already know. If you run a business or side hustle in Kolkata, can
+                show up in person, and actually want to build something rather than just watch, you're
+                exactly who this is for.
+              </AccordionContent>
+            </AccordionItem>
+
             <AccordionItem value="q1" className="border rounded-lg px-6 bg-background">
               <AccordionTrigger className="text-left font-medium text-foreground hover:no-underline">
                 Do I need any video-editing experience?
@@ -1416,10 +1542,13 @@ function App() {
         </div>
       </section>
 
-      {/* Final CTA */}
+      {/* Final CTA — the constellation's bookend. Same living node-network as
+          the hero, quietly closing the loop it opened at the top of the page
+          rather than confining the "alive" feeling to screen one. */}
       <section className="relative overflow-hidden py-20 sm:py-24">
         <div data-drift data-parallax="0.18" className="pointer-events-none absolute -top-10 -left-16 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
         <div data-drift data-parallax="0.08" className="pointer-events-none absolute -bottom-16 -right-10 h-80 w-80 rounded-full bg-accent/10 blur-3xl" />
+        <HeroCanvas />
         <div data-reveal className="relative mx-auto max-w-2xl px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
             Ready to edit videos by talking to AI?
@@ -1479,8 +1608,10 @@ function App() {
         </div>
       </footer>
 
-      {/* Sticky mobile CTA bar */}
-      <div className="fixed bottom-0 inset-x-0 z-40 md:hidden border-t border-border bg-background/95 backdrop-blur-lg px-4 py-3 flex items-center justify-between gap-3">
+      {/* Sticky mobile CTA bar — visible up through lg (tablet), matching the
+          nav's hamburger threshold, so there's always a booking CTA on screen
+          whenever the horizontal nav's own "Book Seat" button isn't showing. */}
+      <div className="fixed bottom-0 inset-x-0 z-40 lg:hidden border-t border-border bg-background/95 backdrop-blur-lg px-4 py-3 flex items-center justify-between gap-3">
         <div>
           <div className="flex items-baseline gap-2">
             <span className="text-lg font-extrabold text-foreground">{inr(PRICE)}</span>
@@ -1500,7 +1631,7 @@ function App() {
           Mobile: a compact icon-only bubble so it doesn't crowd the screen.
           Tapping the WhatsApp icon toggles it open ("blows up" into the full
           CTA) and closed again; tapping the label joins the community. */}
-      <div className="group fixed bottom-24 right-4 sm:right-6 md:bottom-6 z-50 flex items-center rounded-full bg-[#25D366] p-3.5 text-white shadow-lg ring-1 ring-black/5 transition-all duration-300 hover:bg-[#1ebe57] hover:shadow-xl md:hover:-translate-y-0.5">
+      <div className="group fixed bottom-24 right-4 sm:right-6 lg:bottom-6 z-50 flex items-center rounded-full bg-[#25D366] p-3.5 text-white shadow-lg ring-1 ring-black/5 transition-all duration-300 hover:bg-[#1ebe57] hover:shadow-xl lg:hover:-translate-y-0.5">
         {/* Pulsing notification dot — classic "you've got something" attention cue */}
         <span className="absolute -right-1 -top-1 flex h-3.5 w-3.5">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75" />
@@ -1511,7 +1642,7 @@ function App() {
         <button
           type="button"
           onClick={() => {
-            if (window.innerWidth < 768) {
+            if (window.innerWidth < 1024) {
               setWaOpen((o) => !o);
               return;
             }
@@ -1537,7 +1668,7 @@ function App() {
             "flex flex-col items-start overflow-hidden whitespace-nowrap pr-1 leading-tight transition-all duration-300",
             waOpen
               ? "ml-2.5 max-w-[220px] opacity-100"
-              : "pointer-events-none max-w-0 opacity-0 md:pointer-events-auto md:ml-2.5 md:max-w-[220px] md:opacity-100",
+              : "pointer-events-none max-w-0 opacity-0 lg:pointer-events-auto lg:ml-2.5 lg:max-w-[220px] lg:opacity-100",
           )}
         >
           <span className="text-sm font-bold">Join the community</span>

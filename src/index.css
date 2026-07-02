@@ -65,6 +65,30 @@
     @apply bg-background text-foreground;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
   }
+  /* Brand-tinted text selection — a small, cheap detail that stops the page
+     from reverting to the browser's default blue the instant someone drags
+     to select or copy something. */
+  ::selection {
+    background: hsl(var(--primary) / 0.25);
+    color: hsl(var(--foreground));
+  }
+  /* Slim, brand-toned scrollbar (WebKit/Chromium). Firefox falls back to its
+     own default rather than fighting it with unsupported properties. */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--background));
+  }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--primary) / 0.35);
+    border-radius: 9999px;
+    border: 2px solid hsl(var(--background));
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--primary) / 0.55);
+  }
   /* Friendlier, rounded display face for headings — warmer than geometric Inter. */
   h1, h2, h3, h4 {
     font-family: 'Nunito', 'Inter', system-ui, sans-serif;
@@ -173,6 +197,32 @@
    page get treated like prints pinned to a community corkboard. */
 .font-hand {
   font-family: 'Caveat', 'Nunito', cursive;
+}
+
+/* Premium editorial serif — reserved for the manifesto / membership-grade
+   moments, so it reads as a deliberate accent, not the everyday voice. */
+.font-serif {
+  font-family: 'Fraunces', 'Nunito', serif;
+}
+
+/* Invite card: the "who this room is for" filter. Slightly heavier shadow
+   and a hairline gradient top-edge — reads as a printed membership card,
+   not another rounded content box. */
+.invite-card {
+  position: relative;
+  box-shadow:
+    0 1px 2px rgba(60, 40, 20, 0.06),
+    0 24px 48px -20px rgba(60, 40, 20, 0.3);
+}
+.invite-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 1.5rem;
+  right: 1.5rem;
+  height: 2px;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--accent)));
 }
 
 /* A photo print: warm white mat, soft paper shadow, slightly imperfect. */

@@ -105,9 +105,14 @@ export default function BookPage() {
         </div>
       </section>
 
-      {/* Booking */}
-      <section className="py-12 sm:py-16">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6">
+      {/* Booking — the constellation's bookend, same as the homepage: opens
+          the page in the hero above, quietly closes it here rather than
+          being confined to screen one. */}
+      <section className="relative overflow-hidden py-12 sm:py-16">
+        <div data-drift className="pointer-events-none absolute -top-10 -right-16 h-64 w-64 rounded-full bg-accent/10 blur-3xl" />
+        <div data-drift className="pointer-events-none absolute -bottom-16 -left-10 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
+        <HeroCanvas />
+        <div className="relative mx-auto max-w-5xl px-4 sm:px-6">
           <Registration />
 
           <p data-reveal className="mt-8 text-center text-sm text-muted-foreground flex items-center justify-center gap-2">

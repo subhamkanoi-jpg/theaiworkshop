@@ -17,6 +17,15 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 import razorpay
 
+# Workshop details — keep in sync with src/config.ts (the frontend has its
+# own copy since it can't import Python). This is the single source these
+# email templates read from, so a date change only needs updating here.
+TOTAL_SEATS = 25
+WORKSHOP_DATE_LABEL = "Sunday, 26 July 2026"
+WORKSHOP_TIME_LABEL = "11:00 AM – 1:00 PM"
+WORKSHOP_DURATION_LABEL = "2 hours"
+WORKSHOP_LOCATION = "Salt Lake, Kolkata"
+
 
 def render_admin_html(rows: list) -> str:
     """Render a simple registrations table. `rows` are dicts with keys:
@@ -63,7 +72,7 @@ def send_confirmation_email(name: str, email: str, pay_at_venue: bool = False) -
         return False
 
     msg = MIMEMultipart("alternative")
-    msg["Subject"] = "Seat Reserved! The AI Workshop — 28 June 2026" if pay_at_venue else "You're In! The AI Workshop — 28 June 2026"
+    msg["Subject"] = f"Seat Reserved! The AI Workshop — {WORKSHOP_DATE_LABEL}" if pay_at_venue else f"You're In! The AI Workshop — {WORKSHOP_DATE_LABEL}"
     msg["From"] = f"The AI Workshop <{smtp_email}>"
     msg["To"] = email
 
@@ -81,9 +90,9 @@ def send_confirmation_email(name: str, email: str, pay_at_venue: bool = False) -
             <h2 style="color: #7c3aed;">Hey {name}, you're registered! 🎉</h2>
             {payment_note}
             <div style="background: #f8f5ff; border-radius: 8px; padding: 20px; margin: 20px 0;">
-                <p style="margin: 5px 0;"><strong>📅 Date:</strong> Sunday, 28 June 2026</p>
-                <p style="margin: 5px 0;"><strong>⏰ Time:</strong> 12:00 PM – 4:00 PM (4 hours)</p>
-                <p style="margin: 5px 0;"><strong>📍 Location:</strong> Salt Lake, Kolkata (exact location shared after registration)</p>
+                <p style="margin: 5px 0;"><strong>📅 Date:</strong> {WORKSHOP_DATE_LABEL}</p>
+                <p style="margin: 5px 0;"><strong>⏰ Time:</strong> {WORKSHOP_TIME_LABEL} ({WORKSHOP_DURATION_LABEL})</p>
+                <p style="margin: 5px 0;"><strong>📍 Location:</strong> {WORKSHOP_LOCATION} (exact location shared after registration)</p>
             </div>
             <p><strong>What to bring:</strong> Just your laptop and curiosity!</p>
             <p>We'll share the exact venue and timings closer to the date via WhatsApp/email.</p>
@@ -133,7 +142,7 @@ def send_admin_notification(name: str, email: str, phone: str, payment_id: str =
                 <p style="margin: 5px 0;"><strong>Phone:</strong> {phone}</p>
                 <p style="margin: 5px 0;"><strong>Payment ID:</strong> {payment_id or "—"}</p>
             </div>
-            <p style="font-size: 13px; color: #777;">Workshop: Sunday, 28 June 2026 · 12:00–4:00 PM · Salt Lake, Kolkata</p>
+            <p style="font-size: 13px; color: #777;">Workshop: {WORKSHOP_DATE_LABEL} · {WORKSHOP_TIME_LABEL} · {WORKSHOP_LOCATION}</p>
         </div>
     </body>
     </html>
@@ -333,12 +342,22 @@ def create_app(static_dir: str) -> FastAPI:
             return {"status": "already_registered", "message": "This email is already registered! We've re-sent your confirmation."}
         return {"status": "registered", "message": f"Welcome, {reg.name}! You're registered for the workshop."}
 
+    def _require_admin_key(key: str) -> None:
+        # Same gate as api/index.py's /api/admin — a shared secret behind
+        # ADMIN_ACCESS_KEY, deny-by-default if it isn't set. These endpoints
+        # return real names/emails/phones, so they must never be world-readable.
+        admin_key = os.environ.get("ADMIN_ACCESS_KEY")
+        if not admin_key or key != admin_key:
+            raise HTTPException(status_code=403, detail="Forbidden — set ADMIN_ACCESS_KEY and pass ?key=")
+
     @api.get("/registrations")
-    def list_registrations():
+    def list_registrations(key: str = ""):
+        _require_admin_key(key)
         return load_registrations()
 
     @api.get("/admin", response_class=HTMLResponse)
-    def admin_view():
+    def admin_view(key: str = ""):
+        _require_admin_key(key)
         rows = [
             {
                 "name": r.get("name", ""),
@@ -377,7 +396,8 @@ def create_app(static_dir: str) -> FastAPI:
         return {"status": "received", "message": f"Thanks, {application.name}! We'll be in touch."}
 
     @api.get("/host-applications")
-    def list_host_applications():
+    def list_host_applications(key: str = ""):
+        _require_admin_key(key)
         return load_host_applications()
 
     @api.post("/interest")
@@ -398,8 +418,14 @@ def create_app(static_dir: str) -> FastAPI:
         return {"status": "received", "message": f"Thanks, {name}! We'll keep you posted."}
 
     @api.get("/interest")
-    def list_interest():
+    def list_interest(key: str = ""):
+        _require_admin_key(key)
         return load_interest()
+
+    @api.get("/seats-taken")
+    def seats_taken():
+        """Public, PII-free seat count for the live 'X of 25 claimed' indicator."""
+        return {"taken": len(load_registrations()), "total": TOTAL_SEATS}
 
     @api.post("/create-order")
     def create_order(req: CreateOrderRequest):

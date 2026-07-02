@@ -7,3 +7,9 @@ __pycache__/
 *.egg-info/
 .env
 uv.lock
+
+# Local file-based storage for form submissions (routes.py) — contains real
+# names/emails/phone numbers, must never be committed.
+registrations.json
+host_applications.json
+interest.json

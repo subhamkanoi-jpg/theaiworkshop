@@ -6,13 +6,24 @@ import { useEffect, useRef } from "react";
  * alive: people wandering, connecting, forming a community.
  *
  * Engineering notes:
- * - three.js is loaded via dynamic import so it stays out of the main bundle
- *   and only downloads when the hero actually mounts.
+ * - three.js is loaded via dynamic import so it stays out of the main bundle,
+ *   and the import itself is deferred to browser idle time so its ~190KB
+ *   gzipped download never competes with first paint or the hero's own CTAs
+ *   becoming interactive.
  * - Skipped entirely under prefers-reduced-motion; particle count drops on
  *   small screens; DPR is capped at 2; the loop pauses when the hero scrolls
  *   offscreen or the tab is hidden.
  * - Everything is disposed on unmount (StrictMode double-mount safe).
  */
+// Safari has no requestIdleCallback — fall back to a short timeout so the
+// import still yields to the initial render there instead of firing eagerly.
+const onIdle: (cb: () => void) => number =
+  typeof requestIdleCallback === "function"
+    ? requestIdleCallback
+    : (cb) => window.setTimeout(cb, 200);
+const cancelIdle: (handle: number) => void =
+  typeof cancelIdleCallback === "function" ? cancelIdleCallback : window.clearTimeout;
+
 export function HeroCanvas() {
   const mountRef = useRef<HTMLDivElement>(null);
 
@@ -24,7 +35,7 @@ export function HeroCanvas() {
     let disposed = false;
     let cleanup: (() => void) | undefined;
 
-    (async () => {
+    const run = async () => {
       const THREE = await import("three");
       if (disposed || !mountRef.current) return;
 
@@ -198,10 +209,13 @@ export function HeroCanvas() {
         renderer.dispose();
         renderer.domElement.remove();
       };
-    })();
+    };
+
+    const idleHandle = onIdle(run);
 
     return () => {
       disposed = true;
+      cancelIdle(idleHandle);
       cleanup?.();
     };
   }, []);
