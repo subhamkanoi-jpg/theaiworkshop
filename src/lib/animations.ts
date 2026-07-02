@@ -69,11 +69,14 @@ export function initSiteAnimations(): () => void {
       });
     }
 
-    // ── Scroll reveals ────────────────────────────────────────────────────
+    // ── Scroll reveals — now with 3D depth: elements tip up into place ────
     gsap.utils.toArray<HTMLElement>("[data-reveal]").forEach((el) => {
       gsap.from(el, {
         y: 36,
         opacity: 0,
+        rotateX: 7,
+        transformPerspective: 1000,
+        transformOrigin: "50% 100%",
         duration: 0.9,
         ease: "power3.out",
         scrollTrigger: { trigger: el, start: "top 88%", once: true },
@@ -84,10 +87,29 @@ export function initSiteAnimations(): () => void {
       gsap.from(el.children, {
         y: 32,
         opacity: 0,
+        rotateX: 9,
+        transformPerspective: 1000,
+        transformOrigin: "50% 100%",
         duration: 0.8,
         ease: "power3.out",
         stagger: 0.12,
         scrollTrigger: { trigger: el, start: "top 85%", once: true },
+      });
+    });
+
+    // ── Scroll parallax — decorative layers drift at their own depth ─────
+    // data-parallax="0.15" → moves 15% of its height against the scroll.
+    gsap.utils.toArray<HTMLElement>("[data-parallax]").forEach((el) => {
+      const speed = parseFloat(el.dataset.parallax || "0.15");
+      gsap.to(el, {
+        yPercent: -speed * 100,
+        ease: "none",
+        scrollTrigger: {
+          trigger: el.parentElement ?? el,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: 0.4,
+        },
       });
     });
 
@@ -148,9 +170,34 @@ export function initSiteAnimations(): () => void {
     }
   });
 
-  // ── Magnetic CTAs — desktop with a mouse only ──────────────────────────
+  // ── Magnetic CTAs + 3D card tilt — desktop with a mouse only ──────────
   mm.add("(prefers-reduced-motion: no-preference) and (pointer: fine)", () => {
     const cleanups: (() => void)[] = [];
+
+    // Cards lean toward the cursor in 3D (data-tilt). Perspective lives on
+    // the element itself, so children with .tilt-pop float above the card.
+    gsap.utils.toArray<HTMLElement>("[data-tilt]").forEach((el) => {
+      gsap.set(el, { transformPerspective: 900 });
+      const rx = gsap.quickTo(el, "rotationX", { duration: 0.5, ease: "power3.out" });
+      const ry = gsap.quickTo(el, "rotationY", { duration: 0.5, ease: "power3.out" });
+      const move = (e: MouseEvent) => {
+        const r = el.getBoundingClientRect();
+        const dx = (e.clientX - r.left) / r.width - 0.5;
+        const dy = (e.clientY - r.top) / r.height - 0.5;
+        ry(dx * 10);
+        rx(-dy * 10);
+      };
+      const leave = () => {
+        rx(0);
+        ry(0);
+      };
+      el.addEventListener("mousemove", move);
+      el.addEventListener("mouseleave", leave);
+      cleanups.push(() => {
+        el.removeEventListener("mousemove", move);
+        el.removeEventListener("mouseleave", leave);
+      });
+    });
     gsap.utils.toArray<HTMLElement>("[data-magnetic]").forEach((el) => {
       const xTo = gsap.quickTo(el, "x", { duration: 0.4, ease: "power3.out" });
       const yTo = gsap.quickTo(el, "y", { duration: 0.4, ease: "power3.out" });

@@ -168,12 +168,73 @@
   }
 }
 
-/* Meetup gallery: photos breathe gently on hover. */
-#meetup figure img {
-  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+/* ── Offline-community scrapbook kit ─────────────────────────────────────
+   Handwritten accents + polaroid frames + washi tape. Real photos on the
+   page get treated like prints pinned to a community corkboard. */
+.font-hand {
+  font-family: 'Caveat', 'Nunito', cursive;
+}
+
+/* A photo print: warm white mat, soft paper shadow, slightly imperfect. */
+.polaroid {
+  background: hsl(42 45% 98%);
+  padding: 0.625rem 0.625rem 0.75rem;
+  border-radius: 6px;
+  box-shadow:
+    0 1px 2px rgba(60, 40, 20, 0.1),
+    0 14px 28px -10px rgba(60, 40, 20, 0.22);
+}
+.polaroid > * {
+  border-radius: 4px;
+}
+
+/* Translucent washi-tape strip "holding" a print to the board. */
+.tape {
+  position: relative;
+}
+.tape::before {
+  content: "";
+  position: absolute;
+  top: -13px;
+  left: 50%;
+  width: 6.5rem;
+  height: 1.75rem;
+  transform: translateX(-50%) rotate(-3deg);
+  background: hsl(36 42% 78% / 0.55);
+  border-left: 1px dashed rgba(0, 0, 0, 0.06);
+  border-right: 1px dashed rgba(0, 0, 0, 0.06);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07);
+  z-index: 2;
+}
+.tape-corner::before {
+  left: 12%;
+  transform: rotate(-38deg);
+}
+
+/* 3D tilt targets: keep children on their own plane so icons/text can pop. */
+[data-tilt] {
+  transform-style: preserve-3d;
 }
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
-  #meetup figure:hover img {
-    transform: scale(1.04);
+  [data-tilt] {
+    will-change: transform;
+  }
+  [data-tilt] .tilt-pop {
+    transform: translateZ(28px);
+  }
+  [data-tilt]:hover {
+    box-shadow:
+      0 2px 4px rgba(60, 40, 20, 0.08),
+      0 22px 44px -12px rgba(60, 40, 20, 0.28);
+  }
+}
+
+/* Meetup gallery: pinned prints straighten and lift slightly on hover. */
+#meetup figure {
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  #meetup figure:hover {
+    transform: rotate(0deg) translateY(-3px);
   }
 }

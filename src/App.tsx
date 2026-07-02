@@ -119,8 +119,8 @@ const missionCards = [
 
 function MissionCard({ icon, label, text }: (typeof missionCards)[number]) {
   return (
-    <div className="h-full rounded-2xl border border-border/60 bg-card/70 backdrop-blur-sm p-6 shadow-sm text-left">
-      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+    <div data-tilt className="h-full rounded-2xl border border-border/60 bg-card/70 backdrop-blur-sm p-6 shadow-sm text-left transition-shadow duration-300">
+      <div className="tilt-pop flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
         {icon}
       </div>
       <h3 className="mt-4 text-base font-bold text-foreground">{label}</h3>
@@ -181,7 +181,8 @@ function PortfolioThumb({ name, tag, image, url }: (typeof portfolio)[number]) {
       href={url}
       target={url !== "#" ? "_blank" : undefined}
       rel="noopener noreferrer"
-      className="group relative block overflow-hidden rounded-2xl border border-border/60 bg-card hover:border-primary/40 hover:shadow-lg transition-all"
+      data-tilt
+      className="group relative block overflow-hidden rounded-2xl border border-border/60 bg-card hover:border-primary/40 transition-colors duration-300"
     >
       <div className="relative aspect-[16/10] overflow-hidden">
         {!broken ? (
@@ -252,7 +253,7 @@ function HostCard({
         </div>
       </a>
       <h3 className="mt-5 text-lg font-semibold text-foreground">{name}</h3>
-      <p className="text-sm font-medium text-primary mt-0.5">{role}</p>
+      <p className="font-hand text-xl text-primary mt-0.5 -rotate-1">{role}</p>
       <p className="mt-3 max-w-xs text-sm text-muted-foreground leading-relaxed">{bio}</p>
       <a
         href={link}
@@ -385,7 +386,7 @@ function MeetupGlimpses({ onWatchRecap }: { onWatchRecap: () => void }) {
 
   return (
     <div
-      className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl border border-border shadow-xl bg-muted"
+      className="relative aspect-[4/3] w-full overflow-hidden rounded-md bg-muted"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
@@ -665,8 +666,8 @@ function App() {
           who we are: the mission, the vision, and an invitation to the community. */}
       <section id="hero" className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-accent/5 to-primary/10" />
-        <div data-drift className="absolute top-20 left-10 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
-        <div data-drift className="absolute bottom-10 right-10 h-96 w-96 rounded-full bg-accent/10 blur-3xl" />
+        <div data-drift data-parallax="0.2" className="absolute top-20 left-10 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
+        <div data-drift data-parallax="0.1" className="absolute bottom-10 right-10 h-96 w-96 rounded-full bg-accent/10 blur-3xl" />
         {/* Living constellation — the brand's node network, gently drifting. */}
         <HeroCanvas />
 
@@ -713,8 +714,19 @@ function App() {
               </p>
             </div>
 
-            {/* Meetup #1 glimpses — confidence, right where eyes land first. */}
-            <MeetupGlimpses onWatchRecap={() => scrollTo("meetup")} />
+            {/* Meetup #1 glimpses — a real print, taped to the page like on a
+                community corkboard. Confidence, right where eyes land first. */}
+            <div className="relative">
+              <div
+                data-parallax="0.05"
+                className="polaroid tape -rotate-[1.5deg] transition-transform duration-500 hover:rotate-0"
+              >
+                <MeetupGlimpses onWatchRecap={() => scrollTo("meetup")} />
+              </div>
+              <p className="font-hand mt-4 rotate-[1deg] text-center text-2xl text-muted-foreground">
+                shot at meetup #1 · Kolkata ☕
+              </p>
+            </div>
           </div>
 
           {/* Mission / vision artifact cards.
@@ -1073,7 +1085,7 @@ function App() {
           </div>
 
           <div data-reveal-children className="grid sm:grid-cols-3 gap-5">
-            <Card className="relative border-border/60">
+            <Card data-tilt className="relative border-border/60">
               <div className="absolute -top-3 left-6 rounded-full bg-[#25D366]/15 px-3 py-1 text-xs font-semibold text-[#128C46]">
                 Done ✓ · 28 June
               </div>
@@ -1089,7 +1101,7 @@ function App() {
               </CardContent>
             </Card>
 
-            <Card className="relative border-primary/40 bg-primary/5 shadow-sm">
+            <Card data-tilt className="relative border-primary/40 bg-primary/5 shadow-sm">
               <div className="absolute -top-3 left-6 rounded-full bg-accent/15 px-3 py-1 text-xs font-semibold text-accent">
                 Up next · 26 July
               </div>
@@ -1105,7 +1117,7 @@ function App() {
               </CardContent>
             </Card>
 
-            <Card className="border-border/60">
+            <Card data-tilt className="border-border/60">
               <CardContent className="p-7">
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-muted text-muted-foreground">
                   <Sparkles className="h-6 w-6" />
@@ -1180,25 +1192,28 @@ function App() {
 
             {/* Photos */}
             <div className="sm:col-span-2 grid gap-5">
-              <figure className="overflow-hidden rounded-2xl border border-border shadow-sm">
+              <figure className="polaroid tape rotate-[0.8deg]">
                 <img
                   src="/meetup1/group-selfie.jpg"
                   alt="The full group at The AI Workshop meetup #1 in Kolkata"
                   loading="lazy"
                   className="w-full object-cover"
                 />
-                <figcaption className="bg-card px-4 py-3 text-sm text-muted-foreground">
-                  The founding cohort — business owners, freelancers and students, all shipping together.
+                <figcaption className="font-hand px-3 pt-2.5 pb-1 text-center text-xl leading-snug text-foreground/75">
+                  the founding cohort — business owners, freelancers &amp; students, all shipping together
                 </figcaption>
               </figure>
               <div className="grid grid-cols-2 gap-5">
-                <figure className="overflow-hidden rounded-2xl border border-border shadow-sm">
+                <figure className="polaroid tape tape-corner -rotate-[1.2deg]">
                   <img
                     src="/meetup1/hosts-trio.jpg"
                     alt="Hosts at The AI Workshop meetup #1"
                     loading="lazy"
                     className="aspect-[3/4] w-full object-cover"
                   />
+                  <figcaption className="font-hand px-3 pt-2 pb-0.5 text-center text-xl text-foreground/75">
+                    your hosts, mid-session
+                  </figcaption>
                 </figure>
                 <div className="flex flex-col justify-center rounded-2xl border border-accent/20 bg-accent/5 p-5">
                   <p className="text-3xl font-extrabold text-foreground">You're next</p>
@@ -1403,8 +1418,8 @@ function App() {
 
       {/* Final CTA */}
       <section className="relative overflow-hidden py-20 sm:py-24">
-        <div data-drift className="pointer-events-none absolute -top-10 -left-16 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
-        <div data-drift className="pointer-events-none absolute -bottom-16 -right-10 h-80 w-80 rounded-full bg-accent/10 blur-3xl" />
+        <div data-drift data-parallax="0.18" className="pointer-events-none absolute -top-10 -left-16 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
+        <div data-drift data-parallax="0.08" className="pointer-events-none absolute -bottom-16 -right-10 h-80 w-80 rounded-full bg-accent/10 blur-3xl" />
         <div data-reveal className="relative mx-auto max-w-2xl px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
             Ready to edit videos by talking to AI?
