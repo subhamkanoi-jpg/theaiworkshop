@@ -4,4 +4,4 @@ Allow: /
 # Keep API endpoints out of the index
 Disallow: /api/
 
-Sitemap: https://theaiworkshop.in/sitemap.xml
+Sitemap: https://www.theaiworkshop.in/sitemap.xml
