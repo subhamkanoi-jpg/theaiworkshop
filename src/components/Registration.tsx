@@ -103,7 +103,7 @@ export function Registration() {
         amount: orderData.amount,
         currency: orderData.currency,
         name: "The AI Workshop",
-        description: "Workshop Registration - 28 June 2026",
+        description: "Workshop Registration - 26 July 2026",
         order_id: orderData.order_id,
         prefill: {
           name: name,
@@ -179,7 +179,7 @@ export function Registration() {
               SAVE {SAVINGS_PCT}%
             </span>
           </div>
-          <p className="mt-1 text-sm font-medium text-primary">Community pricing · Workshop #1</p>
+          <p className="mt-1 text-sm font-medium text-primary">Community pricing · Workshop #2</p>
 
           <div className="mt-6 space-y-3">
             {valueStack.map((row, i) => (
@@ -200,23 +200,23 @@ export function Registration() {
             <div className="rounded-xl bg-accent/10 border border-accent/20 p-4 flex items-start gap-3">
               <TrendingUp className="h-5 w-5 text-accent flex-shrink-0 mt-1" />
               <div>
-                <p className="text-2xl font-extrabold text-foreground">₹10,000–₹20,000</p>
+                <p className="text-2xl font-extrabold text-foreground">₹2,000–₹5,000 per video</p>
                 <p className="text-sm text-muted-foreground mt-0.5">
-                  what an agency charges to build a website — done yourself, in one afternoon.
+                  what editors charge for a single reel — done yourself, every time, for free.
                 </p>
               </div>
             </div>
           </div>
 
           <p className="mt-3 text-xs text-muted-foreground leading-relaxed">
-            * Domain not included. You'll buy your own for <strong className="text-foreground">₹199–599</strong> (depending on availability) — or use one you already own. It's the only extra, and we help you do it live in the session. The {inr(PRICE)} covers our costs — any surplus goes back into the community.
+            * You'll need an active <strong className="text-foreground">Claude subscription</strong> — it's the AI that does the editing, and we'll help you set it up. Everything else is free and open-source. The {inr(PRICE)} covers our costs — any surplus goes back into the community.
           </p>
 
           <div className="mt-5 rounded-xl bg-background/70 border border-border p-4 flex gap-3">
             <ShieldCheck className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
             <p className="text-sm text-muted-foreground">
-              <strong className="text-foreground">Our promise:</strong> spend the 4 hours with us and
-              you'll leave with a live website — or we'll work with you 1:1 until you do.
+              <strong className="text-foreground">Our promise:</strong> spend the 2 hours with us and
+              you'll leave with a finished reel — or we'll work with you 1:1 until you do.
             </p>
           </div>
         </CardContent>

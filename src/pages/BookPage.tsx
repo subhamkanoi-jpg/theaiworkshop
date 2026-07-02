@@ -30,13 +30,13 @@ import {
  */
 export default function BookPage() {
   useEffect(() => {
-    document.title = "Book Your Seat — The AI Workshop #1 | Kolkata, 28 June";
+    document.title = "Book Your Seat — The AI Workshop #2 | Kolkata, 26 July";
     trackViewContent("Workshop Booking Page", "Workshop Registration", PRICE);
   }, []);
 
   const facts = [
     { icon: <Calendar className="h-4 w-4 text-primary" />, label: WORKSHOP_DATE_LABEL },
-    { icon: <Clock className="h-4 w-4 text-primary" />, label: `${WORKSHOP_TIME_LABEL} (4 hrs)` },
+    { icon: <Clock className="h-4 w-4 text-primary" />, label: `${WORKSHOP_TIME_LABEL} (2 hrs)` },
     { icon: <MapPin className="h-4 w-4 text-primary" />, label: "Salt Lake, Kolkata" },
     { icon: <Users className="h-4 w-4 text-primary" />, label: "A small batch" },
   ];
@@ -67,14 +67,14 @@ export default function BookPage() {
             AI is for everyone
           </div>
           <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-accent">
-            Workshop #01 · Build Your Own Website
+            Workshop #02 · Automate Video Editing with AI
           </p>
           <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground">
             Reserve your seat
           </h1>
           <p className="mt-3 text-lg text-muted-foreground max-w-xl mx-auto">
-            Build & launch a real website you own — in one Sunday afternoon, no code. Early-bird{" "}
-            <strong className="text-foreground">{inr(PRICE)}</strong>.
+            Turn raw footage into a polished, subtitled reel — by talking to Claude, no editing
+            software. Early-bird <strong className="text-foreground">{inr(PRICE)}</strong>.
           </p>
 
           <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
@@ -95,7 +95,7 @@ export default function BookPage() {
 
           <p className="mt-8 text-center text-sm text-muted-foreground flex items-center justify-center gap-2">
             <ShieldCheck className="h-4 w-4 text-accent" />
-            100% beginner-friendly · Secure Razorpay payment · Walk away with a live website
+            100% beginner-friendly · Secure Razorpay payment · Walk away with a finished reel
           </p>
         </div>
       </section>

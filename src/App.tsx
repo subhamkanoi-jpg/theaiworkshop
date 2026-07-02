@@ -9,6 +9,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Logo } from "@/components/Logo";
+import { HeroCanvas } from "@/components/HeroCanvas";
+import { initSiteAnimations } from "@/lib/animations";
 import { BecomeHost } from "@/components/BecomeHost";
 import { InterestForm } from "@/components/InterestForm";
 import { ScrollButtons } from "@/components/ScrollToTop";
@@ -18,6 +20,7 @@ import {
   PRICE,
   WORKSHOP_DATE_LABEL,
   WORKSHOP_TIME_LABEL,
+  WORKSHOP_DURATION_LABEL,
   WHATSAPP_URL,
   inr,
 } from "@/config";
@@ -31,18 +34,19 @@ import {
   ArrowRight,
   Rocket,
   Mail,
-  Palette,
-  Server,
   Menu,
   X,
   Linkedin,
   ShieldCheck,
   Star,
   ExternalLink,
-  Zap,
   TrendingUp,
   Phone,
   Bell,
+  Film,
+  Scissors,
+  Wand2,
+  MessageSquare,
 } from "lucide-react";
 
 // ──────────────────────────────────────────────────────────────────────────
@@ -109,7 +113,7 @@ const missionCards = [
   {
     icon: <Users className="h-6 w-6" />,
     label: "Our People",
-    text: "50+ members and growing daily — swapping tips, building in public, shaping what we create next.",
+    text: "60+ members and growing daily — swapping tips, building in public, shaping what we create next.",
   },
 ];
 
@@ -352,6 +356,84 @@ function PortfolioCarousel() {
   );
 }
 
+// ──────────────────────────────────────────────────────────────────────────
+// Hero glimpse reel — auto-crossfading frames from meetup #1, right on
+// screen one. Proof beats promises: visitors see a real room, real laptops,
+// real people before they read a single claim.
+// ──────────────────────────────────────────────────────────────────────────
+const glimpses = [
+  { src: "/meetup1/glimpse-2.jpg", alt: "The room mid-session at meetup #1 — laptops open, slides up" },
+  { src: "/meetup1/group-selfie.jpg", alt: "The full group at The AI Workshop meetup #1 in Kolkata" },
+  { src: "/meetup1/glimpse-1.jpg", alt: "Live walkthrough on the big screen at meetup #1" },
+  { src: "/meetup1/hosts-trio.jpg", alt: "The hosts at meetup #1" },
+  { src: "/meetup1/glimpse-4.jpg", alt: "Participants heads-down building at meetup #1" },
+];
+
+function MeetupGlimpses({ onWatchRecap }: { onWatchRecap: () => void }) {
+  const [current, setCurrent] = useState(0);
+  const [paused, setPaused] = useState(false);
+  // Respect reduced-motion: show a single static frame, no timer, no zoom.
+  const [reduced] = useState(
+    () => window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
+
+  useEffect(() => {
+    if (reduced || paused) return;
+    const id = setInterval(() => setCurrent((c) => (c + 1) % glimpses.length), 3400);
+    return () => clearInterval(id);
+  }, [paused, reduced]);
+
+  return (
+    <div
+      className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl border border-border shadow-xl bg-muted"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
+      {glimpses.map((g, i) => (
+        <img
+          key={g.src}
+          src={g.src}
+          alt={i === current ? g.alt : ""}
+          aria-hidden={i !== current}
+          className={cn(
+            "absolute inset-0 h-full w-full object-cover transition-opacity duration-1000",
+            i === current ? "opacity-100" : "opacity-0",
+            i === current && !reduced && "glimpse-kenburns"
+          )}
+        />
+      ))}
+
+      {/* Soft bottom scrim so the chips stay readable on any frame. */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/50 to-transparent" />
+
+      <div className="absolute top-3 left-3 rounded-full bg-black/55 px-3.5 py-1.5 text-xs font-semibold text-white backdrop-blur-sm">
+        Glimpses · Meetup #1 · 28 June
+      </div>
+
+      <button
+        onClick={onWatchRecap}
+        className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-white/95 px-4 py-2 text-xs font-bold text-foreground shadow-md hover:bg-white transition-colors"
+      >
+        ▶ Watch the 35s recap
+      </button>
+
+      <div className="absolute bottom-4 right-4 flex gap-1.5">
+        {glimpses.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setCurrent(i)}
+            aria-label={`Show glimpse ${i + 1}`}
+            className={cn(
+              "h-1.5 rounded-full transition-all duration-300",
+              i === current ? "w-5 bg-white" : "w-1.5 bg-white/50"
+            )}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // Eased "quart" curve: a slow, weighty start and a soft, decelerating settle —
 // noticeably more refined than the browser's built-in `behavior: "smooth"`.
 function easeInOutQuart(t: number): number {
@@ -439,6 +521,10 @@ function App() {
     trackViewContent("Homepage", "Lander");
   }, []);
 
+  // GSAP micro-animations (scroll reveals, counters, magnetic CTAs…).
+  // Returns its own cleanup, so StrictMode's double-mount is handled.
+  useEffect(() => initSiteAnimations(), []);
+
   const scrollTo = (id: string) => {
     // Close the mobile menu *first*. While it's open, the expanded menu adds
     // height to the sticky nav, which shifts the whole page down. If we measured
@@ -486,29 +572,35 @@ function App() {
 
   const workshopTopics = [
     {
-      icon: <Globe className="h-6 w-6" />,
-      title: "Buying a Domain",
-      desc: "Pick & buy the perfect name — the right way.",
+      icon: <MessageSquare className="h-6 w-6" />,
+      title: "Edit by Conversation",
+      desc: "No timelines, no software — just tell Claude what you want.",
     },
     {
-      icon: <Palette className="h-6 w-6" />,
-      title: "Vibe Coding Your Website",
-      desc: "Describe what you want; watch AI build it.",
+      icon: <Scissors className="h-6 w-6" />,
+      title: "Cuts, Trims & Stitching",
+      desc: "Turn raw phone clips into one tight, watchable edit.",
     },
     {
-      icon: <Server className="h-6 w-6" />,
-      title: "Free Hosting on Vercel",
-      desc: "Free hosting — the same platform top startups use.",
+      icon: <Wand2 className="h-6 w-6" />,
+      title: "Subtitles, Grades & Audio",
+      desc: "Auto-captions, colour grading and clean sound — done for you.",
     },
     {
-      icon: <Rocket className="h-6 w-6" />,
-      title: "Going Live",
-      desc: "Connect your domain, deploy, go live.",
+      icon: <Film className="h-6 w-6" />,
+      title: "Export a Share-Ready Reel",
+      desc: "Walk out with a finished reel, cut for Instagram & YouTube.",
     },
   ];
 
   return (
     <div className="min-h-screen pb-20 md:pb-0">
+      {/* Reading progress — a hairline gradient that fills as you scroll. */}
+      <div
+        id="scroll-progress"
+        className="fixed top-0 inset-x-0 z-[60] h-[3px] origin-left scale-x-0 bg-gradient-to-r from-primary to-accent"
+      />
+
       {/* Announcement Bar */}
       <button
         onClick={goToBook}
@@ -516,8 +608,8 @@ function App() {
       >
         <span className="inline-flex items-center gap-x-1.5 gap-y-0.5 flex-wrap justify-center">
           <Sparkles className="h-3.5 w-3.5 flex-shrink-0" />
-          <span>Workshop #1 · Build your own website</span>
-          <span className="hidden sm:inline">· Kolkata, Sun 28 June</span>
+          <span>Workshop #2 · Automate video editing with AI</span>
+          <span className="hidden sm:inline">· Kolkata, Sun 26 July</span>
           <span>· Early-bird <strong>{inr(PRICE)}</strong></span>
           <span className="underline underline-offset-2">Reserve your spot →</span>
         </span>
@@ -573,32 +665,62 @@ function App() {
           who we are: the mission, the vision, and an invitation to the community. */}
       <section id="hero" className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-accent/5 to-primary/10" />
-        <div className="absolute top-20 left-10 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
-        <div className="absolute bottom-10 right-10 h-96 w-96 rounded-full bg-accent/10 blur-3xl" />
+        <div data-drift className="absolute top-20 left-10 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
+        <div data-drift className="absolute bottom-10 right-10 h-96 w-96 rounded-full bg-accent/10 blur-3xl" />
+        {/* Living constellation — the brand's node network, gently drifting. */}
+        <HeroCanvas />
 
-        <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 pt-10 pb-16 sm:pt-14 sm:pb-20 text-center">
-          <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-5 py-2 text-sm sm:text-base font-bold text-primary mb-5">
-            <Users className="h-5 w-5" />
-            The AI Workshop Community
+        <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 pt-10 pb-16 sm:pt-14 sm:pb-20">
+          {/* Screen one: the message on the left, living proof on the right. */}
+          <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
+            <div className="text-center lg:text-left">
+              <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-5 py-2 text-sm sm:text-base font-bold text-primary mb-5">
+                <Users className="h-5 w-5" />
+                The AI Workshop Community
+              </div>
+
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground leading-[1.08]">
+                AI is for{" "}
+                <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                  everyone
+                </span>{" "}
+                — not just engineers.
+              </h1>
+
+              <p className="mx-auto lg:mx-0 mt-6 max-w-2xl text-lg sm:text-xl text-muted-foreground">
+                We're a Kolkata community making AI practical and hands-on for everyone —
+                business owners, freelancers, students, anyone curious. No jargon, no gatekeeping.
+              </p>
+
+              <div className="mt-8 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                <a
+                  href={WHATSAPP_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => trackContact("whatsapp")}
+                  className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-[#25D366] px-8 py-4 text-base font-semibold text-white hover:bg-[#1ebe57] transition-colors"
+                >
+                  <WhatsAppIcon className="h-5 w-5" /> Join the community
+                </a>
+                <Button size="lg" variant="outline" onClick={() => scrollTo("workshop")} className="text-base px-8 py-6 w-full sm:w-auto">
+                  Explore Workshop #02 <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </div>
+
+              <p className="mt-5 text-sm text-muted-foreground flex items-center justify-center lg:justify-start gap-1.5">
+                <ShieldCheck className="h-4 w-4 text-accent flex-shrink-0" />
+                60+ members · Meetup #1 done ✓ · Next: Sun, 26 July
+              </p>
+            </div>
+
+            {/* Meetup #1 glimpses — confidence, right where eyes land first. */}
+            <MeetupGlimpses onWatchRecap={() => scrollTo("meetup")} />
           </div>
-
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground leading-[1.08]">
-            AI is for{" "}
-            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              everyone
-            </span>{" "}
-            — not just engineers.
-          </h1>
-
-          <p className="mx-auto mt-6 max-w-2xl text-lg sm:text-xl text-muted-foreground">
-            We're a Kolkata community making AI practical and hands-on for everyone —
-            business owners, freelancers, students, anyone curious. No jargon, no gatekeeping.
-          </p>
 
           {/* Mission / vision artifact cards.
               Desktop: 3-up grid. Mobile: an auto-advancing carousel. */}
-          <div className="mt-12">
-            <div className="hidden sm:grid sm:grid-cols-3 gap-5">
+          <div className="mt-14">
+            <div data-reveal-children className="hidden sm:grid sm:grid-cols-3 gap-5">
               {missionCards.map((c) => (
                 <MissionCard key={c.label} {...c} />
               ))}
@@ -607,41 +729,26 @@ function App() {
               <MissionCarousel />
             </div>
           </div>
-
-          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => trackContact("whatsapp")}
-              className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-[#25D366] px-8 py-4 text-base font-semibold text-white hover:bg-[#1ebe57] transition-colors"
-            >
-              <WhatsAppIcon className="h-5 w-5" /> Join the community
-            </a>
-            <Button size="lg" variant="outline" onClick={() => scrollTo("workshop")} className="text-base px-8 py-6 w-full sm:w-auto">
-              Explore Workshop #01 <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-          </div>
         </div>
       </section>
 
       {/* Workshop pitch — the current use-case the community is running. */}
       <section id="workshop-pitch" className="relative overflow-hidden border-t border-border bg-muted/20">
         <div className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 pt-14 pb-16 sm:pt-16 sm:pb-20 text-center">
-          <p className="mb-4 text-sm font-semibold uppercase tracking-wider text-accent">
-            Workshop #01 · Build Your Own Website
+          <p data-reveal className="mb-4 text-sm font-semibold uppercase tracking-wider text-accent">
+            Workshop #02 · Automate Video Editing with AI
           </p>
 
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-foreground leading-[1.1]">
-            Build & launch{" "}
+          <h2 data-reveal className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-foreground leading-[1.1]">
+            Turn raw footage into{" "}
             <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              your own website
+              polished reels
             </span>{" "}
-            in one Sunday afternoon.
+            — just by talking to AI.
           </h2>
 
-          <p className="mx-auto mt-6 max-w-xl text-lg sm:text-xl text-muted-foreground">
-            No code. No agency. Walk in with an idea — walk out with a live website you own.
+          <p data-reveal className="mx-auto mt-6 max-w-xl text-lg sm:text-xl text-muted-foreground">
+            No Premiere. No timelines. Tell Claude what you want — and watch your video edit itself.
           </p>
 
           <div className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary">
@@ -650,12 +757,12 @@ function App() {
           </div>
 
           {/* Compact value pointers */}
-          <div className="mt-8 flex flex-wrap items-start justify-center gap-x-8 sm:gap-x-12 gap-y-6">
+          <div data-reveal-children className="mt-8 flex flex-wrap items-start justify-center gap-x-8 sm:gap-x-12 gap-y-6">
             {[
-              { icon: <Sparkles className="h-6 w-6" />, label: "No code" },
-              { icon: <Clock className="h-6 w-6" />, label: "4 hours" },
-              { icon: <Rocket className="h-6 w-6" />, label: "Go live" },
-              { icon: <Globe className="h-6 w-6" />, label: "You own it" },
+              { icon: <Sparkles className="h-6 w-6" />, label: "No editing software" },
+              { icon: <Clock className="h-6 w-6" />, label: "2 hours" },
+              { icon: <Film className="h-6 w-6" />, label: "Your own reel" },
+              { icon: <Wand2 className="h-6 w-6" />, label: "Just Claude" },
             ].map((p) => (
               <div key={p.label} className="flex flex-col items-center gap-2.5">
                 <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary">
@@ -673,21 +780,21 @@ function App() {
           </div>
 
           <p className="mt-3 text-sm text-muted-foreground">
-            Agencies charge <strong className="text-foreground">₹10,000–₹20,000</strong> minimum for the same thing.
+            Editors charge <strong className="text-foreground">₹2,000–₹5,000 per video</strong> for the same thing.
           </p>
 
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button size="lg" onClick={goToBook} className="text-base px-8 py-6 w-full sm:w-auto font-bold shadow-md hover:shadow-lg transition-shadow">
+            <Button data-magnetic size="lg" onClick={goToBook} className="text-base px-8 py-6 w-full sm:w-auto font-bold shadow-md hover:shadow-lg transition-shadow">
               Book Your Seat — {inr(PRICE)} <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
-            <Button size="lg" variant="outline" onClick={() => scrollTo("work")} className="text-base px-8 py-6 w-full sm:w-auto">
-              See websites we built
+            <Button size="lg" variant="outline" onClick={() => scrollTo("meetup")} className="text-base px-8 py-6 w-full sm:w-auto">
+              See meetup #1 highlights
             </Button>
           </div>
 
           <p className="mt-4 text-sm text-muted-foreground flex items-center justify-center gap-1.5">
             <ShieldCheck className="h-4 w-4 text-accent" />
-            100% beginner-friendly · Secure Razorpay payment · Walk away with a live website
+            100% beginner-friendly · Secure Razorpay payment · Walk away with a finished reel
           </p>
 
           {/* Meta row */}
@@ -698,7 +805,7 @@ function App() {
             </div>
             <div className="flex items-center gap-2">
               <Clock className="h-4 w-4 text-primary" />
-              <span>{WORKSHOP_TIME_LABEL} (4 hrs)</span>
+              <span>{WORKSHOP_TIME_LABEL} ({WORKSHOP_DURATION_LABEL})</span>
             </div>
             <div className="flex items-center gap-2">
               <Users className="h-4 w-4 text-primary" />
@@ -745,7 +852,7 @@ function App() {
       {/* Community Builds / Portfolio Section */}
       <section id="work" className="py-20 sm:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-14">
+          <div data-reveal className="text-center max-w-2xl mx-auto mb-14">
             <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary mb-4">
               <Star className="h-4 w-4" />
               Community Builds
@@ -759,7 +866,7 @@ function App() {
           </div>
 
           {/* Desktop: 3-col grid */}
-          <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div data-reveal-children className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {portfolio.map((p) => (
               <PortfolioThumb key={p.name} {...p} />
             ))}
@@ -782,7 +889,7 @@ function App() {
       {/* Team Section — right after the community builds: who teaches builds trust early. */}
       <section id="team" className="py-20 sm:py-24 bg-muted/30">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-14">
+          <div data-reveal className="text-center max-w-2xl mx-auto mb-14">
             <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
               Meet Your Workshop Hosts
             </h2>
@@ -792,7 +899,7 @@ function App() {
           </div>
 
           {/* Desktop: 3-up grid. Mobile: an auto-advancing carousel. */}
-          <div className="hidden sm:grid sm:grid-cols-3 gap-10 sm:gap-8 max-w-4xl mx-auto">
+          <div data-reveal-children className="hidden sm:grid sm:grid-cols-3 gap-10 sm:gap-8 max-w-4xl mx-auto">
             {hosts.map((h) => (
               <HostCard key={h.name} {...h} />
             ))}
@@ -807,7 +914,7 @@ function App() {
           riding the momentum from "look what the community built". */}
       <section id="host" className="py-20 sm:py-24 border-t border-border">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-12">
+          <div data-reveal className="text-center max-w-2xl mx-auto mb-12">
             <div className="inline-flex items-center gap-2 rounded-full bg-accent/10 px-4 py-1.5 text-sm font-medium text-accent mb-4">
               <Sparkles className="h-4 w-4" />
               Become a host
@@ -827,23 +934,23 @@ function App() {
       {/* Workshop Section */}
       <section id="workshop" className="py-20 sm:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-14">
+          <div data-reveal className="text-center max-w-2xl mx-auto mb-14">
             <div className="inline-flex items-center gap-2 rounded-full bg-accent/10 px-4 py-1.5 text-sm font-medium text-accent mb-4">
-              <Rocket className="h-4 w-4" />
-              Workshop #1 · Create & Host Your Website
+              <Film className="h-4 w-4" />
+              Workshop #2 · Automate Video Editing with AI
             </div>
             <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
-              From zero to a live website — in 4 hours
+              From raw footage to a finished reel — in 2 hours
             </h2>
             <p className="mt-4 text-lg text-muted-foreground">
-              Walk in with an idea. Walk out with a real website on the internet. No coding experience needed.
+              Bring clips from your phone. Leave with an edited, subtitled reel — and a workflow you keep forever.
             </p>
-            {/* Why a website at all — the basic, important case, kept short. */}
+            {/* Why video at all — the basic, important case, kept short. */}
             <p className="mt-5 inline-flex items-start gap-2 rounded-xl bg-accent/5 border border-accent/15 px-4 py-3 text-left text-sm text-muted-foreground">
-              <Globe className="h-4 w-4 text-accent flex-shrink-0 mt-0.5" />
+              <Film className="h-4 w-4 text-accent flex-shrink-0 mt-0.5" />
               <span>
-                <strong className="text-foreground">Why a website?</strong> In 2026 it's the basic minimum —
-                it's how people find you, judge you, and decide to trust you before you ever speak. Not having one quietly costs you.
+                <strong className="text-foreground">Why video?</strong> In 2026 reels and shorts are how
+                people discover you. The footage is easy — editing is the bottleneck. AI removes it.
               </span>
             </p>
           </div>
@@ -854,7 +961,7 @@ function App() {
               <div className="grid md:grid-cols-2">
                 <div className="p-8 sm:p-10">
                   <h3 className="text-2xl font-bold text-foreground mb-6">What You'll Learn</h3>
-                  <div className="space-y-6">
+                  <div data-reveal-children className="space-y-6">
                     {workshopTopics.map((topic, i) => (
                       <div key={i} className="flex gap-4">
                         <div className="flex-shrink-0 flex h-11 w-11 items-center justify-center rounded-lg bg-primary/10 text-primary">
@@ -883,7 +990,7 @@ function App() {
                         <Clock className="h-5 w-5 text-primary flex-shrink-0" />
                         <div>
                           <p className="font-medium text-foreground">{WORKSHOP_TIME_LABEL}</p>
-                          <p className="text-sm text-muted-foreground">4 hours, hands-on</p>
+                          <p className="text-sm text-muted-foreground">{WORKSHOP_DURATION_LABEL}, hands-on</p>
                         </div>
                       </div>
                       <div className="flex items-center gap-3">
@@ -900,6 +1007,13 @@ function App() {
                           <p className="text-sm text-muted-foreground">Founding cohort — small enough for real attention</p>
                         </div>
                       </div>
+                      <div className="flex items-center gap-3">
+                        <Sparkles className="h-5 w-5 text-primary flex-shrink-0" />
+                        <div>
+                          <p className="font-medium text-foreground">Claude subscription required</p>
+                          <p className="text-sm text-muted-foreground">It's the AI that does the editing — we'll help you set it up</p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <Button onClick={goToBook} className="mt-8 w-full font-bold shadow-md hover:shadow-lg transition-shadow" size="lg">
@@ -910,31 +1024,31 @@ function App() {
             </CardContent>
           </Card>
 
-          {/* The same website, a fraction of the price — compact comparison strip. */}
-          <div className="mt-10 rounded-2xl border border-primary/20 bg-primary/5 p-6 sm:p-8">
+          {/* The same reel, a fraction of the price — compact comparison strip. */}
+          <div data-reveal className="mt-10 rounded-2xl border border-primary/20 bg-primary/5 p-6 sm:p-8">
             <div className="grid sm:grid-cols-2 gap-6 items-center">
               <div>
                 <h3 className="text-xl sm:text-2xl font-bold text-foreground">
-                  The same website. A fraction of the price.
+                  The same reel. A fraction of the price.
                 </h3>
                 <p className="mt-2 text-sm text-muted-foreground">
-                  Pay an agency once. Or learn it once — and never pay again.
+                  Pay an editor for every video. Or learn it once — and never pay again.
                 </p>
                 <p className="mt-3 text-sm text-foreground flex items-center gap-2">
                   <TrendingUp className="h-4 w-4 text-accent flex-shrink-0" />
-                  One website pays for the workshop ~15× over. The skill pays forever.
+                  A single reel pays for the workshop ~4× over. The skill pays forever.
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row gap-3">
                 <div className="flex-1 rounded-xl border border-border/60 bg-background/60 p-4 text-center">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Hire an agency</p>
-                  <p className="mt-1 text-xl font-extrabold text-foreground line-through decoration-destructive/60">₹10,000+</p>
-                  <p className="mt-1 text-xs text-muted-foreground">Weeks of waiting · pay for every change</p>
+                  <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Hire an editor</p>
+                  <p className="mt-1 text-xl font-extrabold text-foreground line-through decoration-destructive/60">₹2,000+/video</p>
+                  <p className="mt-1 text-xs text-muted-foreground">Days of back-and-forth · pay per video, forever</p>
                 </div>
                 <div className="flex-1 rounded-xl border border-primary/40 bg-card p-4 text-center shadow-sm">
                   <p className="text-xs font-semibold uppercase tracking-wide text-primary">This workshop</p>
                   <p className="mt-1 text-xl font-extrabold text-foreground">{inr(PRICE)}</p>
-                  <p className="mt-1 text-xs text-muted-foreground">Live in 4 hours · a skill you keep for life</p>
+                  <p className="mt-1 text-xs text-muted-foreground">A finished reel in 2 hours · a skill you keep for life</p>
                 </div>
               </div>
             </div>
@@ -945,45 +1059,48 @@ function App() {
       {/* What's Next / Roadmap Section */}
       <section id="roadmap" className="py-20 sm:py-24 bg-muted/30">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-14">
+          <div data-reveal className="text-center max-w-2xl mx-auto mb-14">
             <div className="inline-flex items-center gap-2 rounded-full bg-accent/10 px-4 py-1.5 text-sm font-medium text-accent mb-4">
               <TrendingUp className="h-4 w-4" />
               This is just the beginning
             </div>
             <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
-              One workshop. The first of many.
+              Workshop #1 is done. The series continues.
             </h2>
             <p className="mt-4 text-lg text-muted-foreground">
-              Use-case #1. From here, every workshop solves a real business problem.
+              Use-case #1 shipped — real websites, live on the internet. Next up: video.
             </p>
           </div>
 
-          <div className="grid sm:grid-cols-3 gap-5">
-            <Card className="relative border-primary/40 bg-primary/5 shadow-sm">
-              <div className="absolute -top-3 left-6 rounded-full bg-accent/15 px-3 py-1 text-xs font-semibold text-accent">
-                Up first
+          <div data-reveal-children className="grid sm:grid-cols-3 gap-5">
+            <Card className="relative border-border/60">
+              <div className="absolute -top-3 left-6 rounded-full bg-[#25D366]/15 px-3 py-1 text-xs font-semibold text-[#128C46]">
+                Done ✓ · 28 June
               </div>
               <CardContent className="p-7">
-                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-muted text-muted-foreground">
                   <Globe className="h-6 w-6" />
                 </div>
-                <p className="text-xs font-semibold uppercase tracking-wide text-primary">Workshop #01</p>
+                <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Workshop #01</p>
                 <h3 className="mt-1 text-lg font-semibold text-foreground">Build Your Own Website</h3>
                 <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-                  Go from idea to a live website you own — in a single afternoon, no code.
+                  The founding cohort walked in with ideas and walked out with live websites they own.
                 </p>
               </CardContent>
             </Card>
 
-            <Card className="border-border/60">
+            <Card className="relative border-primary/40 bg-primary/5 shadow-sm">
+              <div className="absolute -top-3 left-6 rounded-full bg-accent/15 px-3 py-1 text-xs font-semibold text-accent">
+                Up next · 26 July
+              </div>
               <CardContent className="p-7">
-                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-muted text-muted-foreground">
-                  <Zap className="h-6 w-6" />
+                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                  <Film className="h-6 w-6" />
                 </div>
-                <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Coming next</p>
-                <h3 className="mt-1 text-lg font-semibold text-foreground">AI for Your Business</h3>
+                <p className="text-xs font-semibold uppercase tracking-wide text-primary">Workshop #02</p>
+                <h3 className="mt-1 text-lg font-semibold text-foreground">Automate Video Editing</h3>
                 <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-                  Automate the busywork, market smarter, and serve customers faster — with everyday AI tools.
+                  Cuts, subtitles, grades and exports — done by talking to Claude, not dragging timelines.
                 </p>
               </CardContent>
             </Card>
@@ -1025,10 +1142,84 @@ function App() {
         </div>
       </section>
 
+      {/* Meetup #1 recap — proof the community is real: photos + the recap reel.
+          The reel itself was edited with Claude + FFmpeg — i.e. exactly what
+          Workshop #2 teaches — so it doubles as a live demo of the outcome. */}
+      <section id="meetup" className="py-20 sm:py-24">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          <div data-reveal className="text-center max-w-2xl mx-auto mb-12">
+            <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary mb-4">
+              <Users className="h-4 w-4" />
+              Meetup #1 · 28 June · Kolkata
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
+              The first meetup, in 35 seconds
+            </h2>
+            <p className="mt-4 text-lg text-muted-foreground">
+              Real people, real laptops, real websites shipped. And here's the kicker —
+              this recap reel was edited by talking to Claude. That's exactly what
+              Workshop #2 teaches.
+            </p>
+          </div>
+
+          <div data-reveal-children className="grid gap-5 sm:grid-cols-3 items-start">
+            {/* The reel — vertical, click to play */}
+            <div className="relative mx-auto w-full max-w-[280px] sm:max-w-none overflow-hidden rounded-2xl border border-primary/20 shadow-md bg-black">
+              <video
+                src="/meetup1/recap.mp4"
+                poster="/meetup1/recap-poster.jpg"
+                controls
+                playsInline
+                preload="none"
+                className="aspect-[9/16] w-full object-cover"
+              />
+              <div className="pointer-events-none absolute top-3 left-3 rounded-full bg-black/60 px-3 py-1 text-xs font-semibold text-white backdrop-blur-sm">
+                ▶ Recap reel — edited with Claude
+              </div>
+            </div>
+
+            {/* Photos */}
+            <div className="sm:col-span-2 grid gap-5">
+              <figure className="overflow-hidden rounded-2xl border border-border shadow-sm">
+                <img
+                  src="/meetup1/group-selfie.jpg"
+                  alt="The full group at The AI Workshop meetup #1 in Kolkata"
+                  loading="lazy"
+                  className="w-full object-cover"
+                />
+                <figcaption className="bg-card px-4 py-3 text-sm text-muted-foreground">
+                  The founding cohort — business owners, freelancers and students, all shipping together.
+                </figcaption>
+              </figure>
+              <div className="grid grid-cols-2 gap-5">
+                <figure className="overflow-hidden rounded-2xl border border-border shadow-sm">
+                  <img
+                    src="/meetup1/hosts-trio.jpg"
+                    alt="Hosts at The AI Workshop meetup #1"
+                    loading="lazy"
+                    className="aspect-[3/4] w-full object-cover"
+                  />
+                </figure>
+                <div className="flex flex-col justify-center rounded-2xl border border-accent/20 bg-accent/5 p-5">
+                  <p className="text-3xl font-extrabold text-foreground">You're next</p>
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    Meetup #2 is a small batch again — real attention, hands-on,
+                    and a finished reel to take home.
+                  </p>
+                  <Button size="sm" onClick={goToBook} className="mt-4 w-full font-bold">
+                    Book for 26 July <ArrowRight className="ml-1.5 h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Show of Interest Section — for people who want similar / future workshops. */}
       <section id="interest" className="py-20 sm:py-24">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-10">
+          <div data-reveal className="text-center max-w-2xl mx-auto mb-10">
             <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary mb-4">
               <Bell className="h-4 w-4" />
               Show of interest
@@ -1092,7 +1283,7 @@ function App() {
       {/* FAQ Section */}
       <section id="faq" className="py-20 sm:py-24">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
+          <div data-reveal className="text-center mb-14">
             <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
               Frequently Asked Questions
             </h2>
@@ -1101,40 +1292,40 @@ function App() {
             </p>
           </div>
 
-          <Accordion type="single" collapsible className="space-y-3">
+          <Accordion data-reveal-children type="single" collapsible className="space-y-3">
             <AccordionItem value="q1" className="border rounded-lg px-6 bg-background">
               <AccordionTrigger className="text-left font-medium text-foreground hover:no-underline">
-                Do I need any coding experience?
+                Do I need any video-editing experience?
               </AccordionTrigger>
               <AccordionContent className="text-muted-foreground pb-4">
-                None at all. If you can use a browser and type, you're ready — that's the whole point.
+                None at all. If you can chat on WhatsApp, you can edit with Claude — that's the whole point.
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="q-price" className="border rounded-lg px-6 bg-background">
               <AccordionTrigger className="text-left font-medium text-foreground hover:no-underline">
-                Why is it only {inr(PRICE)} when websites cost so much more?
+                Why is it only {inr(PRICE)} when editors charge so much more?
               </AccordionTrigger>
               <AccordionContent className="text-muted-foreground pb-4">
-                It just covers our venue and running costs — we're a community, not a business. Agencies charge ₹10,000–₹20,000; here you learn to do it yourself and never pay again.
+                It just covers our venue and running costs — we're a community, not a business. Editors charge ₹2,000–₹5,000 per video; here you learn to do it yourself and never pay again.
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="q-domain" className="border rounded-lg px-6 bg-background">
               <AccordionTrigger className="text-left font-medium text-foreground hover:no-underline">
-                Is a domain name included in the {inr(PRICE)}?
+                Do I need to buy any editing software?
               </AccordionTrigger>
               <AccordionContent className="text-muted-foreground pb-4">
-                Everything's covered except your domain (₹199–599) — we'll help you buy it live in the session. Already own one? Bring it, we'll connect it free.
+                No editing software — no Premiere, no trials. You will need a Claude subscription (that's the AI doing the editing); everything else is free and open-source, and we set it all up together, live in the session.
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="q3" className="border rounded-lg px-6 bg-background">
               <AccordionTrigger className="text-left font-medium text-foreground hover:no-underline">
-                Will I actually have a live website by the end?
+                Will I actually walk out with a finished reel?
               </AccordionTrigger>
               <AccordionContent className="text-muted-foreground pb-4">
-                Yes. In 4 hours you'll have a real, live website you built yourself — not just theory.
+                Yes. In 2 hours you'll cut real footage into a subtitled, share-ready reel yourself — not just watch a demo. Our own meetup recap reel on this page was edited exactly this way.
               </AccordionContent>
             </AccordionItem>
 
@@ -1143,16 +1334,16 @@ function App() {
                 What do I need to bring?
               </AccordionTrigger>
               <AccordionContent className="text-muted-foreground pb-4">
-                Just your laptop and a willingness to learn. We'll guide you through everything else — from setting up free tools to deploying your website. No software installs needed beforehand.
+                Your laptop with a Claude subscription active, and a few raw clips on your phone if you'd like to edit your own footage. No clips? No problem, we'll have sample footage ready. No installs needed beforehand.
               </AccordionContent>
             </AccordionItem>
 
             <AccordionItem value="q4" className="border rounded-lg px-6 bg-background">
               <AccordionTrigger className="text-left font-medium text-foreground hover:no-underline">
-                Is hosting really free?
+                Which tools will we actually use?
               </AccordionTrigger>
               <AccordionContent className="text-muted-foreground pb-4">
-                Yes — we deploy on Vercel's free tier, plenty for personal and small-business websites. The only possible extra is your domain (₹199–599).
+                Claude, plus free open-source tools like FFmpeg and Whisper — for cuts, colour grading and auto-subtitles. The same stack we used to edit our meetup #1 recap reel.
               </AccordionContent>
             </AccordionItem>
 
@@ -1179,7 +1370,7 @@ function App() {
                 Will there be more workshops after this?
               </AccordionTrigger>
               <AccordionContent className="text-muted-foreground pb-4">
-                Yes — this is workshop #1 of many. Register and you'll be first to know about the next.
+                Yes — this is workshop #2 of a growing series. Workshop #1 (build your own website) already happened on 28 June. Register and you'll be first to know about #3.
               </AccordionContent>
             </AccordionItem>
           </Accordion>
@@ -1194,7 +1385,7 @@ function App() {
               <WhatsAppIcon className="h-6 w-6" />
             </div>
             <div className="text-center sm:text-left">
-              <h3 className="text-lg font-semibold text-foreground">50+ members and growing daily</h3>
+              <h3 data-count className="text-lg font-semibold text-foreground">60+ members and growing daily</h3>
               <p className="text-sm text-muted-foreground">Join the founding community — swap AI tips, help shape what we build next, and get first dibs on every future workshop.</p>
             </div>
             <a
@@ -1212,21 +1403,21 @@ function App() {
 
       {/* Final CTA */}
       <section className="relative overflow-hidden py-20 sm:py-24">
-        <div className="pointer-events-none absolute -top-10 -left-16 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-16 -right-10 h-80 w-80 rounded-full bg-accent/10 blur-3xl" />
-        <div className="relative mx-auto max-w-2xl px-4 sm:px-6 lg:px-8 text-center">
+        <div data-drift className="pointer-events-none absolute -top-10 -left-16 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
+        <div data-drift className="pointer-events-none absolute -bottom-16 -right-10 h-80 w-80 rounded-full bg-accent/10 blur-3xl" />
+        <div data-reveal className="relative mx-auto max-w-2xl px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
-            Ready to build your own website?
+            Ready to edit videos by talking to AI?
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
             Small batch. Real attention. {WORKSHOP_DATE_LABEL}.
           </p>
-          <Button size="lg" onClick={goToBook} className="mt-8 text-base px-8 py-6 font-bold shadow-md hover:shadow-lg transition-shadow">
-            Join the founding cohort — {inr(PRICE)} <ArrowRight className="ml-2 h-5 w-5" />
+          <Button data-magnetic size="lg" onClick={goToBook} className="mt-8 text-base px-8 py-6 font-bold shadow-md hover:shadow-lg transition-shadow">
+            Book your seat — {inr(PRICE)} <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
           <p className="mt-4 text-sm text-muted-foreground flex items-center justify-center gap-1.5">
             <ShieldCheck className="h-4 w-4 text-accent" />
-            Secure Razorpay payment · Walk away with a live website
+            Secure Razorpay payment · Walk away with a finished reel
           </p>
         </div>
       </section>
