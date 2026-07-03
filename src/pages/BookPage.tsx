@@ -79,14 +79,14 @@ export default function BookPage() {
         <HeroCanvas />
 
         <div className="relative mx-auto max-w-3xl px-4 sm:px-6 py-12 sm:py-16 text-center">
-          <div data-reveal className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-bold text-primary mb-3">
-            <Sparkles className="h-4 w-4" />
+          <div data-reveal className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/[0.06] px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-primary mb-3">
+            <Sparkles className="h-3.5 w-3.5" />
             AI is for everyone
           </div>
-          <p data-reveal className="mb-2 text-sm font-semibold uppercase tracking-wider text-accent">
+          <p data-reveal className="mb-3 text-[11px] font-bold uppercase tracking-[0.14em] text-accent">
             Workshop #02 · Automate Video Editing with AI
           </p>
-          <h1 data-hero-words className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground">
+          <h1 data-hero-words className="font-serif text-4xl sm:text-5xl font-semibold tracking-tight text-foreground leading-[1.1]">
             Reserve your seat
           </h1>
           <p data-reveal className="mt-3 text-lg text-muted-foreground max-w-xl mx-auto">

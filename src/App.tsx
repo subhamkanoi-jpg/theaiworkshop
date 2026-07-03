@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { trackViewContent, trackContact } from "@/analytics";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -120,9 +120,40 @@ const missionCards = [
   },
 ];
 
+// ──────────────────────────────────────────────────────────────────────────
+// Shared type system for section openers, so every section speaks with the
+// same editorial voice: a small uppercase kicker, then a Fraunces headline.
+// ──────────────────────────────────────────────────────────────────────────
+const SECTION_HEADING =
+  "font-serif text-3xl sm:text-4xl lg:text-[2.6rem] font-semibold tracking-tight text-foreground leading-[1.15] text-balance";
+
+function Eyebrow({
+  icon,
+  tone = "primary",
+  children,
+}: {
+  icon?: ReactNode;
+  tone?: "primary" | "accent";
+  children: ReactNode;
+}) {
+  return (
+    <div
+      className={cn(
+        "inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em] [&_svg]:h-3.5 [&_svg]:w-3.5",
+        tone === "primary"
+          ? "border-primary/20 bg-primary/[0.06] text-primary"
+          : "border-accent/25 bg-accent/[0.06] text-accent"
+      )}
+    >
+      {icon}
+      <span>{children}</span>
+    </div>
+  );
+}
+
 function MissionCard({ icon, label, text }: (typeof missionCards)[number]) {
   return (
-    <div data-tilt className="h-full rounded-2xl border border-border/60 bg-card/70 backdrop-blur-sm p-6 shadow-sm text-left transition-shadow duration-300">
+    <div data-tilt className="h-full rounded-2xl border border-border/60 bg-card/70 backdrop-blur-sm p-6 shadow-e1 text-left transition-shadow duration-300">
       <div className="tilt-pop flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
         {icon}
       </div>
@@ -179,36 +210,50 @@ function MissionCarousel() {
 
 function PortfolioThumb({ name, tag, image, url }: (typeof portfolio)[number]) {
   const [broken, setBroken] = useState(false);
+  // The live domain, shown in the frame's URL pill — quiet proof it's real.
+  const domain = url.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
   return (
     <a
       href={url}
       target={url !== "#" ? "_blank" : undefined}
       rel="noopener noreferrer"
-      data-tilt
-      className="group relative block overflow-hidden rounded-2xl border border-border/60 bg-card hover:border-primary/40 transition-colors duration-300"
+      className="group block focus-visible:outline-none"
     >
-      <div className="relative aspect-[16/10] overflow-hidden">
-        {!broken ? (
-          <img
-            src={image}
-            alt={name}
-            loading="lazy"
-            onError={() => setBroken(true)}
-            className="h-full w-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-          />
-        ) : (
-          <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-primary/15 via-accent/10 to-primary/20">
-            <Globe className="h-10 w-10 text-primary/50" />
+      {/* Browser window: chrome bar + screenshot, one elevated surface. */}
+      <div className="browser-frame overflow-hidden rounded-xl border border-border/70 bg-card shadow-e1 group-hover:border-primary/30 group-focus-visible:ring-2 group-focus-visible:ring-ring">
+        <div className="flex items-center gap-3 border-b border-border/60 bg-muted/40 px-3.5 py-2">
+          <div className="flex gap-1.5" aria-hidden="true">
+            <span className="h-2.5 w-2.5 rounded-full bg-[#e0897a]" />
+            <span className="h-2.5 w-2.5 rounded-full bg-[#e5c07b]" />
+            <span className="h-2.5 w-2.5 rounded-full bg-[#8fbf9f]" />
           </div>
-        )}
-        <div className="absolute inset-0 bg-gradient-to-t from-foreground/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-        <div className="absolute bottom-3 right-3 flex h-8 w-8 items-center justify-center rounded-full bg-background/90 text-foreground opacity-0 group-hover:opacity-100 transition-opacity">
-          <ExternalLink className="h-4 w-4" />
+          <div className="flex min-w-0 flex-1 items-center justify-center">
+            <span className="max-w-full truncate rounded-md border border-border/50 bg-background/80 px-3 py-0.5 text-[11px] font-medium text-muted-foreground">
+              {domain}
+            </span>
+          </div>
+          <ExternalLink className="h-3.5 w-3.5 flex-shrink-0 text-muted-foreground/50 transition-colors group-hover:text-primary" aria-hidden="true" />
+        </div>
+        <div className="relative aspect-[16/10] overflow-hidden">
+          {!broken ? (
+            <img
+              src={image}
+              alt={name}
+              loading="lazy"
+              onError={() => setBroken(true)}
+              className="h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+            />
+          ) : (
+            <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-primary/15 via-accent/10 to-primary/20">
+              <Globe className="h-10 w-10 text-primary/50" />
+            </div>
+          )}
         </div>
       </div>
-      <div className="flex items-center justify-between px-4 py-3">
-        <span className="font-semibold text-foreground">{name}</span>
-        <span className="text-xs font-medium text-muted-foreground rounded-full bg-muted px-2.5 py-1">{tag}</span>
+      {/* Caption sits on the page, not in the window — like a plate in a portfolio book. */}
+      <div className="mt-3 flex items-baseline justify-between gap-3 px-1">
+        <span className="font-semibold text-foreground transition-colors group-hover:text-primary">{name}</span>
+        <span className="text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground/80">{tag}</span>
       </div>
     </a>
   );
@@ -416,7 +461,7 @@ function MeetupGlimpses({ onWatchRecap }: { onWatchRecap: () => void }) {
 
       <button
         onClick={onWatchRecap}
-        className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-white/95 px-4 py-2 text-xs font-bold text-foreground shadow-md hover:bg-white transition-colors"
+        className="absolute bottom-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-white/95 px-4 py-2 text-xs font-bold text-foreground shadow-e2 hover:bg-white transition-colors"
       >
         ▶ Watch the 35s recap
       </button>
@@ -659,11 +704,11 @@ function App() {
                 below). Roadmap/Hosts are still one scroll away and in the
                 mobile menu — just not worth a horizontal-nav slot. */}
             <div className="hidden lg:flex items-center gap-6">
-              <button onClick={() => scrollTo("who")} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Who It's For</button>
-              <button onClick={() => scrollTo("workshop")} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Workshop</button>
-              <button onClick={() => scrollTo("work")} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Builds</button>
-              <button onClick={() => scrollTo("host")} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Teach</button>
-              <button onClick={() => scrollTo("faq")} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">FAQ</button>
+              <button onClick={() => scrollTo("who")} className="nav-link text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Who It's For</button>
+              <button onClick={() => scrollTo("workshop")} className="nav-link text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Workshop</button>
+              <button onClick={() => scrollTo("work")} className="nav-link text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Builds</button>
+              <button onClick={() => scrollTo("host")} className="nav-link text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Teach</button>
+              <button onClick={() => scrollTo("faq")} className="nav-link text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">FAQ</button>
               <Button onClick={goToBook} size="sm">
                 Book Seat — {inr(PRICE)} <ArrowRight className="ml-1 h-4 w-4" />
               </Button>
@@ -709,14 +754,13 @@ function App() {
           {/* Screen one: the message on the left, living proof on the right. */}
           <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
             <div className="text-center lg:text-left">
-              <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-5 py-2 text-sm sm:text-base font-bold text-primary mb-5">
-                <Users className="h-5 w-5" />
-                The AI Workshop Community
+              <div className="mb-6">
+                <Eyebrow icon={<Users />}>The AI Workshop Community</Eyebrow>
               </div>
 
-              <h1 data-hero-words className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground leading-[1.08]">
+              <h1 data-hero-words className="font-serif text-[2.6rem] sm:text-5xl lg:text-[3.6rem] font-semibold tracking-tight text-foreground leading-[1.06]">
                 AI is for{" "}
-                <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                <span className="italic bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
                   everyone
                 </span>{" "}
                 — not just engineers.
@@ -734,7 +778,7 @@ function App() {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => trackContact("whatsapp")}
-                  className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-[#25D366] px-8 py-4 text-base font-semibold text-white hover:bg-[#1ebe57] transition-colors"
+                  className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-[#25D366] px-8 py-4 text-base font-semibold text-white shadow-e1 hover:bg-[#1ebe57] hover:shadow-e2 transition-all"
                 >
                   <WhatsAppIcon className="h-5 w-5" /> Join the community
                 </a>
@@ -783,14 +827,13 @@ function App() {
           it doesn't, so "welcoming" reads as deliberate rather than generic.
           Sits right after the hero, before any pitch, so it's read as identity
           first and offer second. */}
-      <section id="who" className="relative py-20 sm:py-24 border-t border-border">
+      <section id="who" className="relative py-20 sm:py-28 border-t border-border">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <div data-reveal className="text-center max-w-2xl mx-auto mb-12">
-            <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary mb-4">
-              <ShieldCheck className="h-4 w-4" />
-              Who this room is for
+            <div className="mb-5">
+              <Eyebrow icon={<ShieldCheck />}>Who this room is for</Eyebrow>
             </div>
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-foreground leading-[1.15]">
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-foreground leading-[1.15] text-balance">
               Welcoming to anyone serious.{" "}
               <span className="italic text-primary">Not built for everyone else.</span>
             </h2>
@@ -841,16 +884,21 @@ function App() {
         </div>
       </section>
 
-      {/* Workshop pitch — the current use-case the community is running. */}
-      <section id="workshop-pitch" className="relative overflow-hidden border-t border-border bg-muted/20">
-        <div className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 pt-14 pb-16 sm:pt-16 sm:pb-20 text-center">
-          <p data-reveal className="mb-4 text-sm font-semibold uppercase tracking-wider text-accent">
-            Workshop #02 · Automate Video Editing with AI
-          </p>
+      {/* Workshop pitch — the current use-case the community is running.
+          One editorial headline, four quiet value pointers, then a single
+          consolidated booking card that owns price, seats, logistics and CTA
+          (instead of the previous scatter of competing pills). */}
+      <section id="workshop-pitch" className="relative overflow-hidden border-t border-border bg-muted/20 py-20 sm:py-28">
+        <div className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
+          <div data-reveal className="mb-5">
+            <Eyebrow tone="accent" icon={<Film />}>
+              Workshop #02 · Automate Video Editing with AI
+            </Eyebrow>
+          </div>
 
-          <h2 data-reveal className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-foreground leading-[1.1]">
+          <h2 data-reveal className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-foreground leading-[1.12] text-balance">
             Turn raw footage into{" "}
-            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            <span className="italic bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
               polished reels
             </span>{" "}
             — just by talking to AI.
@@ -860,21 +908,16 @@ function App() {
             No Premiere. No timelines. Tell Claude what you want — and watch your video edit itself.
           </p>
 
-          <div className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary">
-            <MapPin className="h-4 w-4" />
-            Salt Lake, Kolkata · {WORKSHOP_DATE_LABEL}
-          </div>
-
-          {/* Compact value pointers */}
-          <div data-reveal-children className="mt-8 flex flex-wrap items-start justify-center gap-x-8 sm:gap-x-12 gap-y-6">
+          {/* Compact value pointers — quiet, secondary to the booking card. */}
+          <div data-reveal-children className="mt-10 flex flex-wrap items-start justify-center gap-x-8 sm:gap-x-12 gap-y-6">
             {[
-              { icon: <Sparkles className="h-6 w-6" />, label: "No editing software" },
-              { icon: <Clock className="h-6 w-6" />, label: "2 hours" },
-              { icon: <Film className="h-6 w-6" />, label: "Your own reel" },
-              { icon: <Wand2 className="h-6 w-6" />, label: "Just Claude" },
+              { icon: <Sparkles className="h-5 w-5" />, label: "No editing software" },
+              { icon: <Clock className="h-5 w-5" />, label: "2 hours" },
+              { icon: <Film className="h-5 w-5" />, label: "Your own reel" },
+              { icon: <Wand2 className="h-5 w-5" />, label: "Just Claude" },
             ].map((p) => (
               <div key={p.label} className="flex flex-col items-center gap-2.5">
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-primary/15 bg-primary/[0.07] text-primary">
                   {p.icon}
                 </div>
                 <span className="text-sm font-semibold text-foreground">{p.label}</span>
@@ -882,58 +925,68 @@ function App() {
             ))}
           </div>
 
-          {/* Price pill */}
-          <div className="mt-8 inline-flex items-center gap-2.5 rounded-full border border-border bg-card px-5 py-2.5 shadow-sm">
-            <span className="text-2xl font-extrabold text-foreground">{inr(PRICE)}</span>
-            <span className="text-sm font-medium text-muted-foreground">community early-bird</span>
-          </div>
+          {/* The booking card — one surface that owns the whole decision:
+              price, urgency, logistics, CTA, reassurance. */}
+          <div data-reveal className="mx-auto mt-12 max-w-xl rounded-3xl border border-border/60 bg-card p-7 sm:p-9 shadow-e2">
+            <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-muted-foreground">
+              Community early-bird
+            </p>
+            <p className="mt-2 font-serif text-5xl font-semibold tracking-tight text-foreground">
+              {inr(PRICE)}
+            </p>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Editors charge <strong className="text-foreground">₹2,000–₹5,000 per video</strong> for the same thing.
+            </p>
 
-          {/* Live seat count — real data from /api/seats-taken, hidden until it
-              loads. Never a fabricated or stale number. */}
-          {seatsTaken !== null && (
-            <div className="mt-4 flex justify-center">
-              <div className="inline-flex items-center gap-2 rounded-full bg-accent/10 px-4 py-1.5 text-sm font-semibold text-accent">
-                <Users className="h-4 w-4" />
-                {seatsTaken} of {TOTAL_SEATS} seats claimed
-                {TOTAL_SEATS - seatsTaken <= 5 && TOTAL_SEATS - seatsTaken > 0 && (
-                  <span>· only {TOTAL_SEATS - seatsTaken} left</span>
-                )}
+            {/* Live seat count — real data from /api/seats-taken, hidden until it
+                loads. Never a fabricated or stale number. */}
+            {seatsTaken !== null && (
+              <div className="mt-4 flex justify-center">
+                <div className="inline-flex items-center gap-2 rounded-full bg-accent/10 px-4 py-1.5 text-sm font-semibold text-accent">
+                  <Users className="h-4 w-4" />
+                  {seatsTaken} of {TOTAL_SEATS} seats claimed
+                  {TOTAL_SEATS - seatsTaken <= 5 && TOTAL_SEATS - seatsTaken > 0 && (
+                    <span>· only {TOTAL_SEATS - seatsTaken} left</span>
+                  )}
+                </div>
+              </div>
+            )}
+
+            <div className="my-6 h-px bg-border/70" />
+
+            <div className="flex flex-wrap items-center justify-center gap-x-7 gap-y-3 text-sm text-muted-foreground">
+              <div className="flex items-center gap-2">
+                <Calendar className="h-4 w-4 text-primary" />
+                <span>{WORKSHOP_DATE_LABEL}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Clock className="h-4 w-4 text-primary" />
+                <span>{WORKSHOP_TIME_LABEL} ({WORKSHOP_DURATION_LABEL})</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <MapPin className="h-4 w-4 text-primary" />
+                <span>Salt Lake, Kolkata</span>
               </div>
             </div>
-          )}
 
-          <p className="mt-3 text-sm text-muted-foreground">
-            Editors charge <strong className="text-foreground">₹2,000–₹5,000 per video</strong> for the same thing.
-          </p>
-
-          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button data-magnetic size="lg" onClick={goToBook} className="text-base px-8 py-6 w-full sm:w-auto font-bold shadow-md hover:shadow-lg transition-shadow">
+            <Button data-magnetic size="lg" onClick={goToBook} className="mt-7 w-full text-base px-8 py-6 font-bold">
               Book Your Seat — {inr(PRICE)} <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
+
+            <p className="mt-4 text-sm text-muted-foreground flex items-center justify-center gap-1.5 flex-wrap">
+              <ShieldCheck className="h-4 w-4 text-accent" />
+              100% beginner-friendly · Secure Razorpay payment · Walk away with a finished reel
+            </p>
+          </div>
+
+          <p className="font-hand mt-6 -rotate-1 text-2xl text-muted-foreground">
+            small batch · real attention
+          </p>
+
+          <div className="mt-6">
             <Button size="lg" variant="outline" onClick={() => scrollTo("meetup")} className="text-base px-8 py-6 w-full sm:w-auto">
               See meetup #1 highlights
             </Button>
-          </div>
-
-          <p className="mt-4 text-sm text-muted-foreground flex items-center justify-center gap-1.5">
-            <ShieldCheck className="h-4 w-4 text-accent" />
-            100% beginner-friendly · Secure Razorpay payment · Walk away with a finished reel
-          </p>
-
-          {/* Meta row */}
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-muted-foreground">
-            <div className="flex items-center gap-2">
-              <Calendar className="h-4 w-4 text-primary" />
-              <span>{WORKSHOP_DATE_LABEL}</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Clock className="h-4 w-4 text-primary" />
-              <span>{WORKSHOP_TIME_LABEL} ({WORKSHOP_DURATION_LABEL})</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Users className="h-4 w-4 text-primary" />
-              <span>Small batch · real attention</span>
-            </div>
           </div>
         </div>
       </section>
@@ -941,19 +994,22 @@ function App() {
       {/* Proof band — real traction in place of stock photos / fake testimonials.
           Founding-cohort framing turns "Workshop #01, no alumni yet" into a draw. */}
       <section className="border-y border-border bg-muted/30">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-10">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-8 text-center">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-12">
+          <div data-reveal-children className="grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-8 text-center sm:divide-x sm:divide-border/60">
             {[
-              { value: "50+", label: "in the community, growing daily" },
+              { value: "50+", label: "in the community, growing daily", count: true },
               { value: "Small", label: "batch — everyone gets real attention" },
-              { value: "100%", label: "beginner-friendly" },
+              { value: "100%", label: "beginner-friendly", count: true },
               { value: "Sun 26", label: "your build-&-launch day" },
             ].map((s) => (
-              <div key={s.label}>
-                <p className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              <div key={s.label} className="px-2">
+                <p
+                  {...(s.count ? { "data-count": true } : {})}
+                  className="font-serif text-3xl sm:text-4xl font-semibold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent"
+                >
                   {s.value}
                 </p>
-                <p className="mt-1 text-sm text-muted-foreground">{s.label}</p>
+                <p className="mt-1.5 text-sm text-muted-foreground">{s.label}</p>
               </div>
             ))}
           </div>
@@ -973,24 +1029,24 @@ function App() {
       </section>
 
       {/* Community Builds / Portfolio Section */}
-      <section id="work" className="py-20 sm:py-24">
+      <section id="work" className="py-20 sm:py-28">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div data-reveal className="text-center max-w-2xl mx-auto mb-14">
-            <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary mb-4">
-              <Star className="h-4 w-4" />
-              Community Builds
+            <div className="mb-5">
+              <Eyebrow icon={<Star />}>Community Builds</Eyebrow>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
-              Real Kolkata businesses, built with the exact tools we'll teach you
+            <h2 className={SECTION_HEADING}>
+              Real Kolkata businesses, built with the{" "}
+              <span className="italic text-primary">exact tools</span> we'll teach you
             </h2>
-            <p className="mt-4 text-lg text-muted-foreground">
+            <p className="mt-5 text-lg text-muted-foreground">
               No agencies. No code. Each one started as a sentence typed into AI — same as yours will.
               This is what "committed" looks like once it ships.
             </p>
           </div>
 
           {/* Desktop: 3-col grid */}
-          <div data-reveal-children className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div data-reveal-children className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10">
             {portfolio.map((p) => (
               <PortfolioThumb key={p.name} {...p} />
             ))}
@@ -1011,13 +1067,16 @@ function App() {
       </section>
 
       {/* Team Section — right after the community builds: who teaches builds trust early. */}
-      <section id="team" className="py-20 sm:py-24 bg-muted/30">
+      <section id="team" className="py-20 sm:py-28 bg-muted/30">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div data-reveal className="text-center max-w-2xl mx-auto mb-14">
-            <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
+            <div className="mb-5">
+              <Eyebrow icon={<Users />}>The people behind the room</Eyebrow>
+            </div>
+            <h2 className={SECTION_HEADING}>
               Meet Your Workshop Hosts
             </h2>
-            <p className="mt-4 text-lg text-muted-foreground">
+            <p className="mt-5 text-lg text-muted-foreground">
               Three brothers building the room they wished existed — hands-on, offline, no
               gatekeeping on skill, and zero patience for dabbling.
             </p>
@@ -1037,17 +1096,17 @@ function App() {
 
       {/* Become a Host Section — pulled up to follow the real-websites proof,
           riding the momentum from "look what the community built". */}
-      <section id="host" className="py-20 sm:py-24 border-t border-border">
+      <section id="host" className="py-20 sm:py-28 border-t border-border">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <div data-reveal className="text-center max-w-2xl mx-auto mb-12">
-            <div className="inline-flex items-center gap-2 rounded-full bg-accent/10 px-4 py-1.5 text-sm font-medium text-accent mb-4">
-              <Sparkles className="h-4 w-4" />
-              Become a host
+            <div className="mb-5">
+              <Eyebrow tone="accent" icon={<Sparkles />}>Become a host</Eyebrow>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
-              Implemented AI in your business? Teach it.
+            <h2 className={SECTION_HEADING}>
+              Implemented AI in your business?{" "}
+              <span className="italic text-primary">Teach it.</span>
             </h2>
-            <p className="mt-4 text-lg text-muted-foreground">
+            <p className="mt-5 text-lg text-muted-foreground">
               Not a slide deck, not theory — a real use-case you've actually shipped. Can you run
               a 3-hour hands-on session on it? Fill out the form below.
             </p>
@@ -1058,17 +1117,17 @@ function App() {
       </section>
 
       {/* Workshop Section */}
-      <section id="workshop" className="py-20 sm:py-24">
+      <section id="workshop" className="py-20 sm:py-28">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div data-reveal className="text-center max-w-2xl mx-auto mb-14">
-            <div className="inline-flex items-center gap-2 rounded-full bg-accent/10 px-4 py-1.5 text-sm font-medium text-accent mb-4">
-              <Film className="h-4 w-4" />
-              Workshop #2 · Automate Video Editing with AI
+            <div className="mb-5">
+              <Eyebrow tone="accent" icon={<Film />}>Workshop #2 · Automate Video Editing with AI</Eyebrow>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
-              From raw footage to a finished reel — in 2 hours
+            <h2 className={SECTION_HEADING}>
+              From raw footage to a finished reel —{" "}
+              <span className="italic text-primary">in 2 hours</span>
             </h2>
-            <p className="mt-4 text-lg text-muted-foreground">
+            <p className="mt-5 text-lg text-muted-foreground">
               Bring clips from your phone. Leave with an edited, subtitled reel — and a workflow you keep forever.
             </p>
             {/* Why video at all — the basic, important case, kept short. */}
@@ -1082,7 +1141,7 @@ function App() {
           </div>
 
           {/* Workshop Details Card */}
-          <Card className="mb-12 overflow-hidden border-primary/20">
+          <Card className="mb-12 overflow-hidden border-primary/20 shadow-e2">
             <CardContent className="p-0">
               <div className="grid md:grid-cols-2">
                 <div className="p-8 sm:p-10">
@@ -1142,7 +1201,7 @@ function App() {
                       </div>
                     </div>
                   </div>
-                  <Button onClick={goToBook} className="mt-8 w-full font-bold shadow-md hover:shadow-lg transition-shadow" size="lg">
+                  <Button onClick={goToBook} className="mt-8 w-full font-bold" size="lg">
                     Save my seat — {inr(PRICE)} <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
                 </div>
@@ -1171,7 +1230,7 @@ function App() {
                   <p className="mt-1 text-xl font-extrabold text-foreground line-through decoration-destructive/60">₹2,000+/video</p>
                   <p className="mt-1 text-xs text-muted-foreground">Days of back-and-forth · pay per video, forever</p>
                 </div>
-                <div className="flex-1 rounded-xl border border-primary/40 bg-card p-4 text-center shadow-sm">
+                <div className="flex-1 rounded-xl border border-primary/40 bg-card p-4 text-center shadow-e1">
                   <p className="text-xs font-semibold uppercase tracking-wide text-primary">This workshop</p>
                   <p className="mt-1 text-xl font-extrabold text-foreground">{inr(PRICE)}</p>
                   <p className="mt-1 text-xs text-muted-foreground">A finished reel in 2 hours · a skill you keep for life</p>
@@ -1183,17 +1242,17 @@ function App() {
       </section>
 
       {/* What's Next / Roadmap Section */}
-      <section id="roadmap" className="py-20 sm:py-24 bg-muted/30">
+      <section id="roadmap" className="py-20 sm:py-28 bg-muted/30">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <div data-reveal className="text-center max-w-2xl mx-auto mb-14">
-            <div className="inline-flex items-center gap-2 rounded-full bg-accent/10 px-4 py-1.5 text-sm font-medium text-accent mb-4">
-              <TrendingUp className="h-4 w-4" />
-              This is just the beginning
+            <div className="mb-5">
+              <Eyebrow tone="accent" icon={<TrendingUp />}>This is just the beginning</Eyebrow>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
-              Workshop #1 is done. The series continues.
+            <h2 className={SECTION_HEADING}>
+              Workshop #1 is done.{" "}
+              <span className="italic text-primary">The series continues.</span>
             </h2>
-            <p className="mt-4 text-lg text-muted-foreground">
+            <p className="mt-5 text-lg text-muted-foreground">
               Use-case #1 shipped — real websites, live on the internet. Next up: video.
             </p>
           </div>
@@ -1215,7 +1274,7 @@ function App() {
               </CardContent>
             </Card>
 
-            <Card data-tilt className="relative border-primary/40 bg-primary/5 shadow-sm">
+            <Card data-tilt className="relative border-primary/40 bg-primary/5 shadow-e2">
               <div className="absolute -top-3 left-6 rounded-full bg-accent/15 px-3 py-1 text-xs font-semibold text-accent">
                 Up next · 26 July
               </div>
@@ -1271,17 +1330,17 @@ function App() {
       {/* Meetup #1 recap — proof the community is real: photos + the recap reel.
           The reel itself was edited with Claude + FFmpeg — i.e. exactly what
           Workshop #2 teaches — so it doubles as a live demo of the outcome. */}
-      <section id="meetup" className="py-20 sm:py-24">
+      <section id="meetup" className="py-20 sm:py-28">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <div data-reveal className="text-center max-w-2xl mx-auto mb-12">
-            <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary mb-4">
-              <Users className="h-4 w-4" />
-              Meetup #1 · 28 June · Kolkata
+            <div className="mb-5">
+              <Eyebrow icon={<Users />}>Meetup #1 · 28 June · Kolkata</Eyebrow>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
-              The first meetup, in 35 seconds
+            <h2 className={SECTION_HEADING}>
+              The first meetup,{" "}
+              <span className="italic text-primary">in 35 seconds</span>
             </h2>
-            <p className="mt-4 text-lg text-muted-foreground">
+            <p className="mt-5 text-lg text-muted-foreground">
               Real people, real laptops, real websites shipped. And here's the kicker —
               this recap reel was edited by talking to Claude. That's exactly what
               Workshop #2 teaches.
@@ -1346,17 +1405,16 @@ function App() {
       </section>
 
       {/* Show of Interest Section — for people who want similar / future workshops. */}
-      <section id="interest" className="py-20 sm:py-24">
+      <section id="interest" className="py-20 sm:py-28">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <div data-reveal className="text-center max-w-2xl mx-auto mb-10">
-            <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary mb-4">
-              <Bell className="h-4 w-4" />
-              Show of interest
+            <div className="mb-5">
+              <Eyebrow icon={<Bell />}>Show of interest</Eyebrow>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
+            <h2 className={SECTION_HEADING}>
               Want workshops like this in the future?
             </h2>
-            <p className="mt-4 text-lg text-muted-foreground">
+            <p className="mt-5 text-lg text-muted-foreground">
               Can't make this one, or curious about a different use-case? Leave your details and
               we'll let you know when the next workshop that fits you is announced.
             </p>
@@ -1369,10 +1427,10 @@ function App() {
       {/* AI Tools Section — pulled down: a light "tools we use" footnote, not a headline. */}
       <section className="py-14 border-y border-border bg-muted/20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <p className="text-center text-sm font-medium text-muted-foreground mb-10 tracking-wide uppercase">
+          <p data-reveal className="text-center text-[11px] font-bold text-muted-foreground mb-10 tracking-[0.14em] uppercase">
             The AI tools you'll actually use
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6">
+          <div data-reveal-children className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6">
             {/* ChatGPT */}
             <div className="flex items-center gap-2.5 opacity-60 hover:opacity-100 transition-opacity">
               <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#10a37f]/10">
@@ -1410,19 +1468,19 @@ function App() {
       </section>
 
       {/* FAQ Section */}
-      <section id="faq" className="py-20 sm:py-24">
+      <section id="faq" className="py-20 sm:py-28">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <div data-reveal className="text-center mb-14">
-            <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
+            <h2 className={SECTION_HEADING}>
               Frequently Asked Questions
             </h2>
-            <p className="mt-4 text-lg text-muted-foreground">
+            <p className="mt-5 text-lg text-muted-foreground">
               Got questions? We've got answers.
             </p>
           </div>
 
           <Accordion data-reveal-children type="single" collapsible className="space-y-3">
-            <AccordionItem value="q-commit" className="border rounded-lg px-6 bg-background">
+            <AccordionItem value="q-commit" className="rounded-xl border border-border/60 bg-card px-6 shadow-e1 transition-colors data-[state=open]:border-primary/30">
               <AccordionTrigger className="text-left font-medium text-foreground hover:no-underline">
                 The site says it's "not built for everyone else" — am I still welcome?
               </AccordionTrigger>
@@ -1434,7 +1492,7 @@ function App() {
               </AccordionContent>
             </AccordionItem>
 
-            <AccordionItem value="q1" className="border rounded-lg px-6 bg-background">
+            <AccordionItem value="q1" className="rounded-xl border border-border/60 bg-card px-6 shadow-e1 transition-colors data-[state=open]:border-primary/30">
               <AccordionTrigger className="text-left font-medium text-foreground hover:no-underline">
                 Do I need any video-editing experience?
               </AccordionTrigger>
@@ -1443,7 +1501,7 @@ function App() {
               </AccordionContent>
             </AccordionItem>
 
-            <AccordionItem value="q-price" className="border rounded-lg px-6 bg-background">
+            <AccordionItem value="q-price" className="rounded-xl border border-border/60 bg-card px-6 shadow-e1 transition-colors data-[state=open]:border-primary/30">
               <AccordionTrigger className="text-left font-medium text-foreground hover:no-underline">
                 Why is it only {inr(PRICE)} when editors charge so much more?
               </AccordionTrigger>
@@ -1452,7 +1510,7 @@ function App() {
               </AccordionContent>
             </AccordionItem>
 
-            <AccordionItem value="q-domain" className="border rounded-lg px-6 bg-background">
+            <AccordionItem value="q-domain" className="rounded-xl border border-border/60 bg-card px-6 shadow-e1 transition-colors data-[state=open]:border-primary/30">
               <AccordionTrigger className="text-left font-medium text-foreground hover:no-underline">
                 Do I need to buy any editing software?
               </AccordionTrigger>
@@ -1461,7 +1519,7 @@ function App() {
               </AccordionContent>
             </AccordionItem>
 
-            <AccordionItem value="q3" className="border rounded-lg px-6 bg-background">
+            <AccordionItem value="q3" className="rounded-xl border border-border/60 bg-card px-6 shadow-e1 transition-colors data-[state=open]:border-primary/30">
               <AccordionTrigger className="text-left font-medium text-foreground hover:no-underline">
                 Will I actually walk out with a finished reel?
               </AccordionTrigger>
@@ -1470,7 +1528,7 @@ function App() {
               </AccordionContent>
             </AccordionItem>
 
-            <AccordionItem value="q2" className="border rounded-lg px-6 bg-background">
+            <AccordionItem value="q2" className="rounded-xl border border-border/60 bg-card px-6 shadow-e1 transition-colors data-[state=open]:border-primary/30">
               <AccordionTrigger className="text-left font-medium text-foreground hover:no-underline">
                 What do I need to bring?
               </AccordionTrigger>
@@ -1479,7 +1537,7 @@ function App() {
               </AccordionContent>
             </AccordionItem>
 
-            <AccordionItem value="q4" className="border rounded-lg px-6 bg-background">
+            <AccordionItem value="q4" className="rounded-xl border border-border/60 bg-card px-6 shadow-e1 transition-colors data-[state=open]:border-primary/30">
               <AccordionTrigger className="text-left font-medium text-foreground hover:no-underline">
                 Which tools will we actually use?
               </AccordionTrigger>
@@ -1488,7 +1546,7 @@ function App() {
               </AccordionContent>
             </AccordionItem>
 
-            <AccordionItem value="q5" className="border rounded-lg px-6 bg-background">
+            <AccordionItem value="q5" className="rounded-xl border border-border/60 bg-card px-6 shadow-e1 transition-colors data-[state=open]:border-primary/30">
               <AccordionTrigger className="text-left font-medium text-foreground hover:no-underline">
                 What if I need help after the workshop?
               </AccordionTrigger>
@@ -1497,7 +1555,7 @@ function App() {
               </AccordionContent>
             </AccordionItem>
 
-            <AccordionItem value="q6" className="border rounded-lg px-6 bg-background">
+            <AccordionItem value="q6" className="rounded-xl border border-border/60 bg-card px-6 shadow-e1 transition-colors data-[state=open]:border-primary/30">
               <AccordionTrigger className="text-left font-medium text-foreground hover:no-underline">
                 Where in Kolkata is the workshop?
               </AccordionTrigger>
@@ -1506,7 +1564,7 @@ function App() {
               </AccordionContent>
             </AccordionItem>
 
-            <AccordionItem value="q7" className="border rounded-lg px-6 bg-background">
+            <AccordionItem value="q7" className="rounded-xl border border-border/60 bg-card px-6 shadow-e1 transition-colors data-[state=open]:border-primary/30">
               <AccordionTrigger className="text-left font-medium text-foreground hover:no-underline">
                 Will there be more workshops after this?
               </AccordionTrigger>
@@ -1521,7 +1579,7 @@ function App() {
       {/* WhatsApp Community Section */}
       <section className="py-12 bg-[#25D366]/5 border-y border-[#25D366]/20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
+          <div data-reveal className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#25D366]/10 text-[#25D366]">
               <WhatsAppIcon className="h-6 w-6" />
             </div>
@@ -1534,7 +1592,7 @@ function App() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackContact("whatsapp")}
-              className="inline-flex items-center gap-2 rounded-full bg-[#25D366] px-6 py-3 text-sm font-semibold text-white hover:bg-[#1ebe57] transition-colors"
+              className="inline-flex flex-shrink-0 items-center gap-2 whitespace-nowrap rounded-full bg-[#25D366] px-6 py-3 text-sm font-semibold text-white shadow-e1 hover:bg-[#1ebe57] hover:shadow-e2 transition-all"
             >
               Join the Community <ArrowRight className="h-4 w-4" />
             </a>
@@ -1545,18 +1603,19 @@ function App() {
       {/* Final CTA — the constellation's bookend. Same living node-network as
           the hero, quietly closing the loop it opened at the top of the page
           rather than confining the "alive" feeling to screen one. */}
-      <section className="relative overflow-hidden py-20 sm:py-24">
+      <section className="relative overflow-hidden py-20 sm:py-28">
         <div data-drift data-parallax="0.18" className="pointer-events-none absolute -top-10 -left-16 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
         <div data-drift data-parallax="0.08" className="pointer-events-none absolute -bottom-16 -right-10 h-80 w-80 rounded-full bg-accent/10 blur-3xl" />
         <HeroCanvas />
         <div data-reveal className="relative mx-auto max-w-2xl px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
-            Ready to edit videos by talking to AI?
+          <h2 className={SECTION_HEADING}>
+            Ready to edit videos{" "}
+            <span className="italic text-primary">by talking to AI?</span>
           </h2>
-          <p className="mt-4 text-lg text-muted-foreground">
+          <p className="mt-5 text-lg text-muted-foreground">
             Small batch. Real attention. {WORKSHOP_DATE_LABEL}.
           </p>
-          <Button data-magnetic size="lg" onClick={goToBook} className="mt-8 text-base px-8 py-6 font-bold shadow-md hover:shadow-lg transition-shadow">
+          <Button data-magnetic size="lg" onClick={goToBook} className="mt-8 text-base px-8 py-6 font-bold">
             Book your seat — {inr(PRICE)} <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
           <p className="mt-4 text-sm text-muted-foreground flex items-center justify-center gap-1.5">
@@ -1631,7 +1690,7 @@ function App() {
           Mobile: a compact icon-only bubble so it doesn't crowd the screen.
           Tapping the WhatsApp icon toggles it open ("blows up" into the full
           CTA) and closed again; tapping the label joins the community. */}
-      <div className="group fixed bottom-24 right-4 sm:right-6 lg:bottom-6 z-50 flex items-center rounded-full bg-[#25D366] p-3.5 text-white shadow-lg ring-1 ring-black/5 transition-all duration-300 hover:bg-[#1ebe57] hover:shadow-xl lg:hover:-translate-y-0.5">
+      <div className="group fixed bottom-24 right-4 sm:right-6 lg:bottom-6 z-50 flex items-center rounded-full bg-[#25D366] p-3.5 text-white shadow-e2 ring-1 ring-black/5 transition-all duration-300 hover:bg-[#1ebe57] hover:shadow-e3 lg:hover:-translate-y-0.5">
         {/* Pulsing notification dot — classic "you've got something" attention cue */}
         <span className="absolute -right-1 -top-1 flex h-3.5 w-3.5">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75" />

@@ -10,6 +10,16 @@ module.exports = {
       fontFamily: {
         // Warm, rounded humanist sans for the brand wordmark.
         brand: ["Nunito", "Inter", "system-ui", "sans-serif"],
+        // Editorial display serif — the site's "premium" voice.
+        serif: ["Fraunces", "Nunito", "serif"],
+        // Handwritten scrapbook accents.
+        hand: ["Caveat", "Nunito", "cursive"],
+      },
+      boxShadow: {
+        // Coherent warm-brown elevation scale (see --elev-* in index.css).
+        e1: "var(--elev-1)",
+        e2: "var(--elev-2)",
+        e3: "var(--elev-3)",
       },
       colors: {
         border: "hsl(var(--border))",

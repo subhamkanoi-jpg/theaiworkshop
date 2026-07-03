@@ -26,6 +26,14 @@
     --input: 34 20% 87%;
     --ring: 14 58% 50%;
     --radius: 0.75rem;
+
+    /* ── Elevation system ─────────────────────────────────────────────────
+       One warm-brown shadow family for the whole site. Every raised surface
+       uses one of these three steps (via Tailwind's shadow-e1/e2/e3), so
+       paper prints, cards and popovers all cast the same kind of light. */
+    --elev-1: 0 1px 2px rgba(64, 42, 24, 0.05), 0 3px 10px -3px rgba(64, 42, 24, 0.07);
+    --elev-2: 0 1px 3px rgba(64, 42, 24, 0.07), 0 14px 28px -12px rgba(64, 42, 24, 0.18);
+    --elev-3: 0 2px 4px rgba(64, 42, 24, 0.07), 0 28px 56px -20px rgba(64, 42, 24, 0.3);
   }
 
   .dark {
@@ -210,9 +218,7 @@
    not another rounded content box. */
 .invite-card {
   position: relative;
-  box-shadow:
-    0 1px 2px rgba(60, 40, 20, 0.06),
-    0 24px 48px -20px rgba(60, 40, 20, 0.3);
+  box-shadow: var(--elev-3);
 }
 .invite-card::before {
   content: "";
@@ -230,9 +236,7 @@
   background: hsl(42 45% 98%);
   padding: 0.625rem 0.625rem 0.75rem;
   border-radius: 6px;
-  box-shadow:
-    0 1px 2px rgba(60, 40, 20, 0.1),
-    0 14px 28px -10px rgba(60, 40, 20, 0.22);
+  box-shadow: var(--elev-2);
 }
 .polaroid > * {
   border-radius: 4px;
@@ -273,9 +277,51 @@
     transform: translateZ(28px);
   }
   [data-tilt]:hover {
-    box-shadow:
-      0 2px 4px rgba(60, 40, 20, 0.08),
-      0 22px 44px -12px rgba(60, 40, 20, 0.28);
+    box-shadow: var(--elev-2);
+  }
+}
+
+/* ── Nav links: a hairline underline grows in from the left on hover ────── */
+.nav-link {
+  position: relative;
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  height: 2px;
+  width: 100%;
+  border-radius: 9999px;
+  background: hsl(var(--primary));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.nav-link:hover::after,
+.nav-link:focus-visible::after {
+  transform: scaleX(1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav-link::after {
+    transition: none;
+  }
+}
+
+/* ── Curated showcase frame: client sites presented in a browser window ──
+   The screenshot sits under a minimal chrome bar (traffic dots + URL pill),
+   inside one coherent elevated surface. Hovering lifts the whole window. */
+.browser-frame {
+  transition:
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.3s ease;
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  a:hover > .browser-frame,
+  a:focus-visible > .browser-frame {
+    transform: translateY(-4px);
+    box-shadow: var(--elev-2);
   }
 }
 

@@ -80,8 +80,8 @@ export function BecomeHost() {
       {/* Pitch */}
       <Card className="order-2 md:order-1 border-primary/20 bg-primary/5">
         <CardContent className="p-7 sm:p-8">
-          <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-bold text-primary mb-4">
-            <Sparkles className="h-4 w-4" />
+          <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/[0.06] px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-primary mb-4">
+            <Sparkles className="h-3.5 w-3.5" />
             Teach what you've built
           </div>
           <h3 className="text-2xl font-bold text-foreground">
