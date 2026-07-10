@@ -4,27 +4,27 @@
 
 @layer base {
   :root {
-    /* Earthy, community palette — warm cream paper, terracotta + sage.
-       Replaces the stark-white / violet+teal SaaS look. */
-    --background: 38 30% 97%;
-    --foreground: 24 14% 16%;
-    --card: 40 33% 99%;
-    --card-foreground: 24 14% 16%;
-    --popover: 40 33% 99%;
-    --popover-foreground: 24 14% 16%;
-    --primary: 14 58% 50%;
-    --primary-foreground: 40 33% 98%;
-    --secondary: 36 24% 92%;
-    --secondary-foreground: 24 14% 16%;
-    --muted: 36 24% 92%;
-    --muted-foreground: 28 10% 36%;
-    --accent: 145 24% 40%;
-    --accent-foreground: 40 33% 98%;
+    /* Private club palette: ivory paper, deep charcoal, terracotta #c8553d.
+       No blue, no neon, no dark-mode tech. Reads like a letterpress invitation. */
+    --background: 40 35% 97%;      /* warm ivory */
+    --foreground: 22 18% 13%;      /* deep charcoal, near-black */
+    --card: 40 40% 99%;            /* slightly warmer white for card surfaces */
+    --card-foreground: 22 18% 13%;
+    --popover: 40 40% 99%;
+    --popover-foreground: 22 18% 13%;
+    --primary: 11 56% 51%;         /* terracotta — #c8553d */
+    --primary-foreground: 40 35% 97%;
+    --secondary: 36 22% 93%;       /* warm off-white for secondary surfaces */
+    --secondary-foreground: 22 18% 13%;
+    --muted: 36 22% 93%;
+    --muted-foreground: 26 8% 42%;
+    --accent: 36 25% 78%;          /* muted brass/tan for micro-details only */
+    --accent-foreground: 22 18% 13%;
     --destructive: 4 64% 50%;
-    --destructive-foreground: 40 33% 98%;
-    --border: 34 20% 87%;
-    --input: 34 20% 87%;
-    --ring: 14 58% 50%;
+    --destructive-foreground: 40 35% 97%;
+    --border: 34 18% 88%;
+    --input: 34 18% 88%;
+    --ring: 11 56% 51%;
     --radius: 0.75rem;
 
     /* ── Elevation system ─────────────────────────────────────────────────
@@ -97,9 +97,9 @@
   ::-webkit-scrollbar-thumb:hover {
     background: hsl(var(--primary) / 0.55);
   }
-  /* Friendlier, rounded display face for headings — warmer than geometric Inter. */
+  /* Editorial serif for headings — reads like a private club's letterpress invitation. */
   h1, h2, h3, h4 {
-    font-family: 'Nunito', 'Inter', system-ui, sans-serif;
+    font-family: 'Fraunces', 'Georgia', serif;
   }
   /* Subtle paper-grain texture behind everything — warms the flat cream and
      softens the clinical look. Sits behind app content (the page root is

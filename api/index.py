@@ -271,6 +271,14 @@ class VerifyPaymentRequest(BaseModel):
     razorpay_signature: str
 
 
+class MembershipApplication(BaseModel):
+    name: str
+    business: str
+    aiGoal: str = ""
+    whyYou: str = ""
+    phone: str
+
+
 class HostApplication(BaseModel):
     name: str
     phone: str
@@ -372,6 +380,52 @@ def seats_taken():
         print(f"[SEATS] Failed to count paid seats: {e}")
         return {"taken": None, "total": TOTAL_SEATS}
     return {"taken": taken, "total": TOTAL_SEATS}
+
+
+@app.post("/api/apply")
+def apply_for_membership(application: MembershipApplication):
+    """Receive a membership application and notify the organiser."""
+    name = application.name.strip()
+    phone = application.phone.strip()
+    if not name or not phone:
+        raise HTTPException(status_code=400, detail="Name and phone are required.")
+
+    smtp_email = os.environ.get("SMTP_EMAIL")
+    smtp_password = os.environ.get("SMTP_APP_PASSWORD")
+    admin_email = os.environ.get("ADMIN_EMAIL", "theaiworkshop.in@gmail.com")
+
+    if smtp_email and smtp_password:
+        msg = MIMEMultipart("alternative")
+        msg["Subject"] = f"New membership application: {name}"
+        msg["From"] = f"The AI Workshop <{smtp_email}>"
+        msg["To"] = admin_email
+
+        body = f"""\
+        <html>
+        <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+            <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
+                <h2 style="color: #c8553d;">New membership application</h2>
+                <div style="background: #fdf6f4; border-radius: 8px; padding: 20px; margin: 16px 0;">
+                    <p style="margin: 5px 0;"><strong>Name:</strong> {html.escape(name)}</p>
+                    <p style="margin: 5px 0;"><strong>Business:</strong> {html.escape(application.business)}</p>
+                    <p style="margin: 5px 0;"><strong>AI Goal:</strong> {html.escape(application.aiGoal) or '—'}</p>
+                    <p style="margin: 5px 0;"><strong>Why them:</strong> {html.escape(application.whyYou) or '—'}</p>
+                    <p style="margin: 5px 0;"><strong>WhatsApp:</strong> {html.escape(phone)}</p>
+                </div>
+            </div>
+        </body>
+        </html>
+        """
+        msg.attach(MIMEText(body, "html"))
+        try:
+            with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
+                server.login(smtp_email, smtp_password)
+                server.sendmail(smtp_email, admin_email, msg.as_string())
+            print(f"[APPLY] Notified {admin_email} of application from: {name}")
+        except Exception as e:
+            print(f"[APPLY ERROR] {e}")
+
+    return {"status": "received", "message": f"Thanks, {name}. We'll review your application and reach out on WhatsApp."}
 
 
 @app.post("/api/become-host")
