@@ -8,6 +8,11 @@ import { cn } from "@/lib/utils";
 import {
   WHATSAPP_URL,
   WORKSHOP_DATE_LABEL,
+  WORKSHOP_TIME_LABEL,
+  PRICE,
+  MARKET_VALUE,
+  SAVINGS_PCT,
+  inr,
   PHONE_DISPLAY,
   SUPPORT_EMAIL,
 } from "@/config";
@@ -25,6 +30,10 @@ import {
   Zap,
   BookOpen,
   ChevronDown,
+  Calendar,
+  Clock,
+  Film,
+  Sparkles,
 } from "lucide-react";
 
 // ──────────────────────────────────────────────────────────────────────────
@@ -520,6 +529,95 @@ function App() {
 
           <p className="font-hand mt-10 text-center text-xl text-muted-foreground rotate-[1deg]">
             access, not content
+          </p>
+        </div>
+      </section>
+
+      {/* ── Next Workshop spotlight (#02) ──────────────────────────────────── */}
+      <section id="workshop" className="border-t border-border py-20 sm:py-28">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          <div className="overflow-hidden rounded-3xl border border-[#c8553d]/25 bg-card shadow-e3">
+            <div className="grid lg:grid-cols-5">
+              {/* Left: the pitch */}
+              <div className="lg:col-span-3 p-8 sm:p-11">
+                <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#c8553d]/25 bg-[#c8553d]/[0.07] px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-[#c8553d]">
+                  <Sparkles className="h-3.5 w-3.5" />
+                  Next workshop · #02
+                </div>
+
+                <h2 className="font-serif text-3xl sm:text-4xl font-semibold tracking-tight text-foreground leading-[1.12] text-balance">
+                  Automate your video editing{" "}
+                  <span className="italic text-[#c8553d]">with AI.</span>
+                </h2>
+                <p className="mt-5 text-lg text-muted-foreground leading-relaxed max-w-lg">
+                  Two hours, hands-on. Turn raw footage into a polished, subtitled reel just by
+                  talking to Claude — no editing software, no experience needed. You walk out with a
+                  finished video.
+                </p>
+
+                {/* What you'll walk out with */}
+                <ul className="mt-7 grid sm:grid-cols-2 gap-x-6 gap-y-3">
+                  {[
+                    "A finished, subtitled reel — made in the room",
+                    "The full Claude editing workflow, yours to keep",
+                    "Zero paid software — Claude + free open-source tools",
+                    "Prompt kit, cheat sheets & lifetime WhatsApp support",
+                  ].map((t) => (
+                    <li key={t} className="flex gap-2.5 text-sm text-foreground/90 leading-relaxed">
+                      <CheckCircle2 className="h-5 w-5 text-[#c8553d] flex-shrink-0 mt-0.5" />
+                      <span>{t}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                {/* Facts */}
+                <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2.5 text-sm text-muted-foreground">
+                  <span className="inline-flex items-center gap-2">
+                    <Calendar className="h-4 w-4 text-[#c8553d]" /> {WORKSHOP_DATE_LABEL}
+                  </span>
+                  <span className="inline-flex items-center gap-2">
+                    <Clock className="h-4 w-4 text-[#c8553d]" /> {WORKSHOP_TIME_LABEL}
+                  </span>
+                  <span className="inline-flex items-center gap-2">
+                    <MapPin className="h-4 w-4 text-[#c8553d]" /> Salt Lake, Kolkata
+                  </span>
+                </div>
+              </div>
+
+              {/* Right: the offer + CTA */}
+              <div className="lg:col-span-2 flex flex-col justify-center gap-5 border-t lg:border-t-0 lg:border-l border-border/60 bg-[#c8553d]/[0.04] p-8 sm:p-11">
+                <div>
+                  <div className="flex items-end gap-3">
+                    <span className="font-serif text-5xl font-semibold text-foreground">{inr(PRICE)}</span>
+                    <span className="mb-1.5 text-lg text-muted-foreground line-through">{inr(MARKET_VALUE)}</span>
+                  </div>
+                  <p className="mt-1.5 text-sm font-semibold text-[#c8553d]">
+                    Early-bird · save {SAVINGS_PCT}%
+                  </p>
+                </div>
+
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  <Film className="mr-1.5 -mt-0.5 inline h-4 w-4 text-[#c8553d]" />
+                  Members get first access to seats. A few open spots remain for this batch.
+                </p>
+
+                <a href="/book" className="block">
+                  <Button
+                    size="lg"
+                    className="w-full bg-[#c8553d] hover:bg-[#b84a33] text-white border-0 text-base py-6 font-bold"
+                  >
+                    Reserve your seat <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </a>
+                <p className="text-center text-xs text-muted-foreground">
+                  Small batch · beginner-friendly · pay online or at the venue
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <p className="font-hand mt-8 text-center text-xl text-muted-foreground rotate-[1deg]">
+            a real thing you&apos;ll build — not another webinar
           </p>
         </div>
       </section>
