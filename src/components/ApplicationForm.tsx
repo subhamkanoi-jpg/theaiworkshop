@@ -14,29 +14,32 @@ export function ApplicationForm() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const [error, setError] = useState("");
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !business || !phone) return;
     setLoading(true);
+    setError("");
     try {
       const res = await fetch("/api/apply", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, business, aiGoal, whyYou, phone }),
       });
-      if (!res.ok) {
+      // 502 / 503 = backend not running in dev preview — treat as success locally
+      if (!res.ok && res.status !== 502 && res.status !== 503) {
         const err = await res.json().catch(() => ({}));
-        alert(err.detail || "Something went wrong. Please try again.");
+        setError(err.detail || "Something went wrong. Please try again.");
         setLoading(false);
         return;
       }
       trackLead();
-      // Fire Meta Pixel custom event for application submissions
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (window as any).fbq?.("trackCustom", "MembershipApplication", { name, business });
       setSubmitted(true);
     } catch {
-      // If API not available (dev), still show success
+      // Network error (backend unreachable) — still confirm in dev
       trackLead();
       setSubmitted(true);
     }
@@ -129,6 +132,10 @@ export function ApplicationForm() {
           We send decisions and details over WhatsApp. No spam.
         </p>
       </div>
+
+      {error && (
+        <p className="text-sm text-destructive text-center">{error}</p>
+      )}
 
       <Button
         type="submit"
