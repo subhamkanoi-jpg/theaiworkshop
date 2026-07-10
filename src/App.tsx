@@ -291,13 +291,24 @@ function App() {
                 </Button>
               </div>
 
-              <div className="mt-7 flex items-center gap-2 text-sm text-muted-foreground">
-                <div className="flex -space-x-1.5">
-                  {[1, 2, 3, 4].map((i) => (
+              <div className="mt-7 flex items-center gap-2.5 text-sm text-muted-foreground">
+                <div className="flex -space-x-2">
+                  {[
+                    { src: "/yogesh.jpg",  alt: "Yogesh Kanoi",  pos: "center 15%" },
+                    { src: "/neeraj.jpg",  alt: "Neeraj Kanoi",  pos: "center 12%" },
+                    { src: "/subham.jpg",  alt: "Subham Kanoi",  pos: "center 10%" },
+                  ].map((av) => (
                     <div
-                      key={i}
-                      className="h-7 w-7 rounded-full border-2 border-background bg-muted ring-1 ring-border/30"
-                    />
+                      key={av.src}
+                      className="h-8 w-8 rounded-full overflow-hidden border-2 border-background ring-1 ring-border/40 flex-shrink-0"
+                    >
+                      <img
+                        src={av.src}
+                        alt={av.alt}
+                        className="h-full w-full object-cover"
+                        style={{ objectPosition: av.pos }}
+                      />
+                    </div>
                   ))}
                 </div>
                 <span>60+ members · application-based entry · Salt Lake</span>
@@ -513,7 +524,7 @@ function App() {
         </div>
       </section>
 
-      {/* ── Scarcity Mechanics ─────────────────────────────────────────────── */}
+      {/* ── Scarcity Mechanics ─────────────────────��───────────────────────── */}
       <section className="border-t border-border bg-muted/20 py-14 sm:py-16">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
           <div className="rounded-2xl border border-[#c8553d]/25 bg-[#c8553d]/[0.04] p-8 sm:p-10">
