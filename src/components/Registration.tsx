@@ -103,7 +103,7 @@ export function Registration() {
         amount: orderData.amount,
         currency: orderData.currency,
         name: "The AI Workshop",
-        description: "Workshop Registration - 26 July 2026",
+        description: "Workshop Registration - 30 August 2026",
         order_id: orderData.order_id,
         prefill: {
           name: name,

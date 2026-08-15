@@ -3,7 +3,6 @@ import { trackViewContent, trackContact } from "@/analytics";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/Logo";
 import { ScrollButtons } from "@/components/ScrollToTop";
-import { ApplicationForm } from "@/components/ApplicationForm";
 import { cn } from "@/lib/utils";
 import {
   WHATSAPP_URL,
@@ -12,6 +11,7 @@ import {
   PRICE,
   MARKET_VALUE,
   SAVINGS_PCT,
+  TOTAL_SEATS,
   inr,
   PHONE_DISPLAY,
   SUPPORT_EMAIL,
@@ -27,22 +27,12 @@ import {
   XCircle,
   Users,
   Lock,
-  Zap,
-  BookOpen,
   ChevronDown,
   Calendar,
   Clock,
   Film,
   Sparkles,
 } from "lucide-react";
-
-// ──────────────────────────────────────────────────────────────────────────
-// Cohort scarcity config — update these each intake cycle.
-// ──────────────────────────────────────────────────────────────────────────
-const COHORT_MONTH = "August 2026";
-const COHORT_CLOSE_DATE = "31 July 2026";
-const COHORT_SIZE = 25;
-const COHORT_TAKEN = 14; // update as applications come in
 
 // ──────────────────────────────────────────────────────────────────────────
 // Glimpse reel — real meetup photos. Drop actual images in /public/meetup1/.
@@ -139,7 +129,7 @@ function App() {
   const [stickyCTA, setStickyCTA] = useState(false);
 
   useEffect(() => {
-    trackViewContent("Homepage", "Membership Lander");
+    trackViewContent("Homepage", "Workshop Lander");
   }, []);
 
   // Show sticky mobile CTA after scrolling past hero
@@ -168,7 +158,7 @@ function App() {
     });
   };
 
-  const scrollToApply = () => scrollTo("apply");
+  const scrollToWorkshop = () => scrollTo("workshop");
 
   return (
     <div className="min-h-screen bg-background">
@@ -182,6 +172,12 @@ function App() {
 
             <div className="hidden lg:flex items-center gap-7">
               <button
+                onClick={scrollToWorkshop}
+                className="nav-link text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              >
+                The Workshop
+              </button>
+              <button
                 onClick={() => scrollTo("who")}
                 className="nav-link text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
               >
@@ -193,25 +189,14 @@ function App() {
               >
                 The Room
               </button>
-              <button
-                onClick={() => scrollTo("members")}
-                className="nav-link text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-              >
-                Membership
-              </button>
-              <a
-                href="/book"
-                className="nav-link text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-              >
-                Next Workshop
+              <a href="/book">
+                <Button
+                  size="sm"
+                  className="bg-[#c8553d] hover:bg-[#b84a33] text-white border-0 px-5"
+                >
+                  Reserve your seat <ArrowRight className="ml-1.5 h-4 w-4" />
+                </Button>
               </a>
-              <Button
-                onClick={scrollToApply}
-                size="sm"
-                className="bg-[#c8553d] hover:bg-[#b84a33] text-white border-0 px-5"
-              >
-                Apply for Membership <ArrowRight className="ml-1.5 h-4 w-4" />
-              </Button>
             </div>
 
             <button
@@ -227,6 +212,12 @@ function App() {
           {mobileMenuOpen && (
             <div className="lg:hidden pb-5 pt-2 space-y-1 border-t border-border/50 mt-2">
               <button
+                onClick={scrollToWorkshop}
+                className="block w-full text-left text-sm font-medium text-foreground py-2.5 px-1"
+              >
+                The Workshop
+              </button>
+              <button
                 onClick={() => scrollTo("who")}
                 className="block w-full text-left text-sm font-medium text-foreground py-2.5 px-1"
               >
@@ -238,24 +229,11 @@ function App() {
               >
                 The Room
               </button>
-              <button
-                onClick={() => scrollTo("members")}
-                className="block w-full text-left text-sm font-medium text-foreground py-2.5 px-1"
-              >
-                Membership
-              </button>
-              <a
-                href="/book"
-                className="block w-full text-left text-sm font-medium text-foreground py-2.5 px-1"
-              >
-                Next Workshop
+              <a href="/book" className="block mt-3">
+                <Button className="w-full bg-[#c8553d] hover:bg-[#b84a33] text-white border-0">
+                  Reserve your seat <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
               </a>
-              <Button
-                onClick={scrollToApply}
-                className="w-full mt-3 bg-[#c8553d] hover:bg-[#b84a33] text-white border-0"
-              >
-                Apply for Membership <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
             </div>
           )}
         </div>
@@ -279,24 +257,26 @@ function App() {
               </h1>
 
               <p className="mt-6 text-lg sm:text-xl text-muted-foreground leading-relaxed max-w-lg">
-                Kolkata&apos;s most serious offline community of business owners using AI to actually grow. No tech background needed. No dabblers, either.
+                Kolkata&apos;s offline AI workshops for business owners. Next up — automate your video
+                editing with AI, {WORKSHOP_DATE_LABEL.replace("Sunday, ", "")}. No tech background needed.
               </p>
 
               <div className="mt-9 flex flex-col sm:flex-row gap-3.5">
-                <Button
-                  onClick={scrollToApply}
-                  size="lg"
-                  className="bg-[#c8553d] hover:bg-[#b84a33] text-white border-0 text-base px-8 py-6 font-bold w-full sm:w-auto"
-                >
-                  Apply for Membership <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
+                <a href="/book" className="w-full sm:w-auto">
+                  <Button
+                    size="lg"
+                    className="bg-[#c8553d] hover:bg-[#b84a33] text-white border-0 text-base px-8 py-6 font-bold w-full sm:w-auto"
+                  >
+                    Reserve your seat <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </a>
                 <Button
                   variant="outline"
                   size="lg"
-                  onClick={() => scrollTo("proof")}
+                  onClick={scrollToWorkshop}
                   className="text-base px-8 py-6 w-full sm:w-auto"
                 >
-                  See the room <ChevronDown className="ml-2 h-5 w-5" />
+                  What you&apos;ll build <ChevronDown className="ml-2 h-5 w-5" />
                 </Button>
               </div>
 
@@ -320,7 +300,7 @@ function App() {
                     </div>
                   ))}
                 </div>
-                <span>60+ members · application-based entry · Salt Lake</span>
+                <span>60+ in the community · small batches · Salt Lake</span>
               </div>
             </div>
 
@@ -332,6 +312,95 @@ function App() {
               </p>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ── Next Workshop spotlight (#02) ──────────────────────────────────── */}
+      <section id="workshop" className="border-t border-border py-20 sm:py-28">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          <div className="overflow-hidden rounded-3xl border border-[#c8553d]/25 bg-card shadow-e3">
+            <div className="grid lg:grid-cols-5">
+              {/* Left: the pitch */}
+              <div className="lg:col-span-3 p-8 sm:p-11">
+                <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#c8553d]/25 bg-[#c8553d]/[0.07] px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-[#c8553d]">
+                  <Sparkles className="h-3.5 w-3.5" />
+                  Next workshop · #02
+                </div>
+
+                <h2 className="font-serif text-3xl sm:text-4xl font-semibold tracking-tight text-foreground leading-[1.12] text-balance">
+                  Automate your video editing{" "}
+                  <span className="italic text-[#c8553d]">with AI.</span>
+                </h2>
+                <p className="mt-5 text-lg text-muted-foreground leading-relaxed max-w-lg">
+                  Two hours, hands-on. Turn raw footage into a polished, subtitled reel just by
+                  talking to Claude — no editing software, no experience needed. You walk out with a
+                  finished video.
+                </p>
+
+                {/* What you'll walk out with */}
+                <ul className="mt-7 grid sm:grid-cols-2 gap-x-6 gap-y-3">
+                  {[
+                    "A finished, subtitled reel — made in the room",
+                    "The full Claude editing workflow, yours to keep",
+                    "Zero paid software — Claude + free open-source tools",
+                    "Prompt kit, cheat sheets & lifetime WhatsApp support",
+                  ].map((t) => (
+                    <li key={t} className="flex gap-2.5 text-sm text-foreground/90 leading-relaxed">
+                      <CheckCircle2 className="h-5 w-5 text-[#c8553d] flex-shrink-0 mt-0.5" />
+                      <span>{t}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                {/* Facts */}
+                <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2.5 text-sm text-muted-foreground">
+                  <span className="inline-flex items-center gap-2">
+                    <Calendar className="h-4 w-4 text-[#c8553d]" /> {WORKSHOP_DATE_LABEL}
+                  </span>
+                  <span className="inline-flex items-center gap-2">
+                    <Clock className="h-4 w-4 text-[#c8553d]" /> {WORKSHOP_TIME_LABEL}
+                  </span>
+                  <span className="inline-flex items-center gap-2">
+                    <MapPin className="h-4 w-4 text-[#c8553d]" /> Salt Lake, Kolkata
+                  </span>
+                </div>
+              </div>
+
+              {/* Right: the offer + CTA */}
+              <div className="lg:col-span-2 flex flex-col justify-center gap-5 border-t lg:border-t-0 lg:border-l border-border/60 bg-[#c8553d]/[0.04] p-8 sm:p-11">
+                <div>
+                  <div className="flex items-end gap-3">
+                    <span className="font-serif text-5xl font-semibold text-foreground">{inr(PRICE)}</span>
+                    <span className="mb-1.5 text-lg text-muted-foreground line-through">{inr(MARKET_VALUE)}</span>
+                  </div>
+                  <p className="mt-1.5 text-sm font-semibold text-[#c8553d]">
+                    Early-bird · save {SAVINGS_PCT}%
+                  </p>
+                </div>
+
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  <Film className="mr-1.5 -mt-0.5 inline h-4 w-4 text-[#c8553d]" />
+                  Seats are capped at {TOTAL_SEATS} so everyone gets real attention.
+                </p>
+
+                <a href="/book" className="block">
+                  <Button
+                    size="lg"
+                    className="w-full bg-[#c8553d] hover:bg-[#b84a33] text-white border-0 text-base py-6 font-bold"
+                  >
+                    Reserve your seat <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </a>
+                <p className="text-center text-xs text-muted-foreground">
+                  Small batch · beginner-friendly · pay online or at the venue
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <p className="font-hand mt-8 text-center text-xl text-muted-foreground rotate-[1deg]">
+            a real thing you&apos;ll build — not another webinar
+          </p>
         </div>
       </section>
 
@@ -361,7 +430,7 @@ function App() {
               <ul className="space-y-5">
                 {[
                   "You run a business or side hustle and want AI to move the needle — not just fill a feed.",
-                  "You're in Kolkata and can show up in person, every month. This is always offline.",
+                  "You're in Kolkata and can show up in person on the day. This is always offline.",
                   "You're happy to start from zero. No jargon, no prior experience needed.",
                   "You ship things. You want to build something real, not collect another certificate.",
                 ].map((t) => (
@@ -462,226 +531,44 @@ function App() {
           </div>
 
           <div className="mt-12 text-center">
-            <Button
-              onClick={scrollToApply}
-              size="lg"
-              className="bg-[#c8553d] hover:bg-[#b84a33] text-white border-0 text-base px-10 py-6 font-bold"
-            >
-              Apply for Membership <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* ── What Members Get ───────────────────────────────────────────────── */}
-      <section id="members" className="border-t border-border py-20 sm:py-28">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-14">
-            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-border px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-muted-foreground">
-              <Zap className="h-3.5 w-3.5" />
-              Membership
-            </div>
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-foreground leading-[1.12] text-balance">
-              What members get access to.
-            </h2>
-            <p className="mt-5 text-lg text-muted-foreground">
-              The membership is the product. Workshops are a member benefit.
-            </p>
-          </div>
-
-          <div className="grid sm:grid-cols-2 gap-5">
-            {[
-              {
-                icon: <BookOpen className="h-6 w-6" />,
-                title: "Monthly hands-on workshops",
-                desc: "Each month, a member who has shipped a real AI use-case teaches it to the room. No slides, no theory — two hours of building.",
-              },
-              {
-                icon: <Users className="h-6 w-6" />,
-                title: "Private WhatsApp circle",
-                desc: "A curated group of serious operators. Not a broadcast channel — a real back-channel for questions, wins, and intros.",
-              },
-              {
-                icon: <Zap className="h-6 w-6" />,
-                title: "First access to seats",
-                desc: "Each workshop is capped. Members get first access before open seats go to the public. Non-members get what's left.",
-              },
-              {
-                icon: <Lock className="h-6 w-6" />,
-                title: "Member directory",
-                desc: "Access to every other member's business and contact. The room only works because the people in it trust each other.",
-              },
-            ].map((item) => (
-              <div
-                key={item.title}
-                className="flex gap-5 rounded-2xl border border-border/60 bg-card p-7 shadow-e1"
+            <a href="/book" className="inline-block">
+              <Button
+                size="lg"
+                className="bg-[#c8553d] hover:bg-[#b84a33] text-white border-0 text-base px-10 py-6 font-bold"
               >
-                <div className="flex-shrink-0 flex h-12 w-12 items-center justify-center rounded-xl bg-[#c8553d]/10 text-[#c8553d]">
-                  {item.icon}
-                </div>
-                <div>
-                  <h3 className="font-semibold text-foreground mb-1.5">{item.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
-                </div>
-              </div>
-            ))}
+                Reserve your seat <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </a>
           </div>
-
-          <p className="font-hand mt-10 text-center text-xl text-muted-foreground rotate-[1deg]">
-            access, not content
-          </p>
         </div>
       </section>
 
-      {/* ── Next Workshop spotlight (#02) ──────────────────────────────────── */}
-      <section id="workshop" className="border-t border-border py-20 sm:py-28">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-          <div className="overflow-hidden rounded-3xl border border-[#c8553d]/25 bg-card shadow-e3">
-            <div className="grid lg:grid-cols-5">
-              {/* Left: the pitch */}
-              <div className="lg:col-span-3 p-8 sm:p-11">
-                <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#c8553d]/25 bg-[#c8553d]/[0.07] px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-[#c8553d]">
-                  <Sparkles className="h-3.5 w-3.5" />
-                  Next workshop · #02
-                </div>
-
-                <h2 className="font-serif text-3xl sm:text-4xl font-semibold tracking-tight text-foreground leading-[1.12] text-balance">
-                  Automate your video editing{" "}
-                  <span className="italic text-[#c8553d]">with AI.</span>
-                </h2>
-                <p className="mt-5 text-lg text-muted-foreground leading-relaxed max-w-lg">
-                  Two hours, hands-on. Turn raw footage into a polished, subtitled reel just by
-                  talking to Claude — no editing software, no experience needed. You walk out with a
-                  finished video.
-                </p>
-
-                {/* What you'll walk out with */}
-                <ul className="mt-7 grid sm:grid-cols-2 gap-x-6 gap-y-3">
-                  {[
-                    "A finished, subtitled reel — made in the room",
-                    "The full Claude editing workflow, yours to keep",
-                    "Zero paid software — Claude + free open-source tools",
-                    "Prompt kit, cheat sheets & lifetime WhatsApp support",
-                  ].map((t) => (
-                    <li key={t} className="flex gap-2.5 text-sm text-foreground/90 leading-relaxed">
-                      <CheckCircle2 className="h-5 w-5 text-[#c8553d] flex-shrink-0 mt-0.5" />
-                      <span>{t}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                {/* Facts */}
-                <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2.5 text-sm text-muted-foreground">
-                  <span className="inline-flex items-center gap-2">
-                    <Calendar className="h-4 w-4 text-[#c8553d]" /> {WORKSHOP_DATE_LABEL}
-                  </span>
-                  <span className="inline-flex items-center gap-2">
-                    <Clock className="h-4 w-4 text-[#c8553d]" /> {WORKSHOP_TIME_LABEL}
-                  </span>
-                  <span className="inline-flex items-center gap-2">
-                    <MapPin className="h-4 w-4 text-[#c8553d]" /> Salt Lake, Kolkata
-                  </span>
-                </div>
-              </div>
-
-              {/* Right: the offer + CTA */}
-              <div className="lg:col-span-2 flex flex-col justify-center gap-5 border-t lg:border-t-0 lg:border-l border-border/60 bg-[#c8553d]/[0.04] p-8 sm:p-11">
-                <div>
-                  <div className="flex items-end gap-3">
-                    <span className="font-serif text-5xl font-semibold text-foreground">{inr(PRICE)}</span>
-                    <span className="mb-1.5 text-lg text-muted-foreground line-through">{inr(MARKET_VALUE)}</span>
-                  </div>
-                  <p className="mt-1.5 text-sm font-semibold text-[#c8553d]">
-                    Early-bird · save {SAVINGS_PCT}%
-                  </p>
-                </div>
-
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  <Film className="mr-1.5 -mt-0.5 inline h-4 w-4 text-[#c8553d]" />
-                  Members get first access to seats. A few open spots remain for this batch.
-                </p>
-
-                <a href="/book" className="block">
-                  <Button
-                    size="lg"
-                    className="w-full bg-[#c8553d] hover:bg-[#b84a33] text-white border-0 text-base py-6 font-bold"
-                  >
-                    Reserve your seat <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
-                </a>
-                <p className="text-center text-xs text-muted-foreground">
-                  Small batch · beginner-friendly · pay online or at the venue
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <p className="font-hand mt-8 text-center text-xl text-muted-foreground rotate-[1deg]">
-            a real thing you&apos;ll build — not another webinar
-          </p>
-        </div>
-      </section>
-
-      {/* ── Scarcity Mechanics ─────────────────────��───────────────────────── */}
+      {/* ── Final CTA ──────────────────────────────────────── */}
       <section className="border-t border-border bg-muted/20 py-14 sm:py-16">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
           <div className="rounded-2xl border border-[#c8553d]/25 bg-[#c8553d]/[0.04] p-8 sm:p-10">
             <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#c8553d] mb-3">
-              Applications for {COHORT_MONTH} cohort
+              Workshop #02 · {WORKSHOP_DATE_LABEL}
             </p>
             <h2 className="font-serif text-2xl sm:text-3xl font-semibold text-foreground leading-tight mb-2">
-              {COHORT_SIZE - COHORT_TAKEN} seats remaining.
+              Capped at {TOTAL_SEATS} seats.
             </h2>
-            <p className="text-muted-foreground mb-6">
-              Cohort capped at {COHORT_SIZE} members. Applications close{" "}
-              <strong className="text-foreground">{COHORT_CLOSE_DATE}</strong>.
+            <p className="text-muted-foreground mb-7">
+              Small batch on purpose — everyone gets real attention, and everyone leaves with a
+              finished reel.
             </p>
 
-            {/* Seat progress bar */}
-            <div className="mb-7">
-              <div className="flex justify-between text-xs text-muted-foreground mb-2">
-                <span>{COHORT_TAKEN} applications in</span>
-                <span>{COHORT_SIZE - COHORT_TAKEN} spots left</span>
-              </div>
-              <div className="h-2.5 w-full rounded-full bg-border overflow-hidden">
-                <div
-                  className="h-full rounded-full bg-[#c8553d] transition-all duration-500"
-                  style={{ width: `${(COHORT_TAKEN / COHORT_SIZE) * 100}%` }}
-                />
-              </div>
-            </div>
-
-            <Button
-              onClick={scrollToApply}
-              size="lg"
-              className="bg-[#c8553d] hover:bg-[#b84a33] text-white border-0 text-base px-10 py-6 font-bold w-full sm:w-auto"
-            >
-              Apply for Membership <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
+            <a href="/book" className="inline-block w-full sm:w-auto">
+              <Button
+                size="lg"
+                className="bg-[#c8553d] hover:bg-[#b84a33] text-white border-0 text-base px-10 py-6 font-bold w-full sm:w-auto"
+              >
+                Reserve your seat <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </a>
             <p className="mt-4 text-xs text-muted-foreground">
-              Applications are reviewed personally. Not everyone gets in.
+              Beginner-friendly · pay online or at the venue
             </p>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Application Form ───────────────────────────────────────────────── */}
-      <section id="apply" className="border-t border-border py-20 sm:py-28">
-        <div className="mx-auto max-w-xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#c8553d]/25 bg-[#c8553d]/[0.07] px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-[#c8553d]">
-              Application
-            </div>
-            <h2 className="font-serif text-3xl sm:text-4xl font-semibold tracking-tight text-foreground leading-[1.12] text-balance">
-              Apply for membership.
-            </h2>
-            <p className="mt-4 text-lg text-muted-foreground">
-              Four questions. No CV. No long form. Just tell us who you are and why you belong in this room.
-            </p>
-          </div>
-
-          <div className="rounded-2xl border border-border/60 bg-card p-8 sm:p-10 shadow-e2">
-            <ApplicationForm />
           </div>
         </div>
       </section>
@@ -759,12 +646,11 @@ function App() {
           stickyCTA ? "translate-y-0" : "translate-y-full"
         )}
       >
-        <Button
-          onClick={scrollToApply}
-          className="w-full bg-[#c8553d] hover:bg-[#b84a33] text-white border-0 h-12 font-bold"
-        >
-          Apply for Membership <ArrowRight className="ml-2 h-5 w-5" />
-        </Button>
+        <a href="/book" className="block">
+          <Button className="w-full bg-[#c8553d] hover:bg-[#b84a33] text-white border-0 h-12 font-bold">
+            Reserve your seat <ArrowRight className="ml-2 h-5 w-5" />
+          </Button>
+        </a>
       </div>
 
       <ScrollButtons />

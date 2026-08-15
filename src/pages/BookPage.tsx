@@ -37,7 +37,7 @@ import {
  */
 export default function BookPage() {
   useEffect(() => {
-    document.title = "Book Your Seat — The AI Workshop #2 | Kolkata, 26 July";
+    document.title = "Book Your Seat — The AI Workshop #2 | Kolkata, 30 August";
     trackViewContent("Workshop Booking Page", "Workshop Registration", PRICE);
   }, []);
 

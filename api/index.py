@@ -18,7 +18,7 @@ IST = timezone(timedelta(hours=5, minutes=30))
 # own copy since it can't import Python). This is the single source these
 # email templates read from, so a date change only needs updating here.
 TOTAL_SEATS = 25
-WORKSHOP_DATE_LABEL = "Sunday, 26 July 2026"
+WORKSHOP_DATE_LABEL = "Sunday, 30 August 2026"
 WORKSHOP_TIME_LABEL = "11:00 AM – 1:00 PM"
 WORKSHOP_DURATION_LABEL = "2 hours"
 WORKSHOP_LOCATION = "Salt Lake, Kolkata"

@@ -8,7 +8,7 @@ export const WORKSHOP_AMOUNT = 59900; // amount in paise (₹599)
 export const PRICE = 599; // early-bird price (₹)
 export const MARKET_VALUE = 1599; // workshop's regular list price (early-bird is ₹599)
 export const TOTAL_SEATS = 25; // we cap each batch here so everyone gets real attention
-export const WORKSHOP_DATE_LABEL = "Sunday, 26 July 2026";
+export const WORKSHOP_DATE_LABEL = "Sunday, 30 August 2026";
 export const WORKSHOP_TIME_LABEL = "11:00 AM – 1:00 PM";
 export const WORKSHOP_DURATION_LABEL = "2 hours";
 
