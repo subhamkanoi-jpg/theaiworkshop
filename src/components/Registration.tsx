@@ -16,7 +16,6 @@ import {
 } from "lucide-react";
 import { trackBeginCheckout, trackPurchase, trackContact } from "@/analytics";
 import {
-  WORKSHOP_AMOUNT,
   PRICE,
   MARKET_VALUE,
   SAVINGS_PCT,
@@ -32,27 +31,43 @@ import {
  * The booking experience (offer summary + payment form), shared by the home
  * page (#register section) and the standalone /book page.
  */
+function apiError(data: unknown, fallback: string) {
+  if (data && typeof data === "object" && "detail" in data) {
+    const detail = (data as { detail: unknown }).detail;
+    if (typeof detail === "string") return detail;
+  }
+  return fallback;
+}
+
 export function Registration() {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const [paymentMethod, setPaymentMethod] = useState<"online" | "venue">("online");
 
   const handleVenuePayment = async () => {
     setLoading(true);
+    setError("");
     try {
-      await fetch("/api/register", {
+      const res = await fetch("/api/reserve", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, phone, payment_id: "PAY_AT_VENUE" }),
+        body: JSON.stringify({ name, email, phone }),
       });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setError(apiError(data, "Could not reserve your seat. Please try again."));
+        return;
+      }
       setSubmitted(true);
     } catch {
-      alert("Something went wrong. Please try again.");
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -65,45 +80,35 @@ export function Registration() {
     }
 
     setLoading(true);
+    setError("");
     trackBeginCheckout(PRICE, email, phone, name);
 
     try {
-      // Step 1: Create Razorpay order
       const orderRes = await fetch("/api/create-order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          amount: WORKSHOP_AMOUNT,
-          currency: "INR",
-          receipt: `workshop_${Date.now()}`,
-          name,
-          email,
-          phone,
-        }),
+        body: JSON.stringify({ name, email, phone }),
       });
 
+      const orderData = await orderRes.json().catch(() => ({}));
       if (!orderRes.ok) {
-        const err = await orderRes.json();
-        alert(err.detail || "Failed to create order. Please try again.");
+        setError(apiError(orderData, "Failed to create order. Please try again."));
         setLoading(false);
         return;
       }
-
-      const orderData = await orderRes.json();
 
       if (!orderData.razorpay_key_id) {
-        alert("Payment configuration error: Razorpay key not available. Please contact support.");
+        setError("Payment is not available right now. Please contact support.");
         setLoading(false);
         return;
       }
 
-      // Step 2: Open Razorpay checkout
       const options = {
         key: orderData.razorpay_key_id,
         amount: orderData.amount,
         currency: orderData.currency,
         name: "The AI Workshop",
-        description: "Workshop Registration - 30 August 2026",
+        description: `Workshop Registration — ${WORKSHOP_DATE_LABEL}`,
         order_id: orderData.order_id,
         prefill: {
           name: name,
@@ -111,14 +116,13 @@ export function Registration() {
           contact: phone,
         },
         theme: {
-          color: "#7c3aed",
+          color: "#c8553d",
         },
         handler: async function (response: {
           razorpay_payment_id: string;
           razorpay_order_id: string;
           razorpay_signature: string;
         }) {
-          // Step 3: Verify payment
           const verifyRes = await fetch("/api/verify-payment", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -126,21 +130,12 @@ export function Registration() {
           });
 
           if (verifyRes.ok) {
-            // Step 4: Register user after successful payment
-            await fetch("/api/register", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                name,
-                email,
-                phone,
-                payment_id: response.razorpay_payment_id,
-              }),
-            });
             trackPurchase(PRICE, email, phone, name);
             setSubmitted(true);
           } else {
-            alert("Payment verification failed. Please contact support.");
+            setError(
+              `Payment went through but confirmation failed. Contact support with payment ID ${response.razorpay_payment_id}.`
+            );
           }
           setLoading(false);
         },
@@ -155,12 +150,12 @@ export function Registration() {
       const rzp = new (window as any).Razorpay(options);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       rzp.on("payment.failed", function (response: any) {
-        alert(`Payment failed: ${response.error.description}`);
+        setError(response?.error?.description || "Payment failed. Please try again.");
         setLoading(false);
       });
       rzp.open();
     } catch {
-      alert("Something went wrong. Please try again.");
+      setError("Something went wrong. Please try again.");
       setLoading(false);
     }
   };
@@ -330,6 +325,11 @@ export function Registration() {
                   className="h-12"
                 />
               </div>
+              {error && (
+                <p className="text-sm text-destructive bg-destructive/10 rounded-lg px-3 py-2">
+                  {error}
+                </p>
+              )}
               <Button type="submit" size="lg" className="w-full mt-2" disabled={loading}>
                 {loading
                   ? "Processing..."

@@ -5,7 +5,6 @@ import { Logo } from "@/components/Logo";
 import { ScrollButtons } from "@/components/ScrollToTop";
 import { cn } from "@/lib/utils";
 import {
-  WHATSAPP_URL,
   WORKSHOP_DATE_LABEL,
   WORKSHOP_TIME_LABEL,
   PRICE,
@@ -13,6 +12,7 @@ import {
   SAVINGS_PCT,
   TOTAL_SEATS,
   inr,
+  PHONE_TEL,
   PHONE_DISPLAY,
   SUPPORT_EMAIL,
 } from "@/config";
@@ -43,33 +43,6 @@ const glimpses = [
   { src: "/meetup1/glimpse-1.jpg", alt: "Live walkthrough on the big screen at Meetup #1" },
   { src: "/meetup1/hosts-trio.jpg", alt: "The hosts at Meetup #1" },
   { src: "/meetup1/glimpse-4.jpg", alt: "Participants building at Meetup #1" },
-];
-
-// ──────────────────────────────────────────────────────────────────────────
-// Member stories — placeholder blocks for the founder to fill with real ones.
-// ──────────────────────────────────────────────────────────────────────────
-const memberStories = [
-  {
-    outcome: "Cut video editing costs to zero",
-    detail: "Was paying ₹3,000 per reel to an agency. Now edits in-house in under an hour.",
-    name: "[MEMBER STORY]",
-    business: "D2C Brand",
-    neighbourhood: "New Town, Kolkata",
-  },
-  {
-    outcome: "Automated invoicing for 40+ clients",
-    detail: "What took a half-day every month now runs on its own. Zero errors.",
-    name: "[MEMBER STORY]",
-    business: "Logistics Firm",
-    neighbourhood: "Howrah, Kolkata",
-  },
-  {
-    outcome: "Built a website without hiring a developer",
-    detail: "Live in three days. Handles 200+ orders/month through it.",
-    name: "[MEMBER STORY]",
-    business: "Cloud Kitchen",
-    neighbourhood: "Salt Lake, Kolkata",
-  },
 ];
 
 function GlimpseReel() {
@@ -507,30 +480,7 @@ function App() {
             ))}
           </div>
 
-          {/* Member stories */}
-          <div className="grid sm:grid-cols-3 gap-5">
-            {memberStories.map((story) => (
-              <div
-                key={story.outcome}
-                className="rounded-2xl border border-border/60 bg-card p-7 shadow-e1"
-              >
-                <p className="font-serif text-xl font-semibold text-foreground leading-tight mb-3">
-                  &ldquo;{story.outcome}&rdquo;
-                </p>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-5">
-                  {story.detail}
-                </p>
-                <div className="border-t border-border/50 pt-4">
-                  <p className="text-sm font-semibold text-foreground">{story.name}</p>
-                  <p className="text-xs text-muted-foreground mt-0.5">
-                    {story.business} · {story.neighbourhood}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-12 text-center">
+          <div className="mt-4 text-center">
             <a href="/book" className="inline-block">
               <Button
                 size="lg"
@@ -607,21 +557,16 @@ function App() {
                 @theaiworkshop.in
               </a>
               <a
-                href={WHATSAPP_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => trackContact("whatsapp")}
-                className="flex items-center gap-2 hover:text-foreground transition-colors"
-              >
-                <span className="text-[#25D366] font-bold text-xs">WA</span>
-                Join the WhatsApp community
-              </a>
-              <a
                 href="/book"
                 className="hover:text-foreground transition-colors"
               >
                 Next Workshop — {WORKSHOP_DATE_LABEL}
               </a>
+              <div className="flex flex-wrap gap-x-4 gap-y-1 pt-1">
+                <a href="/privacy" className="hover:text-foreground transition-colors">Privacy</a>
+                <a href="/terms" className="hover:text-foreground transition-colors">Terms</a>
+                <a href="/refund" className="hover:text-foreground transition-colors">Refunds</a>
+              </div>
             </div>
           </div>
 
@@ -631,7 +576,7 @@ function App() {
             </span>
             <span>
               Phone:{" "}
-              <a href={`tel:${PHONE_DISPLAY.replace(/\s/g, "")}`} className="hover:text-foreground transition-colors">
+              <a href={`tel:${PHONE_TEL}`} className="hover:text-foreground transition-colors">
                 {PHONE_DISPLAY}
               </a>
             </span>
@@ -639,7 +584,7 @@ function App() {
         </div>
       </footer>
 
-      {/* ── Sticky mobile Apply CTA ─────────────────────────────────────────── */}
+      {/* ── Sticky mobile reserve CTA ───────────────────────────────────────── */}
       <div
         className={cn(
           "fixed bottom-0 inset-x-0 z-40 lg:hidden bg-background/95 backdrop-blur-sm border-t border-border px-4 py-3 transition-transform duration-300",

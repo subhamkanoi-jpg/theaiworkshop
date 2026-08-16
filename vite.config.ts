@@ -1,9 +1,34 @@
 import path from "path";
 import react from "@vitejs/plugin-react";
-import { defineConfig } from "vite";
+import { defineConfig, type Connect } from "vite";
+
+function spaFallback() {
+  const rewrite: Connect.NextHandleFunction = (req, _res, next) => {
+    const url = req.url?.split("?")[0] || "";
+    if (url.startsWith("/api") || /\.[a-zA-Z0-9]+$/.test(url)) {
+      next();
+      return;
+    }
+    if (url === "/book" || url === "/book/") {
+      req.url = "/book.html";
+    } else if (url !== "/" && url !== "/index.html") {
+      req.url = "/index.html";
+    }
+    next();
+  };
+  return {
+    name: "spa-fallback",
+    configureServer(server: { middlewares: Connect.Server }) {
+      server.middlewares.use(rewrite);
+    },
+    configurePreviewServer(server: { middlewares: Connect.Server }) {
+      server.middlewares.use(rewrite);
+    },
+  };
+}
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), spaFallback()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

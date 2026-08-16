@@ -1,0 +1,18 @@
+{
+  "amountPaise": 59900,
+  "price": 599,
+  "marketValue": 1599,
+  "totalSeats": 25,
+  "dateLabel": "Sunday, 30 August 2026",
+  "timeLabel": "11:00 AM – 1:00 PM",
+  "durationLabel": "2 hours",
+  "location": "Salt Lake, Kolkata",
+  "dateIso": "2026-08-30",
+  "startDate": "2026-08-30T11:00:00+05:30",
+  "endDate": "2026-08-30T13:00:00+05:30",
+  "whatsappWorkshop": "https://chat.whatsapp.com/DNIePdAGNfL2cs1LDIs0DG",
+  "whatsappHost": "https://chat.whatsapp.com/EeAC3WtfJdGIDIt1AeWyLK",
+  "phoneTel": "+919830715557",
+  "phoneDisplay": "+91 98307 15557",
+  "supportEmail": "theaiworkshop.in@gmail.com"
+}

@@ -267,6 +267,9 @@ export default function BookPage() {
             >
               <Mail className="h-4 w-4" /> {SUPPORT_EMAIL}
             </a>
+            <a href="/privacy" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Privacy</a>
+            <a href="/terms" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Terms</a>
+            <a href="/refund" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Refunds</a>
           </div>
         </div>
       </footer>
