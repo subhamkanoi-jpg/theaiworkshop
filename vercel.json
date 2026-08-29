@@ -7,10 +7,50 @@
       "PYTHON_INSTALL_METHOD": "pip"
     }
   },
+  "headers": [
+    {
+      "source": "/llms.txt",
+      "headers": [{ "key": "Content-Type", "value": "text/plain; charset=utf-8" }]
+    },
+    {
+      "source": "/llms-full.txt",
+      "headers": [{ "key": "Content-Type", "value": "text/plain; charset=utf-8" }]
+    },
+    {
+      "source": "/.well-known/ai.txt",
+      "headers": [{ "key": "Content-Type", "value": "text/plain; charset=utf-8" }]
+    },
+    {
+      "source": "/ai/summary.json",
+      "headers": [{ "key": "Content-Type", "value": "application/json; charset=utf-8" }]
+    },
+    {
+      "source": "/ai/faq.json",
+      "headers": [{ "key": "Content-Type", "value": "application/json; charset=utf-8" }]
+    },
+    {
+      "source": "/ai/service.json",
+      "headers": [{ "key": "Content-Type", "value": "application/json; charset=utf-8" }]
+    }
+  ],
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api" },
     { "source": "/book", "destination": "/book.html" },
     { "source": "/book/", "destination": "/book.html" },
+    { "source": "/workshop", "destination": "/workshop.html" },
+    { "source": "/workshop/", "destination": "/workshop.html" },
+    { "source": "/path", "destination": "/path.html" },
+    { "source": "/path/", "destination": "/path.html" },
+    { "source": "/room", "destination": "/room.html" },
+    { "source": "/room/", "destination": "/room.html" },
+    { "source": "/host", "destination": "/host.html" },
+    { "source": "/host/", "destination": "/host.html" },
+    { "source": "/kolkata", "destination": "/kolkata.html" },
+    { "source": "/kolkata/", "destination": "/kolkata.html" },
+    { "source": "/about", "destination": "/about.html" },
+    { "source": "/about/", "destination": "/about.html" },
+    { "source": "/answers", "destination": "/answers.html" },
+    { "source": "/answers/", "destination": "/answers.html" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }

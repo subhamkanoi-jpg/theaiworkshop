@@ -69,9 +69,29 @@
     outline-offset: 3px;
     border-radius: 4px;
   }
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  html,
+  body {
+    max-width: 100%;
+    overflow-x: clip;
+  }
   body {
     @apply bg-background text-foreground;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+    overscroll-behavior-x: none;
+  }
+  body.menu-open {
+    overflow: hidden;
+    touch-action: none;
+  }
+  a,
+  button,
+  [role="button"] {
+    touch-action: manipulation;
   }
   /* Brand-tinted text selection — a small, cheap detail that stops the page
      from reverting to the browser's default blue the instant someone drags
@@ -332,5 +352,132 @@
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   #meetup figure:hover {
     transform: rotate(0deg) translateY(-3px);
+  }
+}
+
+/* ── Phone-first: page slides, press, snap rows, iPhone home bar ───────── */
+@keyframes vt-exit {
+  to {
+    opacity: 0;
+    transform: translate3d(-16px, 0, 0) scale(0.985);
+  }
+}
+@keyframes vt-enter {
+  from {
+    opacity: 0;
+    transform: translate3d(28px, 0, 0) scale(0.99);
+  }
+}
+@keyframes vt-exit-back {
+  to {
+    opacity: 0;
+    transform: translate3d(16px, 0, 0) scale(0.985);
+  }
+}
+@keyframes vt-enter-back {
+  from {
+    opacity: 0;
+    transform: translate3d(-28px, 0, 0) scale(0.99);
+  }
+}
+@keyframes sheet-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -10px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+::view-transition-old(root) {
+  animation: vt-exit 280ms cubic-bezier(0.32, 0.72, 0, 1) both;
+}
+::view-transition-new(root) {
+  animation: vt-enter 380ms cubic-bezier(0.32, 0.72, 0, 1) both;
+}
+html[data-nav="back"]::view-transition-old(root) {
+  animation-name: vt-exit-back;
+}
+html[data-nav="back"]::view-transition-new(root) {
+  animation-name: vt-enter-back;
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+  }
+}
+
+.pressable {
+  transition: transform 0.16s cubic-bezier(0.32, 0.72, 0, 1), filter 0.16s ease;
+}
+.pressable:active {
+  transform: scale(0.98);
+  filter: brightness(0.97);
+}
+
+.menu-sheet {
+  animation: sheet-in 0.28s cubic-bezier(0.32, 0.72, 0, 1) both;
+}
+.menu-backdrop {
+  animation: fade-in 0.2s ease both;
+}
+
+.snap-row {
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-bottom: 0.35rem;
+}
+.snap-row::-webkit-scrollbar {
+  display: none;
+}
+.snap-card {
+  flex: 0 0 min(78vw, 17.5rem);
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+@media (min-width: 640px) {
+  .snap-row {
+    display: grid;
+    overflow: visible;
+    padding-bottom: 0;
+    scroll-snap-type: none;
+  }
+  .snap-card {
+    flex: none;
+    width: auto;
+  }
+}
+
+.safe-bottom {
+  padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+}
+
+@media (max-width: 639px) {
+  .tape::before {
+    width: 4.25rem;
+    height: 1.2rem;
+    top: -9px;
+  }
+  .polaroid {
+    padding: 0.4rem 0.4rem 0.5rem;
+  }
+}
+
+/* Hover chrome is a mouse thing. On phones a leftover :hover sticks until the next tap. */
+@media (hover: none) {
+  .nav-link:hover::after {
+    transform: scaleX(0);
   }
 }

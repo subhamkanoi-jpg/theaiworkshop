@@ -1,0 +1,25 @@
+# Answer Engine Optimization gate — Auriti Labs geo-optimizer-skill
+# https://github.com/Auriti-Labs/geo-optimizer-skill
+name: GEO audit
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 6 * * 1"
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: Auriti-Labs/geo-optimizer-skill@v4.16.4
+        with:
+          url: https://www.theaiworkshop.in
+          min-score: 70
+          format: json
+          output-file: geo-report
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: geo-report
+          path: geo-report.json

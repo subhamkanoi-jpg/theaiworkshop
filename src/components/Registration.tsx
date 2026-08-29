@@ -18,7 +18,6 @@ import { trackBeginCheckout, trackPurchase, trackContact } from "@/analytics";
 import {
   PRICE,
   MARKET_VALUE,
-  SAVINGS_PCT,
   WORKSHOP_DATE_LABEL,
   inr,
   valueStack,
@@ -164,17 +163,17 @@ export function Registration() {
     <div data-reveal-children className="grid md:grid-cols-2 gap-6 items-start">
       {/* Offer summary */}
       <Card className="order-2 md:order-1 border-primary/20 bg-primary/5">
-        <CardContent className="p-7 sm:p-8">
+        <CardContent className="p-5 sm:p-8">
           <div className="flex items-end gap-3">
             <span className="text-4xl font-extrabold text-foreground flex items-center">
               <IndianRupee className="h-7 w-7" />{PRICE}
             </span>
             <span className="text-lg text-muted-foreground line-through mb-1">{inr(MARKET_VALUE)}</span>
             <span className="mb-1.5 rounded-full bg-accent/15 px-2.5 py-1 text-xs font-bold text-accent">
-              SAVE {SAVINGS_PCT}%
+              Community price
             </span>
           </div>
-          <p className="mt-1 text-sm font-medium text-primary">Community pricing · Workshop #2</p>
+          <p className="mt-1 text-sm font-medium text-primary">Community pricing · Workshop #3 · The Magic of AI</p>
 
           <div className="mt-6 space-y-3">
             {valueStack.map((row, i) => (
@@ -195,23 +194,23 @@ export function Registration() {
             <div className="rounded-xl bg-accent/10 border border-accent/20 p-4 flex items-start gap-3">
               <TrendingUp className="h-5 w-5 text-accent flex-shrink-0 mt-1" />
               <div>
-                <p className="text-2xl font-extrabold text-foreground">₹2,000–₹5,000 per video</p>
+                <p className="text-2xl font-extrabold text-foreground">₹3,000–₹8,000 a kit</p>
                 <p className="text-sm text-muted-foreground mt-0.5">
-                  what editors charge for a single reel — done yourself, every time, for free.
+                  what a freelancer charges for a week of posts and a bio — made in the room, reusable on Tuesday.
                 </p>
               </div>
             </div>
           </div>
 
           <p className="mt-3 text-xs text-muted-foreground leading-relaxed">
-            * You'll need an active <strong className="text-foreground">Claude subscription</strong> — it's the AI that does the editing, and we'll help you set it up. Everything else is free and open-source. The {inr(PRICE)} covers our costs — any surplus goes back into the community.
+            * A free Google account is enough. Paid Claude or ChatGPT is welcome if you already live there — the recipe is the same. The {inr(PRICE)} covers the hall — any surplus goes back into the community.
           </p>
 
           <div className="mt-5 rounded-xl bg-background/70 border border-border p-4 flex gap-3">
             <ShieldCheck className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
             <p className="text-sm text-muted-foreground">
-              <strong className="text-foreground">Our promise:</strong> spend the 2 hours with us and
-              you'll leave with a finished reel — or we'll work with you 1:1 until you do.
+              <strong className="text-foreground">Our promise:</strong> spend the 3 hours with us and
+              you&apos;ll leave with a week of work made from how you talk — or we&apos;ll work with you until you do.
             </p>
           </div>
         </CardContent>
@@ -219,7 +218,7 @@ export function Registration() {
 
       {/* Form */}
       <Card className="order-1 md:order-2">
-        <CardContent className="pt-8 pb-6 px-6">
+        <CardContent className="pt-6 pb-5 px-5 sm:pt-8 sm:pb-6 sm:px-6">
           {submitted ? (
             <div className="text-center py-6">
               <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-accent/10 text-accent">
@@ -262,7 +261,7 @@ export function Registration() {
                   <button
                     type="button"
                     onClick={() => setPaymentMethod("online")}
-                    className={`flex flex-col items-center justify-center gap-1 rounded-xl border-2 p-3 text-sm font-medium transition-colors ${
+                    className={`flex flex-col items-center justify-center gap-1 rounded-xl border-2 p-3 min-h-[4.25rem] text-sm font-medium transition-colors ${
                       paymentMethod === "online"
                         ? "border-primary bg-primary/10 text-primary"
                         : "border-border bg-background text-muted-foreground hover:border-primary/40"
@@ -275,7 +274,7 @@ export function Registration() {
                   <button
                     type="button"
                     onClick={() => setPaymentMethod("venue")}
-                    className={`flex flex-col items-center justify-center gap-1 rounded-xl border-2 p-3 text-sm font-medium transition-colors ${
+                    className={`flex flex-col items-center justify-center gap-1 rounded-xl border-2 p-3 min-h-[4.25rem] text-sm font-medium transition-colors ${
                       paymentMethod === "venue"
                         ? "border-primary bg-primary/10 text-primary"
                         : "border-border bg-background text-muted-foreground hover:border-primary/40"
@@ -330,12 +329,12 @@ export function Registration() {
                   {error}
                 </p>
               )}
-              <Button type="submit" size="lg" className="w-full mt-2" disabled={loading}>
+              <Button type="submit" size="lg" className="w-full mt-2 min-h-12 text-base" disabled={loading}>
                 {loading
                   ? "Processing..."
                   : paymentMethod === "venue"
-                  ? `Reserve my seat (Pay ${inr(PRICE)} at venue)`
-                  : `Pay ${inr(PRICE)} & confirm my seat`}
+                  ? `Reserve · pay ${inr(PRICE)} at venue`
+                  : `Pay ${inr(PRICE)}`}
                 {!loading && <ArrowRight className="ml-2 h-5 w-5" />}
               </Button>
               {paymentMethod === "online" && (

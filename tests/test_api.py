@@ -93,8 +93,35 @@ def test_health_does_not_leak_credentials():
 
 
 def test_retired_endpoints_are_gone():
-    for path in ("/api/register", "/api/apply", "/api/interest", "/api/become-host"):
+    for path in ("/api/register", "/api/apply", "/api/interest"):
         assert client.post(path, json={}).status_code == 404
+
+
+def test_become_host_requires_name_and_phone():
+    res = client.post("/api/become-host", json={})
+    assert res.status_code == 400
+
+
+def test_become_host_accepts_a_captain(monkeypatch):
+    sent = []
+
+    def fake_admin(name, email, phone, payment_id=""):
+        sent.append((name, phone, payment_id))
+        return True
+
+    monkeypatch.setattr("api.index.send_admin_notification", fake_admin)
+    res = client.post(
+        "/api/become-host",
+        json={
+            "name": "Ada Lovelace",
+            "phone": "9830715557",
+            "use_case": "Captain a table",
+            "workshop_date": "2026-09-27",
+        },
+    )
+    assert res.status_code == 200
+    assert res.json()["ok"] is True
+    assert sent[0][0] == "Ada Lovelace"
 
 
 def test_create_order_uses_server_amount(monkeypatch):

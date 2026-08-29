@@ -19,11 +19,11 @@ function LegalLayout({
   return (
     <div className="min-h-screen bg-background">
       <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-lg">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 flex h-16 items-center justify-between">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 flex h-14 sm:h-16 items-center justify-between">
           <a href="/" className="flex items-center">
             <Logo iconClassName="h-9 w-auto" textClassName="text-xl" />
           </a>
-          <a href="/book" className="text-sm font-medium text-muted-foreground hover:text-foreground">
+          <a href="/book" className="text-sm font-medium text-[#c8553d] min-h-11 inline-flex items-center">
             Reserve a seat
           </a>
         </div>
@@ -33,7 +33,7 @@ function LegalLayout({
         <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#c8553d] mb-3">
           The AI Workshop
         </p>
-        <h1 className="font-serif text-4xl font-semibold tracking-tight text-foreground">{title}</h1>
+        <h1 className="font-serif text-[2.15rem] sm:text-4xl font-semibold tracking-tight text-foreground">{title}</h1>
         <p className="mt-2 text-sm text-muted-foreground">Last updated {updated}</p>
         <div className="mt-8 space-y-6 text-[15px] leading-relaxed text-foreground/90">{children}</div>
       </main>
@@ -121,15 +121,16 @@ export function TermsPage() {
       </p>
       <Section title="The workshop">
         <p>
-          You get a two-hour live session, a finished reel from footage you bring or sample clips we
-          provide, and access to the workshop WhatsApp group. A Claude subscription is required for
-          the editing workflow and is billed by Anthropic, not by us. The ticket price of {inr(PRICE)}{" "}
-          does not include that subscription.
+          You get a three-hour live session in Salt Lake, Kolkata, a finished week-of-work kit made
+          from how you talk (bio, offer line, posts, and a saved recipe), and access to the workshop
+          WhatsApp group. A free Google account is enough. Any paid AI subscription you already have
+          is optional and billed by that provider, not by us. The ticket price of {inr(PRICE)}{" "}
+          covers the hall and running costs.
         </p>
       </Section>
       <Section title="Your responsibilities">
         <ul className="list-disc pl-5 space-y-1">
-          <li>Show up on time with a laptop that can join the session</li>
+          <li>Show up on time with a phone (and a laptop if you have one)</li>
           <li>Behave respectfully toward hosts and other participants</li>
           <li>Do not record or republish the session without our written permission</li>
         </ul>

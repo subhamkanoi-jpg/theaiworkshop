@@ -4,8 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "node scripts/write-seo-html.mjs && vite",
+    "prebuild": "node scripts/write-seo-html.mjs",
     "build": "tsc -b && vite build",
+    "seo:html": "node scripts/write-seo-html.mjs",
     "lint": "eslint .",
     "preview": "vite preview"
   },

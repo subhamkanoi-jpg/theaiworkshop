@@ -30,7 +30,7 @@ export function ScrollButtons() {
     );
 
   return (
-    <div className="fixed bottom-24 left-4 sm:left-6 md:bottom-6 z-40 flex flex-col gap-2">
+    <div className="hidden md:flex fixed bottom-6 left-6 z-40 flex-col gap-2">
       <button
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         aria-label="Back to top"

@@ -6,6 +6,7 @@ __pycache__/
 .DS_Store
 *.egg-info/
 .env
+seo/.env
 uv.lock
 
 # Local file-based storage for form submissions (routes.py) — contains real

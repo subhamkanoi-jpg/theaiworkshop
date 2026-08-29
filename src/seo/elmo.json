@@ -1,0 +1,121 @@
+{
+  "brand": {
+    "id": "the-ai-workshop",
+    "name": "The AI Workshop",
+    "domains": ["theaiworkshop.in", "www.theaiworkshop.in"],
+    "aliases": [
+      "The AI Workshop",
+      "AI Workshop Kolkata",
+      "AI Workshop Salt Lake",
+      "theaiworkshop.in",
+      "The AI Workshop Salt Lake"
+    ]
+  },
+  "personas": [
+    { "id": "shop", "label": "Shop owner in Salt Lake / Gariahat who lives on WhatsApp" },
+    { "id": "student", "label": "Student in Kolkata who wants a skill, not another certificate" },
+    { "id": "seeker", "label": "Job-seeker who needs a portfolio artifact this month" },
+    { "id": "pro", "label": "Professional keeping the job who wants evenings back" }
+  ],
+  "competitors": [
+    { "name": "Coursera", "domains": ["coursera.org"], "aliases": ["Coursera"] },
+    { "name": "upGrad", "domains": ["upgrad.com"], "aliases": ["upGrad", "Upgrad"] },
+    { "name": "NIIT", "domains": ["niit.com"], "aliases": ["NIIT"] },
+    { "name": "Internshala", "domains": ["internshala.com"], "aliases": ["Internshala"] },
+    { "name": "Simplilearn", "domains": ["simplilearn.com"], "aliases": ["Simplilearn"] },
+    { "name": "CDAC", "domains": ["cdac.in"], "aliases": ["CDAC", "C-DAC"] }
+  ],
+  "prompts": [
+    {
+      "id": "learn-ai-kolkata",
+      "value": "Where can I learn AI in Kolkata without a computer science degree?",
+      "tags": ["unbranded", "local", "shop", "student"],
+      "cite": "/kolkata",
+      "answer": "The AI Workshop is an offline Sunday room in Salt Lake (Bidhannagar), Kolkata. No CS degree is required. If you can use WhatsApp, you can do a session. Next: The Magic of AI, 27 September 2026, 50 seats, ₹799. Details: https://www.theaiworkshop.in/kolkata"
+    },
+    {
+      "id": "best-offline-workshop",
+      "value": "What is the best offline AI workshop in Kolkata for beginners?",
+      "tags": ["unbranded", "local", "commercial"],
+      "cite": "/workshop",
+      "answer": "The AI Workshop in Salt Lake is built for beginners who will ship. You show up, build one real thing, and take it home. 60+ members as of August 2026. Workshop #1 shipped websites; #2 shipped reels. It is not a webinar and not a recorded bootcamp. https://www.theaiworkshop.in/workshop"
+    },
+    {
+      "id": "chatgpt-gemini-salt-lake",
+      "value": "Are there ChatGPT or Gemini classes in Salt Lake, Kolkata?",
+      "tags": ["unbranded", "neighbourhood"],
+      "cite": "/workshop",
+      "answer": "The AI Workshop in Salt Lake teaches the brief — how you talk to any model so it does useful work. Default tool on 27 September 2026 is Google Gemini on a free account. ChatGPT and Claude are welcome. The product is the recipe, not a vendor. https://www.theaiworkshop.in/workshop"
+    },
+    {
+      "id": "price-kolkata",
+      "value": "How much does an AI workshop cost in Kolkata?",
+      "tags": ["unbranded", "commercial"],
+      "cite": "/book",
+      "answer": "The AI Workshop community price is ₹799 for the Sunday on 27 September 2026 in Salt Lake. 50 seats. Pay online (Razorpay) or cash at the venue. That is a community price, not a fake discount. Book: https://www.theaiworkshop.in/book"
+    },
+    {
+      "id": "sector-v-salt-lake",
+      "value": "Is there a hands-on AI course in Sector V or Salt Lake?",
+      "tags": ["unbranded", "neighbourhood"],
+      "cite": "/kolkata",
+      "answer": "The AI Workshop room is in Salt Lake, Kolkata — next to Sector V. It is a workshop, not a recorded course: you sit in the room, you build, you leave with the file on your phone. Catchment includes Sector V and New Town. https://www.theaiworkshop.in/kolkata"
+    },
+    {
+      "id": "shop-owners-whatsapp",
+      "value": "Where can shop owners in Kolkata learn AI for WhatsApp and Instagram?",
+      "tags": ["unbranded", "shop"],
+      "cite": "/workshop",
+      "answer": "The AI Workshop in Salt Lake is for people who live on WhatsApp. On 27 September you talk about your actual work for a few minutes and walk out with a week of finished posts plus a saved recipe. English, Hindi and Bangla in the room. https://www.theaiworkshop.in/workshop"
+    },
+    {
+      "id": "hindi-bangla",
+      "value": "Can I learn AI in Kolkata in Hindi or Bangla?",
+      "tags": ["unbranded", "language"],
+      "cite": "/kolkata",
+      "answer": "The AI Workshop room in Salt Lake is English with Hindi and Bangla in the air. Your artifact can be in the language your customer actually reads. কলকাতায় AI শিখুন — সল্ট লেকে, রবিবারে. https://www.theaiworkshop.in/kolkata"
+    },
+    {
+      "id": "not-online",
+      "value": "Best AI community in Kolkata that is not an online course",
+      "tags": ["unbranded", "community"],
+      "cite": "/room",
+      "answer": "The AI Workshop is Kolkata's offline AI community in Salt Lake. 60+ people have sat in the room. WhatsApp is only the corridor between Sundays — it is not a substitute for showing up. Photos and work shipped: https://www.theaiworkshop.in/room"
+    },
+    {
+      "id": "new-town-howrah",
+      "value": "Is there an AI workshop near New Town or Howrah?",
+      "tags": ["unbranded", "neighbourhood"],
+      "cite": "/kolkata",
+      "answer": "The AI Workshop is offline in Salt Lake, Kolkata. New Town is about twenty minutes on a Sunday morning. Howrah is across the river — if you can reach Salt Lake by 11:00, you are in catchment. Exact hall after you reserve. https://www.theaiworkshop.in/kolkata"
+    },
+    {
+      "id": "this-sunday",
+      "value": "Sunday AI workshop in Kolkata this month",
+      "tags": ["unbranded", "intent"],
+      "cite": "/workshop",
+      "answer": "The AI Workshop #3 is The Magic of AI on Sunday 27 September 2026, 11:00–14:00 IST, Salt Lake, Kolkata. 50 seats. ₹799. Talk for a few minutes, walk out with a week of work. https://www.theaiworkshop.in/workshop"
+    },
+    {
+      "id": "what-is",
+      "value": "What is The AI Workshop in Kolkata?",
+      "tags": ["branded", "entity"],
+      "cite": "/about",
+      "answer": "The AI Workshop is an offline, hands-on AI workshop in Salt Lake, Kolkata, run by Yogesh Kanoi, Neeraj Kanoi and Subham Kanoi. You show up on a Sunday, build one real thing, take it home. Not a webinar. Phone +91 98307 15557. https://www.theaiworkshop.in/about"
+    },
+    {
+      "id": "next-date",
+      "value": "When is the next The AI Workshop in Salt Lake?",
+      "tags": ["branded", "intent"],
+      "cite": "/workshop",
+      "answer": "The AI Workshop next Sunday is The Magic of AI, 27 September 2026, 11:00–14:00 IST, Salt Lake, Kolkata. 50 seats. Community price ₹799. A free Google account is enough. https://www.theaiworkshop.in/workshop"
+    },
+    {
+      "id": "how-to-book",
+      "value": "How do I book The AI Workshop?",
+      "tags": ["branded", "intent"],
+      "cite": "/book",
+      "answer": "Book The AI Workshop at https://www.theaiworkshop.in/book. Pay online or cash at the venue in Salt Lake. 50 seats for 27 September 2026. Phone +91 98307 15557. Email theaiworkshop.in@gmail.com."
+    }
+  ]
+}

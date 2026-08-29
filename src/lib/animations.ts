@@ -69,31 +69,33 @@ export function initSiteAnimations(): () => void {
       });
     }
 
-    // ── Scroll reveals — now with 3D depth: elements tip up into place ────
+    // ── Scroll reveals. Phones skip 3D rotateX — it shears text and janks. ─
+    const coarse = window.matchMedia("(pointer: coarse)").matches;
+    const revealY = coarse ? 22 : 36;
     gsap.utils.toArray<HTMLElement>("[data-reveal]").forEach((el) => {
       gsap.from(el, {
-        y: 36,
+        y: revealY,
         opacity: 0,
-        rotateX: 7,
-        transformPerspective: 1000,
+        rotateX: coarse ? 0 : 7,
+        transformPerspective: coarse ? undefined : 1000,
         transformOrigin: "50% 100%",
-        duration: 0.9,
+        duration: coarse ? 0.55 : 0.9,
         ease: "power3.out",
-        scrollTrigger: { trigger: el, start: "top 88%", once: true },
+        scrollTrigger: { trigger: el, start: "top 92%", once: true },
       });
     });
 
     gsap.utils.toArray<HTMLElement>("[data-reveal-children]").forEach((el) => {
       gsap.from(el.children, {
-        y: 32,
+        y: coarse ? 18 : 32,
         opacity: 0,
-        rotateX: 9,
-        transformPerspective: 1000,
+        rotateX: coarse ? 0 : 9,
+        transformPerspective: coarse ? undefined : 1000,
         transformOrigin: "50% 100%",
-        duration: 0.8,
+        duration: coarse ? 0.5 : 0.8,
         ease: "power3.out",
-        stagger: 0.12,
-        scrollTrigger: { trigger: el, start: "top 85%", once: true },
+        stagger: coarse ? 0.07 : 0.12,
+        scrollTrigger: { trigger: el, start: "top 90%", once: true },
       });
     });
 

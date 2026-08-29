@@ -85,12 +85,12 @@ export function BecomeHost() {
             Teach what you've built
           </div>
           <h3 className="text-2xl font-bold text-foreground">
-            Have you put AI to work in your own business?
+            Have you shipped a Sunday with us?
           </h3>
           <p className="mt-3 text-muted-foreground leading-relaxed">
-            If you've actually implemented an AI use-case — and you're confident enough to teach it
-            in a 3-hour hands-on live workshop — we want to hear from you. This is how we
-            democratize the workshop and grow it into a real community of learners.
+            27 September is 50 people. That only works if alumni stand on the floor as table
+            captains — or if you&apos;re ready to teach a use-case you have actually shipped. Start
+            as a captain. Then host a Sunday.
           </p>
 
           <div className="mt-6 space-y-3 text-sm">
@@ -213,7 +213,7 @@ export function BecomeHost() {
                 className="w-full mt-2"
                 disabled={loading || !!dateError}
               >
-                {loading ? "Submitting..." : "Apply to become a host"}{" "}
+                {loading ? "Submitting..." : "Apply to captain / host"}{" "}
                 {!loading && <ArrowRight className="ml-2 h-5 w-5" />}
               </Button>
               <p className="text-center text-xs text-muted-foreground pt-1">

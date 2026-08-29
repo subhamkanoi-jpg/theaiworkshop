@@ -1,0 +1,30 @@
+# Rank tracker from https://github.com/djav1985/v-serpbear
+# Tracks Kolkata SERPs + Google Map Pack for The AI Workshop.
+#
+#   cp seo/.env.example seo/.env
+#   docker compose -f seo/docker-compose.yml --env-file seo/.env up -d
+#   open http://localhost:3030
+#
+# Then: add domain https://www.theaiworkshop.in
+# Scraper tab → city Kolkata, country IN, business name "The AI Workshop"
+# Seed: node seo/seed-keywords.mjs
+
+services:
+  serpbear:
+    image: vontainment/v-serpbear:latest
+    restart: unless-stopped
+    container_name: theaiworkshop-serpbear
+    ports:
+      - "3030:3000"
+    env_file:
+      - .env
+    environment:
+      CRON_TIMEZONE: Asia/Kolkata
+      NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-http://localhost:3030}
+      NEXT_PUBLIC_WHITE_LABEL: "true"
+      NEXT_PUBLIC_PLATFORM_NAME: The AI Workshop ranks
+    volumes:
+      - serpbear-data:/app/data
+
+volumes:
+  serpbear-data:

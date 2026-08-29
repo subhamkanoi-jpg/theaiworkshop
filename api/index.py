@@ -36,14 +36,16 @@ IST = timezone(timedelta(hours=5, minutes=30))
 EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 
 _FALLBACK = {
-    "amountPaise": 59900,
-    "price": 599,
-    "marketValue": 1599,
-    "totalSeats": 25,
-    "dateLabel": "Sunday, 30 August 2026",
-    "timeLabel": "11:00 AM – 1:00 PM",
-    "durationLabel": "2 hours",
+    "amountPaise": 79900,
+    "price": 799,
+    "marketValue": 4999,
+    "totalSeats": 50,
+    "dateLabel": "Sunday, 27 September 2026",
+    "timeLabel": "11:00 AM – 2:00 PM",
+    "durationLabel": "3 hours",
     "location": "Salt Lake, Kolkata",
+    "title": "The Magic of AI",
+    "bringLabel": "a phone, a charger, and a free Google account. A laptop if you have one.",
     "whatsappWorkshop": "https://chat.whatsapp.com/DNIePdAGNfL2cs1LDIs0DG",
     "phoneTel": "+919830715557",
     "phoneDisplay": "+91 98307 15557",
@@ -77,6 +79,8 @@ WORKSHOP_LOCATION = str(W["location"])
 WHATSAPP_URL = str(W["whatsappWorkshop"])
 PHONE_DISPLAY = str(W["phoneDisplay"])
 SUPPORT_EMAIL = str(W["supportEmail"])
+WORKSHOP_TITLE = str(W.get("title") or "The AI Workshop")
+BRING_LABEL = str(W.get("bringLabel") or "a phone, a charger, and a free Google account")
 
 
 # ── helpers ────────────────────────────────────────────────────────────────
@@ -246,7 +250,8 @@ def send_confirmation_email(name: str, email: str, pay_at_venue: bool = False) -
                 <p style="margin: 5px 0;"><strong>Time:</strong> {html.escape(WORKSHOP_TIME_LABEL)} ({html.escape(WORKSHOP_DURATION_LABEL)})</p>
                 <p style="margin: 5px 0;"><strong>Location:</strong> {html.escape(WORKSHOP_LOCATION)} (exact venue shared on WhatsApp)</p>
             </div>
-            <p><strong>What to bring:</strong> a laptop with an active Claude subscription, and a few raw clips on your phone if you want to edit your own footage. No clips? We'll have sample footage ready.</p>
+            <p><strong>Workshop:</strong> {html.escape(WORKSHOP_TITLE)}</p>
+            <p><strong>What to bring:</strong> {html.escape(BRING_LABEL)} If you can, three WhatsApp messages or captions you already wrote that sound like you. No material? We'll have samples.</p>
             <p>Join the workshop WhatsApp group — venue, timings and reminders live there:<br>
             <a href="{html.escape(WHATSAPP_URL, quote=True)}">{html.escape(WHATSAPP_URL)}</a></p>
             <p style="margin-top: 30px;">See you there!<br><strong>Team AI Workshop</strong></p>
@@ -337,6 +342,13 @@ class VerifyPaymentRequest(BaseModel):
     razorpay_signature: str
 
 
+class HostRequest(BaseModel):
+    name: str = Field(default="", max_length=80)
+    phone: str = Field(default="", max_length=24)
+    use_case: str = Field(default="", max_length=2000)
+    workshop_date: str = Field(default="", max_length=32)
+
+
 # ── app ────────────────────────────────────────────────────────────────────
 
 app = FastAPI()
@@ -344,6 +356,23 @@ app = FastAPI()
 
 @app.get("/api/health")
 def health():
+    return {"ok": True}
+
+
+@app.post("/api/become-host")
+def become_host(req: HostRequest):
+    name = (req.name or "").strip()
+    phone = (req.phone or "").strip()
+    use_case = (req.use_case or "").strip()
+    workshop_date = (req.workshop_date or "").strip()
+    if len(name) < 2 or len(phone) < 8:
+        raise HTTPException(status_code=400, detail="Please enter your name and phone.")
+    send_admin_notification(
+        name,
+        SUPPORT_EMAIL,
+        phone,
+        payment_id=f"host {workshop_date}: {use_case[:120]}",
+    )
     return {"ok": True}
 
 

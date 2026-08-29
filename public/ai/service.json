@@ -1,0 +1,20 @@
+{
+  "name": "The AI Workshop",
+  "url": "https://www.theaiworkshop.in/",
+  "description": "Offline AI workshops in Salt Lake, Kolkata. Hands-on Sundays. Artifact, not notes.",
+  "areaServed": "Kolkata, West Bengal, India",
+  "priceRange": "INR 799",
+  "capabilities": [
+    "Offline AI workshop in Salt Lake, Kolkata",
+    "Beginner-friendly hands-on session (no CS degree)",
+    "Talk-to-AI briefing (Gemini / ChatGPT / Claude)",
+    "Ship a website, a reel, or a week-of-work kit in one Sunday",
+    "WhatsApp community between sessions",
+    "English, Hindi and Bangla in the room"
+  ],
+  "booking": "https://www.theaiworkshop.in/book",
+  "contact": {
+    "email": "theaiworkshop.in@gmail.com",
+    "telephone": "+91-98307-15557"
+  }
+}

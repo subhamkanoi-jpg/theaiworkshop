@@ -22,11 +22,24 @@ def create_app(static_dir: str) -> FastAPI:
             file_path = os.path.join(static_dir, path)
             if path and os.path.isfile(file_path):
                 return FileResponse(file_path)
-            index = os.path.join(static_dir, "book.html" if path.rstrip("/").lower() == "book" else "index.html")
-            if path.rstrip("/").lower() == "book" and os.path.isfile(index):
-                return FileResponse(index)
+            slug = path.rstrip("/").lower()
+            named = {
+                "book": "book.html",
+                "workshop": "workshop.html",
+                "path": "path.html",
+                "room": "room.html",
+                "host": "host.html",
+                "kolkata": "kolkata.html",
+                "about": "about.html",
+            }
+            named_file = named.get(slug)
+            if named_file:
+                named_path = os.path.join(static_dir, named_file)
+                if os.path.isfile(named_path):
+                    return FileResponse(named_path)
+            index = os.path.join(static_dir, "index.html")
             return FileResponse(
-                os.path.join(static_dir, "index.html"),
+                index,
                 headers={
                     "Cache-Control": "no-cache, no-store, must-revalidate",
                     "Pragma": "no-cache",

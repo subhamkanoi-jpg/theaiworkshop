@@ -9,8 +9,19 @@ function spaFallback() {
       next();
       return;
     }
-    if (url === "/book" || url === "/book/") {
-      req.url = "/book.html";
+    const htmlPages: Record<string, string> = {
+      "/book": "/book.html",
+      "/workshop": "/workshop.html",
+      "/path": "/path.html",
+      "/room": "/room.html",
+      "/host": "/host.html",
+      "/kolkata": "/kolkata.html",
+      "/about": "/about.html",
+      "/answers": "/answers.html",
+    };
+    const mapped = htmlPages[url.replace(/\/$/, "") || "/"];
+    if (mapped) {
+      req.url = mapped;
     } else if (url !== "/" && url !== "/index.html") {
       req.url = "/index.html";
     }
@@ -39,6 +50,13 @@ export default defineConfig({
       input: {
         main: path.resolve(__dirname, "index.html"),
         book: path.resolve(__dirname, "book.html"),
+        workshop: path.resolve(__dirname, "workshop.html"),
+        path: path.resolve(__dirname, "path.html"),
+        room: path.resolve(__dirname, "room.html"),
+        host: path.resolve(__dirname, "host.html"),
+        kolkata: path.resolve(__dirname, "kolkata.html"),
+        about: path.resolve(__dirname, "about.html"),
+        answers: path.resolve(__dirname, "answers.html"),
       },
     },
   },
