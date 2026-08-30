@@ -19,6 +19,7 @@ import {
 } from "@/config";
 import { pathChapters, faqs } from "@/content/path";
 import { TalkTrailer } from "@/components/TalkTrailer";
+import { SundayReel } from "@/components/SundayReel";
 import { cn } from "@/lib/utils";
 import {
   MapPin,
@@ -187,6 +188,9 @@ function App() {
                 <a href="#try" className="text-center text-xs font-medium text-[#c8553d] hover:underline">
                   Or try the 12-second version on this phone ↓
                 </a>
+                <a href="#reel" className="text-center text-xs text-muted-foreground hover:text-foreground">
+                  Or watch the Sunday reel first ↓
+                </a>
               </div>
             </div>
           </div>
@@ -196,6 +200,8 @@ function App() {
           </p>
         </div>
       </section>
+
+      <SundayReel />
 
       <TalkTrailer />
 
