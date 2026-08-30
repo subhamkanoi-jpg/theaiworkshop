@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 
 /**
- * Ambient hero background — a slowly drifting constellation of nodes that link
+ * Ambient hero background, a slowly drifting constellation of nodes that link
  * up when they come near each other. It's the brand mark (a node network) made
  * alive: people wandering, connecting, forming a community.
  *
@@ -15,7 +15,7 @@ import { useEffect, useRef } from "react";
  *   offscreen or the tab is hidden.
  * - Everything is disposed on unmount (StrictMode double-mount safe).
  */
-// Safari has no requestIdleCallback — fall back to a short timeout so the
+// Safari has no requestIdleCallback, fall back to a short timeout so the
 // import still yields to the initial render there instead of firing eagerly.
 const onIdle: (cb: () => void) => number =
   typeof requestIdleCallback === "function"
@@ -75,7 +75,7 @@ export function HeroCanvas() {
         pos[i * 3] = (Math.random() - 0.5) * W;
         pos[i * 3 + 1] = (Math.random() - 0.5) * H;
         pos[i * 3 + 2] = 0;
-        const speed = 8 + Math.random() * 14; // px/s — a slow, calm drift
+        const speed = 8 + Math.random() * 14; // px/s, a slow, calm drift
         const dir = Math.random() * Math.PI * 2;
         vel[i * 2] = Math.cos(dir) * speed;
         vel[i * 2 + 1] = Math.sin(dir) * speed;
@@ -99,7 +99,7 @@ export function HeroCanvas() {
       const points = new THREE.Points(nodeGeo, nodeMat);
       scene.add(points);
 
-      // Line segments between nearby nodes — rebuilt each frame (small N, cheap).
+      // Line segments between nearby nodes, rebuilt each frame (small N, cheap).
       const maxLinks = COUNT * 6;
       const linePos = new Float32Array(maxLinks * 6);
       const lineGeo = new THREE.BufferGeometry();
@@ -113,7 +113,7 @@ export function HeroCanvas() {
       const lines = new THREE.LineSegments(lineGeo, lineMat);
       scene.add(lines);
 
-      // Pointer parallax — the whole constellation leans gently toward the cursor.
+      // Pointer parallax, the whole constellation leans gently toward the cursor.
       let targetX = 0;
       let targetY = 0;
       const onPointer = (e: PointerEvent) => {

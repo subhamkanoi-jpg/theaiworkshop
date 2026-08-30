@@ -27,7 +27,7 @@ export function ApplicationForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, business, aiGoal, whyYou, phone }),
       });
-      // 502 / 503 = backend not running in dev preview — treat as success locally
+      // 502 / 503 = backend not running in dev preview, treat as success locally
       if (!res.ok && res.status !== 502 && res.status !== 503) {
         const err = await res.json().catch(() => ({}));
         setError(err.detail || "Something went wrong. Please try again.");
@@ -39,7 +39,7 @@ export function ApplicationForm() {
       (window as any).fbq?.("trackCustom", "MembershipApplication", { name, business });
       setSubmitted(true);
     } catch {
-      // Network error (backend unreachable) — still confirm in dev
+      // Network error (backend unreachable), still confirm in dev
       trackLead();
       setSubmitted(true);
     }
@@ -147,7 +147,7 @@ export function ApplicationForm() {
       </Button>
 
       <p className="text-center text-xs text-muted-foreground">
-        Applications are reviewed personally. Cohort size is capped — not everyone gets in.
+        Applications are reviewed personally. Cohort size is capped, not everyone gets in.
       </p>
     </form>
   );

@@ -18,6 +18,7 @@ import {
   hosts,
 } from "@/config";
 import { pathChapters, faqs } from "@/content/path";
+import { TalkTrailer } from "@/components/TalkTrailer";
 import { cn } from "@/lib/utils";
 import {
   MapPin,
@@ -42,7 +43,6 @@ function App() {
 
   return (
     <SiteShell current="home">
-      {/* ── Hero ──────────────────────────────────────────────────────────── */}
       <section id="hero" className="relative overflow-hidden bg-background pt-8 pb-14 sm:pt-16 sm:pb-28">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <div className="grid items-center gap-6 sm:gap-10 lg:grid-cols-2 lg:gap-16">
@@ -53,12 +53,12 @@ function App() {
               </div>
 
               <h1 className="font-serif text-[2.15rem] leading-[1.08] sm:text-5xl lg:text-[3.4rem] font-semibold tracking-tight text-foreground text-balance">
-                The AI Workshop —{" "}
-                <span className="italic text-[#c8553d]">Kolkata&apos;s offline AI workshop.</span>
+                Kolkata's offline AI workshop.{" "}
+                <span className="italic text-[#c8553d]">In Salt Lake.</span>
               </h1>
 
               <p className="mt-3 sm:mt-5 font-serif text-xl sm:text-3xl text-foreground/90 leading-snug text-balance">
-                This Sunday:{" "}
+                Next:{" "}
                 <span className="italic text-[#c8553d]">{WORKSHOP_TITLE}.</span>
               </p>
             </div>
@@ -72,10 +72,8 @@ function App() {
 
             <div>
               <p className="text-[17px] sm:text-xl text-muted-foreground leading-relaxed max-w-lg">
-                Kolkata&apos;s offline AI workshop in Salt Lake. You build one real
-                thing with your own hands and take it home. Next — talk for a few
-                minutes, walk out with a week of work already made. No tech
-                background needed.{" "}
+                You talk for a few minutes. You walk out with a week of work
+                already made. No tech background needed.{" "}
                 <a href="/kolkata" className="font-semibold text-[#c8553d]">
                   Learn AI in Kolkata →
                 </a>
@@ -87,7 +85,7 @@ function App() {
                   href="/workshop"
                   className="pressable inline-flex min-h-12 w-full sm:w-auto items-center justify-center gap-2 rounded-full border border-border bg-background/70 px-8 text-base font-medium text-foreground shadow-e1"
                 >
-                  What you&apos;ll walk out with <ArrowRight className="h-4 w-4" />
+                  What you'll walk out with <ArrowRight className="h-4 w-4" />
                 </a>
               </div>
 
@@ -108,7 +106,7 @@ function App() {
                   ))}
                 </div>
                 <span className="leading-snug">
-                  Yogesh, Neeraj &amp; Subham
+                  Yogesh, Neeraj & Subham
                   <span className="block sm:inline"> · 60+ in the room · {TOTAL_SEATS} seats</span>
                 </span>
               </div>
@@ -117,7 +115,6 @@ function App() {
         </div>
       </section>
 
-      {/* ── This Sunday ────────────────────────────────────────────────────── */}
       <section id="workshop" className="border-t border-border py-14 sm:py-20 lg:py-28">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <div data-reveal className="overflow-hidden rounded-3xl border border-[#c8553d]/25 bg-card shadow-e3">
@@ -130,19 +127,19 @@ function App() {
 
                 <h2 className="font-serif text-[1.75rem] sm:text-4xl font-semibold tracking-tight text-foreground leading-[1.12] text-balance">
                   {WORKSHOP_TITLE}
-                  <span className="italic text-[#c8553d]"> — one trick.</span>
+                  <span className="italic text-[#c8553d]">. One trick.</span>
                 </h2>
                 <p className="mt-5 text-lg text-muted-foreground leading-relaxed max-w-lg">
                   You talk about your work for a few minutes. Before 2pm that talk
-                  has become a week of finished work — a bio, an offer line, seven
-                  posts — and a recipe you can run again on Tuesday. The magic is
+                  has become a week of finished work: a bio, an offer line, seven
+                  posts, and a recipe you can run again on Tuesday. The magic is
                   not the model. The magic is work that did not exist at 11am.
                 </p>
 
                 <ul className="mt-7 grid sm:grid-cols-2 gap-x-6 gap-y-3">
                   {[
                     WORKSHOP_ARTIFACT,
-                    "The recipe saved — yours to keep",
+                    "The recipe saved, yours to keep",
                     "Free Google account. No paid software.",
                     "50 people, tables of eight, captains on the floor",
                   ].map((t) => (
@@ -187,17 +184,21 @@ function App() {
                 <a href="/workshop" className="text-center text-xs text-muted-foreground hover:text-foreground">
                   Full rundown of the three hours →
                 </a>
+                <a href="#try" className="text-center text-xs font-medium text-[#c8553d] hover:underline">
+                  Or try the 12-second version on this phone ↓
+                </a>
               </div>
             </div>
           </div>
 
           <p className="font-hand mt-8 text-center text-xl text-muted-foreground rotate-[1deg]">
-            a thing you&apos;ll open on Tuesday — not another webinar
+            a thing you'll open on Tuesday, not another webinar
           </p>
         </div>
       </section>
 
-      {/* ── The Path ───────────────────────────────────────────────────────── */}
+      <TalkTrailer />
+
       <section id="path" className="border-t border-border bg-muted/20 py-14 sm:py-20 lg:py-28">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-14">
@@ -206,11 +207,11 @@ function App() {
               The Path
             </div>
             <h2 className="font-serif text-[1.75rem] sm:text-4xl lg:text-5xl font-semibold tracking-tight text-foreground leading-[1.12] text-balance">
-              The store has aisles.{" "}
-              <span className="italic text-[#c8553d]">This Sunday is one shelf.</span>
+              Five chapters.{" "}
+              <span className="italic text-[#c8553d]">27 September is Talk.</span>
             </h2>
             <p className="mt-5 text-lg text-muted-foreground">
-              Talk → Make → Sell → System → Lead. Enter on any Sunday. Leave with
+              Talk, Make, Sell, System, Lead. Enter on any Sunday. Leave with
               an artifact every time.
             </p>
           </div>
@@ -228,7 +229,7 @@ function App() {
                 )}
               >
                 <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#c8553d] mb-3">
-                  {c.n} · {c.status === "this-sunday" ? "This Sunday" : c.status === "shipped" ? "Shipped" : c.status === "next" ? "Next" : "Later"}
+                  {c.n} · {c.status === "this-sunday" ? "27 Sept" : c.status === "shipped" ? "Shipped" : c.status === "next" ? "Next" : "Later"}
                 </p>
                 <h3 className="font-serif text-xl font-semibold text-foreground">{c.title}</h3>
                 <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{c.promise}</p>
@@ -244,7 +245,6 @@ function App() {
         </div>
       </section>
 
-      {/* ── How a Sunday works ─────────────────────────────────────────────── */}
       <section className="border-t border-border py-14 sm:py-20 lg:py-28">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-14">
@@ -262,7 +262,7 @@ function App() {
                 step: "01",
                 icon: <MessageSquareText className="h-5 w-5" />,
                 title: "You talk",
-                desc: "Three minutes about your actual work — voice note or a messy paragraph. We have samples if you bring nothing.",
+                desc: "Three minutes about your actual work. Voice note or a messy paragraph. We have samples if you bring nothing.",
               },
               {
                 step: "02",
@@ -292,20 +292,19 @@ function App() {
         </div>
       </section>
 
-      {/* ── Velvet rope ────────────────────────────────────────────────────── */}
       <section id="who" className="border-t border-border py-14 sm:py-20 lg:py-28">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-14">
             <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-border px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-muted-foreground">
               <Lock className="h-3.5 w-3.5" />
-              The velvet rope
+              Who it is for
             </div>
             <h2 className="font-serif text-[1.75rem] sm:text-4xl lg:text-5xl font-semibold tracking-tight text-foreground leading-[1.12] text-balance">
-              Who this room is for.{" "}
-              <span className="italic text-[#c8553d]">And who it isn&apos;t.</span>
+              Come if you will do the work.{" "}
+              <span className="italic text-[#c8553d]">Stay home if you want a webinar.</span>
             </h2>
             <p className="mt-5 text-lg text-muted-foreground">
-              Zero tech background is fine. Zero follow-through isn&apos;t.
+              Zero tech background is fine. Zero follow-through is not.
             </p>
           </div>
 
@@ -317,7 +316,7 @@ function App() {
               <ul className="space-y-5">
                 {[
                   "You will sit in Salt Lake on a Sunday and do the work with your own hands.",
-                  "You want AI to move money, time, or skill — not to decorate a bio.",
+                  "You want AI to move money, time, or skill. Not to decorate a bio.",
                   "You're happy to start from zero. Shop owner, student, freelancer, job-seeker: if you ship, you're in.",
                   "You want a thing on your phone at 2pm, not a certificate.",
                 ].map((t) => (
@@ -330,13 +329,13 @@ function App() {
             </div>
             <div className="p-5 sm:p-10 bg-muted/30 border-t sm:border-t-0 sm:border-l border-border/60">
               <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-muted-foreground mb-6">
-                This isn&apos;t for you if
+                This isn't for you if
               </p>
               <ul className="space-y-5">
                 {[
                   "You want a webinar you can half-watch from bed.",
                   "You're a dabbler. You collect certificates and never build anything.",
-                  "You want AI hype — not three hours of actually doing the work.",
+                  "You want AI hype, not three hours of actually doing the work.",
                   "You're not in Kolkata, or you want this online. We're not that.",
                 ].map((t) => (
                   <li key={t} className="flex gap-3 text-sm sm:text-base text-muted-foreground leading-relaxed">
@@ -354,7 +353,6 @@ function App() {
         </div>
       </section>
 
-      {/* ── The Room ───────────────────────────────────────────────────────── */}
       <section id="proof" className="border-t border-border bg-muted/20 py-14 sm:py-20 lg:py-28">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-14">
@@ -368,7 +366,7 @@ function App() {
             </h2>
             <p className="mt-5 text-lg text-muted-foreground">
               Meetup #1, 28 June: people built websites. Meetup #2, 30 August: people
-              cut reels. Hosts — Yogesh, Neeraj, Subham — in the same room as you.
+              cut reels. Hosts Yogesh, Neeraj, Subham, in the same room as you.
             </p>
           </div>
 
@@ -416,7 +414,6 @@ function App() {
         </div>
       </section>
 
-      {/* ── FAQ ────────────────────────────────────────────────────────────── */}
       <section id="faq" className="border-t border-border py-14 sm:py-20 lg:py-28">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -424,7 +421,7 @@ function App() {
               Questions
             </p>
             <h2 className="font-serif text-[1.75rem] sm:text-4xl font-semibold tracking-tight text-foreground">
-              A stranger should not need WhatsApp to understand this.
+              Short answers. No group chat required.
             </h2>
           </div>
           <dl className="space-y-6">
@@ -438,7 +435,6 @@ function App() {
         </div>
       </section>
 
-      {/* ── Closer ─────────────────────────────────────────────────────────── */}
       <section className="border-t border-border bg-muted/20 py-12 sm:py-16">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
           <div className="rounded-2xl border border-[#c8553d]/25 bg-[#c8553d]/[0.04] p-6 sm:p-10">
@@ -456,6 +452,9 @@ function App() {
             <p className="mt-4 text-xs text-muted-foreground">
               Beginner-friendly · pay online or at the venue
             </p>
+            <a href="/share" className="mt-3 inline-block text-xs font-medium text-[#c8553d] hover:underline">
+              Forward the 27 September card on WhatsApp
+            </a>
           </div>
         </div>
       </section>

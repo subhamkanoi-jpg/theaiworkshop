@@ -349,6 +349,10 @@ class HostRequest(BaseModel):
     workshop_date: str = Field(default="", max_length=32)
 
 
+class GaspRequest(BaseModel):
+    text: str = Field(default="", min_length=8, max_length=600)
+
+
 # ── app ────────────────────────────────────────────────────────────────────
 
 app = FastAPI()
@@ -357,6 +361,70 @@ app = FastAPI()
 @app.get("/api/health")
 def health():
     return {"ok": True}
+
+
+@app.post("/api/gasp")
+def gasp(req: GaspRequest):
+    """Turn a spoken paragraph into a tiny kit. User-initiated. Capped."""
+    import urllib.error
+    import urllib.request
+
+    key = os.environ.get("XAI_API_KEY") or ""
+    if not key:
+        raise HTTPException(status_code=503, detail="local")
+    payload = json.dumps(
+        {
+            "model": "grok-4.5",
+            "temperature": 0.4,
+            "max_tokens": 280,
+            "messages": [
+                {
+                    "role": "system",
+                    "content": (
+                        "Turn messy spoken English into a tiny workshop kit. "
+                        "JSON only: {\"offer\":\"one line in their voice\","
+                        "\"bio\":\"two sentences in their voice\","
+                        "\"posts\":[\"whatsapp 1\",\"whatsapp 2\",\"whatsapp 3\"]}. "
+                        "No em dashes. No hype words like unlock, elevate, delve. "
+                        "Keep their facts. Indian English is fine."
+                    ),
+                },
+                {"role": "user", "content": req.text.strip()},
+            ],
+        }
+    ).encode("utf-8")
+    request = urllib.request.Request(
+        "https://api.x.ai/v1/chat/completions",
+        data=payload,
+        headers={
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {key}",
+        },
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=18) as resp:
+            body = json.loads(resp.read().decode("utf-8"))
+    except urllib.error.URLError as exc:
+        raise HTTPException(status_code=502, detail="model unavailable") from exc
+    content = (
+        ((body.get("choices") or [{}])[0].get("message") or {}).get("content") or ""
+    )
+    content = content.strip()
+    if content.startswith("```"):
+        content = content.strip("`")
+        content = content.split("\n", 1)[-1]
+        if content.endswith("```"):
+            content = content[: content.rfind("```")]
+    try:
+        data = json.loads(content)
+    except json.JSONDecodeError as exc:
+        raise HTTPException(status_code=502, detail="bad kit") from exc
+    return {
+        "offer": str(data.get("offer") or "")[:120],
+        "bio": str(data.get("bio") or "")[:240],
+        "posts": [str(p)[:160] for p in (data.get("posts") or [])][:3],
+    }
 
 
 @app.post("/api/become-host")

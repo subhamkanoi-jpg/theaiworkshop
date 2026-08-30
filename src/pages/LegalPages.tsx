@@ -13,7 +13,7 @@ function LegalLayout({
   children: ReactNode;
 }) {
   useEffect(() => {
-    document.title = `${title} — The AI Workshop`;
+    document.title = `${title}. The AI Workshop`;
   }, [title]);
 
   return (
@@ -72,7 +72,7 @@ export function PrivacyPage() {
       <Section title="What we collect">
         <p>
           When you reserve a seat we collect your name, email address and phone number. If you pay
-          online, Razorpay also processes your payment details — we never see or store card or UPI
+          online, Razorpay also processes your payment details, we never see or store card or UPI
           credentials.
         </p>
       </Section>

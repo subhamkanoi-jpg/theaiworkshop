@@ -7,10 +7,10 @@ import { hosts } from "@/config";
 import { cn } from "@/lib/utils";
 
 const portfolio = [
-  { src: "/portfolio/ur-hospitality.png", alt: "A site built in the room — UR Hospitality" },
-  { src: "/portfolio/shreejee-infotech.png", alt: "A site built in the room — Shreejee Infotech" },
-  { src: "/portfolio/amos-aerospace.png", alt: "A site built in the room — Amos Aerospace" },
-  { src: "/portfolio/aakash-damani.png", alt: "A site built in the room — Aakash Damani" },
+  { src: "/portfolio/ur-hospitality.png", alt: "A site built in the room. UR Hospitality" },
+  { src: "/portfolio/shreejee-infotech.png", alt: "A site built in the room. Shreejee Infotech" },
+  { src: "/portfolio/amos-aerospace.png", alt: "A site built in the room. Amos Aerospace" },
+  { src: "/portfolio/aakash-damani.png", alt: "A site built in the room. Aakash Damani" },
 ];
 
 export default function RoomPage() {
@@ -65,7 +65,7 @@ export default function RoomPage() {
           </h2>
           <p className="text-muted-foreground mb-8 max-w-2xl">
             Workshop #1 was websites. Real URLs, made in the room. No stock
-            testimonials — the screenshots are the proof.
+            testimonials, the screenshots are the proof.
           </p>
           <div className="grid sm:grid-cols-2 gap-5">
             {portfolio.map((p) => (

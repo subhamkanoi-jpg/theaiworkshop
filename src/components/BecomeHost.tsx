@@ -15,7 +15,7 @@ import { trackLead, trackContact } from "@/analytics";
 import { HOST_WHATSAPP_URL } from "@/config";
 
 /**
- * "Become a Host" application form. No payment — just a lightweight pitch so
+ * "Become a Host" application form. No payment, just a lightweight pitch so
  * practitioners who've implemented AI in their own business can apply to run
  * a 3-hour hands-on workshop. Submissions POST to /api/become-host.
  */
@@ -41,7 +41,7 @@ export function BecomeHost() {
   const handleDateChange = (value: string) => {
     setDate(value);
     if (value && !isWeekend(value)) {
-      setDateError("Please pick a Saturday or Sunday — workshops only run on weekends.");
+      setDateError("Please pick a Saturday or Sunday, workshops only run on weekends.");
     } else {
       setDateError("");
     }
@@ -51,7 +51,7 @@ export function BecomeHost() {
     e.preventDefault();
     if (!name || !phone || !useCase || !date) return;
     if (!isWeekend(date)) {
-      setDateError("Please pick a Saturday or Sunday — workshops only run on weekends.");
+      setDateError("Please pick a Saturday or Sunday, workshops only run on weekends.");
       return;
     }
     setLoading(true);
@@ -89,14 +89,14 @@ export function BecomeHost() {
           </h3>
           <p className="mt-3 text-muted-foreground leading-relaxed">
             27 September is 50 people. That only works if alumni stand on the floor as table
-            captains — or if you&apos;re ready to teach a use-case you have actually shipped. Start
+            captains, or if you&apos;re ready to teach a use-case you have actually shipped. Start
             as a captain. Then host a Sunday.
           </p>
 
           <div className="mt-6 space-y-3 text-sm">
             <div className="flex items-start gap-2 text-foreground">
               <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
-              You bring a real, proven use-case — not just theory.
+              You bring a real, proven use-case, not just theory.
             </div>
             <div className="flex items-start gap-2 text-foreground">
               <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
@@ -104,7 +104,7 @@ export function BecomeHost() {
             </div>
             <div className="flex items-start gap-2 text-foreground">
               <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
-              Workshops run on a Saturday or Sunday — pick a date that suits you.
+              Workshops run on a Saturday or Sunday, pick a date that suits you.
             </div>
           </div>
 
@@ -112,7 +112,7 @@ export function BecomeHost() {
             <Users className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
             <p className="text-sm text-muted-foreground">
               <strong className="text-foreground">The vision:</strong> a community where anyone with
-              a working AI use-case can teach it — and anyone curious can learn it.
+              a working AI use-case can teach it, and anyone curious can learn it.
             </p>
           </div>
         </CardContent>
@@ -138,7 +138,7 @@ export function BecomeHost() {
                   One last step
                 </p>
                 <p className="text-sm text-muted-foreground mt-2">
-                  Join the <strong className="text-foreground">host community</strong> on WhatsApp —
+                  Join the <strong className="text-foreground">host community</strong> on WhatsApp.
                   it's where we coordinate dates, share what's working, and plan upcoming workshops
                   together. Don't skip this!
                 </p>

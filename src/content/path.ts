@@ -3,7 +3,7 @@ export const pathChapters = [
     id: "talk",
     n: "01",
     title: "Talk",
-    promise: "Brief a model so it does useful work — not generic sludge.",
+    promise: "Brief a model so it does useful work, not generic sludge.",
     status: "this-sunday" as const,
     sunday: "Workshop #3 · The Magic of AI · 27 Sept",
   },
@@ -21,7 +21,7 @@ export const pathChapters = [
     title: "Sell",
     promise: "Turn the artifact into an offer a real person can pay for.",
     status: "next" as const,
-    sunday: "October — WhatsApp that brings customers",
+    sunday: "October. WhatsApp that brings customers",
   },
   {
     id: "system",
@@ -83,7 +83,7 @@ export const faqs = [
   },
   {
     q: "Is this only for business owners?",
-    a: "No. Shop owners, students, job-seekers, freelancers, professionals keeping their job — the room holds all of them if they ship.",
+    a: "No. Shop owners, students, job-seekers, freelancers, professionals keeping their job, the room holds all of them if they ship.",
   },
   {
     q: "Do I need Workshop #1 or #2?",
@@ -91,11 +91,11 @@ export const faqs = [
   },
   {
     q: "What do I walk out with on 27 September?",
-    a: "A week of finished work made from how you actually talk — a bio, an offer line, seven posts — and the recipe saved so you can do it again on Tuesday.",
+    a: "A week of finished work made from how you actually talk, a bio, an offer line, seven posts, and the recipe saved so you can do it again on Tuesday.",
   },
   {
     q: "Do I need a paid AI subscription?",
-    a: "No. A free Google account is enough. Bring a phone. A laptop if you have one. Paid Claude or ChatGPT is welcome if you already live there — the recipe is the same.",
+    a: "No. A free Google account is enough. Bring a phone. A laptop if you have one. Paid Claude or ChatGPT is welcome if you already live there, the recipe is the same.",
   },
   {
     q: "Will I actually build, or just watch?",

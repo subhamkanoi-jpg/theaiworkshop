@@ -9,6 +9,7 @@ import { PrivacyPage, TermsPage, RefundPage } from "@/pages/LegalPages";
 import KolkataPage from "@/pages/KolkataPage";
 import AboutPage from "@/pages/AboutPage";
 import AnswersPage from "@/pages/AnswersPage";
+import SharePage from "@/pages/SharePage";
 
 function normalizePath(pathname: string) {
   const p = pathname.replace(/\/+$/, "").toLowerCase();
@@ -28,6 +29,7 @@ const pages: Record<string, ComponentType> = {
   "/kolkata": KolkataPage,
   "/about": AboutPage,
   "/answers": AnswersPage,
+  "/share": SharePage,
 };
 
 type NavDir = "fwd" | "back";

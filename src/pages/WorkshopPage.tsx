@@ -43,7 +43,7 @@ export default function WorkshopPage() {
           </h1>
           <p className="mt-4 sm:mt-5 text-[17px] sm:text-xl text-muted-foreground leading-relaxed">
             Talk for a few minutes about your actual work. Walk out with a week of
-            finished work already made — and the recipe to do it again on Tuesday.
+            finished work already made, and the recipe to do it again on Tuesday.
           </p>
           <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted-foreground">
             <span className="inline-flex items-center gap-2">
@@ -81,7 +81,7 @@ export default function WorkshopPage() {
               "A one-line offer that a stranger understands",
               "A bio, in your voice, not brochure-English",
               "Seven posts or WhatsApp messages, ready to send",
-              "The brief saved — a Gem on a free Google account — so Tuesday still works",
+              "The brief saved, a Gem on a free Google account, so Tuesday still works",
             ].map((t) => (
               <li key={t} className="flex gap-3 text-foreground/90">
                 <CheckCircle2 className="h-5 w-5 text-[#c8553d] flex-shrink-0 mt-0.5" />
@@ -104,22 +104,22 @@ export default function WorkshopPage() {
             {[
               {
                 icon: <Sparkles className="h-5 w-5" />,
-                t: "11:00 — The gasp",
+                t: "11:00. The gasp",
                 d: "A host talks for ninety seconds about a Salt Lake clinic. A kit appears on the big screen. That is the magic. Then we tell you how it actually works.",
               },
               {
                 icon: <MessageSquareText className="h-5 w-5" />,
-                t: "11:20 — You talk",
-                d: "Three minutes about YOUR work. Voice note or a messy paragraph. Shop, studies, job hunt, freelance — same recipe, your facts.",
+                t: "11:20. You talk",
+                d: "Three minutes about YOUR work. Voice note or a messy paragraph. Shop, studies, job hunt, freelance, same recipe, your facts.",
               },
               {
                 icon: <Wand2 className="h-5 w-5" />,
-                t: "11:45 — The kit",
+                t: "11:45. The kit",
                 d: "Everyone mirrors the projector. Bio, offer, seven posts. Captains on the floor. They do not type on your phone unless you ask.",
               },
               {
                 icon: <CheckCircle2 className="h-5 w-5" />,
-                t: "12:45 — Make it yours + save",
+                t: "12:45. Make it yours + save",
                 d: "Edit three pieces by hand so you stay the human. Save the brief. Hear how this kit is what shops already pay ₹3,000–₹8,000 for. Optional show-and-tell. Photo.",
               },
             ].map((b) => (
@@ -162,7 +162,7 @@ export default function WorkshopPage() {
           </div>
           <p className="mt-8 inline-flex items-start gap-2 text-sm text-muted-foreground">
             <Smartphone className="h-4 w-4 text-[#c8553d] mt-0.5 flex-shrink-0" />
-            50 people on purpose — tables of eight, alumni captains, one projector.
+            50 people on purpose, tables of eight, alumni captains, one projector.
             Intimate enough to finish. Large enough to feel like a room.
           </p>
         </div>

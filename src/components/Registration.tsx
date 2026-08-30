@@ -107,7 +107,7 @@ export function Registration() {
         amount: orderData.amount,
         currency: orderData.currency,
         name: "The AI Workshop",
-        description: `Workshop Registration — ${WORKSHOP_DATE_LABEL}`,
+        description: `Workshop Registration. ${WORKSHOP_DATE_LABEL}`,
         order_id: orderData.order_id,
         prefill: {
           name: name,
@@ -196,21 +196,21 @@ export function Registration() {
               <div>
                 <p className="text-2xl font-extrabold text-foreground">₹3,000–₹8,000 a kit</p>
                 <p className="text-sm text-muted-foreground mt-0.5">
-                  what a freelancer charges for a week of posts and a bio — made in the room, reusable on Tuesday.
+                  what a freelancer charges for a week of posts and a bio, made in the room, reusable on Tuesday.
                 </p>
               </div>
             </div>
           </div>
 
           <p className="mt-3 text-xs text-muted-foreground leading-relaxed">
-            * A free Google account is enough. Paid Claude or ChatGPT is welcome if you already live there — the recipe is the same. The {inr(PRICE)} covers the hall — any surplus goes back into the community.
+            * A free Google account is enough. Paid Claude or ChatGPT is welcome if you already live there, the recipe is the same. The {inr(PRICE)} covers the hall, any surplus goes back into the community.
           </p>
 
           <div className="mt-5 rounded-xl bg-background/70 border border-border p-4 flex gap-3">
             <ShieldCheck className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
             <p className="text-sm text-muted-foreground">
               <strong className="text-foreground">Our promise:</strong> spend the 3 hours with us and
-              you&apos;ll leave with a week of work made from how you talk — or we&apos;ll work with you until you do.
+              you&apos;ll leave with a week of work made from how you talk, or we&apos;ll work with you until you do.
             </p>
           </div>
         </CardContent>
@@ -229,8 +229,8 @@ export function Registration() {
               </h3>
               <p className="text-muted-foreground">
                 {paymentMethod === "venue"
-                  ? `Your seat for ${WORKSHOP_DATE_LABEL} is reserved. Please bring ${inr(PRICE)} cash to pay at the venue — we'll hold your spot until 15 minutes before the session.`
-                  : `Payment successful — your seat for ${WORKSHOP_DATE_LABEL} is confirmed, and a confirmation email is on its way.`}
+                  ? `Your seat for ${WORKSHOP_DATE_LABEL} is reserved. Please bring ${inr(PRICE)} cash to pay at the venue, we'll hold your spot until 15 minutes before the session.`
+                  : `Payment successful, your seat for ${WORKSHOP_DATE_LABEL} is confirmed, and a confirmation email is on its way.`}
               </p>
 
               <div className="mt-6 rounded-xl border border-[#25D366]/30 bg-[#25D366]/5 p-5 text-left">
@@ -239,7 +239,7 @@ export function Registration() {
                   One last step
                 </p>
                 <p className="text-sm text-muted-foreground mt-2">
-                  Join the workshop WhatsApp group — it's where we'll share the venue, timings, reminders, and where you'll meet your cohort. Don't skip this!
+                  Join the workshop WhatsApp group, it's where we'll share the venue, timings, reminders, and where you'll meet your cohort. Don't skip this!
                 </p>
                 <a
                   href={WHATSAPP_URL}
@@ -287,7 +287,7 @@ export function Registration() {
                 </div>
                 {paymentMethod === "venue" && (
                   <p className="text-xs text-muted-foreground bg-muted/50 rounded-lg px-3 py-2">
-                    Reserve your seat now — bring <strong className="text-foreground">{inr(PRICE)} cash</strong> on the day. We'll hold your spot until 15 minutes before the session starts.
+                    Reserve your seat now, bring <strong className="text-foreground">{inr(PRICE)} cash</strong> on the day. We'll hold your spot until 15 minutes before the session starts.
                   </p>
                 )}
               </div>

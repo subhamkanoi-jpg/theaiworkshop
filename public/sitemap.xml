@@ -13,7 +13,7 @@
   <priority>1.0</priority>
   <image:image>
     <image:loc>https://www.theaiworkshop.in/og-card.jpg</image:loc>
-    <image:title>The AI Workshop — Kolkata</image:title>
+    <image:title>The AI Workshop. Kolkata</image:title>
   </image:image>
 </url>
 
@@ -29,6 +29,13 @@
   <lastmod>2026-08-30</lastmod>
   <changefreq>weekly</changefreq>
   <priority>0.85</priority>
+</url>
+
+<url>
+  <loc>https://www.theaiworkshop.in/share</loc>
+  <lastmod>2026-08-30</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.8</priority>
 </url>
 
 <url>

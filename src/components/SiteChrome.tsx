@@ -20,7 +20,7 @@ import { cn } from "@/lib/utils";
 export type NavId = "home" | "path" | "workshop" | "room" | "host";
 
 const links: { id: NavId; href: string; label: string }[] = [
-  { id: "workshop", href: "/workshop", label: "This Sunday" },
+  { id: "workshop", href: "/workshop", label: "27 Sept" },
   { id: "path", href: "/path", label: "The Path" },
   { id: "room", href: "/room", label: "The Room" },
 ];
@@ -195,7 +195,10 @@ export function SiteFooter() {
               Learn AI in Kolkata
             </a>
             <a href="/workshop" className="flex min-h-11 items-center hover:text-foreground transition-colors">
-              {WORKSHOP_TITLE} — {WORKSHOP_DATE_LABEL}
+              {WORKSHOP_TITLE}. {WORKSHOP_DATE_LABEL}
+            </a>
+            <a href="/share" className="flex min-h-11 items-center hover:text-foreground transition-colors">
+              Share on WhatsApp
             </a>
             <div className="flex flex-wrap gap-x-4 gap-y-2 pt-1">
               <a href="/path" className="hover:text-foreground transition-colors">

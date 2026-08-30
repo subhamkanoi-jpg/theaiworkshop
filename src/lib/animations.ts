@@ -15,7 +15,7 @@ gsap.registerPlugin(ScrollTrigger);
  *   #scroll-progress       → top-of-page reading progress bar
  *
  * Everything runs inside a prefers-reduced-motion guard: users who ask for
- * less motion get the site exactly as it was — fully visible, zero animation.
+ * less motion get the site exactly as it was, fully visible, zero animation.
  * Returns a cleanup function (StrictMode-safe).
  */
 export function initSiteAnimations(): () => void {
@@ -28,7 +28,7 @@ export function initSiteAnimations(): () => void {
     if (h1) {
       const alreadyWrapped = !!h1.querySelector(".gsap-word");
       const wrapWords = (el: Element) => {
-        // Static copy — replaceChild mutates the live childNodes list, which
+        // Static copy, replaceChild mutates the live childNodes list, which
         // would make forEach skip the nodes that follow.
         Array.from(el.childNodes).forEach((node) => {
           if (node.nodeType === Node.TEXT_NODE) {
@@ -46,7 +46,7 @@ export function initSiteAnimations(): () => void {
             });
             el.replaceChild(frag, node);
           } else if (node.nodeType === Node.ELEMENT_NODE) {
-            // Gradient-clipped spans (bg-clip-text) must stay whole — splitting
+            // Gradient-clipped spans (bg-clip-text) must stay whole, splitting
             // their text into child spans would break the clipped background.
             const child = node as HTMLElement;
             if (child.className.includes("bg-clip-text")) {
@@ -69,7 +69,7 @@ export function initSiteAnimations(): () => void {
       });
     }
 
-    // ── Scroll reveals. Phones skip 3D rotateX — it shears text and janks. ─
+    // ── Scroll reveals. Phones skip 3D rotateX, it shears text and janks. ─
     const coarse = window.matchMedia("(pointer: coarse)").matches;
     const revealY = coarse ? 22 : 36;
     gsap.utils.toArray<HTMLElement>("[data-reveal]").forEach((el) => {
@@ -99,7 +99,7 @@ export function initSiteAnimations(): () => void {
       });
     });
 
-    // ── Scroll parallax — decorative layers drift at their own depth ─────
+    // ── Scroll parallax, decorative layers drift at their own depth ─────
     // data-parallax="0.15" → moves 15% of its height against the scroll.
     gsap.utils.toArray<HTMLElement>("[data-parallax]").forEach((el) => {
       const speed = parseFloat(el.dataset.parallax || "0.15");
@@ -172,7 +172,7 @@ export function initSiteAnimations(): () => void {
     }
   });
 
-  // ── Magnetic CTAs + 3D card tilt — desktop with a mouse only ──────────
+  // ── Magnetic CTAs + 3D card tilt, desktop with a mouse only ──────────
   mm.add("(prefers-reduced-motion: no-preference) and (pointer: fine)", () => {
     const cleanups: (() => void)[] = [];
 

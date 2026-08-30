@@ -1,4 +1,4 @@
-// Shared workshop config. Values come from workshop.json at the repo root —
+// Shared workshop config. Values come from workshop.json at the repo root.
 // keep that file in sync with index.html / book.html structured data.
 import workshop from "../workshop.json";
 
@@ -38,8 +38,8 @@ export const SUPPORT_EMAIL = workshop.supportEmail;
 export const valueStack = [
   { item: "3-hour live Magic of AI workshop", value: "₹5,000" },
   { item: "A week of finished work, made from how you talk", value: "₹4,000+" },
-  { item: "The recipe saved — yours to reuse on Tuesday", value: "₹3,000" },
-  { item: "Free Google account is enough — no paid software", value: "Included" },
+  { item: "The recipe saved, yours to reuse on Tuesday", value: "₹3,000" },
+  { item: "Free Google account is enough, no paid software", value: "Included" },
   { item: "Printed kit & WhatsApp community", value: "Priceless" },
   { item: "Certificate of completion", value: "✓" },
 ];

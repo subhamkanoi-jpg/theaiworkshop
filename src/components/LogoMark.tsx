@@ -1,0 +1,42 @@
+import { cn } from "@/lib/utils";
+
+type LogoMarkProps = {
+  className?: string;
+  title?: string;
+};
+
+/**
+ * The talk-seal. A round table that speaks, with a spark in the middle:
+ * you talk, work appears. Terracotta on ivory. The ring is the room.
+ */
+export function LogoMark({ className, title = "The AI Workshop" }: LogoMarkProps) {
+  return (
+    <svg
+      viewBox="0 0 64 64"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={cn("shrink-0", className)}
+      role="img"
+      aria-label={title}
+    >
+      <title>{title}</title>
+      <path
+        fill="#c8553d"
+        d="M32 4c15.6 0 28.2 12.2 28.2 26.6 0 10.5-6.6 19.6-16.6 24l2.2 7c.25.7-.55 1.3-1.2.95L34 56.9c-.66.1-1.33.15-2 .15C16.4 57.05 3.8 44.9 3.8 30.6 3.8 16.2 16.4 4 32 4z"
+      />
+      <circle
+        cx="32"
+        cy="29.6"
+        r="16.6"
+        fill="none"
+        stroke="#f4eee4"
+        strokeWidth="1.4"
+        opacity="0.46"
+      />
+      <path
+        fill="#f4eee4"
+        d="M32 13.1 35.05 25.7 47.6 28.9 35.05 32.1 32 44.7 28.95 32.1 16.4 28.9 28.95 25.7Z"
+      />
+    </svg>
+  );
+}
