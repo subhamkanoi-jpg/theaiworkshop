@@ -1,4 +1,4 @@
-# The AI Workshop — full brief for AI crawlers
+# The AI Workshop, full brief for AI crawlers
 
 > Offline, hands-on AI workshops in Salt Lake, Kolkata. Companion to /llms.txt.
 
@@ -24,7 +24,7 @@ If a sentence in this file cannot be shown on the website, it is too internal. I
 
 The AI Workshop is Kolkata’s offline store for applied AI.
 
-You come on a Sunday. You build one real thing with your own hands. You leave with the file, the video, or the assistant — not with notes about a file, a video, or an assistant. You can start from zero. You cannot start from “I’ll watch.”
+You come on a Sunday. You build one real thing with your own hands. You leave with the file, the video, or the assistant, not with notes about a file, a video, or an assistant. You can start from zero. You cannot start from “I’ll watch.”
 
 There is a Path. You do not have to walk it in order. Every Sunday stands alone. The Path is why the year is not a pile of random classes.
 
@@ -46,7 +46,7 @@ TALK  →  MAKE  →  SELL  →  SYSTEM  →  LEAD
  model      itself   appears   Tuesday   grows
 ```
 
-### Chapter 1 — Talk
+### Chapter 1. Talk
 
 The meta-skill. If you cannot brief a model, every other Sunday is theatre.
 
@@ -59,9 +59,9 @@ The meta-skill. If you cannot brief a model, every other Sunday is theatre.
 
 **Sunday shape:** not a lecture on “what is a token.” A live rewriting of bad prompts into briefs that produce usable work.
 
-**Default tools:** Gemini (free), Claude, ChatGPT — the brief is portable. We do not marry a logo.
+**Default tools:** Gemini (free), Claude, ChatGPT, the brief is portable. We do not marry a logo.
 
-### Chapter 2 — Make
+### Chapter 2. Make
 
 The showroom. This is what people can see you did.
 
@@ -80,7 +80,7 @@ The showroom. This is what people can see you did.
 
 **You are done with a Make Sunday when the artifact is exported, on your phone, and you could do the next one without us.**
 
-### Chapter 3 — Sell
+### Chapter 3. Sell
 
 The reason “useful” becomes “livelihood.”
 
@@ -92,11 +92,11 @@ The reason “useful” becomes “livelihood.”
 
 **The honest line:** we teach you to make a thing someone can pay for. We do not owe you the first rupee. The rupee is your Tuesday.
 
-### Chapter 4 — System
+### Chapter 4. System
 
 The Google test: do they open it on a Tuesday?
 
-The weekday habit is the System chapter. Workshop #3 (27 September) is **The Magic of AI** — the Talk chapter's public SKU — and it still saves the recipe so Tuesday works. See the runbook.
+The weekday habit is the System chapter. Workshop #3 (27 September) is **The Magic of AI**, the Talk chapter's public SKU, and it still saves the recipe so Tuesday works. See the runbook.
 
 **You are done with System when:**
 
@@ -107,7 +107,7 @@ The weekday habit is the System chapter. Workshop #3 (27 September) is **The Mag
 
 Without System, Make is a hobby and Sell is a mood.
 
-### Chapter 5 — Lead
+### Chapter 5. Lead
 
 How a 60-person WhatsApp group becomes a 400-person city without the three hosts dying.
 
@@ -132,10 +132,10 @@ Same ritual every month, so the store feels like a store.
 | 0:20 | You gather *your* raw material (copy, footage, facts, chats). |
 | 0:40 | Build, following the projector. Captains unblock, they do not take the laptop. |
 | ~2:00 | Break. |
-| After break | You make the artifact *yours* — three real tasks, not the sample. |
+| After break | You make the artifact *yours*, three real tasks, not the sample. |
 | Last 30 | How this can be charged for. 6–8 people show their thing. Group photo. Next Sunday named. WhatsApp. |
 
-**You bring:** phone, charger, laptop if you have one, a Google account, raw material for *your* life (optional — we always have samples).
+**You bring:** phone, charger, laptop if you have one, a Google account, raw material for *your* life (optional, we always have samples).
 
 **You do not need:** a computer science degree, Premiere, VS Code, a paid AI plan (unless a specific Sunday says so, in which case we say so a week ahead).
 
@@ -156,7 +156,7 @@ A short shelf. We add a tool only if a beginner can finish a Sunday with it.
 | **Canva** | Layout when the model has written the words | Free | Make (content) |
 | **A website builder the Sunday names** | Ship a URL | Free tier | Make (site) |
 | **WhatsApp** | The corridor. Broadcasts. Community. | Free | Sell, Room |
-| **Razorpay on this site** | Tickets | — | Storefront |
+| **Razorpay on this site** | Tickets |. | Storefront |
 
 We do not demo twenty tools. We do not make the brand of the model the brand of the room. **The brief is the product. The logo on the chat is a rental car.**
 
@@ -166,11 +166,11 @@ We do not demo twenty tools. We do not make the brand of the model the brand of 
 
 Everything in this encyclopedia is a version of this loop:
 
-1. **Job** — one sentence. “Write 7 WhatsApp follow-ups for a Salt Lake dental clinic that feels human.”
-2. **Context** — who you are, who it’s for, facts, constraints, language (English / Hindi / Bangla).
-3. **Examples** — 2–3 pieces of work you already like (your own or stolen with a note).
-4. **Tests** — “Give me 3 options. Flag anything you invented.”
-5. **Save** — the brief that worked becomes the Gem / Project / GPT / a note you reuse.
+1. **Job**, one sentence. “Write 7 WhatsApp follow-ups for a Salt Lake dental clinic that feels human.”
+2. **Context**, who you are, who it’s for, facts, constraints, language (English / Hindi / Bangla).
+3. **Examples**. 2–3 pieces of work you already like (your own or stolen with a note).
+4. **Tests**. “Give me 3 options. Flag anything you invented.”
+5. **Save**, the brief that worked becomes the Gem / Project / GPT / a note you reuse.
 
 If you only remember one page of this encyclopedia, remember this one.
 
@@ -230,7 +230,7 @@ Rules that keep it a room, not a dump:
 
 **Belonging:** you showed up, you built, you are in. No application form. The form can come back years later if the room is overfull. It is not how you start a city.
 
-**Hosts:** Yogesh, Neeraj, Subham — named on the site, with a sentence each about why they are in the room. Anonymous avatars were a waste of three real people.
+**Hosts:** Yogesh, Neeraj, Subham, named on the site, with a sentence each about why they are in the room. Anonymous avatars were a waste of three real people.
 
 ---
 
@@ -242,7 +242,7 @@ The showroom. Always visible. A store with no memory is a pop-up.
 |---|---|---|---|
 | #1 · 28 Jun 2026 | Make | Live websites for real local work | Laptop mix is real; samples must exist; people will deploy if the URL is the prize |
 | #2 · 30 Aug 2026 | Make | Subtitled reels from phone footage | Installs and files do not scale; this stays a 25-person room |
-| #3 · 27 Sep 2026 | Talk | The Magic of AI — a week of work from how they talk | *To be written that night* |
+| #3 · 27 Sep 2026 | Talk | The Magic of AI, a week of work from how they talk | *To be written that night* |
 
 After every Sunday, the same day, we add: 4 photos, 1 paragraph of what actually happened (not the brochure), 1 thing we will change.
 
@@ -275,7 +275,7 @@ If you want one, yes. It is the least valuable thing in the bag.
 See /refund. The short version: we are a small room, tell us early.
 
 **Can I teach?**
-After you have shipped at least one Sunday, yes — start as a table captain. /host.
+After you have shipped at least one Sunday, yes, start as a table captain. /host.
 
 ---
 
@@ -283,9 +283,9 @@ After you have shipped at least one Sunday, yes — start as a table captain. /h
 
 People can honestly make money from this Path in three ways, in this order:
 
-1. **Keep money** — stop paying ₹3,000 a reel, ₹15,000 a website, ₹5,000 a month to a “social media person” who posts nothing. This is the common case. It is already a win.
-2. **Sell a skill** — “I will make your shop a second you / a month of captions / a one-page site.” First customers are people they already know. First fee is ₹2,000–₹10,000, not ₹1 lakh.
-3. **Get hired or get a client** — better CV, better outreach, better proof (URLs and reels beat adjectives). No Sunday can promise a job.
+1. **Keep money**, stop paying ₹3,000 a reel, ₹15,000 a website, ₹5,000 a month to a “social media person” who posts nothing. This is the common case. It is already a win.
+2. **Sell a skill**. “I will make your shop a second you / a month of captions / a one-page site.” First customers are people they already know. First fee is ₹2,000–₹10,000, not ₹1 lakh.
+3. **Get hired or get a client**, better CV, better outreach, better proof (URLs and reels beat adjectives). No Sunday can promise a job.
 
 We teach 1 as the default, 2 as the unlocked door, 3 as a possible side effect. Anyone advertising 3 as a guarantee is running a different, worse, company.
 
@@ -322,9 +322,9 @@ Those are not the same product.
 
 Git history is a confession:
 
-1. **Community club** — apply for membership, velvet rope, cohort scarcity, “what members get.”
-2. **Practitioner network** — Become a Host, weekend slots, people teaching their own use case.
-3. **Ticket booth** — 15 August 2026: membership was stripped so every CTA said “Reserve your seat.” Workshop as the only conversion path.
+1. **Community club**, apply for membership, velvet rope, cohort scarcity, “what members get.”
+2. **Practitioner network**. Become a Host, weekend slots, people teaching their own use case.
+3. **Ticket booth**. 15 August 2026: membership was stripped so every CTA said “Reserve your seat.” Workshop as the only conversion path.
 
 Each version was half-right.
 
@@ -338,11 +338,11 @@ The synthesis is the mega store.
 
 These components exist, unwired:
 
-- `ApplicationForm` — people wanted in.
-- `BecomeHost` — practitioners wanted to teach.
-- `InterestForm` — people wanted the next one, not necessarily *this* one.
-- Portfolio screenshots — Meetup #1 actually shipped websites.
-- Host photos (Yogesh, Neeraj, Subham) — used as anonymous avatars, never named on the homepage.
+- `ApplicationForm`, people wanted in.
+- `BecomeHost`, practitioners wanted to teach.
+- `InterestForm`, people wanted the next one, not necessarily *this* one.
+- Portfolio screenshots. Meetup #1 actually shipped websites.
+- Host photos (Yogesh, Neeraj, Subham), used as anonymous avatars, never named on the homepage.
 
 The product already tried to be a store, a club, and a faculty. It just never put them on one floor.
 
@@ -388,7 +388,7 @@ Applied here:
 | Feed | WhatsApp: members posting what they shipped |
 | Group | The room in Salt Lake, once a month |
 | Event | The Sunday workshop |
-| Creator | Table captains / hosts — alumni who run a table of 8–10 |
+| Creator | Table captains / hosts, alumni who run a table of 8–10 |
 | Daily active | The “second you” you open on your phone on a Tuesday |
 
 The 25-person cap is a beautiful salon. A salon does not become a movement. **A movement needs a 100-person ritual once, then small rooms forever.** 27 September is that ritual.
@@ -431,7 +431,7 @@ You walk in. You know what the company is. You can buy the thing on the table *t
 | Aisle directory | The Path (Talk → Make → Sell → System → Lead) |
 | Showroom rooms | Archive of #1 website, #2 reel, #3 second you |
 | Staff who make it | Named hosts, named table captains |
-| You leave with a bag | You leave with the file, the Gem, the reel — not a promise |
+| You leave with a bag | You leave with the file, the Gem, the reel, not a promise |
 | Family card | WhatsApp community, earned by showing up, not by applying |
 | Next visit is obvious | “October is WhatsApp selling” is on the wall before you exit |
 
@@ -445,19 +445,19 @@ We also do **not** hide the catalog. That was the ticket-booth mistake: you cann
 
 Three shelves. One door.
 
-### Shelf A — The Sunday SKU (cash, proof, flywheel)
+### Shelf A. The Sunday SKU (cash, proof, flywheel)
 
 A single use case. A finished artifact. Community price. Offline only.
 
 This is the lipstick on the table. It funds the lights. It creates the photos. It is **not** the business.
 
-### Shelf B — The Path (the reason to return)
+### Shelf B. The Path (the reason to return)
 
 A 12-month catalog of skills, from “how to talk to a model” to “how to charge for it.” Visible on the site. You can enter at any Sunday. You cannot skip the artifact.
 
 This is why someone comes back in October after they came in September.
 
-### Shelf C — The Room (the actual company)
+### Shelf C. The Room (the actual company)
 
 The people. The WhatsApp. The table captains. The rule: *zero follow-through is the only disqualification.*
 
@@ -474,7 +474,7 @@ The velvet rope stays. The audience widens.
 **You belong here if**
 
 - You will sit in Salt Lake on a Sunday and do the work with your own hands.
-- You want AI to move money, time, or skill — not to decorate a LinkedIn bio.
+- You want AI to move money, time, or skill, not to decorate a LinkedIn bio.
 - You can start from zero. Shop owner, student, CA, tuition teacher, job-seeker, freelancer: the room holds all of them if they *ship*.
 
 **You do not belong here if**
@@ -500,20 +500,20 @@ Why this, and not another website, not another reel, not “AI basics,” not �
 | Filter | Pass / fail |
 |---|---|
 | Stands alone if you missed #1 and #2 | Pass |
-| Works for shop owner *and* student *and* job-seeker | Pass — the “second you” is whoever they are |
-| 100 people, one projector, phones + laptops | Pass — Google account, browser, no installs |
-| Named artifact you can screenshot tonight | Pass — a Gem with their name on it |
-| Daily habit (Google’s test) | Pass — they open it on Tuesday |
-| Monetizable without guaranteeing income | Pass — “I will build this for your shop” is a ₹2k–₹10k service |
+| Works for shop owner *and* student *and* job-seeker | Pass, the “second you” is whoever they are |
+| 100 people, one projector, phones + laptops | Pass. Google account, browser, no installs |
+| Named artifact you can screenshot tonight | Pass, a Gem with their name on it |
+| Daily habit (Google’s test) | Pass, they open it on Tuesday |
+| Monetizable without guaranteeing income | Pass. “I will build this for your shop” is a ₹2k–₹10k service |
 | Does not repeat June or August | Pass |
-| Teaches the meta-skill of the whole Path | Pass — talking to AI until it becomes *theirs* |
+| Teaches the meta-skill of the whole Path | Pass, talking to AI until it becomes *theirs* |
 
 Rejected alternatives (kept as later SKUs, not as #3):
 
-- **WhatsApp client machine** — more immediately “money,” worse artifact, more chaos at 100, October’s chapter (Sell).
-- **7 videos from one recording** — too soon after #2, account costs, bandwidth death at 100.
-- **Build a website (again)** — already shipped in June. Showroom item, not new SKU.
-- **“Intro to ChatGPT”** — no artifact. Does not turn the flywheel. Insults the room.
+- **WhatsApp client machine**, more immediately “money,” worse artifact, more chaos at 100, October’s chapter (Sell).
+- **7 videos from one recording**, too soon after #2, account costs, bandwidth death at 100.
+- **Build a website (again)**, already shipped in June. Showroom item, not new SKU.
+- **“Intro to ChatGPT”**, no artifact. Does not turn the flywheel. Insults the room.
 
 ---
 
@@ -550,10 +550,10 @@ This is how churches, TEDx, and every real community actually scale: **a festiva
 Not vanity. Store metrics.
 
 1. **100+ in the hall on 27 Sept**, with 80%+ walking out with a named, working Gem.
-2. **Website a stranger understands in 60 seconds** — what this is, what you leave with, what the year looks like, who is in the room.
-3. **The Path is public** — five chapters on the site, archive of #1 and #2, October SKU named before people leave in September.
+2. **Website a stranger understands in 60 seconds**, what this is, what you leave with, what the year looks like, who is in the room.
+3. **The Path is public**, five chapters on the site, archive of #1 and #2, October SKU named before people leave in September.
 4. **10 table captains** trained and named.
-5. **Weekday pulse** — a WhatsApp prompt each Tuesday: “ask your second you to do X, post the result.” Monthly event becomes daily graph.
+5. **Weekday pulse**, a WhatsApp prompt each Tuesday: “ask your second you to do X, post the result.” Monthly event becomes daily graph.
 
 If those five happen, the company is real. If we only sell 25 more tickets with prettier copy, we ran a class.
 
@@ -562,12 +562,12 @@ If those five happen, the company is real. If we only sell 25 more tickets with 
 
 # Source: docs/WORKSHOP-03-MAKE-A-SECOND-YOU.md
 
-# Workshop #3 — The Magic of AI
+# Workshop #3. The Magic of AI
 
 **Sunday 27 September 2026 · 11:00–14:00 · Salt Lake, Kolkata**
 **50 people. Chapter: Talk.**
 
-One sentence: *You talk about your work for a few minutes. You walk out with a week of finished work — and the recipe to do it again on Tuesday.*
+One sentence: *You talk about your work for a few minutes. You walk out with a week of finished work, and the recipe to do it again on Tuesday.*
 
 The old working title was “Make a second you.” The founder chose **The Magic of AI** and **50 seats**. The artifact did not change: a kit made from how they actually talk, plus a saved brief (a Gemini Gem by default). The “magic” is the gasp. The use case is still one trick, not a sampler.
 
@@ -624,9 +624,9 @@ Everyone mirrors the projector:
 
 ### Three live tests (after tea)
 
-1. **A reply** — paste a real message. The Gem answers. They edit two lines by hand.
-2. **A make** — they pick their favourite post and make it theirs.
-3. **A plan** — “Five jobs before Friday.” Screenshot. That is Tuesday.
+1. **A reply**, paste a real message. The Gem answers. They edit two lines by hand.
+2. **A make**, they pick their favourite post and make it theirs.
+3. **A plan**. “Five jobs before Friday.” Screenshot. That is Tuesday.
 
 If it sounds like a brochure, send them back to examples and “never do.” Do not add adjectives.
 
@@ -656,7 +656,7 @@ No icebreakers. Fifty people. The kit is the introduction.
 
 ## 5. Pre-work (WhatsApp, Tuesday 22 September)
 
-> Sunday is *The Magic of AI.* Bring: phone, charger, a Google account, and if you can — 3 WhatsApp messages or captions you already wrote that sound like you. No account yet? Make a free Gmail before you arrive. We have samples if you bring nothing.
+> Sunday is *The Magic of AI.* Bring: phone, charger, a Google account, and if you can. 3 WhatsApp messages or captions you already wrote that sound like you. No account yet? Make a free Gmail before you arrive. We have samples if you bring nothing.
 
 ---
 
@@ -712,15 +712,15 @@ Captain briefing: Friday 25 September, 60 minutes. You are a floor, not a teache
 
 ## 10. Four-week countdown (from 30 August)
 
-**Week of 31 Aug** — lock a ~60 capacity room. Ask 6 alumni to captain. Site already points at #3.
+**Week of 31 Aug**, lock a ~60 capacity room. Ask 6 alumni to captain. Site already points at #3.
 
-**Week of 7 Sep** — push booking. One vertical of the demo kit answering a real-sounding WhatsApp. No “AI revolution” caption.
+**Week of 7 Sep**, push booking. One vertical of the demo kit answering a real-sounding WhatsApp. No “AI revolution” caption.
 
-**Week of 14 Sep** — if <20 seats, captains personally invite. Confirm mics, HDMI, power, chai.
+**Week of 14 Sep**, if <20 seats, captains personally invite. Confirm mics, HDMI, power, chai.
 
-**Week of 21 Sep** — Tuesday pre-work. Friday captain briefing. Saturday dress rehearsal on one stranger. Sunday: do the thing. Same-night archive paragraph.
+**Week of 21 Sep**. Tuesday pre-work. Friday captain briefing. Saturday dress rehearsal on one stranger. Sunday: do the thing. Same-night archive paragraph.
 
-**Tuesday 29 Sep** — pulse. October SKU named in public.
+**Tuesday 29 Sep**, pulse. October SKU named in public.
 
 ---
 
@@ -779,11 +779,11 @@ const faqs = [
   },
   {
     q: "Is there an AI course in Salt Lake or Sector V?",
-    a: "Yes — this is it, and it is a workshop, not a recorded course. You sit in the room, you build, you leave with the file on your phone. Next date is published on this site.",
+    a: "Yes, this is it, and it is a workshop, not a recorded course. You sit in the room, you build, you leave with the file on your phone. Next date is published on this site.",
   },
   {
     q: "Do you teach ChatGPT or Gemini in Kolkata?",
-    a: "We teach the brief — the way you talk to any model so it does useful work. The default tool on 27 September is Gemini because a free Google account is enough. ChatGPT and Claude are welcome if you already live there.",
+    a: "We teach the brief, the way you talk to any model so it does useful work. The default tool on 27 September is Gemini because a free Google account is enough. ChatGPT and Claude are welcome if you already live there.",
   },
   {
     q: "Is this an online AI class?",
@@ -840,7 +840,7 @@ export default function KolkataPage() {
             take it home. That is The AI Workshop.
           </p>
           <p className="mt-4 text-[17px] sm:text-lg text-foreground/85 leading-relaxed">
-            কলকাতায় AI শিখুন — সল্ট লেকে, রবিবারে, নিজের হাতে। টেক ডিগ্রি লাগবে না।
+            কলকাতায় AI শিখুন. সল্ট লেকে, রবিবারে, নিজের হাতে। টেক ডিগ্রি লাগবে না।
           </p>
           <div className="mt-8">
             <ReserveButton />
@@ -855,7 +855,7 @@ export default function KolkataPage() {
           </h2>
           <p className="text-muted-foreground leading-relaxed mb-6">
             The room is in {LOCAL.neighbourhood}. Exact hall is shared after you
-            reserve a seat — we do not publish a pin that will be wrong next month.
+            reserve a seat, we do not publish a pin that will be wrong next month.
             The geography does not change: Salt Lake, Kolkata.
           </p>
           <address className="not-italic rounded-2xl border border-border bg-card p-5 sm:p-6 shadow-e1">
@@ -899,8 +899,8 @@ export default function KolkataPage() {
           </h2>
           <ul className="space-y-3">
             {[
-              "Shop owners in Salt Lake, New Town, Gariahat — people who live on WhatsApp.",
-              "Students at JU, Calcutta University, IEM, Techno — who want a skill they can charge for, not another certificate.",
+              "Shop owners in Salt Lake, New Town, Gariahat, people who live on WhatsApp.",
+              "Students at JU, Calcutta University, IEM, Techno, who want a skill they can charge for, not another certificate.",
               "Job-seekers who need a portfolio artifact this month.",
               "Professionals who will keep the job and want evenings back.",
             ].map((t) => (
@@ -939,7 +939,7 @@ export default function KolkataPage() {
             Next AI workshop in Kolkata
           </h2>
           <p className="text-muted-foreground leading-relaxed">
-            <strong className="text-foreground">{WORKSHOP_TITLE}</strong> —{" "}
+            <strong className="text-foreground">{WORKSHOP_TITLE}</strong>.{" "}
             {WORKSHOP_DATE_LABEL}, {WORKSHOP_TIME_LABEL}. {TOTAL_SEATS} seats.
             Community price {inr(PRICE)}. You talk about your work for a few
             minutes. You walk out with a week of finished work.

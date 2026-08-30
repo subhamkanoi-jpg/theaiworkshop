@@ -30,11 +30,11 @@ const faqs = [
   },
   {
     q: "Is there an AI course in Salt Lake or Sector V?",
-    a: "Yes — this is it, and it is a workshop, not a recorded course. You sit in the room, you build, you leave with the file on your phone. Next date is published on this site.",
+    a: "Yes, this is it, and it is a workshop, not a recorded course. You sit in the room, you build, you leave with the file on your phone. Next date is published on this site.",
   },
   {
     q: "Do you teach ChatGPT or Gemini in Kolkata?",
-    a: "We teach the brief — the way you talk to any model so it does useful work. The default tool on 27 September is Gemini because a free Google account is enough. ChatGPT and Claude are welcome if you already live there.",
+    a: "We teach the brief, the way you talk to any model so it does useful work. The default tool on 27 September is Gemini because a free Google account is enough. ChatGPT and Claude are welcome if you already live there.",
   },
   {
     q: "Is this an online AI class?",
@@ -84,7 +84,7 @@ export default function KolkataPage() {
             Kolkata · Salt Lake · Offline
           </p>
           <h1 className="font-serif text-[2.15rem] sm:text-5xl font-semibold tracking-tight text-foreground leading-[1.1]">
-            The AI Workshop —{" "}
+            The AI Workshop.{" "}
             <span className="italic text-[#c8553d]">learn AI in Kolkata.</span>
           </h1>
           <p className="mt-4 text-[17px] sm:text-xl text-muted-foreground leading-relaxed">
@@ -93,7 +93,7 @@ export default function KolkataPage() {
             take it home. That is The AI Workshop.
           </p>
           <p className="mt-4 text-[17px] sm:text-lg text-foreground/85 leading-relaxed">
-            কলকাতায় AI শিখুন — সল্ট লেকে, রবিবারে, নিজের হাতে। টেক ডিগ্রি লাগবে না।
+            কলকাতায় AI শিখুন. সল্ট লেকে, রবিবারে, নিজের হাতে। টেক ডিগ্রি লাগবে না।
           </p>
           <div className="mt-8">
             <ReserveButton />
@@ -108,7 +108,7 @@ export default function KolkataPage() {
           </h2>
           <p className="text-muted-foreground leading-relaxed mb-6">
             The room is in {LOCAL.neighbourhood}. Exact hall is shared after you
-            reserve a seat — we do not publish a pin that will be wrong next month.
+            reserve a seat, we do not publish a pin that will be wrong next month.
             The geography does not change: Salt Lake, Kolkata.
           </p>
           <address className="not-italic rounded-2xl border border-border bg-card p-5 sm:p-6 shadow-e1">
@@ -152,8 +152,8 @@ export default function KolkataPage() {
           </h2>
           <ul className="space-y-3">
             {[
-              "Shop owners in Salt Lake, New Town, Gariahat — people who live on WhatsApp.",
-              "Students at JU, Calcutta University, IEM, Techno — who want a skill they can charge for, not another certificate.",
+              "Shop owners in Salt Lake, New Town, Gariahat, people who live on WhatsApp.",
+              "Students at JU, Calcutta University, IEM, Techno, who want a skill they can charge for, not another certificate.",
               "Job-seekers who need a portfolio artifact this month.",
               "Professionals who will keep the job and want evenings back.",
             ].map((t) => (
@@ -195,7 +195,7 @@ export default function KolkataPage() {
             Next AI workshop in Kolkata
           </h2>
           <p className="text-muted-foreground leading-relaxed">
-            <strong className="text-foreground">{WORKSHOP_TITLE}</strong> —{" "}
+            <strong className="text-foreground">{WORKSHOP_TITLE}</strong>.{" "}
             {WORKSHOP_DATE_LABEL}, {WORKSHOP_TIME_LABEL}. {TOTAL_SEATS} seats.
             Community price {inr(PRICE)}. You talk about your work for a few
             minutes. You walk out with a week of finished work.
@@ -232,12 +232,12 @@ export default function KolkataPage() {
           <ul className="list-disc pl-5 text-sm text-muted-foreground space-y-1">
             <li>
               <a href="https://en.wikipedia.org/wiki/Bidhannagar" rel="noopener noreferrer">
-                Bidhannagar (Salt Lake) — Wikipedia
+                Bidhannagar (Salt Lake). Wikipedia
               </a>
             </li>
             <li>
               <a href="https://gemini.google.com/" rel="noopener noreferrer">
-                Google Gemini — default free tool in the room
+                Google Gemini, default free tool in the room
               </a>
             </li>
             <li>

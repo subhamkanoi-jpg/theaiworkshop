@@ -1,4 +1,4 @@
-# The AI Workshop — Kolkata
+# The AI Workshop. Kolkata
 # Explicit Allow for AI citation crawlers (GEO Optimizer / llmstxt.org).
 # Citation bots must be named, not only covered by the wildcard.
 
@@ -53,7 +53,7 @@ Allow: /
 User-agent: facebookexternalhit
 Allow: /
 
-# ── Training (allowed — we want to be known) ──────────────────────────────
+# ── Training (allowed, we want to be known) ──────────────────────────────
 User-agent: GPTBot
 Allow: /
 

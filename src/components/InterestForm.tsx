@@ -7,7 +7,7 @@ import { CheckCircle2, ArrowRight, Bell } from "lucide-react";
 import { trackLead } from "@/analytics";
 
 /**
- * "Show of interest" form. No payment, no commitment — a lightweight way for
+ * "Show of interest" form. No payment, no commitment, a lightweight way for
  * people who want future / similar workshops to put their hand up so we can
  * notify them when the next one is announced. Submissions POST to /api/interest.
  */
@@ -99,7 +99,7 @@ export function InterestForm() {
             </Button>
             <p className="text-center text-xs text-muted-foreground pt-1 flex items-center justify-center gap-1.5">
               <Bell className="h-3.5 w-3.5" />
-              No spam — just a heads-up when something relevant comes up.
+              No spam, just a heads-up when something relevant comes up.
             </p>
           </form>
         )}

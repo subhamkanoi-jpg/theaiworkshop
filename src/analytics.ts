@@ -1,5 +1,5 @@
 // ──────────────────────────────────────────────────────────────────────────
-// Ad / analytics tracking — Meta Pixel + Google Analytics 4 + Google Ads.
+// Ad / analytics tracking. Meta Pixel + Google Analytics 4 + Google Ads.
 //
 // This file is INERT until you provide IDs. To turn tracking on, set these in
 // Vercel → Project → Settings → Environment Variables (and .env for local dev):
@@ -9,7 +9,7 @@
 //   VITE_GOOGLE_ADS_ID            e.g. AW-1234567890     (Google Ads)
 //   VITE_GOOGLE_ADS_PURCHASE_LABEL  the conversion "label" from Google Ads
 //
-// Leave any of them unset and that platform is simply skipped — no errors.
+// Leave any of them unset and that platform is simply skipped, no errors.
 // ──────────────────────────────────────────────────────────────────────────
 
 const META_PIXEL_ID = import.meta.env.VITE_META_PIXEL_ID as string | undefined;
@@ -88,7 +88,7 @@ export function trackBeginCheckout(value: number, email?: string, phone?: string
   if (GA_ID) w().gtag?.("event", "begin_checkout", { value, currency: "INR" });
 }
 
-/** Fire on confirmed, paid registration — this is the ad conversion. */
+/** Fire on confirmed, paid registration, this is the ad conversion. */
 export function trackPurchase(value: number, email?: string, phone?: string, name?: string) {
   if (META_PIXEL_ID) {
     if (email || phone || name) {

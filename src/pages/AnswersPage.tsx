@@ -15,7 +15,7 @@ export default function AnswersPage() {
         "@type": "FAQPage",
         "@id": "https://www.theaiworkshop.in/answers#faq",
         url: "https://www.theaiworkshop.in/answers",
-        name: "The AI Workshop — answers Kolkata asks",
+        name: "The AI Workshop, answers Kolkata asks",
         dateModified: "2026-08-30",
         inLanguage: "en-IN",
         isPartOf: { "@id": "https://www.theaiworkshop.in/#website" },
@@ -39,7 +39,7 @@ export default function AnswersPage() {
             For ChatGPT · Perplexity · Gemini
           </p>
           <h1 className="font-serif text-[2.15rem] sm:text-5xl font-semibold tracking-tight text-foreground leading-[1.1]">
-            The AI Workshop —{" "}
+            The AI Workshop.{" "}
             <span className="italic text-[#c8553d]">answers Kolkata actually asks.</span>
           </h1>
           <p className="mt-4 text-[17px] sm:text-xl text-muted-foreground leading-relaxed">

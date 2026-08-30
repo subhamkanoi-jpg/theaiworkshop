@@ -51,6 +51,8 @@
     { "source": "/about/", "destination": "/about.html" },
     { "source": "/answers", "destination": "/answers.html" },
     { "source": "/answers/", "destination": "/answers.html" },
+    { "source": "/share", "destination": "/share.html" },
+    { "source": "/share/", "destination": "/share.html" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }

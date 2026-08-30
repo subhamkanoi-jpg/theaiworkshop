@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
   <channel>
-    <title>The AI Workshop — Kolkata</title>
+    <title>The AI Workshop. Kolkata</title>
     <link>https://www.theaiworkshop.in/</link>
     <description>Offline, hands-on AI workshops in Salt Lake, Kolkata.</description>
     <language>en-IN</language>
     <lastBuildDate>Sat, 30 Aug 2026 00:00:00 +0530</lastBuildDate>
     <item>
-      <title>The Magic of AI — Sunday 27 September 2026, Salt Lake</title>
+      <title>The Magic of AI. Sunday 27 September 2026, Salt Lake</title>
       <link>https://www.theaiworkshop.in/workshop</link>
       <guid>https://www.theaiworkshop.in/workshop</guid>
       <pubDate>Sat, 30 Aug 2026 00:00:00 +0530</pubDate>
@@ -21,14 +21,14 @@
       <description>Offline Sunday AI workshops in Salt Lake. No tech degree. English, Hindi, Bangla.</description>
     </item>
     <item>
-      <title>Meetup #2 — Automate video editing with AI</title>
+      <title>Meetup #2. Automate video editing with AI</title>
       <link>https://www.theaiworkshop.in/room</link>
       <guid>https://www.theaiworkshop.in/room#meetup-2</guid>
       <pubDate>Sun, 30 Aug 2026 00:00:00 +0530</pubDate>
       <description>Workshop #2 in Salt Lake: subtitled reels from phone footage.</description>
     </item>
     <item>
-      <title>Meetup #1 — Build a website</title>
+      <title>Meetup #1. Build a website</title>
       <link>https://www.theaiworkshop.in/room</link>
       <guid>https://www.theaiworkshop.in/room#meetup-1</guid>
       <pubDate>Sun, 28 Jun 2026 00:00:00 +0530</pubDate>

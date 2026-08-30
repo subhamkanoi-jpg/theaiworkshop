@@ -1,5 +1,5 @@
 /**
- * WhatsApp brand glyph. Instantly recognizable — far better for conversions
+ * WhatsApp brand glyph. Instantly recognizable, far better for conversions
  * than a generic chat bubble. Inherits color via `currentColor`.
  */
 export function WhatsAppIcon({ className }: { className?: string }) {

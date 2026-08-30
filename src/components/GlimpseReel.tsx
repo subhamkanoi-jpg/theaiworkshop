@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type PointerEvent } from "react";
 import { cn } from "@/lib/utils";
 
 export const glimpses = [
-  { src: "/meetup1/glimpse-2.jpg", alt: "The room mid-session at Meetup #1 — laptops open" },
+  { src: "/meetup1/glimpse-2.jpg", alt: "The room mid-session at Meetup #1, laptops open" },
   { src: "/meetup1/group-selfie.jpg", alt: "The full group at The AI Workshop Meetup #1 in Kolkata" },
   { src: "/meetup1/glimpse-1.jpg", alt: "Live walkthrough on the big screen at Meetup #1" },
   { src: "/meetup1/hosts-trio.jpg", alt: "The hosts at Meetup #1" },

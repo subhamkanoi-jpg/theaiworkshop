@@ -2,36 +2,36 @@
   "home": {
     "path": "/",
     "title": "The AI Workshop | AI Workshop Kolkata, Salt Lake",
-    "description": "The AI Workshop is Kolkata's offline AI workshop in Salt Lake. Next Sunday 27 September: The Magic of AI. 50 seats, ₹799. No tech background needed.",
+    "description": "The AI Workshop is Kolkata's offline AI workshop in Salt Lake. Next: 27 September, The Magic of AI. 50 seats, ₹799. No tech background needed.",
     "ogTitle": "The AI Workshop | Learn AI in Kolkata",
-    "ogDescription": "The AI Workshop — offline AI classes in Salt Lake, Kolkata. Talk for a few minutes, walk out with a week of work. 27 September. ₹799."
+    "ogDescription": "Offline AI classes in Salt Lake, Kolkata. Talk for a few minutes, walk out with a week of work. 27 September. ₹799."
   },
   "workshop": {
     "path": "/workshop",
-    "title": "The Magic of AI | AI Workshop in Salt Lake, Kolkata — 27 September",
-    "description": "AI workshop in Kolkata on Sunday 27 September. The Magic of AI — talk for a few minutes, walk out with a week of work. Offline in Salt Lake. 50 seats, ₹799.",
-    "ogTitle": "The Magic of AI — AI Workshop Kolkata, 27 Sept",
+    "title": "The Magic of AI | AI Workshop in Salt Lake, Kolkata, 27 September",
+    "description": "AI workshop in Kolkata on Sunday 27 September. The Magic of AI: talk for a few minutes, walk out with a week of work. Offline in Salt Lake. 50 seats, ₹799.",
+    "ogTitle": "The Magic of AI. AI Workshop Kolkata, 27 Sept",
     "ogDescription": "3 hours, offline, Salt Lake. A week of finished work from how you talk. ₹799."
   },
   "path": {
     "path": "/path",
-    "title": "The Path | AI Skills Taught in Kolkata — Talk, Make, Sell, System, Lead",
+    "title": "The Path | AI Skills Taught in Kolkata: Talk, Make, Sell, System, Lead",
     "description": "The AI Workshop Path in Kolkata: Talk, Make, Sell, System, Lead. Sunday workshops in Salt Lake. Start from zero. Leave with a thing every time.",
-    "ogTitle": "The Path — AI skills, taught in Kolkata",
+    "ogTitle": "The Path. AI skills, taught in Kolkata",
     "ogDescription": "Five chapters. Every Sunday in Salt Lake belongs to one of them."
   },
   "room": {
     "path": "/room",
     "title": "The Room | Kolkata's Offline AI Community in Salt Lake",
-    "description": "60+ people have sat in Salt Lake with laptops open. Meetup photos, hosts, and work shipped at The AI Workshop — Kolkata's offline AI community.",
-    "ogTitle": "The Room — Kolkata's offline AI community",
+    "description": "60+ people have sat in Salt Lake with laptops open. Meetup photos, hosts, and work shipped at The AI Workshop, Kolkata's offline AI community.",
+    "ogTitle": "The Room. Kolkata's offline AI community",
     "ogDescription": "Real people, Salt Lake, Kolkata. Websites in June. Reels in August."
   },
   "host": {
     "path": "/host",
-    "title": "Host a Table | Teach AI in Kolkata — The AI Workshop",
+    "title": "Host a Table | Teach AI in Kolkata | The AI Workshop",
     "description": "Alumni of The AI Workshop in Kolkata: captain a table on Sunday, then teach your use case. Salt Lake, offline.",
-    "ogTitle": "Host a table — The AI Workshop, Kolkata",
+    "ogTitle": "Host a table. The AI Workshop, Kolkata",
     "ogDescription": "The room grows when alumni stand on the floor."
   },
   "about": {
@@ -43,16 +43,24 @@
   },
   "kolkata": {
     "path": "/kolkata",
-    "title": "Learn AI in Kolkata | Offline AI Workshop in Salt Lake — The AI Workshop",
+    "title": "Learn AI in Kolkata | Offline AI Workshop in Salt Lake | The AI Workshop",
     "description": "Learn AI in Kolkata without a tech degree. Offline Sunday workshops in Salt Lake (Bidhannagar). Next: The Magic of AI, 27 September. ₹799. English, Hindi, Bangla.",
-    "ogTitle": "Learn AI in Kolkata — offline, in Salt Lake",
+    "ogTitle": "Learn AI in Kolkata, offline, in Salt Lake",
     "ogDescription": "Kolkata's hands-on AI workshop. Salt Lake. Sunday 27 September. Walk out with work, not notes."
   },
   "answers": {
     "path": "/answers",
-    "title": "The AI Workshop | Answers — Learn AI in Kolkata",
+    "title": "The AI Workshop | Answers. Learn AI in Kolkata",
     "description": "Short answers for ChatGPT, Perplexity and Gemini: where to learn AI in Kolkata, Salt Lake, price ₹799, 27 September, offline only. The AI Workshop.",
     "ogTitle": "The AI Workshop | Answers Kolkata asks",
     "ogDescription": "The questions people type into AI search. Salt Lake. Offline. Named The AI Workshop."
+  },
+  "share": {
+    "path": "/share",
+    "title": "Share The AI Workshop | The Magic of AI, 27 September, Kolkata",
+    "description": "Kolkata's offline AI workshop in Salt Lake. Vision: walk in, build a real thing, come back. Workshop #3, The Magic of AI, Sunday 27 September 2026. 50 seats, ₹799.",
+    "ogTitle": "The AI Workshop. 27 September, Salt Lake",
+    "ogDescription": "You talk. You walk out with a week of work. The Magic of AI, Sunday 27 September, Salt Lake. 50 seats, ₹799.",
+    "ogImage": "https://www.theaiworkshop.in/og-share.jpg"
   }
 }

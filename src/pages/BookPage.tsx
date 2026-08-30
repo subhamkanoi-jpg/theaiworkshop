@@ -35,7 +35,7 @@ import {
 
 export default function BookPage() {
   useEffect(() => {
-    document.title = `Book Your Seat — ${WORKSHOP_TITLE} | The AI Workshop #${WORKSHOP_NUMBER}, Kolkata`;
+    document.title = `Book Your Seat. ${WORKSHOP_TITLE} | The AI Workshop #${WORKSHOP_NUMBER}, Kolkata`;
     trackViewContent("Workshop Booking Page", "Workshop Registration", PRICE);
   }, []);
 
@@ -153,7 +153,7 @@ export default function BookPage() {
               {
                 icon: <MessageSquareText className="h-6 w-6" />,
                 title: "Bio, offer, seven posts",
-                desc: "Made from how you actually talk — not brochure-English.",
+                desc: "Made from how you actually talk, not brochure-English.",
               },
               {
                 icon: <Wand2 className="h-6 w-6" />,

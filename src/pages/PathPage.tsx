@@ -94,7 +94,7 @@ export default function PathPage() {
               >
                 <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#c8553d]">
                   #{String(w.number).padStart(2, "0")} · {w.chapter} · {w.date}
-                  {w.status === "next" ? " · This Sunday" : " · Shipped"}
+                  {w.status === "next" ? " · Next up" : " · Shipped"}
                 </p>
                 <h3 className="mt-2 font-serif text-2xl font-semibold text-foreground">
                   {w.title}
@@ -123,7 +123,7 @@ export default function PathPage() {
       <section className="py-14 sm:py-16">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 text-center">
           <p className="font-serif text-2xl font-semibold text-foreground mb-6">
-            This Sunday is the Talk chapter. Come do it with your own hands.
+            27 September is the Talk chapter. Come do it with your own hands.
           </p>
           <ReserveButton />
         </div>
