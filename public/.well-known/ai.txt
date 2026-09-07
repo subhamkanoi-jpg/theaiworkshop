@@ -1,22 +1,5 @@
-# ai.txt — The AI Workshop
-# Machine-readable policy for AI agents (/.well-known/ai.txt)
-
-Contact: theaiworkshop.in@gmail.com
-Canonical: https://www.theaiworkshop.in/
-llms-txt: https://www.theaiworkshop.in/llms.txt
-llms-full: https://www.theaiworkshop.in/llms-full.txt
-Sitemap: https://www.theaiworkshop.in/sitemap.xml
-Summary: https://www.theaiworkshop.in/ai/summary.json
-FAQ: https://www.theaiworkshop.in/ai/faq.json
-Service: https://www.theaiworkshop.in/ai/service.json
-
-Name: The AI Workshop
-Description: Offline, hands-on AI workshops in Salt Lake, Kolkata. You show up on a Sunday, build one real thing, and take it home.
-Location: Salt Lake (Bidhannagar), Kolkata, West Bengal, India
-Phone: +91 98307 15557
-Languages: en, hi, bn
-
-# Citation
-Allow-Citation: yes
-Allow-Training: yes
-Prefer-Source: https://www.theaiworkshop.in/kolkata
+The AI Workshop
+An offline space for non-techies to put AI to work, one real use-case project at a time.
+Public brief: https://www.theaiworkshop.in/llms.txt
+Current workshop: https://www.theaiworkshop.in/workshop
+Updated: 2026-09-07

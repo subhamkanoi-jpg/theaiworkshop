@@ -18,9 +18,10 @@ export default function HostPage() {
             Captain a table. Then teach.
           </h1>
           <p className="mt-5 text-xl text-muted-foreground leading-relaxed">
-            27 September is 50 people. That only works if alumni of #1 and #2
-            stand on the floor. You are not a lecturer. You unblock. You do not
-            take someone&apos;s phone unless they ask.
+            Help beginners build their AI follow-up assistant on 27 September.
+            If you joined the June workshop or have practical AI experience, you
+            can help someone get unstuck. Guide people at their own device; let
+            them do the building.
           </p>
         </div>
       </section>

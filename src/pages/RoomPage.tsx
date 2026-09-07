@@ -7,10 +7,22 @@ import { hosts } from "@/config";
 import { cn } from "@/lib/utils";
 
 const portfolio = [
-  { src: "/portfolio/ur-hospitality.png", alt: "A site built in the room. UR Hospitality" },
-  { src: "/portfolio/shreejee-infotech.png", alt: "A site built in the room. Shreejee Infotech" },
-  { src: "/portfolio/amos-aerospace.png", alt: "A site built in the room. Amos Aerospace" },
-  { src: "/portfolio/aakash-damani.png", alt: "A site built in the room. Aakash Damani" },
+  {
+    src: "/portfolio/ur-hospitality.png",
+    alt: "A site built in the room. UR Hospitality",
+  },
+  {
+    src: "/portfolio/shreejee-infotech.png",
+    alt: "A site built in the room. Shreejee Infotech",
+  },
+  {
+    src: "/portfolio/amos-aerospace.png",
+    alt: "A site built in the room. Amos Aerospace",
+  },
+  {
+    src: "/portfolio/aakash-damani.png",
+    alt: "A site built in the room. Aakash Damani",
+  },
 ];
 
 export default function RoomPage() {
@@ -28,8 +40,9 @@ export default function RoomPage() {
             The room is the company.
           </h1>
           <p className="mt-5 text-xl text-muted-foreground leading-relaxed">
-            60+ people have already sat in Salt Lake with laptops open. The
-            WhatsApp is the corridor between Sundays. The hosts have names.
+            Our first workshop in June 2026 brought people together in Salt Lake
+            to make websites and put them online. These are the people,
+            projects, and hosts behind The AI Workshop.
           </p>
         </div>
       </section>
@@ -43,7 +56,10 @@ export default function RoomPage() {
             {glimpses.map((g, i) => (
               <figure
                 key={g.src}
-                className={cn("polaroid tape", i % 2 === 0 ? "-rotate-[1deg]" : "rotate-[1deg]")}
+                className={cn(
+                  "polaroid tape",
+                  i % 2 === 0 ? "-rotate-[1deg]" : "rotate-[1deg]",
+                )}
               >
                 <div className="aspect-square overflow-hidden">
                   <img
@@ -69,7 +85,10 @@ export default function RoomPage() {
           </p>
           <div className="grid sm:grid-cols-2 gap-5">
             {portfolio.map((p) => (
-              <div key={p.src} className="overflow-hidden rounded-2xl border border-border bg-card shadow-e1">
+              <div
+                key={p.src}
+                className="overflow-hidden rounded-2xl border border-border bg-card shadow-e1"
+              >
                 <img src={p.src} alt={p.alt} className="w-full h-auto" />
               </div>
             ))}

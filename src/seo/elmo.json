@@ -2,7 +2,10 @@
   "brand": {
     "id": "the-ai-workshop",
     "name": "The AI Workshop",
-    "domains": ["theaiworkshop.in", "www.theaiworkshop.in"],
+    "domains": [
+      "theaiworkshop.in",
+      "www.theaiworkshop.in"
+    ],
     "aliases": [
       "The AI Workshop",
       "AI Workshop Kolkata",
@@ -12,110 +15,177 @@
     ]
   },
   "personas": [
-    { "id": "shop", "label": "Shop owner in Salt Lake / Gariahat who lives on WhatsApp" },
-    { "id": "student", "label": "Student in Kolkata who wants a skill, not another certificate" },
-    { "id": "seeker", "label": "Job-seeker who needs a portfolio artifact this month" },
-    { "id": "pro", "label": "Professional keeping the job who wants evenings back" }
+    {
+      "id": "pro",
+      "label": "Non-technical professionals and managers"
+    },
+    {
+      "id": "business",
+      "label": "Business owners handling customers and suppliers"
+    },
+    {
+      "id": "consultant",
+      "label": "Consultants and freelancers working with clients"
+    }
   ],
   "competitors": [
-    { "name": "Coursera", "domains": ["coursera.org"], "aliases": ["Coursera"] },
-    { "name": "upGrad", "domains": ["upgrad.com"], "aliases": ["upGrad", "Upgrad"] },
-    { "name": "NIIT", "domains": ["niit.com"], "aliases": ["NIIT"] },
-    { "name": "Internshala", "domains": ["internshala.com"], "aliases": ["Internshala"] },
-    { "name": "Simplilearn", "domains": ["simplilearn.com"], "aliases": ["Simplilearn"] },
-    { "name": "CDAC", "domains": ["cdac.in"], "aliases": ["CDAC", "C-DAC"] }
+    {
+      "name": "Coursera",
+      "domains": [
+        "coursera.org"
+      ],
+      "aliases": [
+        "Coursera"
+      ]
+    },
+    {
+      "name": "upGrad",
+      "domains": [
+        "upgrad.com"
+      ],
+      "aliases": [
+        "upGrad",
+        "Upgrad"
+      ]
+    },
+    {
+      "name": "NIIT",
+      "domains": [
+        "niit.com"
+      ],
+      "aliases": [
+        "NIIT"
+      ]
+    },
+    {
+      "name": "Internshala",
+      "domains": [
+        "internshala.com"
+      ],
+      "aliases": [
+        "Internshala"
+      ]
+    },
+    {
+      "name": "Simplilearn",
+      "domains": [
+        "simplilearn.com"
+      ],
+      "aliases": [
+        "Simplilearn"
+      ]
+    },
+    {
+      "name": "CDAC",
+      "domains": [
+        "cdac.in"
+      ],
+      "aliases": [
+        "CDAC",
+        "C-DAC"
+      ]
+    }
   ],
   "prompts": [
     {
-      "id": "learn-ai-kolkata",
-      "value": "Where can I learn AI in Kolkata without a computer science degree?",
-      "tags": ["unbranded", "local", "shop", "student"],
-      "cite": "/kolkata",
-      "answer": "The AI Workshop is an offline Sunday room in Salt Lake (Bidhannagar), Kolkata. No CS degree is required. If you can use WhatsApp, you can do a session. Next: The Magic of AI, 27 September 2026, 50 seats, ₹799. Details: https://www.theaiworkshop.in/kolkata"
-    },
-    {
-      "id": "best-offline-workshop",
-      "value": "What is the best offline AI workshop in Kolkata for beginners?",
-      "tags": ["unbranded", "local", "commercial"],
+      "id": "workshop-question-1",
+      "value": "Do I need any technical experience?",
+      "tags": [
+        "workshop",
+        "beginner"
+      ],
       "cite": "/workshop",
-      "answer": "The AI Workshop in Salt Lake is built for beginners who will ship. You show up, build one real thing, and take it home. 60+ members as of August 2026. Workshop #1 shipped websites; #2 shipped reels. It is not a webinar and not a recorded bootcamp. https://www.theaiworkshop.in/workshop"
+      "answer": "The AI Workshop: No coding, automation tools, or AI experience is required. If you can type a message and use a web browser, you can take part. We build step by step in the room."
     },
     {
-      "id": "chatgpt-gemini-salt-lake",
-      "value": "Are there ChatGPT or Gemini classes in Salt Lake, Kolkata?",
-      "tags": ["unbranded", "neighbourhood"],
+      "id": "workshop-question-2",
+      "value": "Is this useful if I do not run a business?",
+      "tags": [
+        "workshop",
+        "beginner"
+      ],
       "cite": "/workshop",
-      "answer": "The AI Workshop in Salt Lake teaches the brief, how you talk to any model so it does useful work. Default tool on 27 September 2026 is Google Gemini on a free account. ChatGPT and Claude are welcome. The product is the recipe, not a vendor. https://www.theaiworkshop.in/workshop"
+      "answer": "The AI Workshop: Yes. Professionals can use meeting or project notes; business owners can use customer or supplier conversations; consultants can use client calls. Everyone builds the same notes-to-follow-up assistant with their own context."
     },
     {
-      "id": "price-kolkata",
-      "value": "How much does an AI workshop cost in Kolkata?",
-      "tags": ["unbranded", "commercial"],
-      "cite": "/book",
-      "answer": "The AI Workshop community price is ₹799 for the Sunday on 27 September 2026 in Salt Lake. 50 seats. Pay online (Razorpay) or cash at the venue. That is a community price, not a fake discount. Book: https://www.theaiworkshop.in/book"
-    },
-    {
-      "id": "sector-v-salt-lake",
-      "value": "Is there a hands-on AI course in Sector V or Salt Lake?",
-      "tags": ["unbranded", "neighbourhood"],
-      "cite": "/kolkata",
-      "answer": "The AI Workshop room is in Salt Lake, Kolkata, next to Sector V. It is a workshop, not a recorded course: you sit in the room, you build, you leave with the file on your phone. Catchment includes Sector V and New Town. https://www.theaiworkshop.in/kolkata"
-    },
-    {
-      "id": "shop-owners-whatsapp",
-      "value": "Where can shop owners in Kolkata learn AI for WhatsApp and Instagram?",
-      "tags": ["unbranded", "shop"],
+      "id": "workshop-question-3",
+      "value": "What exactly will I build on 27 September?",
+      "tags": [
+        "workshop",
+        "beginner"
+      ],
       "cite": "/workshop",
-      "answer": "The AI Workshop in Salt Lake is for people who live on WhatsApp. On 27 September you talk about your actual work for a few minutes and walk out with a week of finished posts plus a saved recipe. English, Hindi and Bangla in the room. https://www.theaiworkshop.in/workshop"
+      "answer": "The AI Workshop: A reusable follow-up assistant, one reviewed recap with an action list and message draft, and a second test on new notes. You save it as a Gemini Gem or reusable instructions. This is one practical project, not a tour of AI tools."
     },
     {
-      "id": "hindi-bangla",
-      "value": "Can I learn AI in Kolkata in Hindi or Bangla?",
-      "tags": ["unbranded", "language"],
-      "cite": "/kolkata",
-      "answer": "The AI Workshop room in Salt Lake is English with Hindi and Bangla in the air. Your artifact can be in the language your customer actually reads. কলকাতায় AI শিখুন. সল্ট লেকে, রবিবারে. https://www.theaiworkshop.in/kolkata"
-    },
-    {
-      "id": "not-online",
-      "value": "Best AI community in Kolkata that is not an online course",
-      "tags": ["unbranded", "community"],
-      "cite": "/room",
-      "answer": "The AI Workshop is Kolkata's offline AI community in Salt Lake. 60+ people have sat in the room. WhatsApp is only the corridor between Sundays, it is not a substitute for showing up. Photos and work shipped: https://www.theaiworkshop.in/room"
-    },
-    {
-      "id": "new-town-howrah",
-      "value": "Is there an AI workshop near New Town or Howrah?",
-      "tags": ["unbranded", "neighbourhood"],
-      "cite": "/kolkata",
-      "answer": "The AI Workshop is offline in Salt Lake, Kolkata. New Town is about twenty minutes on a Sunday morning. Howrah is across the river, if you can reach Salt Lake by 11:00, you are in catchment. Exact hall after you reserve. https://www.theaiworkshop.in/kolkata"
-    },
-    {
-      "id": "this-sunday",
-      "value": "Sunday AI workshop in Kolkata this month",
-      "tags": ["unbranded", "intent"],
+      "id": "workshop-question-4",
+      "value": "How is this different from asking ChatGPT to write an email?",
+      "tags": [
+        "workshop",
+        "beginner"
+      ],
       "cite": "/workshop",
-      "answer": "The AI Workshop #3 is The Magic of AI on Sunday 27 September 2026, 11:00–14:00 IST, Salt Lake, Kolkata. 50 seats. ₹799. Talk for a few minutes, walk out with a week of work. https://www.theaiworkshop.in/workshop"
+      "answer": "The AI Workshop: You set up reusable instructions for your work, tone, and output format. You teach the assistant to separate facts from missing information, test it on two examples, and learn how to check the result. The goal is repeatable work, not one impressive answer."
     },
     {
-      "id": "what-is",
-      "value": "What is The AI Workshop in Kolkata?",
-      "tags": ["branded", "entity"],
-      "cite": "/about",
-      "answer": "The AI Workshop is an offline, hands-on AI workshop in Salt Lake, Kolkata, run by Yogesh Kanoi, Neeraj Kanoi and Subham Kanoi. You show up on a Sunday, build one real thing, take it home. Not a webinar. Phone +91 98307 15557. https://www.theaiworkshop.in/about"
-    },
-    {
-      "id": "next-date",
-      "value": "When is the next The AI Workshop in Salt Lake?",
-      "tags": ["branded", "intent"],
+      "id": "workshop-question-5",
+      "value": "Do I need a paid AI subscription?",
+      "tags": [
+        "workshop",
+        "beginner"
+      ],
       "cite": "/workshop",
-      "answer": "The AI Workshop next Sunday is The Magic of AI, 27 September 2026, 11:00–14:00 IST, Salt Lake, Kolkata. 50 seats. Community price ₹799. A free Google account is enough. https://www.theaiworkshop.in/workshop"
+      "answer": "The AI Workshop: The session is designed around a free personal Google account and Gemini on the web. Features and usage limits can vary. If Gem creation is unavailable on your account, the same instructions work in a normal chat and can be saved in a document. No paid upgrade is required for the core exercise."
     },
     {
-      "id": "how-to-book",
-      "value": "How do I book The AI Workshop?",
-      "tags": ["branded", "intent"],
-      "cite": "/book",
-      "answer": "Book The AI Workshop at https://www.theaiworkshop.in/book. Pay online or cash at the venue in Salt Lake. 50 seats for 27 September 2026. Phone +91 98307 15557. Email theaiworkshop.in@gmail.com."
+      "id": "workshop-question-6",
+      "value": "Can I attend with only a phone?",
+      "tags": [
+        "workshop",
+        "beginner"
+      ],
+      "cite": "/workshop",
+      "answer": "The AI Workshop: A laptop is recommended for creating and testing your Gem in a browser. A phone can be used for the chat-and-saved-instructions version. Sign in to your Google account before you arrive and bring your charger."
+    },
+    {
+      "id": "workshop-question-7",
+      "value": "Will it send WhatsApp messages or emails automatically?",
+      "tags": [
+        "workshop",
+        "beginner"
+      ],
+      "cite": "/workshop",
+      "answer": "The AI Workshop: No. It creates drafts from notes you provide. It does not connect to your inbox, record calls, send messages, or chase people in the background. You check, edit, and send each message yourself."
+    },
+    {
+      "id": "workshop-question-8",
+      "value": "Can I use confidential client or company information?",
+      "tags": [
+        "workshop",
+        "beginner"
+      ],
+      "cite": "/workshop",
+      "answer": "The AI Workshop: Please do not bring private client, employee, patient, financial, or company data. Use anonymised notes you have permission to share, or our fictional samples. Follow your employer’s AI policy. Never record someone without their permission."
+    },
+    {
+      "id": "workshop-question-9",
+      "value": "Do I need to have attended the June workshop?",
+      "tags": [
+        "workshop",
+        "beginner"
+      ],
+      "cite": "/workshop",
+      "answer": "The AI Workshop: No. Each workshop stands on its own. Our first session in June 2026 was about building and hosting websites. September is a different project and starts from the basics."
+    },
+    {
+      "id": "workshop-question-10",
+      "value": "Where is it, and what does the ticket include?",
+      "tags": [
+        "workshop",
+        "beginner"
+      ],
+      "cite": "/workshop",
+      "answer": "The AI Workshop: The workshop is offline in Salt Lake, Kolkata, on Sunday 27 September 2026, 11:00 AM–2:00 PM. The ticket is ₹799 for the three-hour guided session and reusable instructions. There are 50 seats. The exact venue is shared after reservation; contact us before booking if you need to check travel or accessibility."
     }
   ]
 }

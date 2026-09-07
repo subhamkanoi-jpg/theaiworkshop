@@ -1,30 +1,21 @@
 {
   "name": "The AI Workshop",
-  "description": "Offline, hands-on AI workshops in Salt Lake, Kolkata. You show up on a Sunday, build one real thing, and take it home. Next: The Magic of AI, 27 September 2026, 50 seats, ₹799.",
-  "url": "https://www.theaiworkshop.in/",
-  "local_url": "https://www.theaiworkshop.in/kolkata",
-  "workshop_url": "https://www.theaiworkshop.in/workshop",
-  "location": {
-    "neighbourhood": "Salt Lake (Bidhannagar)",
-    "city": "Kolkata",
-    "region": "West Bengal",
-    "postalCode": "700064",
-    "country": "IN",
-    "latitude": 22.5804,
-    "longitude": 88.4177
-  },
+  "description": "An offline space for non-techies to put AI to work, one real use-case project at a time.",
+  "url": "https://www.theaiworkshop.in",
+  "updated": "2026-09-07",
+  "offline_only": true,
+  "location": "Salt Lake, Kolkata",
   "contact": {
     "email": "theaiworkshop.in@gmail.com",
-    "telephone": "+91-98307-15557"
+    "telephone": "+919830715557"
   },
   "next_workshop": {
-    "title": "The Magic of AI",
+    "title": "Build Your AI Follow-up Assistant",
     "date": "2026-09-27",
-    "time": "11:00-14:00+05:30",
+    "startDate": "2026-09-27T11:00:00+05:30",
+    "endDate": "2026-09-27T14:00:00+05:30",
     "priceINR": 799,
-    "seats": 50
-  },
-  "languages": ["en", "hi", "bn"],
-  "offline_only": true,
-  "updated": "2026-08-30"
+    "seats": 50,
+    "artifact": "A reusable assistant that turns rough notes into a recap, action list, and follow-up draft"
+  }
 }

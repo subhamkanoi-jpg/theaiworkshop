@@ -5,181 +5,185 @@ import { ReserveButton } from "@/components/ReserveButton";
 import {
   WORKSHOP_DATE_LABEL,
   WORKSHOP_TIME_LABEL,
-  WORKSHOP_DURATION_LABEL,
   WORKSHOP_TITLE,
-  WORKSHOP_NUMBER,
-  WORKSHOP_ARTIFACT,
   PRICE,
-  MARKET_VALUE,
   TOTAL_SEATS,
   BRING_LABEL,
+  PHONE_TEL,
   inr,
+  workshopContent,
 } from "@/config";
 import {
   Calendar,
   Clock,
   MapPin,
-  Users,
-  Wand2,
-  MessageSquareText,
   CheckCircle2,
-  Smartphone,
-  Sparkles,
+  ArrowRight,
 } from "lucide-react";
 
 export default function WorkshopPage() {
   usePageSeo("workshop");
-
   return (
     <SiteShell current="workshop">
-      <section className="border-b border-border py-10 sm:py-20">
+      <section id="hero" className="border-b border-border py-10 sm:py-20">
         <div className="mx-auto max-w-3xl px-4 sm:px-6">
-          <Breadcrumbs items={[{ label: WORKSHOP_TITLE }]} />
-          <p className="text-[11px] font-bold uppercase tracking-[0.12em] sm:tracking-[0.14em] text-[#c8553d] mb-3 sm:mb-4">
-            Workshop #{String(WORKSHOP_NUMBER).padStart(2, "0")} · Talk
+          <Breadcrumbs items={[{ label: "27 September workshop" }]} />
+          <p className="mb-4 text-sm font-semibold text-primary">
+            One project · No coding · In person
           </p>
-          <h1 className="font-serif text-[2.15rem] sm:text-5xl font-semibold tracking-tight text-foreground leading-[1.1]">
+          <h1 className="font-serif text-4xl font-semibold leading-tight tracking-tight text-balance sm:text-5xl">
             {WORKSHOP_TITLE}
           </h1>
-          <p className="mt-4 sm:mt-5 text-[17px] sm:text-xl text-muted-foreground leading-relaxed">
-            Talk for a few minutes about your actual work. Walk out with a week of
-            finished work already made, and the recipe to do it again on Tuesday.
+          <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
+            {workshopContent.description}
           </p>
-          <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted-foreground">
+          <div className="mt-7 flex flex-wrap gap-4 text-sm text-muted-foreground">
             <span className="inline-flex items-center gap-2">
-              <Calendar className="h-4 w-4 text-[#c8553d]" /> {WORKSHOP_DATE_LABEL}
+              <Calendar className="size-4 text-primary" />
+              {WORKSHOP_DATE_LABEL}
             </span>
             <span className="inline-flex items-center gap-2">
-              <Clock className="h-4 w-4 text-[#c8553d]" /> {WORKSHOP_TIME_LABEL} ({WORKSHOP_DURATION_LABEL})
+              <Clock className="size-4 text-primary" />
+              {WORKSHOP_TIME_LABEL}
             </span>
             <span className="inline-flex items-center gap-2">
-              <MapPin className="h-4 w-4 text-[#c8553d]" /> Salt Lake, Kolkata
-            </span>
-            <span className="inline-flex items-center gap-2">
-              <Users className="h-4 w-4 text-[#c8553d]" /> {TOTAL_SEATS} seats · tables of 8
+              <MapPin className="size-4 text-primary" />
+              Salt Lake, Kolkata
             </span>
           </div>
           <div className="mt-8">
             <ReserveButton />
           </div>
+          <p className="mt-4 text-sm text-muted-foreground">
+            {inr(PRICE)} · {TOTAL_SEATS} seats · Laptop recommended
+          </p>
         </div>
       </section>
-
-      <section className="border-b border-border py-10 sm:py-20">
+      <section className="border-b border-border py-12 sm:py-16">
         <div className="mx-auto max-w-3xl px-4 sm:px-6">
-          <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#c8553d] mb-3">
-            The artifact
-          </p>
-          <h2 className="font-serif text-[1.75rem] sm:text-3xl font-semibold text-foreground mb-4">
-            Not notes. A week of work.
+          <h2 className="font-serif text-3xl font-semibold leading-tight">
+            Not another prompt collection. Your own working assistant.
           </h2>
-          <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-            {WORKSHOP_ARTIFACT}. Specifically, before you leave:
-          </p>
-          <ul className="space-y-4">
-            {[
-              "A one-line offer that a stranger understands",
-              "A bio, in your voice, not brochure-English",
-              "Seven posts or WhatsApp messages, ready to send",
-              "The brief saved, a Gem on a free Google account, so Tuesday still works",
-            ].map((t) => (
-              <li key={t} className="flex gap-3 text-foreground/90">
-                <CheckCircle2 className="h-5 w-5 text-[#c8553d] flex-shrink-0 mt-0.5" />
-                <span>{t}</span>
+          <ul className="mt-7 flex flex-col gap-4">
+            {workshopContent.outcomes.map((item) => (
+              <li key={item} className="flex gap-3 text-base leading-relaxed">
+                <CheckCircle2 className="mt-1 size-5 shrink-0 text-primary" />
+                <span>{item}</span>
               </li>
             ))}
           </ul>
+          <p className="mt-6 text-base leading-relaxed text-muted-foreground">
+            A Gem is a saved assistant inside Google Gemini. You give it a job,
+            rules, and a preferred format. You still supply the notes, check the
+            draft, and decide what to send. If Gem creation is unavailable, we
+            save the same instructions for use in a normal chat.
+          </p>
+          <a
+            href="/#try"
+            className="mt-4 inline-flex min-h-11 items-center gap-2 font-semibold text-primary"
+          >
+            See an example before you book <ArrowRight className="size-4" />
+          </a>
         </div>
       </section>
-
-      <section className="border-b border-border bg-muted/20 py-10 sm:py-20">
+      <section className="border-b border-border bg-muted/30 py-12 sm:py-16">
         <div className="mx-auto max-w-3xl px-4 sm:px-6">
-          <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#c8553d] mb-3">
-            The three hours
+          <p className="text-sm font-semibold text-primary">
+            The full three hours
           </p>
-          <h2 className="font-serif text-3xl font-semibold text-foreground mb-8">
-            Show the trick once. Then you do it.
+          <h2 className="mt-3 font-serif text-3xl font-semibold">
+            Watch a little. Build a lot.
           </h2>
-          <ol className="space-y-6">
-            {[
-              {
-                icon: <Sparkles className="h-5 w-5" />,
-                t: "11:00. The gasp",
-                d: "A host talks for ninety seconds about a Salt Lake clinic. A kit appears on the big screen. That is the magic. Then we tell you how it actually works.",
-              },
-              {
-                icon: <MessageSquareText className="h-5 w-5" />,
-                t: "11:20. You talk",
-                d: "Three minutes about YOUR work. Voice note or a messy paragraph. Shop, studies, job hunt, freelance, same recipe, your facts.",
-              },
-              {
-                icon: <Wand2 className="h-5 w-5" />,
-                t: "11:45. The kit",
-                d: "Everyone mirrors the projector. Bio, offer, seven posts. Captains on the floor. They do not type on your phone unless you ask.",
-              },
-              {
-                icon: <CheckCircle2 className="h-5 w-5" />,
-                t: "12:45. Make it yours + save",
-                d: "Edit three pieces by hand so you stay the human. Save the brief. Hear how this kit is what shops already pay ₹3,000–₹8,000 for. Optional show-and-tell. Photo.",
-              },
-            ].map((b) => (
-              <li key={b.t} className="flex gap-4">
-                <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-[#c8553d]/10 text-[#c8553d]">
-                  {b.icon}
-                </span>
-                <div>
-                  <p className="font-semibold text-foreground">{b.t}</p>
-                  <p className="mt-1 text-sm text-muted-foreground leading-relaxed">{b.d}</p>
-                </div>
+          <ol className="mt-8 flex flex-col gap-7">
+            {workshopContent.agenda.map((step) => (
+              <li
+                key={step.time}
+                className="flex flex-col gap-2 border-b border-border pb-6"
+              >
+                <p className="text-sm font-semibold text-primary">
+                  {step.time}
+                </p>
+                <h3 className="text-lg font-semibold">{step.title}</h3>
+                <p className="text-base leading-relaxed text-muted-foreground">
+                  {step.body}
+                </p>
               </li>
             ))}
           </ol>
         </div>
       </section>
-
-      <section className="border-b border-border py-10 sm:py-20">
+      <section className="border-b border-border py-12 sm:py-16">
         <div className="mx-auto max-w-3xl px-4 sm:px-6">
-          <div className="grid sm:grid-cols-2 gap-8">
+          <div className="grid gap-8 sm:grid-cols-2">
             <div>
-              <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#c8553d] mb-3">
-                Bring this
+              <h2 className="text-xl font-semibold">Bring this</h2>
+              <p className="mt-3 text-base leading-relaxed text-muted-foreground">
+                {BRING_LABEL}
               </p>
-              <p className="text-muted-foreground leading-relaxed">
-                {BRING_LABEL} If you can, three WhatsApp messages or captions you
-                already wrote that sound like you. No material? We have samples.
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                Phone-only is fine for the chat-and-saved-instructions version.
+                Sign in before arriving so account recovery does not take up
+                your workshop.
               </p>
             </div>
             <div>
-              <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#c8553d] mb-3">
-                Do not bring
-              </p>
-              <p className="text-muted-foreground leading-relaxed">
-                A computer-science degree. Premiere. A paid ChatGPT plan. Fear of
-                looking like a beginner. The default tool is Gemini, free, on your
-                phone.
+              <h2 className="text-xl font-semibold">
+                Leave private data at home
+              </h2>
+              <p className="mt-3 text-base leading-relaxed text-muted-foreground">
+                Use anonymised notes you have permission to share. No patient
+                records, client secrets, salary details, passwords, or private
+                chat exports. Follow your employer&apos;s AI policy. Our
+                fictional examples work just as well.
               </p>
             </div>
           </div>
-          <p className="mt-8 inline-flex items-start gap-2 text-sm text-muted-foreground">
-            <Smartphone className="h-4 w-4 text-[#c8553d] mt-0.5 flex-shrink-0" />
-            50 people on purpose, tables of eight, alumni captains, one projector.
-            Intimate enough to finish. Large enough to feel like a room.
+          <p className="mt-8 rounded-2xl border border-border bg-muted/30 p-5 text-base leading-relaxed text-foreground">
+            <strong>What this is not:</strong> inbox integration, a call
+            recorder, automatic WhatsApp sending, or an agent that chases
+            customers. The project drafts a follow-up. You stay in control.
           </p>
         </div>
       </section>
-
-      <section className="py-12 sm:py-16">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 text-center">
-          <p className="font-serif text-3xl font-semibold text-foreground">
-            {inr(PRICE)}{" "}
-            <span className="text-lg font-normal text-muted-foreground line-through ml-2">
-              {inr(MARKET_VALUE)}
-            </span>
+      <section className="border-b border-border py-12 sm:py-16">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6">
+          <h2 className="font-serif text-3xl font-semibold">Good questions</h2>
+          <div className="mt-7">
+            {workshopContent.faqs.map((faq) => (
+              <details key={faq.q} className="border-b border-border py-4">
+                <summary className="cursor-pointer font-semibold leading-relaxed">
+                  {faq.q}
+                </summary>
+                <p className="mt-3 text-base leading-relaxed text-muted-foreground">
+                  {faq.a}
+                </p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+      <section className="py-14 sm:py-16">
+        <div className="mx-auto max-w-3xl px-4 text-center sm:px-6">
+          <h2 className="font-serif text-3xl font-semibold">
+            One useful Sunday. {inr(PRICE)}.
+          </h2>
+          <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+            A three-hour guided build, reusable instructions, and practice on
+            your own example. Pay online or reserve to pay cash at the venue.
           </p>
-          <p className="mt-2 text-sm text-muted-foreground mb-6">
-            Community price. Surplus goes back into the hall. Pay online or cash at the venue.
+          <div className="mt-7">
+            <ReserveButton />
+          </div>
+          <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
+            Exact venue shared after reservation. Questions about travel or
+            accessibility?{" "}
+            <a
+              className="font-semibold text-primary underline"
+              href={`tel:${PHONE_TEL}`}
+            >
+              Call us before booking.
+            </a>
           </p>
-          <ReserveButton />
         </div>
       </section>
     </SiteShell>

@@ -59,10 +59,13 @@ function applyPath(next: string, dir: NavDir, setPath: (p: string) => void) {
 }
 
 export function Router() {
-  const [path, setPath] = useState(() => normalizePath(window.location.pathname));
+  const [path, setPath] = useState(() =>
+    normalizePath(window.location.pathname),
+  );
 
   useEffect(() => {
-    const onPop = () => applyPath(normalizePath(location.pathname), "back", setPath);
+    const onPop = () =>
+      applyPath(normalizePath(location.pathname), "back", setPath);
     window.addEventListener("popstate", onPop);
 
     const onClick = (e: MouseEvent) => {
@@ -73,7 +76,13 @@ export function Router() {
       if (a.target && a.target !== "_self") return;
       if (a.hasAttribute("download")) return;
       const href = a.getAttribute("href");
-      if (!href || href.startsWith("#") || href.startsWith("mailto:") || href.startsWith("tel:") || href.startsWith("javascript:")) {
+      if (
+        !href ||
+        href.startsWith("#") ||
+        href.startsWith("mailto:") ||
+        href.startsWith("tel:") ||
+        href.startsWith("javascript:")
+      ) {
         return;
       }
       let url: URL;
@@ -83,8 +92,17 @@ export function Router() {
         return;
       }
       if (url.origin !== location.origin) return;
+      // Booking needs its HTML shell to load Razorpay's checkout script.
+      if (
+        normalizePath(url.pathname) === "/book" ||
+        !pages[normalizePath(url.pathname)]
+      )
+        return;
 
-      if (url.pathname === location.pathname && url.search === location.search) {
+      if (
+        url.pathname === location.pathname &&
+        url.search === location.search
+      ) {
         if (url.hash) return;
         e.preventDefault();
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -102,6 +120,15 @@ export function Router() {
       document.removeEventListener("click", onClick);
     };
   }, []);
+
+  useEffect(() => {
+    if (!location.hash) return;
+    const frame = requestAnimationFrame(() => {
+      const id = decodeURIComponent(location.hash.slice(1));
+      document.getElementById(id)?.scrollIntoView({ block: "start" });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [path]);
 
   const Page = pages[path] ?? App;
   return <Page />;

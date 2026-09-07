@@ -1,104 +1,143 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <style>
-    @import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;1,500&family=Inter:wght@500;600&display=swap");
-    html, body { margin: 0; padding: 0; }
-    body {
-      width: 1200px;
-      height: 630px;
-      background: #f4eee4;
-      color: #2a221d;
-      font-family: Inter, system-ui, sans-serif;
-    }
-    .card {
-      width: 1200px;
-      height: 630px;
-      box-sizing: border-box;
-      padding: 56px 64px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      background:
-        radial-gradient(1200px 400px at 100% 0%, rgba(200,85,61,0.12), transparent 55%),
-        #f4eee4;
-    }
-    .top { display: flex; align-items: center; gap: 18px; }
-    .mark { width: 72px; height: 72px; }
-    .brand {
-      font-family: Fraunces, Georgia, serif;
-      font-size: 28px;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-    }
-    .place {
-      font-size: 13px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: #c8553d;
-      font-weight: 600;
-    }
-    h1 {
-      font-family: Fraunces, Georgia, serif;
-      font-size: 58px;
-      line-height: 1.05;
-      font-weight: 600;
-      margin: 18px 0 0;
-      letter-spacing: -0.03em;
-    }
-    h1 em { color: #c8553d; font-style: italic; font-weight: 500; }
-    .mission {
-      max-width: 880px;
-      font-size: 20px;
-      line-height: 1.4;
-      color: #5a4d45;
-      margin-top: 16px;
-    }
-    .mission strong { color: #c8553d; font-weight: 600; }
-    .bottom {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 24px;
-    }
-    .meta { font-size: 20px; line-height: 1.45; }
-    .meta strong { display: block; font-size: 22px; }
-    .price {
-      background: #c8553d;
-      color: #fff;
-      border-radius: 999px;
-      padding: 14px 22px;
-      font-weight: 600;
-      font-size: 18px;
-      white-space: nowrap;
-    }
-  </style>
-</head>
-<body>
-  <div class="card">
-    <div>
-      <div class="top">
-        <svg class="mark" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path fill="#c8553d" d="M32 4c15.6 0 28.2 12.2 28.2 26.6 0 10.5-6.6 19.6-16.6 24l2.2 7c.25.7-.55 1.3-1.2.95L34 56.9c-.66.1-1.33.15-2 .15C16.4 57.05 3.8 44.9 3.8 30.6 3.8 16.2 16.4 4 32 4z"/>
-          <circle cx="32" cy="29.6" r="16.6" fill="none" stroke="#f4eee4" stroke-width="1.4" opacity="0.46"/>
-          <path fill="#f4eee4" d="M32 13.1 35.05 25.7 47.6 28.9 35.05 32.1 32 44.7 28.95 32.1 16.4 28.9 28.95 25.7Z"/>
-        </svg>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The AI Workshop — September invitation artwork</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Fraunces:wght@600&family=Inter:wght@400;500;600;700&display=swap");
+      :root {
+        --paper: #faf8f5;
+        --ink: #29221d;
+        --brand: #b54732;
+        --muted: #716a64;
+        --surface: #fff;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1200px;
+        height: 630px;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: Inter, sans-serif;
+      }
+      main {
+        height: 630px;
+        display: grid;
+        grid-template-columns: 740px 460px;
+      }
+      .copy {
+        padding: 48px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 22px;
+        font-weight: 700;
+      }
+      .brand img {
+        width: 42px;
+        height: 42px;
+      }
+      .eyebrow {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--brand);
+      }
+      h1 {
+        margin: 16px 0;
+        font:
+          600 52px/1.06 Fraunces,
+          Georgia,
+          serif;
+        letter-spacing: -1.5px;
+      }
+      .description {
+        max-width: 610px;
+        font-size: 23px;
+        line-height: 1.5;
+        margin: 16px 0;
+        color: var(--muted);
+      }
+      .facts {
+        font-size: 21px;
+        line-height: 1.6;
+        font-weight: 600;
+      }
+      .url {
+        margin-top: 12px;
+        color: var(--brand);
+        font-size: 17px;
+        font-weight: 600;
+      }
+      figure {
+        margin: 0;
+        background: var(--ink);
+        color: var(--paper);
+        display: flex;
+        flex-direction: column;
+      }
+      .photo {
+        width: 460px;
+        height: 400px;
+        object-fit: cover;
+      }
+      figcaption {
+        padding: 30px;
+        font-size: 25px;
+        line-height: 1.4;
+      }
+      figcaption small {
+        display: block;
+        margin-top: 15px;
+        font-size: 15px;
+        line-height: 1.5;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="copy">
+        <div class="brand">
+          <img src="/favicon.svg" alt="" />The AI Workshop
+        </div>
         <div>
-          <div class="place">Salt Lake · Kolkata</div>
-          <div class="brand">The AI Workshop</div>
+          <p class="eyebrow">NO CODE. REAL WORK. IN PERSON.</p>
+          <h1>Build Your AI<br />Follow-up Assistant</h1>
+          <p class="description">
+            Rough notes → clear next steps<br />and a message you can review and
+            send.
+          </p>
+        </div>
+        <div>
+          <div class="facts">
+            Sunday, 27 September 2026<br />11 AM–2 PM · Salt Lake, Kolkata ·
+            ₹799
+          </div>
+          <div class="url">theaiworkshop.in/workshop</div>
         </div>
       </div>
-      <h1>You talk. <em>A week of work appears.</em></h1>
-      <p class="mission"><strong>Vision.</strong> Kolkata’s default place to learn applied AI with your own hands. Offline. A store, not a webinar.<br/><span style="display:inline-block;margin-top:8px"><strong>Mission.</strong> One Sunday, one trick, one artifact. You talk. You walk out with work that did not exist at 11am.</span></p>
-    </div>
-    <div class="bottom">
-      <div class="meta">
-        <strong>Workshop #3 · The Magic of AI</strong>
-        Sunday 27 September 2026 · 11:00–14:00 · 50 seats
-      </div>
-      <div class="price">₹799 · theaiworkshop.in/share</div>
-    </div>
-  </div>
-</body>
+      <figure>
+        <img
+          class="photo"
+          src="/meetup1/group-selfie.jpg"
+          alt="Participants at the June 2026 AI Workshop"
+        />
+        <figcaption>
+          One real project.<br />One useful Sunday.<small
+            >For non-techie professionals & business owners.<br />Photo from our
+            first workshop · June 2026</small
+          >
+        </figcaption>
+      </figure>
+    </main>
+  </body>
 </html>

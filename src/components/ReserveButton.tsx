@@ -15,10 +15,10 @@ export function ReserveButton({
       href="/book"
       className={cn(
         "pressable inline-flex items-center justify-center gap-2 rounded-full",
-        "bg-[#c8553d] text-white font-bold text-base",
+        "bg-primary text-primary-foreground font-bold text-base",
         "min-h-12 px-8 shadow-e1",
         block ? "flex w-full" : "w-full sm:w-auto",
-        className
+        className,
       )}
     >
       {label} <ArrowRight className="h-4 w-4" />
