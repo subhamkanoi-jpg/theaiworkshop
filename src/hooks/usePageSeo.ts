@@ -4,7 +4,9 @@ import pages from "@/seo/pages.json";
 type PageKey = keyof typeof pages;
 
 function upsertMeta(attr: "name" | "property", key: string, value: string) {
-  let el = document.head.querySelector(`meta[${attr}="${key}"]`) as HTMLMetaElement | null;
+  let el = document.head.querySelector(
+    `meta[${attr}="${key}"]`,
+  ) as HTMLMetaElement | null;
   if (!el) {
     el = document.createElement("meta");
     el.setAttribute(attr, key);
@@ -14,7 +16,9 @@ function upsertMeta(attr: "name" | "property", key: string, value: string) {
 }
 
 function upsertLink(rel: string, href: string) {
-  let el = document.head.querySelector(`link[rel="${rel}"]`) as HTMLLinkElement | null;
+  let el = document.head.querySelector(
+    `link[rel="${rel}"]`,
+  ) as HTMLLinkElement | null;
   if (!el) {
     el = document.createElement("link");
     el.rel = rel;
@@ -32,6 +36,15 @@ export function usePageSeo(key: PageKey) {
     upsertMeta("property", "og:title", m.ogTitle);
     upsertMeta("property", "og:description", m.ogDescription);
     upsertMeta("property", "og:url", url);
+    upsertMeta("property", "og:image", m.ogImage);
+    upsertMeta("name", "twitter:image", m.ogImage);
+    upsertMeta(
+      "name",
+      "robots",
+      key === "book"
+        ? "noindex, follow"
+        : "index, follow, max-image-preview:large",
+    );
     upsertMeta("name", "twitter:title", m.ogTitle);
     upsertMeta("name", "twitter:description", m.ogDescription);
     upsertLink("canonical", url);

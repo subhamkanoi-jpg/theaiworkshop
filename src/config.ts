@@ -8,7 +8,20 @@ export const MARKET_VALUE = workshop.marketValue;
 export const TOTAL_SEATS = workshop.totalSeats;
 export const WORKSHOP_DATE_LABEL = workshop.dateLabel;
 export const WORKSHOP_DATE_ISO = workshop.dateIso;
-const MONTHS_SHORT = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const MONTHS_SHORT = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
 export const WORKSHOP_DATE_SHORT = (() => {
   const parts = workshop.dateIso.split("-").map(Number);
   const month = parts[1];
@@ -35,14 +48,12 @@ export const PHONE_TEL = workshop.phoneTel;
 export const PHONE_DISPLAY = workshop.phoneDisplay;
 export const SUPPORT_EMAIL = workshop.supportEmail;
 
-export const valueStack = [
-  { item: "3-hour live Magic of AI workshop", value: "₹5,000" },
-  { item: "A week of finished work, made from how you talk", value: "₹4,000+" },
-  { item: "The recipe saved, yours to reuse on Tuesday", value: "₹3,000" },
-  { item: "Free Google account is enough, no paid software", value: "Included" },
-  { item: "Printed kit & WhatsApp community", value: "Priceless" },
-  { item: "Certificate of completion", value: "✓" },
-];
+export const workshopContent = workshop;
+
+export const valueStack = workshop.outcomes.map((item) => ({
+  item,
+  value: "Included",
+}));
 
 export const hosts = [
   { name: "Yogesh Kanoi", src: "/yogesh.jpg", pos: "center 15%" },

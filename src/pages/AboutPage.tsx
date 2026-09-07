@@ -16,7 +16,8 @@ export default function AboutPage() {
         "@id": "https://www.theaiworkshop.in/about#webpage",
         url: "https://www.theaiworkshop.in/about",
         name: "About The AI Workshop",
-        description: LOCAL.name + " is Kolkata's offline AI workshop in Salt Lake.",
+        description:
+          LOCAL.name + " is Kolkata's offline AI workshop in Salt Lake.",
         dateModified: "2026-08-30",
         inLanguage: "en-IN",
         isPartOf: { "@id": "https://www.theaiworkshop.in/#website" },
@@ -48,9 +49,18 @@ export default function AboutPage() {
             The AI Workshop
           </h1>
           <p className="mt-4 text-[17px] sm:text-xl text-muted-foreground leading-relaxed">
-            An offline AI workshop in Salt Lake, Kolkata. We run Sundays. You
-            build one real thing. You take it home. Hosts: Yogesh Kanoi, Neeraj
-            Kanoi, Subham Kanoi.
+            An offline space in Salt Lake, Kolkata, for non-techies to put AI to
+            work—one real use-case project at a time. We started in June 2026
+            with a workshop on making websites and hosting them. Each session
+            stands alone: bring a practical task, build with guidance, and leave
+            knowing how to use what you made.
+          </p>
+          <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+            We welcome professionals, business owners, consultants, and curious
+            beginners. You do not need a technical background or a plan to
+            change careers. The point is to make AI useful in the work you
+            already do. Your hosts are Yogesh Kanoi, Neeraj Kanoi, and Subham
+            Kanoi.
           </p>
           <dl className="mt-8 space-y-3 text-sm">
             <div>
@@ -81,7 +91,9 @@ export default function AboutPage() {
                 />
                 <div>
                   <p className="font-semibold text-foreground">{h.name}</p>
-                  <p className="text-sm text-muted-foreground">Host · Salt Lake</p>
+                  <p className="text-sm text-muted-foreground">
+                    Host · Salt Lake
+                  </p>
                 </div>
               </div>
             ))}

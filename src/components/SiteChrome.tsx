@@ -1,5 +1,13 @@
 import { useEffect, useState, type ReactNode } from "react";
-import { Menu, X, ArrowRight, MapPin, Instagram, Mail, Phone } from "lucide-react";
+import {
+  Menu,
+  X,
+  ArrowRight,
+  MapPin,
+  Instagram,
+  Mail,
+  Phone,
+} from "lucide-react";
 import { Logo } from "@/components/Logo";
 import { ScrollButtons } from "@/components/ScrollToTop";
 import { useSiteMotion } from "@/hooks/useSiteMotion";
@@ -21,7 +29,7 @@ export type NavId = "home" | "path" | "workshop" | "room" | "host";
 
 const links: { id: NavId; href: string; label: string }[] = [
   { id: "workshop", href: "/workshop", label: "27 Sept" },
-  { id: "path", href: "/path", label: "The Path" },
+  { id: "path", href: "/path", label: "How we learn" },
   { id: "room", href: "/room", label: "The Room" },
 ];
 
@@ -59,7 +67,7 @@ export function SiteHeader({ current = "home" }: { current?: NavId }) {
                   "nav-link text-sm font-medium transition-colors",
                   current === l.id
                     ? "text-foreground"
-                    : "text-muted-foreground hover:text-foreground"
+                    : "text-muted-foreground hover:text-foreground",
                 )}
               >
                 {l.label}
@@ -99,7 +107,7 @@ export function SiteHeader({ current = "home" }: { current?: NavId }) {
                 href={l.href}
                 className={cn(
                   "flex min-h-12 items-center text-base font-medium px-1 border-b border-border/40",
-                  current === l.id ? "text-[#c8553d]" : "text-foreground"
+                  current === l.id ? "text-[#c8553d]" : "text-foreground",
                 )}
               >
                 {l.label}
@@ -156,8 +164,8 @@ export function SiteFooter() {
           <div>
             <Logo iconClassName="h-8 w-auto" textClassName="text-base" />
             <p className="mt-3 text-sm text-muted-foreground max-w-xs leading-relaxed">
-              Kolkata&apos;s offline AI workshop. Show up on a Sunday. Leave with a
-              thing. Come back.
+              An offline space for non-techies to put AI to work. One real
+              use-case project at a time. Salt Lake, Kolkata.
             </p>
             <address className="mt-3 not-italic text-sm text-muted-foreground leading-relaxed">
               <span className="inline-flex items-center gap-1.5">
@@ -185,38 +193,71 @@ export function SiteFooter() {
               <Instagram className="h-4 w-4" />
               @theaiworkshop.in
             </a>
-            <a href="/about" className="flex min-h-11 items-center hover:text-foreground transition-colors">
+            <a
+              href="/about"
+              className="flex min-h-11 items-center hover:text-foreground transition-colors"
+            >
               About
             </a>
-            <a href="/answers" className="flex min-h-11 items-center hover:text-foreground transition-colors">
+            <a
+              href="/answers"
+              className="flex min-h-11 items-center hover:text-foreground transition-colors"
+            >
               Answers
             </a>
-            <a href="/kolkata" className="flex min-h-11 items-center font-medium text-foreground hover:text-[#c8553d] transition-colors">
+            <a
+              href="/kolkata"
+              className="flex min-h-11 items-center font-medium text-foreground hover:text-[#c8553d] transition-colors"
+            >
               Learn AI in Kolkata
             </a>
-            <a href="/workshop" className="flex min-h-11 items-center hover:text-foreground transition-colors">
+            <a
+              href="/workshop"
+              className="flex min-h-11 items-center hover:text-foreground transition-colors"
+            >
               {WORKSHOP_TITLE}. {WORKSHOP_DATE_LABEL}
             </a>
-            <a href="/share" className="flex min-h-11 items-center hover:text-foreground transition-colors">
+            <a
+              href="/share"
+              className="flex min-h-11 items-center hover:text-foreground transition-colors"
+            >
               Share on WhatsApp
             </a>
             <div className="flex flex-wrap gap-x-4 gap-y-2 pt-1">
-              <a href="/path" className="hover:text-foreground transition-colors">
-                The Path
+              <a
+                href="/path"
+                className="hover:text-foreground transition-colors"
+              >
+                How we learn
               </a>
-              <a href="/room" className="hover:text-foreground transition-colors">
+              <a
+                href="/room"
+                className="hover:text-foreground transition-colors"
+              >
                 The Room
               </a>
-              <a href="/host" className="hover:text-foreground transition-colors">
+              <a
+                href="/host"
+                className="hover:text-foreground transition-colors"
+              >
                 Host
               </a>
-              <a href="/privacy" className="hover:text-foreground transition-colors">
+              <a
+                href="/privacy"
+                className="hover:text-foreground transition-colors"
+              >
                 Privacy
               </a>
-              <a href="/terms" className="hover:text-foreground transition-colors">
+              <a
+                href="/terms"
+                className="hover:text-foreground transition-colors"
+              >
                 Terms
               </a>
-              <a href="/refund" className="hover:text-foreground transition-colors">
+              <a
+                href="/refund"
+                className="hover:text-foreground transition-colors"
+              >
                 Refunds
               </a>
             </div>
@@ -224,10 +265,15 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-10 border-t border-border/50 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-muted-foreground">
-          <span>&copy; {new Date().getFullYear()} The AI Workshop · Kolkata</span>
+          <span>
+            &copy; {new Date().getFullYear()} The AI Workshop · Kolkata
+          </span>
           <span>
             Phone:{" "}
-            <a href={`tel:${PHONE_TEL}`} className="hover:text-foreground transition-colors">
+            <a
+              href={`tel:${PHONE_TEL}`}
+              className="hover:text-foreground transition-colors"
+            >
               {PHONE_DISPLAY}
             </a>
           </span>
@@ -258,7 +304,7 @@ export function StickyBookBar({ afterId = "hero" }: { afterId?: string }) {
     <div
       className={cn(
         "fixed bottom-0 inset-x-0 z-40 lg:hidden bg-background/92 backdrop-blur-md border-t border-border px-4 pt-2.5 safe-bottom transition-transform duration-300",
-        show ? "translate-y-0" : "translate-y-full"
+        show ? "translate-y-0" : "translate-y-full",
       )}
     >
       <a
@@ -289,7 +335,7 @@ export function SiteShell({
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader current={current} />
-      {children}
+      <main>{children}</main>
       <SiteFooter />
       {sticky && <StickyBookBar />}
       <ScrollButtons />

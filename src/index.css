@@ -70,6 +70,8 @@
     border-radius: 4px;
   }
   html {
+    @apply bg-background;
+    scroll-padding-top: 5rem;
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
   }
@@ -224,13 +226,13 @@
    Handwritten accents + polaroid frames + washi tape. Real photos on the
    page get treated like prints pinned to a community corkboard. */
 .font-hand {
-  font-family: 'Caveat', 'Nunito', cursive;
+  font-family: 'Fraunces', Georgia, serif;
 }
 
 /* Premium editorial serif — reserved for the manifesto / membership-grade
    moments, so it reads as a deliberate accent, not the everyday voice. */
 .font-serif {
-  font-family: 'Fraunces', 'Nunito', serif;
+  font-family: 'Fraunces', Georgia, serif;
 }
 
 /* Invite card: the "who this room is for" filter. Slightly heavier shadow

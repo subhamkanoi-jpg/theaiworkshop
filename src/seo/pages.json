@@ -1,66 +1,82 @@
 {
   "home": {
     "path": "/",
-    "title": "The AI Workshop | AI Workshop Kolkata, Salt Lake",
-    "description": "The AI Workshop is Kolkata's offline AI workshop in Salt Lake. Next: 27 September, The Magic of AI. 50 seats, ₹799. No tech background needed.",
-    "ogTitle": "The AI Workshop | Learn AI in Kolkata",
-    "ogDescription": "Offline AI classes in Salt Lake, Kolkata. Talk for a few minutes, walk out with a week of work. 27 September. ₹799."
+    "title": "The AI Workshop | Practical AI for Non-Techies, Kolkata",
+    "description": "An offline space for non-techies to put AI to work, one real use-case project at a time. Next: Build Your AI Follow-up Assistant, 27 September 2026. Offline in Salt Lake, Kolkata. ₹799.",
+    "ogTitle": "The AI Workshop · One real project at a time",
+    "ogDescription": "An offline space for non-techies to put AI to work, one real use-case project at a time. Next: Build Your AI Follow-up Assistant, 27 September 2026. Offline in Salt Lake, Kolkata. ₹799.",
+    "ogImage": "https://www.theaiworkshop.in/meetup1/group-selfie.jpg"
   },
   "workshop": {
     "path": "/workshop",
-    "title": "The Magic of AI | AI Workshop in Salt Lake, Kolkata, 27 September",
-    "description": "AI workshop in Kolkata on Sunday 27 September. The Magic of AI: talk for a few minutes, walk out with a week of work. Offline in Salt Lake. 50 seats, ₹799.",
-    "ogTitle": "The Magic of AI. AI Workshop Kolkata, 27 Sept",
-    "ogDescription": "3 hours, offline, Salt Lake. A week of finished work from how you talk. ₹799."
+    "title": "Build Your AI Follow-up Assistant | 27 September, Kolkata",
+    "description": "Build an AI assistant for meeting recaps, action lists, and follow-up drafts. 27 September 2026, Salt Lake, Kolkata. 3 hours, ₹799. No coding.",
+    "ogTitle": "Build Your AI Follow-up Assistant | 27 September, Kolkata",
+    "ogDescription": "Build an AI assistant for meeting recaps, action lists, and follow-up drafts. 27 September 2026, Salt Lake, Kolkata. 3 hours, ₹799. No coding.",
+    "ogImage": "https://www.theaiworkshop.in/meetup1/group-selfie.jpg"
+  },
+  "book": {
+    "path": "/book",
+    "title": "Book Your Seat | Build Your AI Follow-up Assistant, 27 September",
+    "description": "Reserve Build Your AI Follow-up Assistant. Sunday, 27 September 2026, 11:00 AM – 2:00 PM. Salt Lake, Kolkata. 50 seats. ₹799. Laptop recommended. Beginners welcome.",
+    "ogTitle": "Book Your Seat | Build Your AI Follow-up Assistant, 27 September",
+    "ogDescription": "Reserve Build Your AI Follow-up Assistant. Sunday, 27 September 2026, 11:00 AM – 2:00 PM. Salt Lake, Kolkata. 50 seats. ₹799. Laptop recommended. Beginners welcome.",
+    "ogImage": "https://www.theaiworkshop.in/meetup1/group-selfie.jpg"
   },
   "path": {
     "path": "/path",
-    "title": "The Path | AI Skills Taught in Kolkata: Talk, Make, Sell, System, Lead",
-    "description": "The AI Workshop Path in Kolkata: Talk, Make, Sell, System, Lead. Sunday workshops in Salt Lake. Start from zero. Leave with a thing every time.",
-    "ogTitle": "The Path. AI skills, taught in Kolkata",
-    "ogDescription": "Five chapters. Every Sunday in Salt Lake belongs to one of them."
+    "title": "How We Learn | One Real AI Project at a Time",
+    "description": "Learn AI through one real use-case project at a time. Offline workshops for non-techies in Salt Lake, Kolkata. Each session stands alone.",
+    "ogTitle": "How We Learn | One Real AI Project at a Time",
+    "ogDescription": "Learn AI through one real use-case project at a time. Offline workshops for non-techies in Salt Lake, Kolkata. Each session stands alone.",
+    "ogImage": "https://www.theaiworkshop.in/meetup1/group-selfie.jpg"
   },
   "room": {
     "path": "/room",
-    "title": "The Room | Kolkata's Offline AI Community in Salt Lake",
-    "description": "60+ people have sat in Salt Lake with laptops open. Meetup photos, hosts, and work shipped at The AI Workshop, Kolkata's offline AI community.",
-    "ogTitle": "The Room. Kolkata's offline AI community",
-    "ogDescription": "Real people, Salt Lake, Kolkata. Websites in June. Reels in August."
+    "title": "The Room | Our First AI Workshop, June 2026",
+    "description": "Photos, hosts, and websites from The AI Workshop’s first session in June 2026. An offline learning space for non-techies in Salt Lake, Kolkata.",
+    "ogTitle": "The Room | Our First AI Workshop, June 2026",
+    "ogDescription": "Photos, hosts, and websites from The AI Workshop’s first session in June 2026. An offline learning space for non-techies in Salt Lake, Kolkata.",
+    "ogImage": "https://www.theaiworkshop.in/meetup1/group-selfie.jpg"
   },
   "host": {
     "path": "/host",
-    "title": "Host a Table | Teach AI in Kolkata | The AI Workshop",
-    "description": "Alumni of The AI Workshop in Kolkata: captain a table on Sunday, then teach your use case. Salt Lake, offline.",
-    "ogTitle": "Host a table. The AI Workshop, Kolkata",
-    "ogDescription": "The room grows when alumni stand on the floor."
+    "title": "Host a Table | The AI Workshop, Kolkata",
+    "description": "Help non-techies build a practical AI project in person. Host a table with The AI Workshop in Salt Lake, Kolkata.",
+    "ogTitle": "Host a Table | The AI Workshop, Kolkata",
+    "ogDescription": "Help non-techies build a practical AI project in person. Host a table with The AI Workshop in Salt Lake, Kolkata.",
+    "ogImage": "https://www.theaiworkshop.in/meetup1/group-selfie.jpg"
   },
   "about": {
     "path": "/about",
-    "title": "About The AI Workshop | Offline AI Workshop in Salt Lake, Kolkata",
-    "description": "The AI Workshop is an offline AI workshop in Salt Lake, Kolkata. Hosts Yogesh, Neeraj and Subham Kanoi. Phone +91 98307 15557.",
-    "ogTitle": "The AI Workshop | About",
-    "ogDescription": "Who runs the room in Salt Lake, Kolkata."
+    "title": "About The AI Workshop | Offline AI for Non-Techies",
+    "description": "An offline space for non-techies to put AI to work, one real use-case project at a time. Based in Salt Lake, Kolkata, and hosted by Yogesh, Neeraj, and Subham Kanoi.",
+    "ogTitle": "About The AI Workshop | Offline AI for Non-Techies",
+    "ogDescription": "An offline space for non-techies to put AI to work, one real use-case project at a time. Based in Salt Lake, Kolkata, and hosted by Yogesh, Neeraj, and Subham Kanoi.",
+    "ogImage": "https://www.theaiworkshop.in/meetup1/group-selfie.jpg"
   },
   "kolkata": {
     "path": "/kolkata",
-    "title": "Learn AI in Kolkata | Offline AI Workshop in Salt Lake | The AI Workshop",
-    "description": "Learn AI in Kolkata without a tech degree. Offline Sunday workshops in Salt Lake (Bidhannagar). Next: The Magic of AI, 27 September. ₹799. English, Hindi, Bangla.",
-    "ogTitle": "Learn AI in Kolkata, offline, in Salt Lake",
-    "ogDescription": "Kolkata's hands-on AI workshop. Salt Lake. Sunday 27 September. Walk out with work, not notes."
+    "title": "Learn AI in Kolkata | Offline Workshop in Salt Lake",
+    "description": "Learn AI in Kolkata, one practical project at a time. Next: Build Your AI Follow-up Assistant, 27 September 2026. Salt Lake, offline, ₹799.",
+    "ogTitle": "Learn AI in Kolkata | Offline Workshop in Salt Lake",
+    "ogDescription": "Learn AI in Kolkata, one practical project at a time. Next: Build Your AI Follow-up Assistant, 27 September 2026. Salt Lake, offline, ₹799.",
+    "ogImage": "https://www.theaiworkshop.in/meetup1/group-selfie.jpg"
   },
   "answers": {
     "path": "/answers",
-    "title": "The AI Workshop | Answers. Learn AI in Kolkata",
-    "description": "Short answers for ChatGPT, Perplexity and Gemini: where to learn AI in Kolkata, Salt Lake, price ₹799, 27 September, offline only. The AI Workshop.",
-    "ogTitle": "The AI Workshop | Answers Kolkata asks",
-    "ogDescription": "The questions people type into AI search. Salt Lake. Offline. Named The AI Workshop."
+    "title": "Questions and Answers | The AI Workshop",
+    "description": "Practical answers about The AI Workshop: September’s project, tools, privacy, venue, ticket, and what beginners need to bring.",
+    "ogTitle": "Questions and Answers | The AI Workshop",
+    "ogDescription": "Practical answers about The AI Workshop: September’s project, tools, privacy, venue, ticket, and what beginners need to bring.",
+    "ogImage": "https://www.theaiworkshop.in/meetup1/group-selfie.jpg"
   },
   "share": {
     "path": "/share",
-    "title": "Share The AI Workshop | The Magic of AI, 27 September, Kolkata",
-    "description": "Kolkata's offline AI workshop in Salt Lake. Vision: walk in, build a real thing, come back. Workshop #3, The Magic of AI, Sunday 27 September 2026. 50 seats, ₹799.",
-    "ogTitle": "The AI Workshop. 27 September, Salt Lake",
-    "ogDescription": "You talk. You walk out with a week of work. The Magic of AI, Sunday 27 September, Salt Lake. 50 seats, ₹799.",
-    "ogImage": "https://www.theaiworkshop.in/og-share.jpg"
+    "title": "Share Build Your AI Follow-up Assistant | The AI Workshop",
+    "description": "Invite a friend to Build Your AI Follow-up Assistant. Sunday, 27 September 2026, 11:00 AM – 2:00 PM. Salt Lake, Kolkata. 50 seats. ₹799. One practical offline project for non-techies.",
+    "ogTitle": "Share Build Your AI Follow-up Assistant | The AI Workshop",
+    "ogDescription": "Invite a friend to Build Your AI Follow-up Assistant. Sunday, 27 September 2026, 11:00 AM – 2:00 PM. Salt Lake, Kolkata. 50 seats. ₹799. One practical offline project for non-techies.",
+    "ogImage": "https://www.theaiworkshop.in/meetup1/group-selfie.jpg"
   }
 }

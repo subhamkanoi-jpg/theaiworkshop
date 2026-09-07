@@ -1,141 +1,111 @@
-import { useEffect } from "react";
-import { Logo } from "@/components/Logo";
-import { ScrollButtons } from "@/components/ScrollToTop";
+import { useState } from "react";
+import { SiteShell } from "@/components/SiteChrome";
+import { usePageSeo } from "@/hooks/usePageSeo";
 import {
   WORKSHOP_DATE_LABEL,
   WORKSHOP_TIME_LABEL,
   WORKSHOP_TITLE,
-  WORKSHOP_NUMBER,
-  TOTAL_SEATS,
   PRICE,
   inr,
-  PHONE_DISPLAY,
-  PHONE_TEL,
 } from "@/config";
-import { Calendar, Clock, MapPin, Users, Share2 } from "lucide-react";
+import { Copy, Share2 } from "lucide-react";
 
-const SHARE_URL = "https://www.theaiworkshop.in/share";
-const SHARE_TEXT = `The AI Workshop. Kolkata's offline AI room in Salt Lake.
+const SHARE_TEXT = `Still writing every work follow-up from scratch?
 
-Vision: a beginner walks in, builds a real thing, and comes back.
-Mission: one Sunday, one trick, work you can open on Tuesday.
+Join The AI Workshop in Salt Lake, Kolkata: ${WORKSHOP_TITLE}.
 
-Workshop #${WORKSHOP_NUMBER}: ${WORKSHOP_TITLE}
-${WORKSHOP_DATE_LABEL}, ${WORKSHOP_TIME_LABEL}
-${TOTAL_SEATS} seats. ${inr(PRICE)}. Salt Lake.
+Turn rough notes from a meeting, customer enquiry, or client call into a recap, action list, and follow-up draft. Build your own reusable assistant—no coding or paid AI subscription required. You review and send; nothing is sent automatically.
 
-${SHARE_URL}`;
+${WORKSHOP_DATE_LABEL}
+${WORKSHOP_TIME_LABEL} · ${inr(PRICE)} · Offline
+Laptop recommended. Beginners welcome.
 
-function whatsappHref() {
-  return `https://wa.me/?text=${encodeURIComponent(SHARE_TEXT)}`;
-}
+https://www.theaiworkshop.in/workshop`;
 
 export default function SharePage() {
-  useEffect(() => {
-    document.title = `Share The AI Workshop | ${WORKSHOP_TITLE}, 27 September`;
-  }, []);
-
+  usePageSeo("share");
+  const [status, setStatus] = useState("");
+  async function copy() {
+    try {
+      await navigator.clipboard.writeText(SHARE_TEXT);
+      setStatus("Invitation copied.");
+    } catch {
+      setStatus(
+        "Copy unavailable. Select and copy the invitation below, or use Share on WhatsApp.",
+      );
+    }
+  }
   return (
-    <div className="min-h-screen bg-background">
-      <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-lg">
-        <div className="mx-auto max-w-lg px-4 flex h-14 sm:h-16 items-center justify-between">
-          <a href="/" className="flex items-center">
-            <Logo iconClassName="h-8 w-auto" textClassName="text-lg" />
-          </a>
-          <a href="/book" className="text-sm font-medium text-[#c8553d]">
-            Reserve a seat
-          </a>
-        </div>
-      </header>
-
-      <main className="mx-auto max-w-lg px-4 py-8 sm:py-12">
-        <div className="overflow-hidden rounded-3xl border border-[#c8553d]/20 bg-card shadow-e3">
-          <img
-            src="/og-share.jpg"
-            alt="The AI Workshop. You talk. A week of work appears. Workshop #3, The Magic of AI, Sunday 27 September 2026, Salt Lake, 50 seats, ₹799."
-            className="w-full aspect-[1200/630] object-cover"
-          />
-
-          <div className="px-6 py-6 space-y-5">
-            <h1 className="font-serif text-2xl font-semibold text-foreground">
-              Forward this card
-            </h1>
-            <div>
-              <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#c8553d] mb-1.5">
-                Vision
+    <SiteShell sticky={false}>
+      <section className="py-12 sm:py-16">
+        <div className="mx-auto max-w-2xl px-4 sm:px-6">
+          <p className="text-sm font-semibold text-primary">
+            Bring someone who would use this
+          </p>
+          <h1 className="mt-3 font-serif text-4xl font-semibold leading-tight">
+            A useful Sunday,
+            <br />
+            better with a friend.
+          </h1>
+          <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+            Know someone whose meetings end with a pile of follow-ups? Send them
+            the plan. No AI experience needed.
+          </p>
+          <div className="mt-7 overflow-hidden rounded-2xl border border-border bg-card text-card-foreground">
+            <img
+              src="/meetup1/group-selfie.jpg"
+              width={900}
+              height={600}
+              alt="Participants and hosts at the first AI Workshop in June 2026"
+              className="aspect-video w-full object-cover"
+            />
+            <div className="p-6">
+              <h2 className="text-xl font-semibold">{WORKSHOP_TITLE}</h2>
+              <p className="mt-2 text-base leading-relaxed text-muted-foreground">
+                {WORKSHOP_DATE_LABEL}
+                <br />
+                {WORKSHOP_TIME_LABEL} · Salt Lake · {inr(PRICE)}
               </p>
-              <p className="text-[15px] leading-relaxed text-foreground/90">
-                Kolkata's default place to learn applied AI with your own
-                hands. Offline. A store, not a webinar.
-              </p>
-            </div>
-            <div>
-              <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#c8553d] mb-1.5">
-                Mission
-              </p>
-              <p className="text-[15px] leading-relaxed text-foreground/90">
-                One Sunday, one trick, one artifact. You talk. You walk out
-                with work that did not exist at 11am. You open it on Tuesday.
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-border bg-muted/30 p-5">
-              <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#c8553d]">
-                Workshop #{String(WORKSHOP_NUMBER).padStart(2, "0")}
-              </p>
-              <h2 className="mt-1 font-serif text-2xl font-semibold text-foreground">
-                {WORKSHOP_TITLE}
-              </h2>
-              <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
-                <li className="flex items-center gap-2">
-                  <Calendar className="h-4 w-4 text-[#c8553d]" /> {WORKSHOP_DATE_LABEL}
-                </li>
-                <li className="flex items-center gap-2">
-                  <Clock className="h-4 w-4 text-[#c8553d]" /> {WORKSHOP_TIME_LABEL}
-                </li>
-                <li className="flex items-center gap-2">
-                  <MapPin className="h-4 w-4 text-[#c8553d]" /> Salt Lake, Kolkata
-                </li>
-                <li className="flex items-center gap-2">
-                  <Users className="h-4 w-4 text-[#c8553d]" /> {TOTAL_SEATS} seats · {inr(PRICE)}
-                </li>
-              </ul>
             </div>
           </div>
-        </div>
-
-        <div className="mt-6 flex flex-col gap-3">
-          <a
-            href={whatsappHref()}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="pressable inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 text-sm font-bold text-white"
-          >
-            <Share2 className="h-4 w-4" /> Share on WhatsApp
-          </a>
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+            <a
+              href={`https://wa.me/?text=${encodeURIComponent(SHARE_TEXT)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-primary px-6 text-base font-semibold text-primary-foreground"
+            >
+              <Share2 className="size-4" />
+              Share on WhatsApp
+            </a>
+            <button
+              onClick={copy}
+              type="button"
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-border px-6 text-base font-semibold"
+            >
+              <Copy className="size-4" />
+              Copy invitation
+            </button>
+          </div>
+          <p role="status" className="mt-3 text-sm text-muted-foreground">
+            {status}
+          </p>
+          <details className="mt-5 border-t border-border pt-5">
+            <summary className="cursor-pointer font-semibold">
+              Read the invitation
+            </summary>
+            <p className="mt-4 whitespace-pre-line text-base leading-relaxed text-muted-foreground">
+              {SHARE_TEXT}
+            </p>
+          </details>
           <a
             href="/book"
-            className="pressable inline-flex min-h-12 items-center justify-center rounded-full bg-[#c8553d] px-6 text-sm font-bold text-white"
+            className="mt-7 inline-flex min-h-11 items-center font-semibold text-primary"
           >
-            Reserve a seat · {inr(PRICE)}
-          </a>
-          <a
-            href="/#try"
-            className="inline-flex min-h-11 items-center justify-center text-sm text-muted-foreground"
-          >
-            Try the 12-second trailer first
+            Reserve your own seat →
           </a>
         </div>
-
-        <p className="mt-8 text-center text-xs text-muted-foreground">
-          Phone{" "}
-          <a href={`tel:${PHONE_TEL}`} className="underline">
-            {PHONE_DISPLAY}
-          </a>
-          . Forward this card as it is. The preview carries the poster.
-        </p>
-      </main>
-      <ScrollButtons />
-    </div>
+      </section>
+    </SiteShell>
   );
 }

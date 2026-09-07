@@ -5,7 +5,6 @@ import { Input } from "@/components/ui/input";
 import {
   IndianRupee,
   BadgeCheck,
-  TrendingUp,
   ShieldCheck,
   CheckCircle2,
   MessageCircle,
@@ -17,7 +16,7 @@ import {
 import { trackBeginCheckout, trackPurchase, trackContact } from "@/analytics";
 import {
   PRICE,
-  MARKET_VALUE,
+  WORKSHOP_TITLE,
   WORKSHOP_DATE_LABEL,
   inr,
   valueStack,
@@ -45,7 +44,9 @@ export function Registration() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState<"online" | "venue">("online");
+  const [paymentMethod, setPaymentMethod] = useState<"online" | "venue">(
+    "online",
+  );
 
   const handleVenuePayment = async () => {
     setLoading(true);
@@ -58,7 +59,9 @@ export function Registration() {
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
-        setError(apiError(data, "Could not reserve your seat. Please try again."));
+        setError(
+          apiError(data, "Could not reserve your seat. Please try again."),
+        );
         return;
       }
       setSubmitted(true);
@@ -91,7 +94,9 @@ export function Registration() {
 
       const orderData = await orderRes.json().catch(() => ({}));
       if (!orderRes.ok) {
-        setError(apiError(orderData, "Failed to create order. Please try again."));
+        setError(
+          apiError(orderData, "Failed to create order. Please try again."),
+        );
         setLoading(false);
         return;
       }
@@ -133,7 +138,7 @@ export function Registration() {
             setSubmitted(true);
           } else {
             setError(
-              `Payment went through but confirmation failed. Contact support with payment ID ${response.razorpay_payment_id}.`
+              `Payment went through but confirmation failed. Contact support with payment ID ${response.razorpay_payment_id}.`,
             );
           }
           setLoading(false);
@@ -149,7 +154,9 @@ export function Registration() {
       const rzp = new (window as any).Razorpay(options);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       rzp.on("payment.failed", function (response: any) {
-        setError(response?.error?.description || "Payment failed. Please try again.");
+        setError(
+          response?.error?.description || "Payment failed. Please try again.",
+        );
         setLoading(false);
       });
       rzp.open();
@@ -166,51 +173,59 @@ export function Registration() {
         <CardContent className="p-5 sm:p-8">
           <div className="flex items-end gap-3">
             <span className="text-4xl font-extrabold text-foreground flex items-center">
-              <IndianRupee className="h-7 w-7" />{PRICE}
+              <IndianRupee className="h-7 w-7" />
+              {PRICE}
             </span>
-            <span className="text-lg text-muted-foreground line-through mb-1">{inr(MARKET_VALUE)}</span>
+
             <span className="mb-1.5 rounded-full bg-accent/15 px-2.5 py-1 text-xs font-bold text-accent">
               Community price
             </span>
           </div>
-          <p className="mt-1 text-sm font-medium text-primary">Community pricing · Workshop #3 · The Magic of AI</p>
+          <p className="mt-1 text-sm font-medium text-primary">
+            {WORKSHOP_TITLE}
+          </p>
 
           <div className="mt-6 space-y-3">
             {valueStack.map((row, i) => (
-              <div key={i} className="flex items-center justify-between gap-3 text-sm">
+              <div
+                key={i}
+                className="flex items-center justify-between gap-3 text-sm"
+              >
                 <span className="flex items-start gap-2 text-foreground">
                   <BadgeCheck className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
                   {row.item}
                 </span>
-                <span className="text-muted-foreground whitespace-nowrap">{row.value}</span>
+                <span className="text-muted-foreground whitespace-nowrap">
+                  {row.value}
+                </span>
               </div>
             ))}
           </div>
 
           <div className="mt-6 border-t border-border pt-5">
-            <p className="text-sm font-semibold text-muted-foreground mb-2">
-              How much you actually save
+            <p className="text-base font-semibold text-foreground">
+              One job, made repeatable
             </p>
-            <div className="rounded-xl bg-accent/10 border border-accent/20 p-4 flex items-start gap-3">
-              <TrendingUp className="h-5 w-5 text-accent flex-shrink-0 mt-1" />
-              <div>
-                <p className="text-2xl font-extrabold text-foreground">₹3,000–₹8,000 a kit</p>
-                <p className="text-sm text-muted-foreground mt-0.5">
-                  what a freelancer charges for a week of posts and a bio, made in the room, reusable on Tuesday.
-                </p>
-              </div>
-            </div>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+              Bring rough meeting, customer, or client notes. Build an assistant
+              that drafts a recap, next steps, and a follow-up in your tone.
+              Test it on a second example before you leave.
+            </p>
           </div>
 
           <p className="mt-3 text-xs text-muted-foreground leading-relaxed">
-            * A free Google account is enough. Paid Claude or ChatGPT is welcome if you already live there, the recipe is the same. The {inr(PRICE)} covers the hall, any surplus goes back into the community.
+            The {inr(PRICE)} ticket covers the three-hour guided workshop and
+            reusable instructions. We use Gemini on the web. Free-account limits
+            can vary; a saved-instructions version is available if Gem creation
+            is unavailable.
           </p>
 
           <div className="mt-5 rounded-xl bg-background/70 border border-border p-4 flex gap-3">
             <ShieldCheck className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
             <p className="text-sm text-muted-foreground">
-              <strong className="text-foreground">Our promise:</strong> spend the 3 hours with us and
-              you&apos;ll leave with a week of work made from how you talk, or we&apos;ll work with you until you do.
+              <strong className="text-foreground">Our goal:</strong> help you
+              build, test, and save your own follow-up assistant. You review
+              every draft before sending. No automatic messages or inbox access.
             </p>
           </div>
         </CardContent>
@@ -225,7 +240,9 @@ export function Registration() {
                 <CheckCircle2 className="h-8 w-8" />
               </div>
               <h3 className="text-xl font-bold text-foreground mb-2">
-                {paymentMethod === "venue" ? "Seat reserved! 🎉" : "You're in! 🎉"}
+                {paymentMethod === "venue"
+                  ? "Seat reserved! 🎉"
+                  : "You're in! 🎉"}
               </h3>
               <p className="text-muted-foreground">
                 {paymentMethod === "venue"
@@ -235,11 +252,15 @@ export function Registration() {
 
               <div className="mt-6 rounded-xl border border-[#25D366]/30 bg-[#25D366]/5 p-5 text-left">
                 <p className="text-sm font-bold text-foreground flex items-center gap-2">
-                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#25D366] text-white text-xs">1</span>
+                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#25D366] text-white text-xs">
+                    1
+                  </span>
                   One last step
                 </p>
                 <p className="text-sm text-muted-foreground mt-2">
-                  Join the workshop WhatsApp group, it's where we'll share the venue, timings, reminders, and where you'll meet your cohort. Don't skip this!
+                  Join the workshop WhatsApp group, it's where we'll share the
+                  venue, timings, reminders, and where you'll meet your cohort.
+                  Don't skip this!
                 </p>
                 <a
                   href={WHATSAPP_URL}
@@ -256,7 +277,9 @@ export function Registration() {
             <form onSubmit={handleSubmit} className="space-y-4">
               {/* Payment method toggle */}
               <div className="space-y-2 text-left">
-                <label className="text-sm font-medium text-foreground">How would you like to pay?</label>
+                <label className="text-sm font-medium text-foreground">
+                  How would you like to pay?
+                </label>
                 <div className="grid grid-cols-2 gap-2">
                   <button
                     type="button"
@@ -269,7 +292,9 @@ export function Registration() {
                   >
                     <Lock className="h-4 w-4" />
                     Pay Online
-                    <span className="text-xs font-normal opacity-75">UPI · Cards · Netbanking</span>
+                    <span className="text-xs font-normal opacity-75">
+                      UPI · Cards · Netbanking
+                    </span>
                   </button>
                   <button
                     type="button"
@@ -282,19 +307,33 @@ export function Registration() {
                   >
                     <Phone className="h-4 w-4" />
                     Pay at Venue
-                    <span className="text-xs font-normal opacity-75">Cash on the day</span>
+                    <span className="text-xs font-normal opacity-75">
+                      Cash on the day
+                    </span>
                   </button>
                 </div>
                 {paymentMethod === "venue" && (
                   <p className="text-xs text-muted-foreground bg-muted/50 rounded-lg px-3 py-2">
-                    Reserve your seat now, bring <strong className="text-foreground">{inr(PRICE)} cash</strong> on the day. We'll hold your spot until 15 minutes before the session starts.
+                    Reserve your seat now, bring{" "}
+                    <strong className="text-foreground">
+                      {inr(PRICE)} cash
+                    </strong>{" "}
+                    on the day. We'll hold your spot until 15 minutes before the
+                    session starts.
                   </p>
                 )}
               </div>
 
               <div className="space-y-2 text-left">
-                <label className="text-sm font-medium text-foreground">Full Name</label>
+                <label
+                  htmlFor="booking-name"
+                  className="text-sm font-medium text-foreground"
+                >
+                  Full Name
+                </label>
                 <Input
+                  id="booking-name"
+                  autoComplete="name"
                   placeholder="Enter your name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
@@ -303,8 +342,15 @@ export function Registration() {
                 />
               </div>
               <div className="space-y-2 text-left">
-                <label className="text-sm font-medium text-foreground">Phone Number</label>
+                <label
+                  htmlFor="booking-phone"
+                  className="text-sm font-medium text-foreground"
+                >
+                  Phone Number
+                </label>
                 <Input
+                  id="booking-phone"
+                  autoComplete="tel"
                   type="tel"
                   placeholder="+91 98XXX XXXXX"
                   value={phone}
@@ -314,8 +360,15 @@ export function Registration() {
                 />
               </div>
               <div className="space-y-2 text-left">
-                <label className="text-sm font-medium text-foreground">Email Address</label>
+                <label
+                  htmlFor="booking-email"
+                  className="text-sm font-medium text-foreground"
+                >
+                  Email Address
+                </label>
                 <Input
+                  id="booking-email"
+                  autoComplete="email"
                   type="email"
                   placeholder="you@example.com"
                   value={email}
@@ -329,18 +382,27 @@ export function Registration() {
                   {error}
                 </p>
               )}
-              <Button type="submit" size="lg" className="w-full mt-2 min-h-12 text-base" disabled={loading}>
+              <Button
+                type="submit"
+                size="lg"
+                className="w-full mt-2 min-h-12 text-base"
+                disabled={loading}
+              >
                 {loading
                   ? "Processing..."
                   : paymentMethod === "venue"
-                  ? `Reserve · pay ${inr(PRICE)} at venue`
-                  : `Pay ${inr(PRICE)}`}
+                    ? `Reserve · pay ${inr(PRICE)} at venue`
+                    : `Pay ${inr(PRICE)}`}
                 {!loading && <ArrowRight className="ml-2 h-5 w-5" />}
               </Button>
               {paymentMethod === "online" && (
                 <div className="flex items-center justify-center gap-4 pt-1 text-xs text-muted-foreground">
-                  <span className="inline-flex items-center gap-1"><Lock className="h-3.5 w-3.5" /> Secured by Razorpay</span>
-                  <span className="inline-flex items-center gap-1"><Gift className="h-3.5 w-3.5" /> UPI · Cards · Netbanking</span>
+                  <span className="inline-flex items-center gap-1">
+                    <Lock className="h-3.5 w-3.5" /> Secured by Razorpay
+                  </span>
+                  <span className="inline-flex items-center gap-1">
+                    <Gift className="h-3.5 w-3.5" /> UPI · Cards · Netbanking
+                  </span>
                 </div>
               )}
               <p className="text-center text-sm text-muted-foreground pt-2">
