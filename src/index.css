@@ -937,25 +937,6 @@ html[data-nav="back"]::view-transition-new(root) {
   aspect-ratio: 9 / 16;
   cursor: default;
 }
-.gate-body {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  padding: 1.1rem 1.05rem 1.15rem;
-  background:
-    radial-gradient(120% 70% at 50% 0%, rgba(200, 85, 61, 0.18), transparent 60%),
-    #100e0c;
-  color: #f4eee4;
-}
-.gate-rule {
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    rgba(244, 238, 228, 0.28),
-    rgba(244, 238, 228, 0.05)
-  );
-}
 
 /* Terminal readout: the prompt line, typed. Monospace is the only place the
    site breaks its two-family rule — a prompt is a thing you type, not prose. */
@@ -968,9 +949,6 @@ html[data-nav="back"]::view-transition-new(root) {
 }
 .gate-term-dim {
   color: rgba(244, 238, 228, 0.45);
-}
-.gate-term-hot {
-  color: #e8a090;
 }
 
 /* Stage rail: five sprocket-holed frames under the gate, one per stage of the
@@ -991,9 +969,9 @@ html[data-nav="back"]::view-transition-new(root) {
   border: 0;
   border-radius: 2px;
   background: #0a0908;
-  color: rgba(244, 238, 228, 0.5);
-  cursor: pointer;
+  color: rgba(244, 238, 228, 0.62);
   text-align: center;
+  list-style: none;
   font-size: 9.5px;
   font-weight: 700;
   letter-spacing: 0.07em;
