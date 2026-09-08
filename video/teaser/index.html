@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en-IN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <!-- GSAP is vendored: the render browser has no outbound CDN access. -->
+    <script src="./vendor/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body {
+        width: 1080px; height: 1920px; overflow: hidden;
+        background: #100e0c;
+      }
+      body {
+        font-family: "Liberation Sans", Arial, Helvetica, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* ── Brand tokens, lifted from the site ─────────────────────────── */
+      /* ivory #f9f6f0 · terracotta #c8553d · ink #16120f · room #100e0c */
+
+      .stage { position: absolute; inset: 0; }
+      /* Scenes 2-4 are revealed by the timeline; keep them dark until then. */
+      #s2-in, #s3-in, #s4-in { opacity: 0; }
+      .scene {
+        position: absolute; inset: 0;
+        display: flex; flex-direction: column; justify-content: center;
+        padding: 0 96px;
+      }
+      .room { background: #100e0c; color: #f4eee4; }
+      .paper { background: #f9f6f0; color: #241d18; }
+
+      /* Paper grain, the same texture the site lays over everything. */
+      .grain {
+        position: absolute; inset: 0; pointer-events: none; opacity: 0.5;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+      }
+      .edge {
+        position: absolute; left: 0; top: 0; bottom: 0; width: 14px;
+        background: #c8553d;
+      }
+
+      .eyebrow {
+        display: block;
+        font-size: 30px; font-weight: 700; letter-spacing: 0.16em;
+        text-transform: uppercase; color: #c8553d;
+      }
+      .eyebrow-dim { color: rgba(244, 238, 228, 0.66); }
+
+      .display {
+        display: block;
+        font-family: Georgia, "Liberation Serif", serif;
+        font-weight: 700; letter-spacing: -0.02em; line-height: 1.02;
+        font-size: 116px;
+      }
+      .display-sm { font-size: 92px; }
+      .accent { color: #c8553d; }
+
+      /* ── Scene 1: the terminal ──────────────────────────────────────── */
+      .term {
+        display: block;
+        margin-top: 56px; padding: 44px 40px;
+        border: 1px solid rgba(244, 238, 228, 0.16);
+        border-radius: 18px;
+        background: rgba(244, 238, 228, 0.04);
+        font-family: "DejaVu Sans Mono", "Liberation Mono", monospace;
+        font-size: 40px; line-height: 1.5; color: #f4eee4;
+        min-height: 260px;
+      }
+      .term-chevron { color: #c8553d; }
+      .caret {
+        display: inline-block; width: 20px; height: 42px;
+        background: #c8553d; vertical-align: -6px; margin-left: 4px;
+      }
+      .stamp {
+        display: block; margin-top: 64px;
+        font-size: 128px; font-weight: 700; letter-spacing: -0.03em;
+        font-family: Georgia, "Liberation Serif", serif; color: #c8553d;
+      }
+      .stamp-note {
+        display: block; margin-top: 18px;
+        font-size: 34px; line-height: 1.4; color: rgba(244, 238, 228, 0.78);
+      }
+
+      /* ── Scene 3: the pipeline ──────────────────────────────────────── */
+      .rail { display: block; margin-top: 64px; }
+      .step {
+        display: flex; align-items: baseline; gap: 32px;
+        padding: 30px 0;
+        border-bottom: 1px solid rgba(244, 238, 228, 0.12);
+      }
+      .step-n {
+        font-family: Georgia, "Liberation Serif", serif;
+        font-size: 46px; color: #c8553d; width: 92px;
+      }
+      .step-t { font-size: 58px; font-weight: 600; color: #fbf6ea; }
+      .rail-note {
+        display: block; margin-top: 44px;
+        font-size: 36px; line-height: 1.4; color: rgba(244, 238, 228, 0.78);
+      }
+
+      /* ── Scene 4: the card ──────────────────────────────────────────── */
+      .facts { display: block; margin-top: 56px; }
+      .fact {
+        display: block; font-size: 44px; line-height: 1.65; color: #5c5049;
+      }
+      .fact-strong { color: #241d18; font-weight: 700; }
+      .pill {
+        display: inline-block; margin-top: 48px;
+        padding: 26px 52px; border-radius: 999px;
+        background: #c8553d; color: #f9f6f0;
+        font-size: 44px; font-weight: 700;
+      }
+      .url {
+        display: block; margin-top: 44px;
+        font-size: 40px; font-weight: 700; letter-spacing: 0.02em; color: #241d18;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="20"
+      data-width="1080"
+      data-height="1920"
+    >
+      <!-- ── 1. The prompt most people write ─────────────────────────── -->
+      <div id="s1" class="clip stage" data-start="0" data-duration="5.4" data-track-index="1">
+        <div id="s1-in" class="scene room">
+        <div class="grain"></div>
+        <span id="s1-eyebrow" class="eyebrow">The prompt most people write</span>
+        <span class="term"
+          ><span class="term-chevron">&gt;&nbsp;</span><span id="s1-cmd"></span
+          ><span id="s1-caret" class="caret"></span
+        ></span>
+        <span id="s1-stamp" class="stamp">Nine words.</span>
+        <span id="s1-note" class="stamp-note">Everything else, the model guesses.</span>
+        </div>
+      </div>
+
+      <!-- ── 2. The verdict ──────────────────────────────────────────── -->
+      <div id="s2" class="clip stage" data-start="5.4" data-duration="4.2" data-track-index="2">
+        <div id="s2-in" class="scene paper">
+        <div class="grain"></div>
+        <div class="edge"></div>
+        <span id="s2-l1" class="display">That is an idea.</span>
+        <span id="s2-l2" class="display accent">Not a production plan.</span>
+        </div>
+      </div>
+
+      <!-- ── 3. The system ───────────────────────────────────────────── -->
+      <div id="s3" class="clip stage" data-start="9.6" data-duration="5.0" data-track-index="3">
+        <div id="s3-in" class="scene room">
+        <div class="grain"></div>
+        <span id="s3-eyebrow" class="eyebrow eyebrow-dim">One continuous workflow</span>
+        <span class="rail">
+          <span class="step"><span class="step-n">01</span><span class="step-t">Brief</span></span>
+          <span class="step"><span class="step-n">02</span><span class="step-t">Face lock</span></span>
+          <span class="step"><span class="step-n">03</span><span class="step-t">Base stills</span></span>
+          <span class="step"><span class="step-n">04</span><span class="step-t">Motion</span></span>
+          <span class="step"><span class="step-n">05</span><span class="step-t">Voice</span></span>
+        </span>
+        <span id="s3-note" class="rail-note">One output moves forward at a time.</span>
+        </div>
+      </div>
+
+      <!-- ── 4. The card ─────────────────────────────────────────────── -->
+      <div id="s4" class="clip stage" data-start="14.6" data-duration="5.4" data-track-index="4">
+        <div id="s4-in" class="scene paper">
+        <div class="grain"></div>
+        <div class="edge"></div>
+        <span id="s4-eyebrow" class="eyebrow">Offline · Salt Lake, Kolkata</span>
+        <span id="s4-h1" class="display display-sm">Build a complete AI video ad</span>
+        <span id="s4-h2" class="display display-sm accent">in 3 hours.</span>
+        <span id="s4-facts" class="facts">
+          <span class="fact fact-strong">Sunday 27 September · 11 AM – 2 PM</span>
+          <span class="fact">50 seats · Tables of eight · Laptop required</span>
+        </span>
+        <span id="s4-pill" class="pill">Reserve your seat · ₹799</span>
+        <span id="s4-url" class="url">theaiworkshop.in</span>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const CMD = "make a video of a man making coffee in snow";
+      const cmdEl = document.getElementById("s1-cmd");
+      // Scenes 2-4 must be dark before the timeline reveals them, or they
+      // paint over every earlier frame of the render.
+      gsap.set(["#s2-in", "#s3-in", "#s4-in"], { opacity: 0 });
+      const tl = gsap.timeline({ paused: true });
+
+      // ── 1. Type the weak prompt, then stamp the word count ──────────
+      // Text is driven off the tween's own progress, so every seek lands on
+      // the same frame the render will produce.
+      tl.fromTo("#s1-eyebrow", { autoAlpha: 0, y: -18 },
+        { autoAlpha: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.15);
+
+      const typer = { n: 0 };
+      tl.to(typer, {
+        n: CMD.length, duration: 2.1, ease: "none",
+        onUpdate: () => { cmdEl.textContent = CMD.slice(0, Math.round(typer.n)); },
+      }, 0.55);
+
+      // Finite repeat — an infinite one is banned for determinism.
+      tl.to("#s1-caret", { autoAlpha: 0, duration: 0.42, repeat: 4, yoyo: true, ease: "steps(1)" }, 0.55);
+
+      tl.fromTo("#s1-stamp", { autoAlpha: 0, scale: 1.35, y: 24 },
+        { autoAlpha: 1, scale: 1, y: 0, duration: 0.5, ease: "power4.out" }, 3.1);
+      tl.fromTo("#s1-note", { autoAlpha: 0, y: 18 },
+        { autoAlpha: 1, y: 0, duration: 0.45, ease: "power2.out" }, 3.45);
+      tl.to("#s1-caret", { autoAlpha: 0, duration: 0.2, overwrite: "auto" }, 3.0);
+      tl.to("#s1-in", { autoAlpha: 0, duration: 0.3, ease: "power2.in" }, 5.1);
+      tl.set("#s1-in", { autoAlpha: 0 }, 5.4);
+
+      // ── 2. The verdict lands on paper ───────────────────────────────
+      tl.fromTo("#s2-in", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3 }, 5.4);
+      tl.fromTo("#s2-l1", { autoAlpha: 0, y: 46 },
+        { autoAlpha: 1, y: 0, duration: 0.6, ease: "power3.out" }, 5.6);
+      tl.fromTo("#s2-l2", { autoAlpha: 0, y: 46 },
+        { autoAlpha: 1, y: 0, duration: 0.6, ease: "power3.out" }, 6.15);
+      tl.to("#s2-in", { autoAlpha: 0, duration: 0.3, ease: "power2.in" }, 9.3);
+      tl.set("#s2-in", { autoAlpha: 0 }, 9.6);
+
+      // ── 3. The five stages cascade in ───────────────────────────────
+      tl.fromTo("#s3-in", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3 }, 9.6);
+      tl.fromTo("#s3-eyebrow", { autoAlpha: 0, y: -16 },
+        { autoAlpha: 1, y: 0, duration: 0.45, ease: "power2.out" }, 9.75);
+      tl.fromTo("#s3-in .step", { autoAlpha: 0, x: -54 },
+        { autoAlpha: 1, x: 0, duration: 0.5, ease: "power3.out", stagger: 0.34 }, 10.05);
+      tl.fromTo("#s3-note", { autoAlpha: 0, y: 18 },
+        { autoAlpha: 1, y: 0, duration: 0.45, ease: "power2.out" }, 12.35);
+      tl.to("#s3-in", { autoAlpha: 0, duration: 0.3, ease: "power2.in" }, 14.3);
+      tl.set("#s3-in", { autoAlpha: 0 }, 14.6);
+
+      // ── 4. The card ─────────────────────────────────────────────────
+      tl.fromTo("#s4-in", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3 }, 14.6);
+      tl.fromTo("#s4-eyebrow", { autoAlpha: 0, y: -16 },
+        { autoAlpha: 1, y: 0, duration: 0.45, ease: "power2.out" }, 14.8);
+      tl.fromTo("#s4-h1", { autoAlpha: 0, y: 44 },
+        { autoAlpha: 1, y: 0, duration: 0.55, ease: "power3.out" }, 15.0);
+      tl.fromTo("#s4-h2", { autoAlpha: 0, y: 44 },
+        { autoAlpha: 1, y: 0, duration: 0.55, ease: "power3.out" }, 15.35);
+      tl.fromTo("#s4-facts", { autoAlpha: 0, y: 26 },
+        { autoAlpha: 1, y: 0, duration: 0.5, ease: "power2.out" }, 15.85);
+      tl.fromTo("#s4-pill", { autoAlpha: 0, scale: 0.9 },
+        { autoAlpha: 1, scale: 1, duration: 0.45, ease: "back.out(1.6)" }, 16.3);
+      tl.fromTo("#s4-url", { autoAlpha: 0 },
+        { autoAlpha: 1, duration: 0.4, ease: "power2.out" }, 16.75);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
