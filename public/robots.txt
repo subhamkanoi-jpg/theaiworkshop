@@ -90,4 +90,4 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
-Sitemap: https://www.theaiworkshop.in/sitemap.xml
+Sitemap: https://theaiworkshop.in/sitemap.xml

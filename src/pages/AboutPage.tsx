@@ -13,22 +13,22 @@ export default function AboutPage() {
     "@graph": [
       {
         "@type": "AboutPage",
-        "@id": "https://www.theaiworkshop.in/about#webpage",
-        url: "https://www.theaiworkshop.in/about",
+        "@id": "https://theaiworkshop.in/about#webpage",
+        url: "https://theaiworkshop.in/about",
         name: "About The AI Workshop",
         description:
           LOCAL.name + " is Kolkata's offline AI workshop in Salt Lake.",
         dateModified: "2026-08-30",
         inLanguage: "en-IN",
-        isPartOf: { "@id": "https://www.theaiworkshop.in/#website" },
-        about: { "@id": "https://www.theaiworkshop.in/#organization" },
+        isPartOf: { "@id": "https://theaiworkshop.in/#website" },
+        about: { "@id": "https://theaiworkshop.in/#organization" },
       },
       ...hosts.map((h) => ({
         "@type": "Person",
         name: h.name,
         jobTitle: "Host",
-        worksFor: { "@id": "https://www.theaiworkshop.in/#organization" },
-        image: `https://www.theaiworkshop.in${h.src}`,
+        worksFor: { "@id": "https://theaiworkshop.in/#organization" },
+        image: `https://theaiworkshop.in${h.src}`,
         address: {
           "@type": "PostalAddress",
           addressLocality: "Kolkata",

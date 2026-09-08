@@ -41,7 +41,7 @@ Also update `index.html` / `book.html` structured data and social meta when the 
 - Online: `POST /api/create-order` → Razorpay Checkout → `POST /api/verify-payment`
 - Venue hold: `POST /api/reserve` (occupies a seat until cancelled in Razorpay)
 - Seat cap is enforced on both paths
-- Add a Razorpay webhook to `https://www.theaiworkshop.in/api/razorpay-webhook` for `payment.captured`, and set `RAZORPAY_WEBHOOK_SECRET`
+- Add a Razorpay webhook to `https://theaiworkshop.in/api/razorpay-webhook` for `payment.captured`, and set `RAZORPAY_WEBHOOK_SECRET`
 
 Admin UI: `/api/admin` (enter `ADMIN_ACCESS_KEY`; it is sent as `X-Admin-Key`, not in the URL)
 

@@ -13,13 +13,13 @@ export default function AnswersPage() {
     "@graph": [
       {
         "@type": "FAQPage",
-        "@id": "https://www.theaiworkshop.in/answers#faq",
-        url: "https://www.theaiworkshop.in/answers",
+        "@id": "https://theaiworkshop.in/answers#faq",
+        url: "https://theaiworkshop.in/answers",
         name: "The AI Workshop, answers Kolkata asks",
         dateModified: "2026-08-30",
         inLanguage: "en-IN",
-        isPartOf: { "@id": "https://www.theaiworkshop.in/#website" },
-        about: { "@id": "https://www.theaiworkshop.in/#organization" },
+        isPartOf: { "@id": "https://theaiworkshop.in/#website" },
+        about: { "@id": "https://theaiworkshop.in/#organization" },
         mainEntity: elmo.prompts.map((p) => ({
           "@type": "Question",
           name: p.value,

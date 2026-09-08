@@ -927,3 +927,178 @@ html[data-nav="back"]::view-transition-new(root) {
 
 
 
+
+/* ── The production gate ───────────────────────────────────────────────────
+   A vertical 9:16 sibling of the cinema gate. The ad is shot for a phone, so
+   the thing on the page that stands for the ad is shaped like a phone. Dark
+   hardware sitting on ivory paper — the same contrast the Sunday reel uses,
+   scaled down to a single column. */
+.cinema-screen-vert {
+  aspect-ratio: 9 / 16;
+  cursor: default;
+}
+.gate-body {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 1.1rem 1.05rem 1.15rem;
+  background:
+    radial-gradient(120% 70% at 50% 0%, rgba(200, 85, 61, 0.18), transparent 60%),
+    #100e0c;
+  color: #f4eee4;
+}
+.gate-rule {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(244, 238, 228, 0.28),
+    rgba(244, 238, 228, 0.05)
+  );
+}
+
+/* Terminal readout: the prompt line, typed. Monospace is the only place the
+   site breaks its two-family rule — a prompt is a thing you type, not prose. */
+.gate-term {
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 11.5px;
+  line-height: 1.65;
+  color: #f4eee4;
+  overflow-wrap: anywhere;
+}
+.gate-term-dim {
+  color: rgba(244, 238, 228, 0.45);
+}
+.gate-term-hot {
+  color: #e8a090;
+}
+
+/* Stage rail: five sprocket-holed frames under the gate, one per stage of the
+   run. Reads as film, behaves as a tab list. */
+.stage-rail {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 4px;
+  margin-top: 0.55rem;
+  padding: 9px 7px 10px;
+  border-radius: 0.7rem;
+  background: #1a1612;
+  box-shadow: inset 0 0 0 1px rgba(244, 238, 228, 0.06);
+}
+.stage-cell {
+  position: relative;
+  padding: 0.55rem 0.2rem 0.4rem;
+  border: 0;
+  border-radius: 2px;
+  background: #0a0908;
+  color: rgba(244, 238, 228, 0.5);
+  cursor: pointer;
+  text-align: center;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  transition: color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+.stage-cell::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  right: 4px;
+  top: 2px;
+  height: 5px;
+  background-image: radial-gradient(circle at 4px 2.5px, #100e0c 1.8px, transparent 2px);
+  background-size: 8px 5px;
+  background-repeat: repeat-x;
+  pointer-events: none;
+}
+.stage-cell[aria-selected="true"] {
+  color: #fbf6ea;
+  background: #16120f;
+  box-shadow: 0 0 0 2px #c8553d;
+}
+.stage-cell b {
+  display: block;
+  font-size: 12px;
+  color: #e8a090;
+  letter-spacing: 0.04em;
+}
+.stage-cell[aria-selected="true"] b {
+  color: #c8553d;
+}
+
+/* ── Slate: the artifact card ──────────────────────────────────────────────
+   A clapper board, flattened. Black header stripe with the artifact number,
+   ivory body with what you actually carry home. */
+.slate {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  background: hsl(var(--card));
+  box-shadow: var(--elev-1);
+  border: 1px solid hsl(var(--border));
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .slate:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--elev-2);
+  }
+}
+.slate-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.55rem 0.9rem;
+  background: #16120f;
+  color: #f4eee4;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+/* The diagonal clapper teeth along the top edge. */
+.slate-head::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background-image: repeating-linear-gradient(
+    115deg,
+    #f4eee4 0 9px,
+    #16120f 9px 18px
+  );
+  opacity: 0.9;
+}
+.slate-num {
+  color: #e8a090;
+}
+
+/* ── Filter columns: the door policy ───────────────────────────────────────
+   Two lists, one green edge and one grey, so the answer is legible before a
+   word is read. */
+.door {
+  position: relative;
+  border-radius: var(--radius);
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--card));
+  padding: 1.5rem;
+}
+.door::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  border-radius: var(--radius) 0 0 var(--radius);
+  background: hsl(var(--muted-foreground) / 0.35);
+}
+.door-in::before {
+  background: linear-gradient(180deg, hsl(var(--primary)), hsl(var(--accent)));
+}

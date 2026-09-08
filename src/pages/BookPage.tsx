@@ -49,8 +49,8 @@ export default function BookPage() {
               {WORKSHOP_TITLE}
             </h2>
             <p className="mt-3 text-base leading-relaxed text-muted-foreground">
-              Build a reusable assistant for recaps, action lists, and follow-up
-              drafts.
+              One vertical ad, built end to end: face lock, base stills,
+              motion, voice.
               <br />
               {WORKSHOP_TIME_LABEL} · {TOTAL_SEATS} seats · {inr(PRICE)}
             </p>
@@ -73,8 +73,8 @@ export default function BookPage() {
                 >
                   {PHONE_DISPLAY}
                 </a>
-                . This assistant drafts messages; it does not send them
-                automatically.
+                . The ticket covers the room and the system; image, video,
+                and voice credits are your own.
               </p>
             </div>
           </div>

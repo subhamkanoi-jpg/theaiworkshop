@@ -1,5 +1,5 @@
 The AI Workshop
 An offline space for non-techies to put AI to work, one real use-case project at a time.
-Public brief: https://www.theaiworkshop.in/llms.txt
-Current workshop: https://www.theaiworkshop.in/workshop
-Updated: 2026-09-07
+Public brief: https://theaiworkshop.in/llms.txt
+Current workshop: https://theaiworkshop.in/workshop
+Updated: 2026-09-08

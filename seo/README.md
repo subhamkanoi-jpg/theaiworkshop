@@ -17,7 +17,7 @@ v-serpbear does not make you rank. It tells you whether you are.
 | LocalBusiness schema + NAP in the footer | Map Pack / GBP alignment |
 | Unique HTML shells per route | Google no longer sees one title for every URL |
 
-Google Search Console: add `https://www.theaiworkshop.in/`, submit `sitemap.xml`, request index on `/` and `/kolkata`.
+Google Search Console: add `https://theaiworkshop.in/`, submit `sitemap.xml`, request index on `/` and `/kolkata`.
 
 **Google Business Profile (you, in the browser — cannot be done from git):**
 
@@ -25,7 +25,7 @@ Google Search Console: add `https://www.theaiworkshop.in/`, submit `sitemap.xml`
 - Category: Educational consultant / Computer training school
 - Location: Salt Lake, Kolkata, West Bengal
 - Service area: Kolkata
-- Website: https://www.theaiworkshop.in/kolkata
+- Website: https://theaiworkshop.in/kolkata
 - Phone: +91 98307 15557
 - Photos: meetup1 images from `/public/meetup1/`
 - Posts: every Sunday workshop
@@ -42,7 +42,7 @@ docker compose -f seo/docker-compose.yml --env-file seo/.env up -d
 
 Open http://localhost:3030
 
-1. Add domain `https://www.theaiworkshop.in`
+1. Add domain `https://theaiworkshop.in`
 2. Scraper tab: city **Kolkata**, country **IN**, business name **The AI Workshop**
 3. Pick a scraper that returns Map Pack (ValueSerp, SerpAPI, SearchAPI, HasData, Serply, SpaceSerp)
 4. Seed:
@@ -75,10 +75,10 @@ Config: `.geo-optimizer.yml`. CI: `.github/workflows/geo.yml` (Monday 06:00 UTC 
 
 ```bash
 pip install geo-optimizer-skill
-geo audit --url https://www.theaiworkshop.in
+geo audit --url https://theaiworkshop.in
 ```
 
-That score is citeability, not a promise ChatGPT will mention us. After deploy: confirm `https://www.theaiworkshop.in/llms.txt`, `/.well-known/ai.txt`, `/ai/summary.json` return 200 (not the SPA HTML). Then run the audit. Google Search Console: submit sitemap, request index on `/` and `/kolkata`.
+That score is citeability, not a promise ChatGPT will mention us. After deploy: confirm `https://theaiworkshop.in/llms.txt`, `/.well-known/ai.txt`, `/ai/summary.json` return 200 (not the SPA HTML). Then run the audit. Google Search Console: submit sitemap, request index on `/` and `/kolkata`.
 
 ## Mentions (Elmo)
 
