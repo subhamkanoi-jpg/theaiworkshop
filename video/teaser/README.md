@@ -4,7 +4,8 @@ A 20-second vertical (1080×1920) promo built with [HyperFrames](https://hyperfr
 which renders video from HTML. The whole composition is `index.html`: DOM declares
 timing with `data-*` attributes and one paused GSAP timeline drives the motion.
 
-`tow-teaser-9x16.mp4` is the rendered output — H.264, 30 fps, 20.0s, 2.2 MB.
+The rendered output lives in `public/cinema/`, where the site serves it from
+the hero — there is deliberately no second copy in this folder to drift from it.
 
 ## What it says
 
@@ -23,9 +24,20 @@ Needs Node 22+ and FFmpeg on PATH.
 
 ```bash
 cd video/teaser
-npx hyperframes check                     # lint, runtime, layout, motion, contrast
-npx hyperframes preview --background      # Studio timeline for edits
-npx hyperframes render --quality high --output tow-teaser-9x16.mp4
+npx hyperframes check                 # lint, runtime, layout, motion, contrast
+npx hyperframes preview --background  # Studio timeline for edits
+npx hyperframes render --quality high --output ../../public/cinema/teaser-9x16.mp4
+
+cd ../..
+# Faststart so playback can begin before the file finishes downloading.
+ffmpeg -y -i public/cinema/teaser-9x16.mp4 -c copy -movflags +faststart tmp.mp4 \
+  && mv tmp.mp4 public/cinema/teaser-9x16.mp4
+# VP9 at roughly a third the bytes; the hero offers it first.
+ffmpeg -y -i public/cinema/teaser-9x16.mp4 -c:v libvpx-vp9 -b:v 0 -crf 34 \
+  -row-mt 1 -cpu-used 5 -an public/cinema/teaser-9x16.webm
+# Poster, used if autoplay is blocked.
+ffmpeg -y -ss 4.2 -i public/cinema/teaser-9x16.mp4 -frames:v 1 -q:v 3 \
+  public/cinema/teaser-poster.jpg
 ```
 
 GSAP is vendored in `vendor/` rather than loaded from a CDN, so the render

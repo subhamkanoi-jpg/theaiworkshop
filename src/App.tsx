@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { trackViewContent } from "@/analytics";
 import { usePageSeo } from "@/hooks/usePageSeo";
 import { SiteShell } from "@/components/SiteChrome";
-import { PipelineGate } from "@/components/PipelineGate";
 import { KitchenRule } from "@/components/KitchenRule";
 import { ReserveButton } from "@/components/ReserveButton";
 import {
@@ -34,6 +33,8 @@ const artifacts = workshopContent.outcomes.map((outcome, i) => ({
   title: outcome.slice(0, outcome.indexOf(":")),
   spec: SPECS[i],
 }));
+
+const STAGES = ["Brief", "Face lock", "Base stills", "Motion", "Voice"];
 
 /** Times and three-word titles. The detail lives on /workshop. */
 const RUN = [
@@ -108,7 +109,38 @@ export default function App() {
                 <li>No experience</li>
               </ul>
             </div>
-            <PipelineGate />
+            <div className="mx-auto w-full max-w-[19rem] sm:max-w-[21rem]">
+              <div className="cinema-gate">
+                <div className="cinema-screen cinema-screen-vert">
+                  {/* VP9 first at a third the bytes; H.264 for everything
+                      that will not take it. */}
+                  <video
+                    className="h-full w-full object-cover"
+                    poster="/cinema/teaser-poster.jpg"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
+                    aria-label="A twenty-second ad built with the workshop's own system"
+                  >
+                    <source src="/cinema/teaser-9x16.webm" type="video/webm" />
+                    <source src="/cinema/teaser-9x16.mp4" type="video/mp4" />
+                  </video>
+                </div>
+              </div>
+              <ul className="stage-rail" aria-label="The five stages">
+                {STAGES.map((stage, i) => (
+                  <li key={stage} className="stage-cell">
+                    <b>{String(i + 1).padStart(2, "0")}</b>
+                    {stage}
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-3 text-center text-xs text-muted-foreground">
+                Made with the system you will learn.
+              </p>
+            </div>
           </div>
         </div>
       </section>
