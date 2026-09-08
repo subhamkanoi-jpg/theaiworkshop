@@ -50,10 +50,29 @@ export const SUPPORT_EMAIL = workshop.supportEmail;
 
 export const workshopContent = workshop;
 
-export const valueStack = workshop.outcomes.map((item) => ({
-  item,
-  value: "Included",
+/** The file each stage leaves on your laptop, named the way the system names
+ *  it. The landing page and the booking summary both render this, so the list
+ *  lives here rather than in either of them. */
+export const ARTIFACT_SPECS = [
+  "Face_Lock_Master.png",
+  "Scene_01_BaseImage.png",
+  "Scene_01_Video.mp4",
+  "VO_Final.mp3",
+  "TOW_Prompt_Stack.txt",
+] as const;
+
+export const artifacts = workshop.outcomes.map((outcome, i) => ({
+  title: outcome.slice(0, outcome.indexOf(":")),
+  spec: ARTIFACT_SPECS[i],
 }));
+
+/** The booking page's offer summary: a title and the file, not a paragraph. */
+export const valueStack = artifacts.map((a) => ({
+  item: a.title,
+  value: a.spec,
+}));
+
+export const BRING_SHORT = workshop.bringShort;
 
 export const hosts = [
   { name: "Yogesh Kanoi", src: "/yogesh.jpg", pos: "center 15%" },

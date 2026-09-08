@@ -10,7 +10,7 @@ import {
   TOTAL_SEATS,
   PHONE_TEL,
   PHONE_DISPLAY,
-  BRING_LABEL,
+  BRING_SHORT,
   inr,
 } from "@/config";
 import { trackViewContent } from "@/analytics";
@@ -48,10 +48,7 @@ export default function BookPage() {
             <h2 className="mt-4 text-xl font-semibold text-balance">
               {WORKSHOP_TITLE}
             </h2>
-            <p className="mt-3 text-base leading-relaxed text-muted-foreground">
-              One vertical ad, built end to end: face lock, base stills,
-              motion, voice.
-              <br />
+            <p className="mt-3 text-base text-muted-foreground">
               {WORKSHOP_TIME_LABEL} · {TOTAL_SEATS} seats · {inr(PRICE)}
             </p>
           </div>
@@ -60,21 +57,25 @@ export default function BookPage() {
           <div className="mx-auto max-w-5xl px-4 sm:px-6">
             <Registration />
             <div className="mt-8 rounded-2xl border border-border p-5">
-              <h2 className="font-semibold">Before you arrive</h2>
-              <p className="mt-2 text-base leading-relaxed text-muted-foreground">
-                {BRING_LABEL}
-              </p>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                Exact venue shared after reservation. Check travel or
-                accessibility before booking:{" "}
+              <h2 className="font-semibold">Bring</h2>
+              <ul className="mt-3 flex flex-wrap gap-2">
+                {BRING_SHORT.map((item) => (
+                  <li
+                    key={item}
+                    className="rounded-full border border-border px-3 py-1.5 text-sm"
+                  >
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-4 text-sm text-muted-foreground">
+                Venue emailed on booking. Questions?{" "}
                 <a
                   className="font-semibold text-primary underline"
                   href={`tel:${PHONE_TEL}`}
                 >
                   {PHONE_DISPLAY}
                 </a>
-                . The ticket covers the room and the system; image, video,
-                and voice credits are your own.
               </p>
             </div>
           </div>

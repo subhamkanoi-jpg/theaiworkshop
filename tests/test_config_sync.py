@@ -203,6 +203,38 @@ def test_page_copy_does_not_contradict_the_venue_faqs():
         assert "Power at the tables is limited" not in text, path.name
 
 
+def test_each_page_declares_only_the_faqs_it_renders():
+    """FAQ structured data may not answer questions its page does not show."""
+    expected = {
+        "index.html": len(CFG["localFaqs"]),
+        "workshop.html": 5,
+        "answers.html": len(CFG["faqs"]),
+    }
+    for name, count in expected.items():
+        faqs = [i for i in graph_of(html(name)) if i["@type"] == "FAQPage"]
+        assert len(faqs) == 1, f"{name} should carry exactly one FAQPage"
+        assert len(faqs[0]["mainEntity"]) == count, name
+    # The five on /workshop are the first five, and the page slices the same way.
+    page = (ROOT / "src/pages/WorkshopPage.tsx").read_text(encoding="utf-8")
+    assert "workshopContent.faqs.slice(0, 5)" in page
+    names = [
+        q["name"]
+        for q in next(
+            i for i in graph_of(html("workshop.html")) if i["@type"] == "FAQPage"
+        )["mainEntity"]
+    ]
+    assert names == [f["q"] for f in CFG["faqs"][:5]]
+
+
+def test_booking_page_keeps_its_payment_path():
+    """Trimming copy must never take the checkout with it."""
+    book = html("book.html")
+    assert "https://checkout.razorpay.com/v1/checkout.js" in book
+    registration = (ROOT / "src/components/Registration.tsx").read_text(encoding="utf-8")
+    for marker in ("Razorpay", "valueStack", "razorpay_signature"):
+        assert marker in registration, f"Booking flow lost {marker}"
+
+
 def test_teaser_end_card_matches_the_live_offer():
     """The teaser's end card is typed into the composition, not read from JSON.
 

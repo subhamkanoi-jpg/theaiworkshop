@@ -202,32 +202,22 @@ export function Registration() {
             ))}
           </div>
 
-          <div className="mt-6 border-t border-border pt-5">
-            <p className="text-base font-semibold text-foreground">
-              One job, made repeatable
-            </p>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              Bring one product, service, or offer you actually sell. Build the
-              ad for it — face lock, base stills, motion, voice — in the room,
-              then leave with the prompt stack that made it.
-            </p>
-          </div>
+          <ul className="mt-6 flex flex-wrap gap-2 border-t border-border pt-5 text-xs text-muted-foreground">
+            {[
+              "Refund up to 48h before",
+              "Holds released 15 min after kickoff",
+              "Tool credits ₹500–1,500, yours",
+            ].map((chip) => (
+              <li key={chip} className="rounded-full border border-border px-3 py-1.5">
+                {chip}
+              </li>
+            ))}
+          </ul>
 
-          <p className="mt-3 text-xs text-muted-foreground leading-relaxed">
-            The {inr(PRICE)} ticket covers the three-hour guided production
-            run, a table captain, and the prompt system you keep. Image, video,
-            and voice tools run on credits you supply — budget roughly ₹500 to
-            ₹1,500 to render a full ad on the day.
+          <p className="mt-4 flex gap-2 text-sm text-muted-foreground">
+            <ShieldCheck className="h-5 w-5 flex-shrink-0 text-accent" />
+            Bring one thing you sell. Leave with the ad for it.
           </p>
-
-          <div className="mt-5 rounded-xl bg-background/70 border border-border p-4 flex gap-3">
-            <ShieldCheck className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
-            <p className="text-sm text-muted-foreground">
-              <strong className="text-foreground">Our goal:</strong> you leave
-              with a rendered ad and the recipe that made it. The actor is
-              generated, not cloned from a real person.
-            </p>
-          </div>
         </CardContent>
       </Card>
 

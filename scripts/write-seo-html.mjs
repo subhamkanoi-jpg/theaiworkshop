@@ -101,10 +101,20 @@ const question = (faq) => ({
 // page actually renders. The home page answers the local logistics questions
 // and sends the rest to /workshop and /answers, so that is exactly what its
 // node declares.
+// Each page declares exactly the questions it renders: home answers the venue
+// and travel set, /workshop the five that decide a booking, /answers all of
+// them.
+const PRIMARY_FAQ_COUNT = 5;
+const faqsFor = (key) =>
+  key === "home"
+    ? w.localFaqs
+    : key === "workshop"
+      ? w.faqs.slice(0, PRIMARY_FAQ_COUNT)
+      : w.faqs;
 const faqSchemaFor = (key) => ({
   "@type": "FAQPage",
   "@id": `${origin}${key === "home" ? "/" : `/${key}`}#faq`,
-  mainEntity: (key === "home" ? w.localFaqs : w.faqs).map(question),
+  mainEntity: faqsFor(key).map(question),
 });
 // One address for every entity on the site. A local pack is built on NAP
 // agreement, so Organization, LocalBusiness and the Event's Place all read
@@ -225,7 +235,7 @@ for (const [key, page] of Object.entries(pages)) {
     null,
     2,
   ).replace(/</g, "\\u003c");
-  const fallback = `<h1>${esc(key === "home" ? "AI Video Ad Workshop in Kolkata" : page.title)}</h1><p>${esc(descriptions[key])}</p>${baseHtml}${["home", "kolkata"].includes(key) ? gettingThereHtml : ""}${key === "workshop" ? `<h2>The three-hour plan</h2>${agendaHtml}` : ""}${key === "home" ? `<h2>Venue, travel and refunds</h2>${localFaqHtml}` : ""}${["workshop", "answers"].includes(key) ? `<h2>Questions and answers</h2>${faqHtml}` : ""}<p><a href="/workshop">Workshop details</a> · <a href="/book">Reserve your seat</a> · <a href="/room">The June workshop</a> · <a href="/about">About</a></p>`;
+  const fallback = `<h1>${esc(key === "home" ? "AI Video Ad Workshop in Kolkata" : page.title)}</h1><p>${esc(descriptions[key])}</p>${baseHtml}${["home", "kolkata"].includes(key) ? gettingThereHtml : ""}${key === "workshop" ? `<h2>The three-hour plan</h2>${agendaHtml}` : ""}${key === "home" ? `<h2>Venue, travel and refunds</h2>${localFaqHtml}` : ""}${["workshop", "answers"].includes(key) ? `<h2>Questions and answers</h2>${faqListHtml(faqsFor(key))}` : ""}<p><a href="/workshop">Workshop details</a> · <a href="/book">Reserve your seat</a> · <a href="/room">The June workshop</a> · <a href="/about">About</a></p>`;
   write(
     key === "home" ? "index.html" : `${key}.html`,
     `<!DOCTYPE html>
