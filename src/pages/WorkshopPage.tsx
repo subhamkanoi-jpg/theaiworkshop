@@ -29,7 +29,7 @@ export default function WorkshopPage() {
         <div className="mx-auto max-w-3xl px-4 sm:px-6">
           <Breadcrumbs items={[{ label: "27 September workshop" }]} />
           <p className="mb-4 text-sm font-semibold text-primary">
-            One project · No coding · In person
+            One finished ad · No filmmaking background · In person
           </p>
           <h1 className="font-serif text-4xl font-semibold leading-tight tracking-tight text-balance sm:text-5xl">
             {WORKSHOP_TITLE}
@@ -55,14 +55,15 @@ export default function WorkshopPage() {
             <ReserveButton />
           </div>
           <p className="mt-4 text-sm text-muted-foreground">
-            {inr(PRICE)} · {TOTAL_SEATS} seats · Laptop recommended
+            {inr(PRICE)} · {TOTAL_SEATS} seats · Laptop required
           </p>
         </div>
       </section>
       <section className="border-b border-border py-12 sm:py-16">
         <div className="mx-auto max-w-3xl px-4 sm:px-6">
           <h2 className="font-serif text-3xl font-semibold leading-tight">
-            Not another prompt collection. Your own working assistant.
+            Not another prompt collection. One rendered ad and the recipe that
+            made it.
           </h2>
           <ul className="mt-7 flex flex-col gap-4">
             {workshopContent.outcomes.map((item) => (
@@ -73,16 +74,17 @@ export default function WorkshopPage() {
             ))}
           </ul>
           <p className="mt-6 text-base leading-relaxed text-muted-foreground">
-            A Gem is a saved assistant inside Google Gemini. You give it a job,
-            rules, and a preferred format. You still supply the notes, check the
-            draft, and decide what to send. If Gem creation is unavailable, we
-            save the same instructions for use in a normal chat.
+            The recipe is a stack of prompts, one per stage, that you keep on
+            your own laptop. Each stage takes the approved output of the last
+            one and hands a single result to the next. That is the whole trick:
+            no stage starts from a blank window, and nothing gets carried
+            forward in four competing versions.
           </p>
           <a
-            href="/#try"
+            href="/#recipe"
             className="mt-4 inline-flex min-h-11 items-center gap-2 font-semibold text-primary"
           >
-            See an example before you book <ArrowRight className="size-4" />
+            See the system before you book <ArrowRight className="size-4" />
           </a>
         </div>
       </section>
@@ -92,7 +94,7 @@ export default function WorkshopPage() {
             The full three hours
           </p>
           <h2 className="mt-3 font-serif text-3xl font-semibold">
-            Watch a little. Build a lot.
+            Four blocks. Every one ends with a file.
           </h2>
           <ol className="mt-8 flex flex-col gap-7">
             {workshopContent.agenda.map((step) => (
@@ -121,27 +123,29 @@ export default function WorkshopPage() {
                 {BRING_LABEL}
               </p>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                Phone-only is fine for the chat-and-saved-instructions version.
-                Sign in before arriving so account recovery does not take up
-                your workshop.
+                A phone is not enough for this one. Sign in to your tool
+                accounts before you arrive, and top up credits beforehand if you
+                want to render the full ad on the day — password recovery is a
+                miserable way to spend block one.
               </p>
             </div>
             <div>
               <h2 className="text-xl font-semibold">
-                Leave private data at home
+                Whose face, whose voice
               </h2>
               <p className="mt-3 text-base leading-relaxed text-muted-foreground">
-                Use anonymised notes you have permission to share. No patient
-                records, client secrets, salary details, passwords, or private
-                chat exports. Follow your employer&apos;s AI policy. Our
-                fictional examples work just as well.
+                The actor we build is generated, not cloned from a real person.
+                Do not upload photographs of anybody who has not agreed to it,
+                and if you clone a voice, clone your own. No confidential client
+                files, contracts, or unreleased product material. Follow your
+                employer&apos;s AI policy.
               </p>
             </div>
           </div>
           <p className="mt-8 rounded-2xl border border-border bg-muted/30 p-5 text-base leading-relaxed text-foreground">
-            <strong>What this is not:</strong> inbox integration, a call
-            recorder, automatic WhatsApp sending, or an agent that chases
-            customers. The project drafts a follow-up. You stay in control.
+            <strong>What this is not:</strong> a media-buying class, a
+            promise about how your ad will perform, or a tour of forty tools.
+            It is one workflow, run end to end, until a file exists.
           </p>
         </div>
       </section>
@@ -168,8 +172,9 @@ export default function WorkshopPage() {
             One useful Sunday. {inr(PRICE)}.
           </h2>
           <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-            A three-hour guided build, reusable instructions, and practice on
-            your own example. Pay online or reserve to pay cash at the venue.
+            A three-hour guided production run, a table captain, and the prompt
+            stack you keep. Image, video, and voice credits are your own. Pay
+            online or reserve to pay cash at the venue.
           </p>
           <div className="mt-7">
             <ReserveButton />

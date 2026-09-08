@@ -107,7 +107,7 @@ export default function KolkataPage() {
           </h2>
           <p className="mt-4 text-base leading-relaxed text-muted-foreground">
             Our first workshop was about building and hosting websites. On 27
-            September, the project is an AI follow-up assistant. The format
+            September, the project is a complete AI video ad. The format
             stays the same: learn together, build on your own device, and leave
             with something useful.
           </p>

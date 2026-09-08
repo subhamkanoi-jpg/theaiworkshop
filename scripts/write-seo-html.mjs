@@ -28,16 +28,16 @@ const history =
   "Our first workshop in June 2026 was about making websites and hosting them. Each workshop stands alone; no earlier session is required.";
 const descriptions = {
   home: `${w.mission} Next: ${w.title}, 27 September 2026. Offline in Salt Lake, Kolkata. ₹${w.price}.`,
-  workshop: `Build an AI assistant for meeting recaps, action lists, and follow-up drafts. 27 September 2026, Salt Lake, Kolkata. 3 hours, ₹${w.price}. No coding.`,
-  book: `Reserve ${w.title}. ${facts} Laptop recommended. Beginners welcome.`,
+  workshop: `Build one finished vertical AI video ad in three hours: face lock, base stills, Veo motion, ElevenLabs voice. 27 September 2026, Salt Lake, Kolkata. ₹${w.price}. No filmmaking background.`,
+  book: `Reserve ${w.title}. ${facts} Laptop required. No filmmaking background needed.`,
   path: "Learn AI through one real use-case project at a time. Offline workshops for non-techies in Salt Lake, Kolkata. Each session stands alone.",
   room: "Photos, hosts, and websites from The AI Workshop’s first session in June 2026. An offline learning space for non-techies in Salt Lake, Kolkata.",
   host: "Help non-techies build a practical AI project in person. Host a table with The AI Workshop in Salt Lake, Kolkata.",
   about: `${w.mission} Based in Salt Lake, Kolkata, and hosted by Yogesh, Neeraj, and Subham Kanoi.`,
   kolkata: `Learn AI in Kolkata, one practical project at a time. Next: ${w.title}, 27 September 2026. Salt Lake, offline, ₹${w.price}.`,
   answers:
-    "Practical answers about The AI Workshop: September’s project, tools, privacy, venue, ticket, and what beginners need to bring.",
-  share: `Invite a friend to ${w.title}. ${facts} One practical offline project for non-techies.`,
+    "Practical answers about The AI Workshop: September’s AI video ad build, the tools and credits it needs, privacy, venue, ticket, and what to bring.",
+  share: `Invite a friend to ${w.title}. ${facts} One finished ad, built in the room, in three hours.`,
 };
 const titles = {
   home: "The AI Workshop | Practical AI for Non-Techies, Kolkata",
@@ -69,11 +69,11 @@ const pages = Object.fromEntries(
 );
 json("src/seo/pages.json", pages);
 pack.personas = [
-  { id: "pro", label: "Non-technical professionals and managers" },
-  { id: "business", label: "Business owners handling customers and suppliers" },
+  { id: "founder", label: "D2C founders and local business owners running their own ads" },
+  { id: "agency", label: "Agency owners and video creators producing client work" },
   {
-    id: "consultant",
-    label: "Consultants and freelancers working with clients",
+    id: "freelancer",
+    label: "Freelancers and marketers with no filmmaking background",
   },
 ];
 pack.prompts = w.faqs.map((faq, index) => ({
@@ -267,7 +267,7 @@ const brief = `# The AI Workshop\n\n> ${w.mission}\n\nUpdated ${modified}.\n\n##
 write("public/llms.txt", brief);
 write(
   "public/llms-full.txt",
-  `${brief}\n## Session plan\n\n${w.agenda.map((a) => `### ${a.time}: ${a.title}\n\n${a.body}`).join("\n\n")}\n\n## Contact\n\n${w.phoneDisplay} · ${w.supportEmail}\n\nHosts: Yogesh Kanoi, Neeraj Kanoi, Subham Kanoi.\n\n## Scope\n\nThe assistant drafts from participant-supplied notes. It does not send messages, record calls, connect an inbox, or operate in the background. Future workshop topics and dates have not been announced.\n`,
+  `${brief}\n## Session plan\n\n${w.agenda.map((a) => `### ${a.time}: ${a.title}\n\n${a.body}`).join("\n\n")}\n\n## Contact\n\n${w.phoneDisplay} · ${w.supportEmail}\n\nHosts: Yogesh Kanoi, Neeraj Kanoi, Subham Kanoi.\n\n## Scope\n\nParticipants build one ad for their own product using generated characters, not clones of real people. Image, video, and voice tools run on credits the participant supplies; the ticket does not include them. The session does not buy media, run campaigns, or promise advertising results. Future workshop topics and dates have not been announced.\n`,
 );
 for (const key of ["about", "kolkata", "answers"])
   write(

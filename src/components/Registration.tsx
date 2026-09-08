@@ -207,25 +207,25 @@ export function Registration() {
               One job, made repeatable
             </p>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              Bring rough meeting, customer, or client notes. Build an assistant
-              that drafts a recap, next steps, and a follow-up in your tone.
-              Test it on a second example before you leave.
+              Bring one product, service, or offer you actually sell. Build the
+              ad for it — face lock, base stills, motion, voice — in the room,
+              then leave with the prompt stack that made it.
             </p>
           </div>
 
           <p className="mt-3 text-xs text-muted-foreground leading-relaxed">
-            The {inr(PRICE)} ticket covers the three-hour guided workshop and
-            reusable instructions. We use Gemini on the web. Free-account limits
-            can vary; a saved-instructions version is available if Gem creation
-            is unavailable.
+            The {inr(PRICE)} ticket covers the three-hour guided production
+            run, a table captain, and the prompt system you keep. Image, video,
+            and voice tools run on credits you supply — budget roughly ₹500 to
+            ₹1,500 to render a full ad on the day.
           </p>
 
           <div className="mt-5 rounded-xl bg-background/70 border border-border p-4 flex gap-3">
             <ShieldCheck className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
             <p className="text-sm text-muted-foreground">
-              <strong className="text-foreground">Our goal:</strong> help you
-              build, test, and save your own follow-up assistant. You review
-              every draft before sending. No automatic messages or inbox access.
+              <strong className="text-foreground">Our goal:</strong> you leave
+              with a rendered ad and the recipe that made it. The actor is
+              generated, not cloned from a real person.
             </p>
           </div>
         </CardContent>

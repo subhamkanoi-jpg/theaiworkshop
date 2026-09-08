@@ -2,25 +2,25 @@
   "home": {
     "path": "/",
     "title": "The AI Workshop | Practical AI for Non-Techies, Kolkata",
-    "description": "An offline space for non-techies to put AI to work, one real use-case project at a time. Next: Build Your AI Follow-up Assistant, 27 September 2026. Offline in Salt Lake, Kolkata. ₹799.",
+    "description": "An offline space for non-techies to put AI to work, one real use-case project at a time. Next: Build a Complete AI Video Ad From Scratch, 27 September 2026. Offline in Salt Lake, Kolkata. ₹799.",
     "ogTitle": "The AI Workshop · One real project at a time",
-    "ogDescription": "An offline space for non-techies to put AI to work, one real use-case project at a time. Next: Build Your AI Follow-up Assistant, 27 September 2026. Offline in Salt Lake, Kolkata. ₹799.",
+    "ogDescription": "An offline space for non-techies to put AI to work, one real use-case project at a time. Next: Build a Complete AI Video Ad From Scratch, 27 September 2026. Offline in Salt Lake, Kolkata. ₹799.",
     "ogImage": "https://www.theaiworkshop.in/meetup1/group-selfie.jpg"
   },
   "workshop": {
     "path": "/workshop",
-    "title": "Build Your AI Follow-up Assistant | 27 September, Kolkata",
-    "description": "Build an AI assistant for meeting recaps, action lists, and follow-up drafts. 27 September 2026, Salt Lake, Kolkata. 3 hours, ₹799. No coding.",
-    "ogTitle": "Build Your AI Follow-up Assistant | 27 September, Kolkata",
-    "ogDescription": "Build an AI assistant for meeting recaps, action lists, and follow-up drafts. 27 September 2026, Salt Lake, Kolkata. 3 hours, ₹799. No coding.",
+    "title": "Build a Complete AI Video Ad From Scratch | 27 September, Kolkata",
+    "description": "Build one finished vertical AI video ad in three hours: face lock, base stills, Veo motion, ElevenLabs voice. 27 September 2026, Salt Lake, Kolkata. ₹799. No filmmaking background.",
+    "ogTitle": "Build a Complete AI Video Ad From Scratch | 27 September, Kolkata",
+    "ogDescription": "Build one finished vertical AI video ad in three hours: face lock, base stills, Veo motion, ElevenLabs voice. 27 September 2026, Salt Lake, Kolkata. ₹799. No filmmaking background.",
     "ogImage": "https://www.theaiworkshop.in/meetup1/group-selfie.jpg"
   },
   "book": {
     "path": "/book",
-    "title": "Book Your Seat | Build Your AI Follow-up Assistant, 27 September",
-    "description": "Reserve Build Your AI Follow-up Assistant. Sunday, 27 September 2026, 11:00 AM – 2:00 PM. Salt Lake, Kolkata. 50 seats. ₹799. Laptop recommended. Beginners welcome.",
-    "ogTitle": "Book Your Seat | Build Your AI Follow-up Assistant, 27 September",
-    "ogDescription": "Reserve Build Your AI Follow-up Assistant. Sunday, 27 September 2026, 11:00 AM – 2:00 PM. Salt Lake, Kolkata. 50 seats. ₹799. Laptop recommended. Beginners welcome.",
+    "title": "Book Your Seat | Build a Complete AI Video Ad From Scratch, 27 September",
+    "description": "Reserve Build a Complete AI Video Ad From Scratch. Sunday, 27 September 2026, 11:00 AM – 2:00 PM. Salt Lake, Kolkata. 50 seats. ₹799. Laptop required. No filmmaking background needed.",
+    "ogTitle": "Book Your Seat | Build a Complete AI Video Ad From Scratch, 27 September",
+    "ogDescription": "Reserve Build a Complete AI Video Ad From Scratch. Sunday, 27 September 2026, 11:00 AM – 2:00 PM. Salt Lake, Kolkata. 50 seats. ₹799. Laptop required. No filmmaking background needed.",
     "ogImage": "https://www.theaiworkshop.in/meetup1/group-selfie.jpg"
   },
   "path": {
@@ -58,25 +58,25 @@
   "kolkata": {
     "path": "/kolkata",
     "title": "Learn AI in Kolkata | Offline Workshop in Salt Lake",
-    "description": "Learn AI in Kolkata, one practical project at a time. Next: Build Your AI Follow-up Assistant, 27 September 2026. Salt Lake, offline, ₹799.",
+    "description": "Learn AI in Kolkata, one practical project at a time. Next: Build a Complete AI Video Ad From Scratch, 27 September 2026. Salt Lake, offline, ₹799.",
     "ogTitle": "Learn AI in Kolkata | Offline Workshop in Salt Lake",
-    "ogDescription": "Learn AI in Kolkata, one practical project at a time. Next: Build Your AI Follow-up Assistant, 27 September 2026. Salt Lake, offline, ₹799.",
+    "ogDescription": "Learn AI in Kolkata, one practical project at a time. Next: Build a Complete AI Video Ad From Scratch, 27 September 2026. Salt Lake, offline, ₹799.",
     "ogImage": "https://www.theaiworkshop.in/meetup1/group-selfie.jpg"
   },
   "answers": {
     "path": "/answers",
     "title": "Questions and Answers | The AI Workshop",
-    "description": "Practical answers about The AI Workshop: September’s project, tools, privacy, venue, ticket, and what beginners need to bring.",
+    "description": "Practical answers about The AI Workshop: September’s AI video ad build, the tools and credits it needs, privacy, venue, ticket, and what to bring.",
     "ogTitle": "Questions and Answers | The AI Workshop",
-    "ogDescription": "Practical answers about The AI Workshop: September’s project, tools, privacy, venue, ticket, and what beginners need to bring.",
+    "ogDescription": "Practical answers about The AI Workshop: September’s AI video ad build, the tools and credits it needs, privacy, venue, ticket, and what to bring.",
     "ogImage": "https://www.theaiworkshop.in/meetup1/group-selfie.jpg"
   },
   "share": {
     "path": "/share",
-    "title": "Share Build Your AI Follow-up Assistant | The AI Workshop",
-    "description": "Invite a friend to Build Your AI Follow-up Assistant. Sunday, 27 September 2026, 11:00 AM – 2:00 PM. Salt Lake, Kolkata. 50 seats. ₹799. One practical offline project for non-techies.",
-    "ogTitle": "Share Build Your AI Follow-up Assistant | The AI Workshop",
-    "ogDescription": "Invite a friend to Build Your AI Follow-up Assistant. Sunday, 27 September 2026, 11:00 AM – 2:00 PM. Salt Lake, Kolkata. 50 seats. ₹799. One practical offline project for non-techies.",
+    "title": "Share Build a Complete AI Video Ad From Scratch | The AI Workshop",
+    "description": "Invite a friend to Build a Complete AI Video Ad From Scratch. Sunday, 27 September 2026, 11:00 AM – 2:00 PM. Salt Lake, Kolkata. 50 seats. ₹799. One finished ad, built in the room, in three hours.",
+    "ogTitle": "Share Build a Complete AI Video Ad From Scratch | The AI Workshop",
+    "ogDescription": "Invite a friend to Build a Complete AI Video Ad From Scratch. Sunday, 27 September 2026, 11:00 AM – 2:00 PM. Salt Lake, Kolkata. 50 seats. ₹799. One finished ad, built in the room, in three hours.",
     "ogImage": "https://www.theaiworkshop.in/meetup1/group-selfie.jpg"
   }
 }

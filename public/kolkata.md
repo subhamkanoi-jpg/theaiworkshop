@@ -1,49 +1,49 @@
 # Learn AI in Kolkata | Offline Workshop in Salt Lake
 
-Learn AI in Kolkata, one practical project at a time. Next: Build Your AI Follow-up Assistant, 27 September 2026. Salt Lake, offline, ₹799.
+Learn AI in Kolkata, one practical project at a time. Next: Build a Complete AI Video Ad From Scratch, 27 September 2026. Salt Lake, offline, ₹799.
 
 Sunday, 27 September 2026, 11:00 AM – 2:00 PM. Salt Lake, Kolkata. 50 seats. ₹799.
 
 Our first workshop in June 2026 was about making websites and hosting them. Each workshop stands alone; no earlier session is required.
 
-### Do I need any technical experience?
+### Do I need a filmmaking or editing background?
 
-No coding, automation tools, or AI experience is required. If you can type a message and use a web browser, you can take part. We build step by step in the room.
+No. The system replaces the film-school parts with written instructions: what the camera does, how the light falls, what stays the same between shots. If you can type and follow steps in order, you can produce the ad. We start from an empty chat window in the room.
 
-### Is this useful if I do not run a business?
+### What exactly will I have finished by 2:00 PM?
 
-Yes. Professionals can use meeting or project notes; business owners can use customer or supplier conversations; consultants can use client calls. Everyone builds the same notes-to-follow-up assistant with their own context.
+One vertical ad for one product or offer: a face-locked character, four to six base stills, the motion clips generated from them, a voiceover, and the stitched edit on your laptop. You also leave with the prompt stack saved, so the second ad does not start from scratch.
 
-### What exactly will I build on 27 September?
+### Do the tools cost money?
 
-A reusable follow-up assistant, one reviewed recap with an action list and message draft, and a second test on new notes. You save it as a Gemini Gem or reusable instructions. This is one practical project, not a tour of AI tools.
+Some do, and we will not pretend otherwise. Strategy and prompt writing run on the free tiers of ChatGPT or Claude. Image generation, Veo video generation, and ElevenLabs voice all work on credits, and free allowances are small and change often. Budget roughly ₹500 to ₹1,500 of your own credits if you want to render a full ad on the day. We will show you where credits get wasted so you spend fewer of them.
 
-### How is this different from asking ChatGPT to write an email?
+### Why do my AI videos look plastic and distorted right now?
 
-You set up reusable instructions for your work, tone, and output format. You teach the assistant to separate facts from missing information, test it on two examples, and learn how to check the result. The goal is repeatable work, not one impressive answer.
+Usually because the prompt gave the tool an idea instead of a production plan, and because a weak base image was pushed straight into video. A person melting between frames is almost always a base image problem, not a video problem. The session fixes the order of operations: lock the face, approve the still, then add motion.
 
-### Do I need a paid AI subscription?
+### Can I use my own product, or do I need to invent one?
 
-The session is designed around a free personal Google account and Gemini on the web. Features and usage limits can vary. If Gem creation is unavailable on your account, the same instructions work in a normal chat and can be saved in a document. No paid upgrade is required for the core exercise.
+Bring your own. D2C founders, agency owners, freelancers, and local business owners get the most out of the day because the output is an ad they can actually run. If you do not have one ready, we hand you a brief at the table and you build with that.
+
+### Is this a webinar I can join from home?
+
+No. It is offline in Salt Lake, Kolkata, and there is no recording or livestream. The room is the method: fifty people, tables of eight, and a captain at each table who can look at your screen when a render comes back wrong.
+
+### Will the ad be ready to run as a paid campaign?
+
+You leave with a finished, rendered ad. Whether it converts depends on your offer, your targeting, and your budget, and no workshop can promise that. What we can promise is that you will know how the file was made and be able to make the next one without us.
 
 ### Can I attend with only a phone?
 
-A laptop is recommended for creating and testing your Gem in a browser. A phone can be used for the chat-and-saved-instructions version. Sign in to your Google account before you arrive and bring your charger.
+Not usefully. Image and video generation, prompt management, and stitching the edit all need a browser and a real screen. Bring a laptop and a charger. Power at the tables is limited, so arrive charged.
 
-### Will it send WhatsApp messages or emails automatically?
+### What about faces, brands, and confidential material?
 
-No. It creates drafts from notes you provide. It does not connect to your inbox, record calls, send messages, or chase people in the background. You check, edit, and send each message yourself.
-
-### Can I use confidential client or company information?
-
-Please do not bring private client, employee, patient, financial, or company data. Use anonymised notes you have permission to share, or our fictional samples. Follow your employer’s AI policy. Never record someone without their permission.
-
-### Do I need to have attended the June workshop?
-
-No. Each workshop stands on its own. Our first session in June 2026 was about building and hosting websites. September is a different project and starts from the basics.
+Do not upload photographs of real people without their permission, and do not bring confidential client files, contracts, or unreleased product material. The characters we build are generated, not cloned from a real person. If you clone your own voice, use your own recording. Follow your employer's AI policy.
 
 ### Where is it, and what does the ticket include?
 
-The workshop is offline in Salt Lake, Kolkata, on Sunday 27 September 2026, 11:00 AM–2:00 PM. The ticket is ₹799 for the three-hour guided session and reusable instructions. There are 50 seats. The exact venue is shared after reservation; contact us before booking if you need to check travel or accessibility.
+Offline in Salt Lake, Kolkata, on Sunday 27 September 2026, 11:00 AM to 2:00 PM. The ticket is ₹799 for the three-hour production run, the table captains, and the prompt system you keep. There are 50 seats. The exact venue is shared after reservation. Full refund up to 48 hours before the session; venue holds are released 15 minutes after kickoff.
 
 [Workshop details](https://www.theaiworkshop.in/workshop)

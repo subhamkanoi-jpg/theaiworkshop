@@ -18,7 +18,7 @@ export default function HostPage() {
             Captain a table. Then teach.
           </h1>
           <p className="mt-5 text-xl text-muted-foreground leading-relaxed">
-            Help beginners build their AI follow-up assistant on 27 September.
+            Help eight people get a finished AI ad rendered on 27 September.
             If you joined the June workshop or have practical AI experience, you
             can help someone get unstuck. Guide people at their own device; let
             them do the building.

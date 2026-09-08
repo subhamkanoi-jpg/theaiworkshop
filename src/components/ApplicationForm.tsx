@@ -96,7 +96,7 @@ export function ApplicationForm() {
           What do you want AI to do for your business?
         </label>
         <Textarea
-          placeholder="e.g. Cut video editing costs, automate client follow-ups, build a website without an agency…"
+          placeholder="e.g. Make ads for my D2C brand without an agency, stop paying per reel, shoot without a shoot…"
           value={aiGoal}
           onChange={(e) => setAiGoal(e.target.value)}
           rows={3}

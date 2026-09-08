@@ -10,15 +10,15 @@ import {
 } from "@/config";
 import { Copy, Share2 } from "lucide-react";
 
-const SHARE_TEXT = `Still writing every work follow-up from scratch?
+const SHARE_TEXT = `Still paying per reel, or still getting plastic-looking AI video?
 
 Join The AI Workshop in Salt Lake, Kolkata: ${WORKSHOP_TITLE}.
 
-Turn rough notes from a meeting, customer enquiry, or client call into a recap, action list, and follow-up draft. Build your own reusable assistant—no coding or paid AI subscription required. You review and send; nothing is sent automatically.
+Three hours, one continuous workflow — brief, face lock, base stills, motion, voice. You walk in with an idea and walk out with a finished vertical ad on your laptop, plus the prompt stack to build the next one. No filmmaking background needed.
 
 ${WORKSHOP_DATE_LABEL}
 ${WORKSHOP_TIME_LABEL} · ${inr(PRICE)} · Offline
-Laptop recommended. Beginners welcome.
+Laptop required. 50 seats, tables of eight.
 
 https://www.theaiworkshop.in/workshop`;
 
@@ -48,8 +48,9 @@ export default function SharePage() {
             better with a friend.
           </h1>
           <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-            Know someone whose meetings end with a pile of follow-ups? Send them
-            the plan. No AI experience needed.
+            Know someone whose ads cost more than they earn, or who keeps
+            deleting distorted AI renders? Send them the plan. No filmmaking
+            background needed.
           </p>
           <div className="mt-7 overflow-hidden rounded-2xl border border-border bg-card text-card-foreground">
             <img
