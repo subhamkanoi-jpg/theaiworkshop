@@ -201,3 +201,45 @@ def test_page_copy_does_not_contradict_the_venue_faqs():
     for path in list(ROOT.glob("src/**/*.tsx")) + list(ROOT.glob("*.html")):
         text = path.read_text(encoding="utf-8")
         assert "Power at the tables is limited" not in text, path.name
+
+
+def test_teaser_end_card_matches_the_live_offer():
+    """The teaser's end card is typed into the composition, not read from JSON.
+
+    Nothing else stops the video from advertising last month's price after
+    workshop.json moves on, and the rendered MP4/WebM in public/cinema/ are
+    built from this file — so the facts are pinned here instead.
+    """
+    composition = (ROOT / "video/teaser/index.html").read_text(encoding="utf-8")
+    year, month, day = (int(part) for part in CFG["dateIso"].split("-"))
+    month_name = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December",
+    ][month - 1]
+    expected = {
+        "date": f"{day} {month_name}",
+        "price": f"₹{CFG['price']}",
+        "seats": f"{CFG['totalSeats']} seats",
+        "host": ORIGIN.removeprefix("https://"),
+    }
+    for label, value in expected.items():
+        assert value in composition, (
+            f"Teaser end card is stale: {label} should read {value!r}. "
+            "Update video/teaser/index.html and re-render into public/cinema/ "
+            "(see video/teaser/README.md)."
+        )
+    assert year == 2026
+
+
+def test_teaser_renders_are_served_from_public():
+    """The hero plays these; a missing source silently falls back to the poster."""
+    for asset in ("teaser-9x16.webm", "teaser-9x16.mp4", "teaser-poster.jpg"):
+        path = ROOT / "public/cinema" / asset
+        assert path.is_file(), f"Missing hero video asset: {asset}"
+        assert path.stat().st_size > 1024, f"Hero video asset looks empty: {asset}"
+    # WebM is offered first precisely because it is the smaller download.
+    webm = (ROOT / "public/cinema/teaser-9x16.webm").stat().st_size
+    mp4 = (ROOT / "public/cinema/teaser-9x16.mp4").stat().st_size
+    assert webm < mp4, "WebM should be the smaller source, or it should not go first"
+    app = (ROOT / "src/App.tsx").read_text(encoding="utf-8")
+    assert app.index("teaser-9x16.webm") < app.index("teaser-9x16.mp4")
