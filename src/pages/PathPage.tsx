@@ -20,41 +20,35 @@ export default function PathPage() {
             One project at a time.
           </h1>
           <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
-            AI is easier to understand when it helps with something you already
-            care about. We are an offline space for non-techies to try it, ask
-            questions, and build something useful—not a syllabus of tools to
-            memorise.
+            One project you care about. Not a syllabus of tools.
           </p>
         </div>
       </section>
       <section className="border-b border-border py-12 sm:py-16">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6">
           <h2 className="font-serif text-3xl font-semibold">
             How every workshop works
           </h2>
-          <ol className="mt-8 flex flex-col gap-7">
+          <ol className="mt-8 grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-5">
             {briefLoop.map((step) => (
-              <li key={step.n} className="flex gap-5">
-                <span className="text-xl font-semibold text-primary">
+              <li key={step.n} className="flex flex-col gap-2 bg-card p-5">
+                <span className="font-serif text-2xl font-semibold text-primary">
                   {step.n}
                 </span>
-                <div>
-                  <h3 className="text-lg font-semibold">{step.title}</h3>
-                  <p className="mt-2 text-base leading-relaxed text-muted-foreground">
-                    {step.body}
-                  </p>
-                </div>
+                <span className="text-base font-medium leading-snug">
+                  {step.title}
+                </span>
               </li>
             ))}
           </ol>
         </div>
       </section>
       <section className="border-b border-border bg-muted/30 py-12 sm:py-16">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6">
           <h2 className="font-serif text-3xl font-semibold">
             Where we started. What is next.
           </h2>
-          <div className="mt-8 flex flex-col gap-5">
+          <div className="mt-8 grid gap-5 sm:grid-cols-2">
             {archive.map((event) => (
               <article
                 key={event.number}
@@ -78,10 +72,8 @@ export default function PathPage() {
               </article>
             ))}
           </div>
-          <p className="mt-6 text-base leading-relaxed text-muted-foreground">
-            Future topics are not a fixed course or a promised calendar. We will
-            choose them around useful tasks people want to implement. You can
-            join any session without attending the earlier ones.
+          <p className="mt-6 text-base text-muted-foreground">
+            No fixed calendar. Every session stands alone.
           </p>
         </div>
       </section>

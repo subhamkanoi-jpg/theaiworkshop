@@ -9,7 +9,6 @@ import {
   PRICE,
   TOTAL_SEATS,
   inr,
-  workshopContent,
 } from "@/config";
 import { LOCAL } from "@/seo/local";
 
@@ -29,9 +28,7 @@ export default function KolkataPage() {
             Use it in your real work.
           </h1>
           <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
-            The AI Workshop is an offline space for non-techies to build one
-            useful project at a time. Join other professionals, business owners,
-            and consultants. No coding background or previous workshop required.
+            Offline. One useful project at a time. No coding background.
           </p>
           <p lang="bn" className="mt-4 text-lg leading-relaxed">
             কলকাতায় AI শিখুন। সল্ট লেকে, নিজের হাতে। টেক ডিগ্রি লাগবে না।
@@ -47,7 +44,7 @@ export default function KolkataPage() {
             Next: {WORKSHOP_TITLE}
           </h2>
           <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-            {workshopContent.description}
+            Three hours. Five stages. One rendered ad.
           </p>
           <p className="mt-4 text-base leading-relaxed">
             {WORKSHOP_DATE_LABEL} · {WORKSHOP_TIME_LABEL}
@@ -67,14 +64,20 @@ export default function KolkataPage() {
           <h2 className="font-serif text-3xl font-semibold">
             Where in Kolkata?
           </h2>
-          <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-            Salt Lake Sector 1 (Bidhannagar), reachable on the Metro Green Line
-            at Salt Lake or City Centre, and about five minutes by cab from
-            Ultadanga and the EM Bypass. The exact unit is emailed as soon as
-            you book. If you are travelling from New Town, Howrah, or elsewhere
-            in Kolkata, check your route before setting out, and contact us
-            before booking for travel or accessibility questions.
-          </p>
+          <ul className="mt-5 flex flex-wrap gap-2">
+            {[
+              "Metro Green Line · Salt Lake / City Centre",
+              "5 min by cab from Ultadanga",
+              "Exact unit emailed on booking",
+            ].map((chip) => (
+              <li
+                key={chip}
+                className="rounded-full border border-border bg-card px-4 py-2 text-sm font-medium"
+              >
+                {chip}
+              </li>
+            ))}
+          </ul>
           <address className="mt-6 not-italic text-base leading-relaxed">
             <span className="font-semibold">{LOCAL.venueName}</span>
             <br />
@@ -110,10 +113,7 @@ export default function KolkataPage() {
             Built around real projects since June 2026
           </h2>
           <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-            Our first workshop was about building and hosting websites. On 27
-            September, the project is a complete AI video ad. The format
-            stays the same: learn together, build on your own device, and leave
-            with something useful.
+            June 2026: websites. 27 September: a complete AI video ad.
           </p>
           <a
             href="/room"

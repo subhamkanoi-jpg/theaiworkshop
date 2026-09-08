@@ -88,33 +88,26 @@ export function BecomeHost() {
             Have you shipped a Sunday with us?
           </h3>
           <p className="mt-3 text-muted-foreground leading-relaxed">
-            27 September is 50 people. That only works if alumni stand on the floor as table
-            captains, or if you&apos;re ready to teach a use-case you have actually shipped. Start
-            as a captain. Then host a Sunday.
+            Start as a captain. Then host a Sunday.
           </p>
 
-          <div className="mt-6 space-y-3 text-sm">
-            <div className="flex items-start gap-2 text-foreground">
-              <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
-              You bring a real, proven use-case, not just theory.
-            </div>
-            <div className="flex items-start gap-2 text-foreground">
-              <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
-              We handle the venue, the crowd, and the logistics.
-            </div>
-            <div className="flex items-start gap-2 text-foreground">
-              <CheckCircle2 className="h-4 w-4 text-primary flex-shrink-0 mt-0.5" />
-              Workshops run on a Saturday or Sunday, pick a date that suits you.
-            </div>
-          </div>
+          <ul className="mt-6 space-y-3 text-sm">
+            {[
+              "You bring a use-case you have shipped",
+              "We handle venue, crowd and logistics",
+              "You pick the date",
+            ].map((item) => (
+              <li key={item} className="flex items-start gap-2 text-foreground">
+                <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-primary" />
+                {item}
+              </li>
+            ))}
+          </ul>
 
-          <div className="mt-6 rounded-xl bg-background/70 border border-border p-4 flex gap-3">
-            <Users className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
-            <p className="text-sm text-muted-foreground">
-              <strong className="text-foreground">The vision:</strong> a community where anyone with
-              a working AI use-case can teach it, and anyone curious can learn it.
-            </p>
-          </div>
+          <p className="mt-6 flex gap-3 rounded-xl border border-border bg-background/70 p-4 text-sm text-muted-foreground">
+            <Users className="mt-0.5 h-5 w-5 flex-shrink-0 text-accent" />
+            Anyone with a working use-case can teach it.
+          </p>
         </CardContent>
       </Card>
 
