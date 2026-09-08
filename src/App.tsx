@@ -12,27 +12,11 @@ import {
   TOTAL_SEATS,
   inr,
   hosts,
+  artifacts,
   workshopContent,
 } from "@/config";
 import { LOCAL } from "@/seo/local";
 import { ArrowRight, Check, Minus, MapPin } from "lucide-react";
-
-/**
- * The artifact rail. Titles come from workshop.json; the filename is the whole
- * argument, so the prose that used to sit under each one is gone.
- */
-const SPECS = [
-  "Face_Lock_Master.png",
-  "Scene_01_BaseImage.png",
-  "Scene_01_Video.mp4",
-  "VO_Final.mp3",
-  "TOW_Prompt_Stack.txt",
-];
-
-const artifacts = workshopContent.outcomes.map((outcome, i) => ({
-  title: outcome.slice(0, outcome.indexOf(":")),
-  spec: SPECS[i],
-}));
 
 const STAGES = ["Brief", "Face lock", "Base stills", "Motion", "Voice"];
 

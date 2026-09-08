@@ -49,18 +49,8 @@ export default function AboutPage() {
             The AI Workshop
           </h1>
           <p className="mt-4 text-[17px] sm:text-xl text-muted-foreground leading-relaxed">
-            An offline space in Salt Lake, Kolkata, for non-techies to put AI to
-            work—one real use-case project at a time. We started in June 2026
-            with a workshop on making websites and hosting them. Each session
-            stands alone: bring a practical task, build with guidance, and leave
-            knowing how to use what you made.
-          </p>
-          <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-            We welcome professionals, business owners, consultants, and curious
-            beginners. You do not need a technical background or a plan to
-            change careers. The point is to make AI useful in the work you
-            already do. Your hosts are Yogesh Kanoi, Neeraj Kanoi, and Subham
-            Kanoi.
+            An offline space in Salt Lake, Kolkata. One real project at a time.
+            Started June 2026. Every session stands alone.
           </p>
           <dl className="mt-8 space-y-3 text-sm">
             <div>

@@ -89,7 +89,7 @@
   "prompts": [
     {
       "id": "workshop-question-1",
-      "value": "Do I need a filmmaking or editing background?",
+      "value": "Need a filmmaking background?",
       "tags": [
         "workshop",
         "beginner"
@@ -99,7 +99,7 @@
     },
     {
       "id": "workshop-question-2",
-      "value": "What exactly will I have finished by 2:00 PM?",
+      "value": "What is finished by 2:00 PM?",
       "tags": [
         "workshop",
         "beginner"
@@ -119,7 +119,7 @@
     },
     {
       "id": "workshop-question-4",
-      "value": "Why do my AI videos look plastic and distorted right now?",
+      "value": "Why do my AI videos look plastic?",
       "tags": [
         "workshop",
         "beginner"
@@ -129,7 +129,7 @@
     },
     {
       "id": "workshop-question-5",
-      "value": "Can I use my own product, or do I need to invent one?",
+      "value": "Can I use my own product?",
       "tags": [
         "workshop",
         "beginner"
@@ -139,7 +139,7 @@
     },
     {
       "id": "workshop-question-6",
-      "value": "Is this a webinar I can join from home?",
+      "value": "Can I join from home?",
       "tags": [
         "workshop",
         "beginner"
@@ -149,7 +149,7 @@
     },
     {
       "id": "workshop-question-7",
-      "value": "Will the ad be ready to run as a paid campaign?",
+      "value": "Is the ad ready to run?",
       "tags": [
         "workshop",
         "beginner"
@@ -169,7 +169,7 @@
     },
     {
       "id": "workshop-question-9",
-      "value": "What about faces, brands, and confidential material?",
+      "value": "What about faces and confidential material?",
       "tags": [
         "workshop",
         "beginner"
@@ -179,7 +179,7 @@
     },
     {
       "id": "workshop-question-10",
-      "value": "Where is it, and what does the ticket include?",
+      "value": "Where is it, and what is included?",
       "tags": [
         "workshop",
         "beginner"

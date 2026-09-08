@@ -6,7 +6,7 @@ export const archive = [
     date: "June 2026",
     title: "Build and host a website",
     chapter: "First workshop",
-    artifact: "Participants made websites and learned to put them online.",
+    artifact: "Websites, live by the end of the day.",
     status: "shipped" as const,
   },
   {
@@ -14,7 +14,7 @@ export const archive = [
     date: workshopContent.dateLabel,
     title: workshopContent.title,
     chapter: "Next project",
-    artifact: workshopContent.artifact,
+    artifact: "One rendered vertical ad, plus the recipe.",
     status: "next" as const,
   },
 ];

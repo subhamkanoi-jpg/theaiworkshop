@@ -43,29 +43,27 @@ export default function AnswersPage() {
             <span className="italic text-[#c8553d]">answers Kolkata actually asks.</span>
           </h1>
           <p className="mt-4 text-[17px] sm:text-xl text-muted-foreground leading-relaxed">
-            These are the questions people type into answer engines. Short facts,
-            then the page to read. Legal name: The AI Workshop. Also called AI
-            Workshop Kolkata. Offline in Salt Lake. Not an online course.
+            Offline in Salt Lake, Kolkata. Not an online course.
           </p>
         </div>
       </article>
 
       <section className="py-10 sm:py-16">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6 space-y-10">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6">
           {elmo.prompts.map((p) => (
-            <div key={p.id} id={p.id} className="border-b border-border/60 pb-10">
-              <h2 className="font-serif text-[1.45rem] sm:text-2xl font-semibold text-foreground leading-snug">
+            <details key={p.id} id={p.id} className="border-b border-border py-4">
+              <summary className="cursor-pointer font-semibold leading-snug">
                 {p.value}
-              </h2>
-              <p className="mt-3 text-muted-foreground leading-relaxed">{p.answer}</p>
-              <p className="mt-3">
-                <a href={p.cite} className="font-semibold text-[#c8553d]">
-                  Read more →
-                </a>
+              </summary>
+              <p className="mt-3 leading-relaxed text-muted-foreground">
+                {p.answer}
               </p>
-            </div>
+              <a href={p.cite} className="mt-3 inline-block font-semibold text-[#c8553d]">
+                Read more →
+              </a>
+            </details>
           ))}
-          <div className="pt-2">
+          <div className="pt-8">
             <ReserveButton />
           </div>
         </div>
