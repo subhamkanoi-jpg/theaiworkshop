@@ -14,46 +14,41 @@ const STAGES = [
     stamp: "01",
     name: "Brief",
     tool: "ChatGPT / Claude",
-    takes: "One sentence about what you sell",
-    gives: "Audience, angle, and one chosen format",
+    takes: "One sentence",
+    gives: "Audience, angle, format",
     line: 'We sell copper water dispensers for people who want healthier, better-looking homes.',
-    note: "Not “a holistic lifestyle solution for modern consumers.” Write it like you would say it to a friend.",
   },
   {
     stamp: "02",
     name: "Face lock",
     tool: "Nano Banana Pro",
-    takes: "The brief and the script",
-    gives: "One headshot. One person. Reused all day.",
+    takes: "The brief",
+    gives: "One face, reused all day",
     line: "One person only, shoulders-up, neutral background, real skin texture, continuity-safe identity reference.",
-    note: "No collage, no contact sheet, no four outfits. This is the identity card of your actor, and everything downstream depends on it.",
   },
   {
     stamp: "03",
     name: "Base stills",
     tool: "Nano Banana Pro",
-    takes: "Scene breakdown plus the face-lock block",
-    gives: "Four to six approved 9:16 frames",
+    takes: "The scene breakdown",
+    gives: "Four to six 9:16 frames",
     line: "Full character description repeated, exact action, framing, lens, lighting, product placement, aspect ratio 9:16.",
-    note: "Every scene prompt stands alone. The tool remembers nothing, so continuity is something you type, not something you hope for.",
   },
   {
     stamp: "04",
     name: "Motion",
     tool: "Google Flow / Veo",
-    takes: "An approved still, one per scene",
-    gives: "A clip that moves like a hand held it",
+    takes: "An approved still",
+    gives: "Handheld motion, not morphing",
     line: "She leans slightly toward the camera and speaks. Camera holds. No cuts, no new objects, no outfit change.",
-    note: "Describe movement only — the picture already exists. Weak motion prompts are why AI people melt between frames.",
   },
   {
     stamp: "05",
     name: "Voice",
     tool: "ElevenLabs",
-    takes: "The final script",
-    gives: "A read that breathes in the right places",
+    takes: "The script",
+    gives: "A read that breathes",
     line: "[calm, confident] You do not need a studio to make an ad anymore. [pause] [slightly more intimate] You need the right workflow.",
-    note: "Cues before the line, never inside it. Test one line before you spend credits on the whole script.",
   },
 ];
 
@@ -113,7 +108,8 @@ export function PipelineGate() {
               </p>
             </div>
 
-            <div className="mt-4 flex items-baseline gap-2.5">
+            <div className="flex flex-1 flex-col justify-center">
+            <div className="flex items-baseline gap-2.5">
               <span className="font-serif text-3xl leading-none text-[#c8553d]">
                 {stage.stamp}
               </span>
@@ -127,38 +123,22 @@ export function PipelineGate() {
 
             <div className="gate-rule mt-4" />
 
-            <dl className="mt-4 grid gap-3">
-              <div>
-                <dt className="text-[9.5px] font-bold uppercase tracking-[0.16em] text-[#f4eee4]/40">
-                  In
-                </dt>
-                <dd className="mt-0.5 text-[13px] leading-snug text-[#f4eee4]/85">
-                  {stage.takes}
-                </dd>
-              </div>
-              <div>
-                <dt className="text-[9.5px] font-bold uppercase tracking-[0.16em] text-[#e8a090]">
-                  Out
-                </dt>
-                <dd className="mt-0.5 text-[13px] leading-snug text-[#fbf6ea]">
-                  {stage.gives}
-                </dd>
-              </div>
-            </dl>
+            <p className="mt-4 text-[14px] leading-snug text-[#fbf6ea]">
+              <span className="text-[#e8a090]">&rarr;&nbsp;</span>
+              {stage.gives}
+            </p>
 
             <div className="gate-rule mt-4" />
 
-            <div className="mt-4 min-h-[6.5rem]" aria-live="polite">
+            <div className="mt-5 min-h-[5.5rem]" aria-live="polite">
               <p className="gate-term">
                 <span className="gate-term-hot">&gt;&nbsp;</span>
                 {typed}
                 {typing ? <span className="cinema-caret" /> : null}
               </p>
             </div>
+            </div>
 
-            <p className="mt-auto text-[11.5px] leading-relaxed text-[#f4eee4]/50">
-              {stage.note}
-            </p>
           </div>
           <div className="cinema-grain" aria-hidden />
           <div className="cinema-vignette" aria-hidden />
@@ -184,9 +164,6 @@ export function PipelineGate() {
         ))}
       </div>
 
-      <p className="font-hand mt-3 text-center text-base text-muted-foreground rotate-[-1deg]">
-        one output moves forward · pick a stage to hold it
-      </p>
     </div>
   );
 }

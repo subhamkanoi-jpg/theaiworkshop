@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { trackViewContent } from "@/analytics";
 import { usePageSeo } from "@/hooks/usePageSeo";
 import { SiteShell } from "@/components/SiteChrome";
-import { GlimpseReel } from "@/components/GlimpseReel";
 import { PipelineGate } from "@/components/PipelineGate";
 import { KitchenRule } from "@/components/KitchenRule";
 import { ReserveButton } from "@/components/ReserveButton";
@@ -17,46 +16,43 @@ import {
   workshopContent,
 } from "@/config";
 import { LOCAL } from "@/seo/local";
-import { ArrowRight, Check, Minus, MapPin, Clock, Calendar } from "lucide-react";
+import { ArrowRight, Check, Minus, MapPin } from "lucide-react";
 
 /**
- * The artifact rail. Titles and bodies come from workshop.json so the page,
- * the structured data, and the plain-text brief cannot drift apart; the spec
- * line is the file you will actually find on your laptop afterwards, named
- * the way the system names it.
+ * The artifact rail. Titles come from workshop.json; the filename is the whole
+ * argument, so the prose that used to sit under each one is gone.
  */
 const SPECS = [
   "Face_Lock_Master.png",
-  "Scene_01_Hook_BaseImage.png",
-  "Scene_01_Hook_Video.mp4",
-  "VO_Final_ElevenLabs.mp3",
+  "Scene_01_BaseImage.png",
+  "Scene_01_Video.mp4",
+  "VO_Final.mp3",
   "TOW_Prompt_Stack.txt",
 ];
 
-const artifacts = workshopContent.outcomes.map((outcome, i) => {
-  const split = outcome.indexOf(":");
-  // The body reads as a clause after the colon in the plain-text brief, but as
-  // its own sentence on a card, so it gets a capital here.
-  const body = outcome.slice(split + 1).trim();
-  return {
-    title: outcome.slice(0, split),
-    body: body.charAt(0).toUpperCase() + body.slice(1),
-    spec: SPECS[i],
-  };
-});
+const artifacts = workshopContent.outcomes.map((outcome, i) => ({
+  title: outcome.slice(0, outcome.indexOf(":")),
+  spec: SPECS[i],
+}));
+
+/** Times and three-word titles. The detail lives on /workshop. */
+const RUN = [
+  ["11:00", "Brief + face lock"],
+  ["11:40", "Scenes + base stills"],
+  ["12:40", "Motion + voice"],
+  ["13:30", "QC + packaging"],
+];
 
 const BELONG = [
-  "You want ads that bring in revenue, not a showreel that impresses other marketers.",
-  "You have zero filmmaking background and have stopped pretending that is the problem.",
-  "You are ready to sit and produce, on your own laptop, for three uninterrupted hours.",
-  "You already tried the tools, got plastic skin and melted hands, and want to know why.",
+  "You sell something",
+  "Zero filmmaking background",
+  "Three hours, own laptop",
 ];
 
 const STAY_HOME = [
-  "You want a webinar to half-watch in bed with the tab muted.",
-  "You collect certificates. There is no certificate. There is a rendered file.",
-  "You would rather debate whether AI is art than export something by 2:00 PM.",
-  "You want the deck afterwards instead of the three hours in the room.",
+  "You want a webinar",
+  "You collect certificates",
+  "You would rather debate than export",
 ];
 
 export default function App() {
@@ -70,12 +66,9 @@ export default function App() {
       {/* ── Announcement bar ──────────────────────────────────────────── */}
       <div className="border-b border-border bg-[#16120f] text-[#f4eee4]">
         <div className="mx-auto max-w-5xl px-4 py-2.5 sm:px-6">
-          <p className="text-center text-[11px] font-bold uppercase leading-relaxed tracking-[0.12em] sm:text-xs">
-            Offline
-            <span className="text-[#e8a090]"> · </span>
-            Salt Lake, Kolkata
-            <span className="text-[#e8a090]"> · </span>
-            Sunday, 27 Sept
+          <p className="text-center text-[11px] font-bold uppercase tracking-[0.12em] sm:text-xs">
+            Offline<span className="text-[#e8a090]"> · </span>Salt Lake, Kolkata
+            <span className="text-[#e8a090]"> · </span>Sun 27 Sept
             <span className="text-[#e8a090]"> · </span>
             {WORKSHOP_TIME_LABEL}
           </p>
@@ -87,26 +80,18 @@ export default function App() {
         <div className="mx-auto max-w-5xl px-4 sm:px-6">
           <div className="grid items-center gap-10 lg:grid-cols-2">
             <div className="flex flex-col gap-6">
-              <p className="text-sm font-semibold text-primary">
-                Workshop #3 · Built in the room, not in a slide deck
-              </p>
-              <h1 className="font-serif text-4xl font-semibold leading-tight tracking-tight text-balance sm:text-5xl">
-                Stop prompting random sludge.
+              <h1 className="font-serif text-4xl font-semibold leading-[1.05] tracking-tight text-balance sm:text-5xl lg:text-6xl">
+                Stop prompting sludge.
                 <br />
-                <span className="text-primary">
-                  Walk out with a finished AI ad.
-                </span>
+                <span className="text-primary">Leave with a finished ad.</span>
               </h1>
               <p className="text-lg leading-relaxed text-muted-foreground">
-                Three hours in Salt Lake. One continuous workflow — brief, face
-                lock, base image, motion, voice. From an empty chat window to a
-                vertical ad rendered on your phone before lunch.
+                Three hours. Five stages. One rendered ad.
               </p>
-
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
                 <ReserveButton
                   className="whitespace-nowrap"
-                  label={`Reserve your seat · ${inr(PRICE)}`}
+                  label={`Reserve · ${inr(PRICE)}`}
                 />
                 <a
                   href="#recipe"
@@ -115,295 +100,187 @@ export default function App() {
                   See the system <ArrowRight className="size-4" />
                 </a>
               </div>
-              <p className="text-sm leading-relaxed text-muted-foreground">
-                <span className="font-semibold text-foreground">
-                  {TOTAL_SEATS} seats only
-                </span>{" "}
-                · Tables of eight · A floor captain at every table
-                <br />
-                {WORKSHOP_DATE_LABEL} · {WORKSHOP_TIME_LABEL} · Salt Lake
-              </p>
+              <ul className="flex flex-wrap gap-x-5 gap-y-1.5 text-sm font-medium text-muted-foreground">
+                <li>{TOTAL_SEATS} seats</li>
+                <li aria-hidden>·</li>
+                <li>Tables of 8</li>
+                <li aria-hidden>·</li>
+                <li>No experience</li>
+              </ul>
             </div>
-
             <PipelineGate />
           </div>
         </div>
       </section>
 
-      {/* ── The artifact ──────────────────────────────────────────────── */}
+      {/* ── The artifact: five filenames ──────────────────────────────── */}
       <section
         id="artifact"
         className="border-b border-border py-14 sm:py-20"
         aria-labelledby="artifact-heading"
       >
         <div className="mx-auto max-w-5xl px-4 sm:px-6">
-          <div className="max-w-2xl">
-            <p className="text-sm font-semibold text-primary">
-              What you actually leave with
-            </p>
-            <h2
-              id="artifact-heading"
-              className="mt-3 font-serif text-3xl font-semibold leading-tight text-balance sm:text-4xl"
-            >
-              Not a certificate. A production pack and a rendered ad.
-            </h2>
-            <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
-              Five files on your own laptop by 2:00 PM, named the way the system
-              names them, so the folder still makes sense on Tuesday when you
-              open it to build the next one.
-            </p>
-          </div>
+          <h2
+            id="artifact-heading"
+            className="font-serif text-3xl font-semibold leading-tight text-balance sm:text-4xl"
+          >
+            You leave with five files.
+            <span className="text-muted-foreground"> Not a certificate.</span>
+          </h2>
 
-          <div className="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <ol className="mt-9 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {artifacts.map((a, i) => (
-              <article key={a.spec} className="slate">
+              <li key={a.spec} className="slate">
                 <div className="slate-head">
-                  <span>
-                    <span className="slate-num">
-                      Artifact {String(i + 1).padStart(2, "0")}
-                    </span>
-                  </span>
-                  <span className="text-[#f4eee4]/45">
-                    {String(i + 1)}/{artifacts.length}
+                  <span className="slate-num">
+                    {String(i + 1).padStart(2, "0")}
                   </span>
                 </div>
-                <div className="flex flex-1 flex-col p-5">
+                <div className="flex flex-1 flex-col justify-between gap-6 p-4 sm:p-5">
                   <h3 className="font-serif text-xl font-semibold leading-snug">
                     {a.title}
                   </h3>
-                  <p className="mt-2.5 flex-1 text-base leading-relaxed text-muted-foreground">
-                    {a.body}
-                  </p>
-                  <p className="gate-term mt-5 border-t border-border pt-3 text-muted-foreground">
-                    {a.spec}
-                  </p>
+                  <p className="gate-term text-muted-foreground">{a.spec}</p>
                 </div>
-              </article>
+              </li>
             ))}
-
-            <article className="invite-card flex flex-col justify-between rounded-xl border border-border bg-muted/40 p-5">
-              <div>
-                <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-primary">
-                  The point
-                </p>
-                <p className="mt-3 font-serif text-xl font-semibold leading-snug">
-                  You do not leave with notes about how it could be done.
-                </p>
-                <p className="mt-2.5 text-base leading-relaxed text-muted-foreground">
-                  You leave with the file, and the recipe that made it, and
-                  enough repetitions to run the whole thing again without
-                  anybody standing next to you.
-                </p>
-              </div>
+            <li className="invite-card flex flex-col justify-between rounded-xl border border-border bg-muted/40 p-5">
+              <p className="font-serif text-xl font-semibold leading-snug">
+                Plus the recipe.
+              </p>
               <a
                 href="/workshop"
-                className="mt-5 inline-flex min-h-11 items-center gap-2 font-semibold text-primary"
+                className="mt-4 inline-flex min-h-11 items-center gap-2 font-semibold text-primary"
               >
-                See the full three hours <ArrowRight className="size-4" />
+                The full three hours <ArrowRight className="size-4" />
               </a>
-            </article>
-          </div>
+            </li>
+          </ol>
         </div>
       </section>
 
-      {/* ── The methodology ───────────────────────────────────────────── */}
+      {/* ── The system ────────────────────────────────────────────────── */}
       <KitchenRule />
 
-      {/* ── The 3-hour production run ─────────────────────────────────── */}
+      {/* ── The run: a time rail ──────────────────────────────────────── */}
       <section
         id="run"
         className="border-t border-border py-14 sm:py-20"
         aria-labelledby="run-heading"
       >
         <div className="mx-auto max-w-5xl px-4 sm:px-6">
-          <div className="max-w-2xl">
-            <p className="text-sm font-semibold text-primary">
-              The call sheet · {WORKSHOP_TIME_LABEL}
-            </p>
-            <h2
-              id="run-heading"
-              className="mt-3 font-serif text-3xl font-semibold leading-tight text-balance sm:text-4xl"
-            >
-              Three hours, four blocks, one file at the end of it.
-            </h2>
-            <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
-              Nothing here is a demo you watch. Every block ends with something
-              saved on your machine that the next block needs.
-            </p>
-          </div>
-
-          <ol className="mt-10 flex flex-col">
-            {workshopContent.agenda.map((step, i) => (
-              <li
-                key={step.time}
-                className="grid gap-3 border-t border-border py-7 sm:grid-cols-[10.5rem_1fr] sm:gap-8"
-              >
-                <div>
-                  <p className="text-sm font-bold tabular-nums text-primary">
-                    {step.time}
-                  </p>
-                  <p className="mt-1 text-[10px] font-bold uppercase tracking-[0.14em] text-muted-foreground">
-                    Block {String(i + 1).padStart(2, "0")}
-                  </p>
-                </div>
-                <div>
-                  <h3 className="font-serif text-xl font-semibold sm:text-2xl">
-                    {step.title}
-                  </h3>
-                  <p className="mt-2.5 max-w-2xl text-base leading-relaxed text-muted-foreground">
-                    {step.body}
-                  </p>
-                </div>
+          <h2
+            id="run-heading"
+            className="font-serif text-3xl font-semibold leading-tight sm:text-4xl"
+          >
+            The three hours.
+          </h2>
+          <ol className="mt-9 grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-4">
+            {RUN.map(([time, title], i) => (
+              <li key={time} className="flex flex-col gap-2 bg-card p-5">
+                <span className="text-[10px] font-bold uppercase tracking-[0.14em] text-muted-foreground">
+                  Block {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="font-serif text-2xl font-semibold text-primary tabular-nums">
+                  {time}
+                </span>
+                <span className="text-base font-medium leading-snug">
+                  {title}
+                </span>
               </li>
             ))}
           </ol>
-
-          <p className="mt-2 border-t border-border pt-7 text-base leading-relaxed text-muted-foreground">
-            <span className="font-semibold text-foreground">2:00 PM.</span> The
-            room empties. Your ad exists.
+          <p className="mt-5 text-base text-muted-foreground">
+            2:00 PM — your ad exists.
           </p>
         </div>
       </section>
 
-      {/* ── The room and the table system ─────────────────────────────── */}
+      {/* ── The room, as numbers ──────────────────────────────────────── */}
       <section
         className="border-t border-border bg-muted/30 py-14 sm:py-20"
         aria-labelledby="room-heading"
       >
         <div className="mx-auto max-w-5xl px-4 sm:px-6">
-          <div className="grid gap-10 lg:grid-cols-2">
-            <div className="flex flex-col gap-5">
-              <p className="text-sm font-semibold text-primary">
-                The room is the method
-              </p>
+          <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-center">
+            <div>
               <h2
                 id="room-heading"
                 className="font-serif text-3xl font-semibold leading-tight text-balance sm:text-4xl"
               >
-                Fifty people. Tables of eight. A captain who fixes your prompt
-                without touching your keyboard.
+                A captain at every table.
               </h2>
-              <p className="text-base leading-relaxed text-muted-foreground">
-                A render comes back with six fingers and a warped logo. Online,
-                that is where you quit. Here it is where somebody leans over,
-                reads the prompt you actually typed, and tells you which
-                constraint you left out. That is the entire reason this is not a
-                webinar.
-              </p>
-              <p className="text-base leading-relaxed text-muted-foreground">
-                We cap it at {TOTAL_SEATS} because a captain can hold eight
-                screens in their head and not eighty.
-              </p>
-              <div className="flex flex-col gap-5 pt-1">
-                <h3 className="text-xl font-semibold">In the room with you</h3>
-                <div className="flex flex-col gap-4">
-                  {hosts.map((h) => (
-                    <div key={h.name} className="flex items-center gap-4">
-                      <img
-                        src={h.src}
-                        alt={h.name}
-                        width={56}
-                        height={56}
-                        loading="lazy"
-                        className="size-14 rounded-full object-cover"
-                        style={{ objectPosition: h.pos }}
-                      />
-                      <div>
-                        <p className="font-semibold">{h.name}</p>
-                        <p className="text-sm text-muted-foreground">
-                          The AI Workshop · Kolkata
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              <dl className="mt-8 grid grid-cols-3 gap-4">
+                {[
+                  [TOTAL_SEATS, "seats"],
+                  ["8", "per table"],
+                  ["3", "hosts"],
+                ].map(([n, label]) => (
+                  <div key={label}>
+                    <dt className="font-serif text-5xl font-semibold leading-none text-primary sm:text-6xl">
+                      {n}
+                    </dt>
+                    <dd className="mt-2 text-sm text-muted-foreground">
+                      {label}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
             </div>
-
-            <div>
-              <GlimpseReel />
-              <p className="mt-4 text-center text-sm leading-relaxed text-muted-foreground">
-                Our first workshop · June 2026
-                <br />
-                Sixty people built websites and put them online. Same tables,
-                same captains, different file at the end.
-              </p>
-              <a
-                href="/room"
-                className="mt-4 inline-flex min-h-11 items-center gap-2 font-semibold text-primary"
-              >
-                See the June room <ArrowRight className="size-4" />
-              </a>
+            <div className="flex flex-wrap items-center gap-5">
+              {hosts.map((h) => (
+                <div key={h.name} className="flex items-center gap-3">
+                  <img
+                    src={h.src}
+                    alt={h.name}
+                    width={52}
+                    height={52}
+                    loading="lazy"
+                    className="size-13 rounded-full object-cover"
+                    style={{ objectPosition: h.pos, height: 52, width: 52 }}
+                  />
+                  <p className="text-sm font-semibold">{h.name}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── The door policy ───────────────────────────────────────────── */}
+      {/* ── The door ──────────────────────────────────────────────────── */}
       <section
         className="border-t border-border py-14 sm:py-20"
         aria-labelledby="door-heading"
       >
         <div className="mx-auto max-w-5xl px-4 sm:px-6">
-          <div className="max-w-2xl">
-            <p className="text-sm font-semibold text-primary">
-              Before you book
-            </p>
-            <h2
-              id="door-heading"
-              className="mt-3 font-serif text-3xl font-semibold leading-tight text-balance sm:text-4xl"
-            >
-              This is a good use of your Sunday, or it is a waste of it.
-            </h2>
-            <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
-              We would rather you read the right-hand column and keep your ₹799.
-            </p>
-          </div>
-
-          <div className="mt-9 grid gap-5 md:grid-cols-2">
-            <div className="door door-in">
-              <h3 className="font-serif text-2xl font-semibold">
-                You belong here
-              </h3>
-              <ul className="mt-5 flex flex-col gap-3.5">
-                {BELONG.map((line) => (
-                  <li key={line} className="flex gap-3 text-base leading-relaxed">
-                    <Check className="mt-1 size-5 shrink-0 text-primary" />
-                    <span>{line}</span>
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-6 border-t border-border pt-4 text-sm leading-relaxed text-muted-foreground">
-                D2C founders, agency owners, video creators, freelancers, and
-                local business owners. No filmmaking background assumed at any
-                point.
-              </p>
-            </div>
-
-            <div className="door">
-              <h3 className="font-serif text-2xl font-semibold text-muted-foreground">
-                Stay home
-              </h3>
-              <ul className="mt-5 flex flex-col gap-3.5">
-                {STAY_HOME.map((line) => (
-                  <li
-                    key={line}
-                    className="flex gap-3 text-base leading-relaxed text-muted-foreground"
-                  >
-                    <Minus className="mt-1 size-5 shrink-0 opacity-50" />
-                    <span>{line}</span>
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-6 border-t border-border pt-4 text-sm leading-relaxed text-muted-foreground">
-                No hard feelings. The seat goes to somebody who will fill it.
-              </p>
-            </div>
+          <h2
+            id="door-heading"
+            className="font-serif text-3xl font-semibold leading-tight sm:text-4xl"
+          >
+            Worth your Sunday?
+          </h2>
+          <div className="mt-8 grid gap-5 md:grid-cols-2">
+            <ul className="door door-in flex flex-col gap-3">
+              {BELONG.map((line) => (
+                <li key={line} className="flex gap-3 text-base leading-snug">
+                  <Check className="mt-0.5 size-5 shrink-0 text-primary" />
+                  {line}
+                </li>
+              ))}
+            </ul>
+            <ul className="door flex flex-col gap-3 text-muted-foreground">
+              {STAY_HOME.map((line) => (
+                <li key={line} className="flex gap-3 text-base leading-snug">
+                  <Minus className="mt-0.5 size-5 shrink-0 opacity-50" />
+                  {line}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>
 
-      {/* ── Price and seat cap ────────────────────────────────────────── */}
+      {/* ── Ticket ────────────────────────────────────────────────────── */}
       <section
         id="ticket"
         className="border-t border-border bg-muted/30 py-14 sm:py-20"
@@ -411,89 +288,58 @@ export default function App() {
       >
         <div className="mx-auto max-w-3xl px-4 sm:px-6">
           <div className="invite-card rounded-2xl border border-border bg-card p-6 text-card-foreground sm:p-9">
-            <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-primary">
-              Admit one · {TOTAL_SEATS} seats · {WORKSHOP_DATE_LABEL}
-            </p>
-            <h2
-              id="ticket-heading"
-              className="mt-4 font-serif text-3xl font-semibold leading-tight text-balance sm:text-4xl"
-            >
-              {inr(PRICE)} for the three hours and the recipe.
-            </h2>
-            <p className="mt-4 flex flex-wrap items-baseline gap-3 text-base text-muted-foreground">
-              <span className="line-through">{inr(MARKET_VALUE)}</span>
-              <span>agency kit price for the same workflow</span>
-            </p>
-            <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-              The ticket covers the guided production run, the table captains,
-              and the prompt system you keep. Image, video, and voice tools run
-              on credits you supply — budget roughly ₹500 to ₹1,500 if you want
-              to render the full ad on the day. We say so here rather than at
-              the door.
-            </p>
-
-            <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <ReserveButton
-                  className="whitespace-nowrap"
-                  label={`Reserve your seat · ${inr(PRICE)}`}
-                />
-              <a
-                href="/workshop"
-                className="inline-flex min-h-12 items-center justify-center gap-2 whitespace-nowrap rounded-full border border-border px-6 text-base font-medium"
+            <p className="flex flex-wrap items-baseline gap-3">
+              <span
+                id="ticket-heading"
+                className="font-serif text-5xl font-semibold text-primary sm:text-6xl"
               >
-                Read the full plan <ArrowRight className="size-4" />
-              </a>
+                {inr(PRICE)}
+              </span>
+              <span className="text-xl text-muted-foreground line-through">
+                {inr(MARKET_VALUE)}
+              </span>
+            </p>
+            <p className="mt-3 text-base text-muted-foreground">
+              {WORKSHOP_DATE_LABEL} · {WORKSHOP_TIME_LABEL}
+            </p>
+            <div className="mt-7">
+              <ReserveButton
+                className="whitespace-nowrap"
+                label={`Reserve · ${inr(PRICE)}`}
+              />
             </div>
-
-            <dl className="mt-8 grid gap-4 border-t border-border pt-6 text-sm leading-relaxed sm:grid-cols-2">
-              <div>
-                <dt className="font-semibold text-foreground">Refunds</dt>
-                <dd className="mt-1 text-muted-foreground">
-                  Full refund up to 48 hours before the session. Message us and
-                  it is done — no form, no reason required.
-                </dd>
-              </div>
-              <div>
-                <dt className="font-semibold text-foreground">Venue holds</dt>
-                <dd className="mt-1 text-muted-foreground">
-                  Reserved-to-pay-at-venue seats are released 15 minutes after
-                  kickoff and given to the waiting list.
-                </dd>
-              </div>
-            </dl>
-          </div>
-
-          <div className="mt-8 flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm text-muted-foreground">
-            <span className="inline-flex items-center gap-2">
-              <MapPin className="size-4" /> Salt Lake, Kolkata
-            </span>
-            <span className="inline-flex items-center gap-2">
-              <Clock className="size-4" /> {WORKSHOP_TIME_LABEL}
-            </span>
-            <span className="inline-flex items-center gap-2">
-              <Calendar className="size-4" /> {WORKSHOP_DATE_LABEL}
-            </span>
+            <ul className="mt-7 flex flex-wrap gap-2 border-t border-border pt-6 text-sm text-muted-foreground">
+              {[
+                "Refund up to 48h before",
+                "Holds released 15 min after kickoff",
+                "Tool credits ₹500–1,500, yours",
+              ].map((chip) => (
+                <li
+                  key={chip}
+                  className="rounded-full border border-border px-3 py-1.5"
+                >
+                  {chip}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>
 
       {/* ── Getting there ─────────────────────────────────────────────────
-          These answers are also the home page's FAQ structured data, so they
-          have to be on the page and worded the same way. */}
+          The accordion below is also the home page's FAQ structured data, so
+          these questions have to be on the page. */}
       <section
         id="getting-there"
         className="border-t border-border py-14 sm:py-20"
         aria-labelledby="getting-there-heading"
       >
         <div className="mx-auto max-w-5xl px-4 sm:px-6">
-          <div className="grid gap-10 lg:grid-cols-[1fr_1.15fr]">
+          <div className="grid gap-9 lg:grid-cols-[1fr_1.2fr]">
             <div>
-              <p className="text-sm font-semibold text-primary">
-                Venue, travel and refunds
-              </p>
               <h2
                 id="getting-there-heading"
-                className="mt-3 font-serif text-3xl font-semibold leading-tight text-balance sm:text-4xl"
+                className="font-serif text-3xl font-semibold leading-tight sm:text-4xl"
               >
                 Getting there.
               </h2>
@@ -502,37 +348,23 @@ export default function App() {
                   {LOCAL.venueName}
                 </span>
                 <br />
-                {LOCAL.street}
+                {LOCAL.areaLine}
                 <br />
-                {LOCAL.locality}, {LOCAL.region} {LOCAL.postalCode}
+                Doors 10:30 AM
               </address>
-              <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-                Doors at <span className="font-semibold text-foreground">10:30 AM</span>{" "}
-                for an 11:00 AM start. The exact unit is emailed the moment you
-                book — arrive a little early and take the coffee.
-              </p>
-              <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-                <a
-                  href={LOCAL.mapsUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex min-h-11 items-center justify-center gap-2 whitespace-nowrap rounded-full border border-border px-5 text-sm font-semibold"
-                >
-                  <MapPin className="size-4" /> Open in Google Maps
-                </a>
-                <a
-                  href={`tel:${LOCAL.phoneTel}`}
-                  className="inline-flex min-h-11 items-center justify-center gap-2 whitespace-nowrap rounded-full border border-border px-5 text-sm font-semibold"
-                >
-                  Call {LOCAL.phoneDisplay}
-                </a>
-              </div>
+              <a
+                href={LOCAL.mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-5 inline-flex min-h-11 items-center justify-center gap-2 whitespace-nowrap rounded-full border border-border px-5 text-sm font-semibold"
+              >
+                <MapPin className="size-4" /> Google Maps
+              </a>
             </div>
-
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col">
               {workshopContent.localFaqs.map((faq) => (
                 <details key={faq.q} className="border-b border-border py-4">
-                  <summary className="cursor-pointer text-base font-semibold leading-relaxed">
+                  <summary className="cursor-pointer text-base font-semibold leading-snug">
                     {faq.q}
                   </summary>
                   <p className="mt-3 text-base leading-relaxed text-muted-foreground">
@@ -540,56 +372,14 @@ export default function App() {
                   </p>
                 </details>
               ))}
+              <a
+                href="/answers"
+                className="mt-5 inline-flex min-h-11 items-center gap-2 font-semibold text-primary"
+              >
+                Everything else <ArrowRight className="size-4" />
+              </a>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* ── Questions ─────────────────────────────────────────────────── */}
-      <section className="border-t border-border py-14 sm:py-20">
-        <div className="mx-auto max-w-3xl px-4 sm:px-6">
-          <h2 className="font-serif text-3xl font-semibold">
-            The questions people actually ask
-          </h2>
-          <div className="mt-8 flex flex-col gap-2">
-            {workshopContent.faqs.map((faq) => (
-              <details key={faq.q} className="border-b border-border py-4">
-                <summary className="cursor-pointer text-base font-semibold leading-relaxed">
-                  {faq.q}
-                </summary>
-                <p className="mt-3 text-base leading-relaxed text-muted-foreground">
-                  {faq.a}
-                </p>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Close ─────────────────────────────────────────────────────── */}
-      <section className="border-t border-border bg-muted/30 py-14 sm:py-20">
-        <div className="mx-auto max-w-3xl px-4 text-center sm:px-6">
-          <p className="text-sm font-semibold text-primary">
-            {WORKSHOP_DATE_LABEL}
-          </p>
-          <h2 className="mt-4 font-serif text-3xl font-semibold leading-tight text-balance sm:text-4xl">
-            Walk in with an idea.
-            <br />
-            Walk out with the file.
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-muted-foreground">
-            {TOTAL_SEATS} seats, tables of eight, and three hours that end with
-            a rendered ad instead of a reading list.
-          </p>
-          <div className="mt-8 flex justify-center">
-            <ReserveButton
-                  className="whitespace-nowrap"
-                  label={`Reserve your seat · ${inr(PRICE)}`}
-                />
-          </div>
-          <p className="mt-4 text-sm text-muted-foreground">
-            Laptop required. Bring headphones and one thing you actually sell.
-          </p>
         </div>
       </section>
     </SiteShell>

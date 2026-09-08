@@ -184,7 +184,9 @@ def test_faq_schema_is_single_and_visible_on_page():
     assert len(faqs) == 1, "more than one FAQPage on a single page"
     assert faqs[0]["@id"] == f"{ORIGIN}/#faq"
     names = [q["name"] for q in faqs[0]["mainEntity"]]
-    assert len(names) == len(CFG["localFaqs"]) + len(CFG["faqs"])
+    # Home renders the local questions only; the rest live on /workshop and
+    # /answers, and schema may not claim answers a page does not show.
+    assert len(names) == len(CFG["localFaqs"])
     fallback = text.split('id="geo-fallback"', 1)[1]
     for faq in CFG["localFaqs"]:
         assert faq["q"] in names
