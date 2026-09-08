@@ -6,7 +6,9 @@ import tseslint from 'typescript-eslint'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  // `.agents` is the per-machine HyperFrames skill install (third-party
+  // fixtures, some of them .tsx); `video` holds rendered compositions.
+  globalIgnores(['dist', '.agents', 'video']),
   {
     files: ['**/*.{ts,tsx}'],
     extends: [
