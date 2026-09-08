@@ -2,7 +2,7 @@
 
 > An offline space for non-techies to put AI to work, one real use-case project at a time.
 
-Updated 2026-09-07.
+Updated 2026-09-08.
 
 ## Next workshop
 
@@ -30,21 +30,21 @@ A laptop and charger. This is three hours of building, not a talk. Bring headpho
 
 ## Pages
 
-- [The AI Workshop | Practical AI for Non-Techies, Kolkata](https://www.theaiworkshop.in/): An offline space for non-techies to put AI to work, one real use-case project at a time. Next: Build a Complete AI Video Ad From Scratch, 27 September 2026. Offline in Salt Lake, Kolkata. ₹799.
-- [Build a Complete AI Video Ad From Scratch | 27 September, Kolkata](https://www.theaiworkshop.in/workshop): Build one finished vertical AI video ad in three hours: face lock, base stills, Veo motion, ElevenLabs voice. 27 September 2026, Salt Lake, Kolkata. ₹799. No filmmaking background.
-- [How We Learn | One Real AI Project at a Time](https://www.theaiworkshop.in/path): Learn AI through one real use-case project at a time. Offline workshops for non-techies in Salt Lake, Kolkata. Each session stands alone.
-- [The Room | Our First AI Workshop, June 2026](https://www.theaiworkshop.in/room): Photos, hosts, and websites from The AI Workshop’s first session in June 2026. An offline learning space for non-techies in Salt Lake, Kolkata.
-- [Host a Table | The AI Workshop, Kolkata](https://www.theaiworkshop.in/host): Help non-techies build a practical AI project in person. Host a table with The AI Workshop in Salt Lake, Kolkata.
-- [About The AI Workshop | Offline AI for Non-Techies](https://www.theaiworkshop.in/about): An offline space for non-techies to put AI to work, one real use-case project at a time. Based in Salt Lake, Kolkata, and hosted by Yogesh, Neeraj, and Subham Kanoi.
-- [Learn AI in Kolkata | Offline Workshop in Salt Lake](https://www.theaiworkshop.in/kolkata): Learn AI in Kolkata, one practical project at a time. Next: Build a Complete AI Video Ad From Scratch, 27 September 2026. Salt Lake, offline, ₹799.
-- [Questions and Answers | The AI Workshop](https://www.theaiworkshop.in/answers): Practical answers about The AI Workshop: September’s AI video ad build, the tools and credits it needs, privacy, venue, ticket, and what to bring.
-- [Share Build a Complete AI Video Ad From Scratch | The AI Workshop](https://www.theaiworkshop.in/share): Invite a friend to Build a Complete AI Video Ad From Scratch. Sunday, 27 September 2026, 11:00 AM – 2:00 PM. Salt Lake, Kolkata. 50 seats. ₹799. One finished ad, built in the room, in three hours.
+- [AI Video Ad Workshop Kolkata | 27 Sept · Salt Lake](https://theaiworkshop.in/): Build a complete AI video ad in 3 hours. Hands-on offline workshop in Salt Lake, Kolkata on 27 Sept 2026. Consistent faces, motion & voiceover. 50 seats.
+- [Build a Complete AI Video Ad From Scratch | 27 September, Kolkata](https://theaiworkshop.in/workshop): Build one finished vertical AI video ad in three hours: face lock, base stills, Veo motion, ElevenLabs voice. 27 September 2026, Salt Lake, Kolkata. ₹799. No filmmaking background.
+- [How We Learn | One Real AI Project at a Time](https://theaiworkshop.in/path): Learn AI through one real use-case project at a time. Offline workshops for non-techies in Salt Lake, Kolkata. Each session stands alone.
+- [The Room | Our First AI Workshop, June 2026](https://theaiworkshop.in/room): Photos, hosts, and websites from The AI Workshop’s first session in June 2026. An offline learning space for non-techies in Salt Lake, Kolkata.
+- [Host a Table | The AI Workshop, Kolkata](https://theaiworkshop.in/host): Help non-techies build a practical AI project in person. Host a table with The AI Workshop in Salt Lake, Kolkata.
+- [About The AI Workshop | Offline AI for Non-Techies](https://theaiworkshop.in/about): An offline space for non-techies to put AI to work, one real use-case project at a time. Based in Salt Lake, Kolkata, and hosted by Yogesh, Neeraj, and Subham Kanoi.
+- [Learn AI in Kolkata | Offline Workshop in Salt Lake](https://theaiworkshop.in/kolkata): Learn AI in Kolkata, one practical project at a time. Next: Build a Complete AI Video Ad From Scratch, 27 September 2026. Salt Lake, offline, ₹799.
+- [Questions and Answers | The AI Workshop](https://theaiworkshop.in/answers): Practical answers about The AI Workshop: September’s AI video ad build, the tools and credits it needs, privacy, venue, ticket, and what to bring.
+- [Share Build a Complete AI Video Ad From Scratch | The AI Workshop](https://theaiworkshop.in/share): Invite a friend to Build a Complete AI Video Ad From Scratch. Sunday, 27 September 2026, 11:00 AM – 2:00 PM. Salt Lake, Kolkata. 50 seats. ₹799. One finished ad, built in the room, in three hours.
 
 ## Optional
 
-- [About in Markdown](https://www.theaiworkshop.in/about.md)
-- [Kolkata in Markdown](https://www.theaiworkshop.in/kolkata.md)
-- [Full public brief](https://www.theaiworkshop.in/llms-full.txt)
+- [About in Markdown](https://theaiworkshop.in/about.md)
+- [Kolkata in Markdown](https://theaiworkshop.in/kolkata.md)
+- [Full public brief](https://theaiworkshop.in/llms-full.txt)
 
 ## Questions
 
@@ -78,7 +78,7 @@ You leave with a finished, rendered ad. Whether it converts depends on your offe
 
 ### Can I attend with only a phone?
 
-Not usefully. Image and video generation, prompt management, and stitching the edit all need a browser and a real screen. Bring a laptop and a charger. Power at the tables is limited, so arrive charged.
+Not usefully. Image and video generation, prompt management, and stitching the edit all need a browser and a real screen. Bring a laptop and a charger — power strips and table Wi-Fi are provided at the venue.
 
 ### What about faces, brands, and confidential material?
 

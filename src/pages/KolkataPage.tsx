@@ -52,7 +52,7 @@ export default function KolkataPage() {
           <p className="mt-4 text-base leading-relaxed">
             {WORKSHOP_DATE_LABEL} · {WORKSHOP_TIME_LABEL}
             <br />
-            {inr(PRICE)} · {TOTAL_SEATS} seats · Laptop recommended
+            {inr(PRICE)} · {TOTAL_SEATS} seats · Laptop required
           </p>
           <a
             className="mt-4 inline-flex min-h-11 items-center font-semibold text-primary"
@@ -68,12 +68,16 @@ export default function KolkataPage() {
             Where in Kolkata?
           </h2>
           <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-            Salt Lake (Bidhannagar). The exact venue is shared after you
-            reserve. If you are travelling from New Town, Howrah, or elsewhere
-            in Kolkata, check the address and your route before setting out.
-            Contact us before booking for travel or accessibility questions.
+            Salt Lake Sector 1 (Bidhannagar), reachable on the Metro Green Line
+            at Salt Lake or City Centre, and about five minutes by cab from
+            Ultadanga and the EM Bypass. The exact unit is emailed as soon as
+            you book. If you are travelling from New Town, Howrah, or elsewhere
+            in Kolkata, check your route before setting out, and contact us
+            before booking for travel or accessibility questions.
           </p>
           <address className="mt-6 not-italic text-base leading-relaxed">
+            <span className="font-semibold">{LOCAL.venueName}</span>
+            <br />
             {LOCAL.areaLine}
             <br />
             <a
@@ -96,7 +100,7 @@ export default function KolkataPage() {
             rel="noopener noreferrer"
             className="mt-4 inline-flex min-h-11 items-center text-sm font-semibold text-primary"
           >
-            View Salt Lake area—not the exact venue—on Google Maps →
+            Open Salt Lake Sector 1 on Google Maps →
           </a>
         </div>
       </section>

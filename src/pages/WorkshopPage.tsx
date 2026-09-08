@@ -123,10 +123,11 @@ export default function WorkshopPage() {
                 {BRING_LABEL}
               </p>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                A phone is not enough for this one. Sign in to your tool
-                accounts before you arrive, and top up credits beforehand if you
-                want to render the full ad on the day — password recovery is a
-                miserable way to spend block one.
+                A phone is not enough for this one. Power strips and table
+                Wi-Fi are provided, so bring the charger and not the anxiety.
+                Sign in to your tool accounts before you arrive, and top up
+                credits beforehand if you want to render the full ad on the day
+                — password recovery is a miserable way to spend block one.
               </p>
             </div>
             <div>

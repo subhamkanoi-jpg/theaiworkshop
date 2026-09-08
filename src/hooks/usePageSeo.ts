@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import pages from "@/seo/pages.json";
+import { LOCAL } from "@/seo/local";
 
 type PageKey = keyof typeof pages;
 
@@ -27,10 +28,14 @@ function upsertLink(rel: string, href: string) {
   el.href = href;
 }
 
+const ORIGIN = "https://theaiworkshop.in";
+const INDEXABLE =
+  "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
+
 export function usePageSeo(key: PageKey) {
   useEffect(() => {
     const m = pages[key];
-    const url = `https://www.theaiworkshop.in${m.path === "/" ? "/" : m.path}`;
+    const url = `${ORIGIN}${m.path === "/" ? "/" : m.path}`;
     document.title = m.title;
     upsertMeta("name", "description", m.description);
     upsertMeta("property", "og:title", m.ogTitle);
@@ -41,12 +46,17 @@ export function usePageSeo(key: PageKey) {
     upsertMeta(
       "name",
       "robots",
-      key === "book"
-        ? "noindex, follow"
-        : "index, follow, max-image-preview:large",
+      key === "book" ? "noindex, follow" : INDEXABLE,
     );
     upsertMeta("name", "twitter:title", m.ogTitle);
     upsertMeta("name", "twitter:description", m.ogDescription);
+    // The shells ship these, but a client-side route change swaps the rest of
+    // the head — re-asserting them keeps every URL geo-tagged for a crawler
+    // that renders JS.
+    upsertMeta("name", "geo.region", "IN-WB");
+    upsertMeta("name", "geo.placename", "Salt Lake, Kolkata");
+    upsertMeta("name", "geo.position", `${LOCAL.lat};${LOCAL.lng}`);
+    upsertMeta("name", "ICBM", `${LOCAL.lat}, ${LOCAL.lng}`);
     upsertLink("canonical", url);
   }, [key]);
 }

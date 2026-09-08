@@ -1,0 +1,128 @@
+<!doctype html>
+<!--
+  Source for public/assets/og-kolkata-sept27.png.
+  Render with: node scripts/make-og-event.mjs   (Playwright, 1200x630)
+  Ivory paper, terracotta accent, one film gate. Same palette as the site.
+-->
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body {
+        width: 1200px;
+        height: 630px;
+        background: #f9f6f0;
+        font-family: "Liberation Sans", Arial, sans-serif;
+        color: #241d18;
+        position: relative;
+        overflow: hidden;
+      }
+      /* Paper grain, same trick the site uses behind everything. */
+      body::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        opacity: 0.5;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+      }
+      .wrap { position: relative; display: flex; height: 100%; }
+      .left { flex: 1; padding: 68px 0 60px 72px; display: flex; flex-direction: column; }
+      .eyebrow {
+        font-size: 19px; font-weight: 700; letter-spacing: 0.15em;
+        text-transform: uppercase; color: #c8553d;
+      }
+      h1 {
+        font-family: Georgia, "Liberation Serif", serif;
+        font-size: 76px; line-height: 1.02; font-weight: 700;
+        letter-spacing: -0.02em; margin-top: 26px; max-width: 660px;
+      }
+      h1 .accent { color: #c8553d; }
+      .sub {
+        margin-top: 24px; font-size: 25px; line-height: 1.45;
+        color: #5c5049; max-width: 610px;
+      }
+      .facts {
+        margin-top: auto; display: flex; align-items: center; gap: 18px;
+        font-size: 21px; font-weight: 700; color: #241d18;
+      }
+      .pill {
+        background: #c8553d; color: #f9f6f0; border-radius: 999px;
+        padding: 12px 26px; font-size: 22px; font-weight: 700;
+      }
+      .dot { color: #b9a894; }
+      .right {
+        width: 388px; display: flex; align-items: center; justify-content: center;
+      }
+      /* The gate: a phone-shaped 9:16 frame, the shape of the thing you make. */
+      .gate {
+        width: 252px; height: 448px; border-radius: 26px; padding: 9px;
+        background: linear-gradient(180deg, #2a221d, #171412);
+        box-shadow: 0 30px 60px -24px rgba(36, 24, 16, 0.55);
+      }
+      .screen {
+        width: 100%; height: 100%; border-radius: 18px; background: #100e0c;
+        padding: 20px 18px; display: flex; flex-direction: column; color: #f4eee4;
+      }
+      .screen .tag {
+        font-size: 12px; font-weight: 700; letter-spacing: 0.14em;
+        text-transform: uppercase; color: #e8a090;
+      }
+      .stage {
+        font-family: Georgia, "Liberation Serif", serif;
+        font-size: 27px; margin-top: 4px; color: #fbf6ea;
+      }
+      .rule { height: 1px; background: rgba(244,238,228,0.22); margin: 15px 0; }
+      .chain { display: flex; flex-direction: column; gap: 11px; margin-top: 2px; }
+      .chain div {
+        font-size: 15px; color: rgba(244,238,228,0.62); display: flex; gap: 9px;
+      }
+      .chain b { color: #c8553d; font-size: 13px; width: 20px; }
+      .sprockets { margin-top: auto; display: flex; gap: 7px; }
+      .sprockets i {
+        width: 13px; height: 13px; border-radius: 3px;
+        background: rgba(244,238,228,0.16);
+      }
+      .edge { position: absolute; left: 0; top: 0; bottom: 0; width: 10px; background: #c8553d; }
+    </style>
+  </head>
+  <body>
+    <div class="edge"></div>
+    <div class="wrap">
+      <div class="left">
+        <p class="eyebrow">Offline · Salt Lake, Kolkata</p>
+        <h1>AI Video Ad Workshop<br /><span class="accent">in 3 hours.</span></h1>
+        <p class="sub">
+          Face lock, base stills, motion, voiceover. Walk in with an idea, walk
+          out with the rendered ad.
+        </p>
+        <div class="facts">
+          <span class="pill">Sun 27 Sept · ₹799</span>
+          <span class="dot">·</span>
+          <span>11 AM – 2 PM</span>
+          <span class="dot">·</span>
+          <span>50 seats</span>
+        </div>
+      </div>
+      <div class="right">
+        <div class="gate">
+          <div class="screen">
+            <p class="tag">Production pack</p>
+            <p class="stage">9:16</p>
+            <div class="rule"></div>
+            <div class="chain">
+              <div><b>01</b> Brief</div>
+              <div><b>02</b> Face lock</div>
+              <div><b>03</b> Base stills</div>
+              <div><b>04</b> Motion</div>
+              <div><b>05</b> Voice</div>
+            </div>
+            <div class="sprockets">
+              <i></i><i></i><i></i><i></i><i></i><i></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

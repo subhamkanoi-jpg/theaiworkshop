@@ -1,6 +1,6 @@
 {
   "name": "The AI Workshop FAQ",
-  "url": "https://www.theaiworkshop.in/answers",
+  "url": "https://theaiworkshop.in/answers",
   "faqs": [
     {
       "question": "Do I need a filmmaking or editing background?",
@@ -32,7 +32,7 @@
     },
     {
       "question": "Can I attend with only a phone?",
-      "answer": "The AI Workshop: Not usefully. Image and video generation, prompt management, and stitching the edit all need a browser and a real screen. Bring a laptop and a charger. Power at the tables is limited, so arrive charged."
+      "answer": "The AI Workshop: Not usefully. Image and video generation, prompt management, and stitching the edit all need a browser and a real screen. Bring a laptop and a charger — power strips and table Wi-Fi are provided at the venue."
     },
     {
       "question": "What about faces, brands, and confidential material?",

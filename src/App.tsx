@@ -16,6 +16,7 @@ import {
   hosts,
   workshopContent,
 } from "@/config";
+import { LOCAL } from "@/seo/local";
 import { ArrowRight, Check, Minus, MapPin, Clock, Calendar } from "lucide-react";
 
 /**
@@ -472,6 +473,74 @@ export default function App() {
             <span className="inline-flex items-center gap-2">
               <Calendar className="size-4" /> {WORKSHOP_DATE_LABEL}
             </span>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Getting there ─────────────────────────────────────────────────
+          These answers are also the home page's FAQ structured data, so they
+          have to be on the page and worded the same way. */}
+      <section
+        id="getting-there"
+        className="border-t border-border py-14 sm:py-20"
+        aria-labelledby="getting-there-heading"
+      >
+        <div className="mx-auto max-w-5xl px-4 sm:px-6">
+          <div className="grid gap-10 lg:grid-cols-[1fr_1.15fr]">
+            <div>
+              <p className="text-sm font-semibold text-primary">
+                Venue, travel and refunds
+              </p>
+              <h2
+                id="getting-there-heading"
+                className="mt-3 font-serif text-3xl font-semibold leading-tight text-balance sm:text-4xl"
+              >
+                Getting there.
+              </h2>
+              <address className="mt-5 not-italic text-base leading-relaxed text-muted-foreground">
+                <span className="font-semibold text-foreground">
+                  {LOCAL.venueName}
+                </span>
+                <br />
+                {LOCAL.street}
+                <br />
+                {LOCAL.locality}, {LOCAL.region} {LOCAL.postalCode}
+              </address>
+              <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+                Doors at <span className="font-semibold text-foreground">10:30 AM</span>{" "}
+                for an 11:00 AM start. The exact unit is emailed the moment you
+                book — arrive a little early and take the coffee.
+              </p>
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+                <a
+                  href={LOCAL.mapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex min-h-11 items-center justify-center gap-2 whitespace-nowrap rounded-full border border-border px-5 text-sm font-semibold"
+                >
+                  <MapPin className="size-4" /> Open in Google Maps
+                </a>
+                <a
+                  href={`tel:${LOCAL.phoneTel}`}
+                  className="inline-flex min-h-11 items-center justify-center gap-2 whitespace-nowrap rounded-full border border-border px-5 text-sm font-semibold"
+                >
+                  Call {LOCAL.phoneDisplay}
+                </a>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-2">
+              {workshopContent.localFaqs.map((faq) => (
+                <details key={faq.q} className="border-b border-border py-4">
+                  <summary className="cursor-pointer text-base font-semibold leading-relaxed">
+                    {faq.q}
+                  </summary>
+                  <p className="mt-3 text-base leading-relaxed text-muted-foreground">
+                    {faq.a}
+                  </p>
+                </details>
+              ))}
+            </div>
           </div>
         </div>
       </section>

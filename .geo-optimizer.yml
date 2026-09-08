@@ -1,13 +1,13 @@
 # https://github.com/Auriti-Labs/geo-optimizer-skill
 audit:
-  url: https://www.theaiworkshop.in
+  url: https://theaiworkshop.in
   format: json
   min_score: 70
   cache: false
   verbose: false
 
 llms:
-  base_url: https://www.theaiworkshop.in
+  base_url: https://theaiworkshop.in
   title: The AI Workshop
   description: Offline, hands-on AI workshops in Salt Lake, Kolkata.
   max_urls: 50

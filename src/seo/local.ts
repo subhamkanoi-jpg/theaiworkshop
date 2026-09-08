@@ -1,24 +1,29 @@
-/** Single NAP. Footer, schema, SerpBear business name, and /kolkata all read this. */
+/** Single NAP. Footer, schema, SerpBear business name, and /kolkata all read this.
+ *
+ * The address, coordinates and map link must stay identical to `venue` in
+ * workshop.json — that object is what the JSON-LD graph emits, and a local pack
+ * is built on these agreeing everywhere they appear. */
 export const LOCAL = {
   name: "The AI Workshop",
   legalName: "The AI Workshop",
   aliases: ["AI Workshop Kolkata", "AI Workshop Salt Lake", "theaiworkshop.in"] as const,
-  url: "https://www.theaiworkshop.in/",
+  url: "https://theaiworkshop.in/",
   email: "theaiworkshop.in@gmail.com",
   phoneTel: "+919830715557",
   phoneDisplay: "+91 98307 15557",
   phoneSchema: "+91-98307-15557",
-  street: "Salt Lake",
-  locality: "Kolkata",
+  venueName: "The AI Workshop Hub",
+  street: "Salt Lake, Sector 1",
+  locality: "Bidhannagar, Kolkata",
   region: "West Bengal",
   postalCode: "700064",
   country: "IN",
   countryName: "India",
   neighbourhood: "Salt Lake (Bidhannagar)",
-  areaLine: "Salt Lake, Kolkata, West Bengal 700064",
-  lat: 22.5804,
-  lng: 88.4177,
-  mapsUrl: "https://maps.google.com/?q=Salt+Lake+Kolkata",
+  areaLine: "Salt Lake Sector 1, Bidhannagar, Kolkata, West Bengal 700064",
+  lat: 22.5867,
+  lng: 88.4077,
+  mapsUrl: "https://maps.google.com/?q=Salt+Lake+Sector+1+Kolkata",
   instagram: "https://www.instagram.com/theaiworkshop.in",
   languages: ["en", "hi", "bn"] as const,
   priceRange: "₹₹",

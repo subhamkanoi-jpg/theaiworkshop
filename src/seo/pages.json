@@ -1,11 +1,11 @@
 {
   "home": {
     "path": "/",
-    "title": "The AI Workshop | Practical AI for Non-Techies, Kolkata",
-    "description": "An offline space for non-techies to put AI to work, one real use-case project at a time. Next: Build a Complete AI Video Ad From Scratch, 27 September 2026. Offline in Salt Lake, Kolkata. ₹799.",
-    "ogTitle": "The AI Workshop · One real project at a time",
-    "ogDescription": "An offline space for non-techies to put AI to work, one real use-case project at a time. Next: Build a Complete AI Video Ad From Scratch, 27 September 2026. Offline in Salt Lake, Kolkata. ₹799.",
-    "ogImage": "https://www.theaiworkshop.in/meetup1/group-selfie.jpg"
+    "title": "AI Video Ad Workshop Kolkata | 27 Sept · Salt Lake",
+    "description": "Build a complete AI video ad in 3 hours. Hands-on offline workshop in Salt Lake, Kolkata on 27 Sept 2026. Consistent faces, motion & voiceover. 50 seats.",
+    "ogTitle": "AI Video Ad Workshop Kolkata · 27 Sept, Salt Lake",
+    "ogDescription": "Build a complete AI video ad in 3 hours. Hands-on offline workshop in Salt Lake, Kolkata on 27 Sept 2026. Consistent faces, motion & voiceover. 50 seats.",
+    "ogImage": "https://theaiworkshop.in/assets/og-kolkata-sept27.png"
   },
   "workshop": {
     "path": "/workshop",
@@ -13,7 +13,7 @@
     "description": "Build one finished vertical AI video ad in three hours: face lock, base stills, Veo motion, ElevenLabs voice. 27 September 2026, Salt Lake, Kolkata. ₹799. No filmmaking background.",
     "ogTitle": "Build a Complete AI Video Ad From Scratch | 27 September, Kolkata",
     "ogDescription": "Build one finished vertical AI video ad in three hours: face lock, base stills, Veo motion, ElevenLabs voice. 27 September 2026, Salt Lake, Kolkata. ₹799. No filmmaking background.",
-    "ogImage": "https://www.theaiworkshop.in/meetup1/group-selfie.jpg"
+    "ogImage": "https://theaiworkshop.in/assets/og-kolkata-sept27.png"
   },
   "book": {
     "path": "/book",
@@ -21,7 +21,7 @@
     "description": "Reserve Build a Complete AI Video Ad From Scratch. Sunday, 27 September 2026, 11:00 AM – 2:00 PM. Salt Lake, Kolkata. 50 seats. ₹799. Laptop required. No filmmaking background needed.",
     "ogTitle": "Book Your Seat | Build a Complete AI Video Ad From Scratch, 27 September",
     "ogDescription": "Reserve Build a Complete AI Video Ad From Scratch. Sunday, 27 September 2026, 11:00 AM – 2:00 PM. Salt Lake, Kolkata. 50 seats. ₹799. Laptop required. No filmmaking background needed.",
-    "ogImage": "https://www.theaiworkshop.in/meetup1/group-selfie.jpg"
+    "ogImage": "https://theaiworkshop.in/assets/og-kolkata-sept27.png"
   },
   "path": {
     "path": "/path",
@@ -29,7 +29,7 @@
     "description": "Learn AI through one real use-case project at a time. Offline workshops for non-techies in Salt Lake, Kolkata. Each session stands alone.",
     "ogTitle": "How We Learn | One Real AI Project at a Time",
     "ogDescription": "Learn AI through one real use-case project at a time. Offline workshops for non-techies in Salt Lake, Kolkata. Each session stands alone.",
-    "ogImage": "https://www.theaiworkshop.in/meetup1/group-selfie.jpg"
+    "ogImage": "https://theaiworkshop.in/meetup1/group-selfie.jpg"
   },
   "room": {
     "path": "/room",
@@ -37,7 +37,7 @@
     "description": "Photos, hosts, and websites from The AI Workshop’s first session in June 2026. An offline learning space for non-techies in Salt Lake, Kolkata.",
     "ogTitle": "The Room | Our First AI Workshop, June 2026",
     "ogDescription": "Photos, hosts, and websites from The AI Workshop’s first session in June 2026. An offline learning space for non-techies in Salt Lake, Kolkata.",
-    "ogImage": "https://www.theaiworkshop.in/meetup1/group-selfie.jpg"
+    "ogImage": "https://theaiworkshop.in/meetup1/group-selfie.jpg"
   },
   "host": {
     "path": "/host",
@@ -45,7 +45,7 @@
     "description": "Help non-techies build a practical AI project in person. Host a table with The AI Workshop in Salt Lake, Kolkata.",
     "ogTitle": "Host a Table | The AI Workshop, Kolkata",
     "ogDescription": "Help non-techies build a practical AI project in person. Host a table with The AI Workshop in Salt Lake, Kolkata.",
-    "ogImage": "https://www.theaiworkshop.in/meetup1/group-selfie.jpg"
+    "ogImage": "https://theaiworkshop.in/meetup1/group-selfie.jpg"
   },
   "about": {
     "path": "/about",
@@ -53,7 +53,7 @@
     "description": "An offline space for non-techies to put AI to work, one real use-case project at a time. Based in Salt Lake, Kolkata, and hosted by Yogesh, Neeraj, and Subham Kanoi.",
     "ogTitle": "About The AI Workshop | Offline AI for Non-Techies",
     "ogDescription": "An offline space for non-techies to put AI to work, one real use-case project at a time. Based in Salt Lake, Kolkata, and hosted by Yogesh, Neeraj, and Subham Kanoi.",
-    "ogImage": "https://www.theaiworkshop.in/meetup1/group-selfie.jpg"
+    "ogImage": "https://theaiworkshop.in/meetup1/group-selfie.jpg"
   },
   "kolkata": {
     "path": "/kolkata",
@@ -61,7 +61,7 @@
     "description": "Learn AI in Kolkata, one practical project at a time. Next: Build a Complete AI Video Ad From Scratch, 27 September 2026. Salt Lake, offline, ₹799.",
     "ogTitle": "Learn AI in Kolkata | Offline Workshop in Salt Lake",
     "ogDescription": "Learn AI in Kolkata, one practical project at a time. Next: Build a Complete AI Video Ad From Scratch, 27 September 2026. Salt Lake, offline, ₹799.",
-    "ogImage": "https://www.theaiworkshop.in/meetup1/group-selfie.jpg"
+    "ogImage": "https://theaiworkshop.in/assets/og-kolkata-sept27.png"
   },
   "answers": {
     "path": "/answers",
@@ -69,7 +69,7 @@
     "description": "Practical answers about The AI Workshop: September’s AI video ad build, the tools and credits it needs, privacy, venue, ticket, and what to bring.",
     "ogTitle": "Questions and Answers | The AI Workshop",
     "ogDescription": "Practical answers about The AI Workshop: September’s AI video ad build, the tools and credits it needs, privacy, venue, ticket, and what to bring.",
-    "ogImage": "https://www.theaiworkshop.in/meetup1/group-selfie.jpg"
+    "ogImage": "https://theaiworkshop.in/assets/og-kolkata-sept27.png"
   },
   "share": {
     "path": "/share",
@@ -77,6 +77,6 @@
     "description": "Invite a friend to Build a Complete AI Video Ad From Scratch. Sunday, 27 September 2026, 11:00 AM – 2:00 PM. Salt Lake, Kolkata. 50 seats. ₹799. One finished ad, built in the room, in three hours.",
     "ogTitle": "Share Build a Complete AI Video Ad From Scratch | The AI Workshop",
     "ogDescription": "Invite a friend to Build a Complete AI Video Ad From Scratch. Sunday, 27 September 2026, 11:00 AM – 2:00 PM. Salt Lake, Kolkata. 50 seats. ₹799. One finished ad, built in the room, in three hours.",
-    "ogImage": "https://www.theaiworkshop.in/meetup1/group-selfie.jpg"
+    "ogImage": "https://theaiworkshop.in/assets/og-kolkata-sept27.png"
   }
 }

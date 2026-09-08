@@ -1,5 +1,6 @@
 {
   "slug": "ai-video-ad-from-scratch",
+  "origin": "https://theaiworkshop.in",
   "number": 3,
   "chapter": "Make it move",
   "title": "Build a Complete AI Video Ad From Scratch",
@@ -83,7 +84,7 @@
     },
     {
       "q": "Can I attend with only a phone?",
-      "a": "Not usefully. Image and video generation, prompt management, and stitching the edit all need a browser and a real screen. Bring a laptop and a charger. Power at the tables is limited, so arrive charged."
+      "a": "Not usefully. Image and video generation, prompt management, and stitching the edit all need a browser and a real screen. Bring a laptop and a charger — power strips and table Wi-Fi are provided at the venue."
     },
     {
       "q": "What about faces, brands, and confidential material?",
@@ -92,6 +93,44 @@
     {
       "q": "Where is it, and what does the ticket include?",
       "a": "Offline in Salt Lake, Kolkata, on Sunday 27 September 2026, 11:00 AM to 2:00 PM. The ticket is ₹799 for the three-hour production run, the table captains, and the prompt system you keep. There are 50 seats. The exact venue is shared after reservation. Full refund up to 48 hours before the session; venue holds are released 15 minutes after kickoff."
+    }
+  ],
+  "eventName": "TOW Master Prompt System: 3-Hour Offline AI Video Ad Workshop",
+  "eventDescription": "Learn to produce production-grade UGC and cinematic AI video ads using face-locking, prompt chaining, and voice cloning in an offline, hands-on workshop in Kolkata.",
+  "doorTime": "2026-09-27T10:30:00+05:30",
+  "offerValidFrom": "2026-09-01T00:00:00+05:30",
+  "ogImage": "/assets/og-kolkata-sept27.png",
+  "venue": {
+    "name": "The AI Workshop Hub",
+    "streetAddress": "Salt Lake, Sector 1",
+    "addressLocality": "Bidhannagar, Kolkata",
+    "addressRegion": "West Bengal",
+    "postalCode": "700064",
+    "addressCountry": "IN",
+    "latitude": 22.5867,
+    "longitude": 88.4077,
+    "hasMap": "https://maps.google.com/?q=Salt+Lake+Sector+1+Kolkata"
+  },
+  "localFaqs": [
+    {
+      "q": "Where in Salt Lake, Kolkata is the workshop held and how do I reach?",
+      "a": "The workshop is held in Salt Lake Sector 1, Kolkata. The venue is easily accessible via the Kolkata Metro Green Line (Salt Lake / City Centre stations) and is a short 5-minute cab ride from Ultadanga/EM Bypass. Exact venue address and Google Maps directions are emailed immediately upon booking."
+    },
+    {
+      "q": "Is parking available at the venue?",
+      "a": "Yes, designated two-wheeler and four-wheeler street and venue parking is available on a first-come, first-served basis in Sector 1."
+    },
+    {
+      "q": "What hardware and software do I need to bring?",
+      "a": "Bring a laptop (Mac or Windows) with a working browser and charger. High-speed table Wi-Fi and power strips are provided. No heavy local GPU hardware is required as all tools run in the cloud."
+    },
+    {
+      "q": "What will I have built by 2:00 PM?",
+      "a": "You will leave with a complete, rendered 9:16 vertical AI video commercial (UGC or Cinematic) featuring consistent character face-locking, controlled motion, and natural ElevenLabs voiceover, plus the complete reusable prompt stack."
+    },
+    {
+      "q": "What is the cancellation and refund policy?",
+      "a": "Full refund requests are supported up to 48 hours before the event starts (by Friday, 25 September at 11:00 AM IST). Unclaimed seats are released 15 minutes after kickoff."
     }
   ]
 }

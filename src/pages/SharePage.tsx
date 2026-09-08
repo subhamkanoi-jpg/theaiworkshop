@@ -20,7 +20,7 @@ ${WORKSHOP_DATE_LABEL}
 ${WORKSHOP_TIME_LABEL} · ${inr(PRICE)} · Offline
 Laptop required. 50 seats, tables of eight.
 
-https://www.theaiworkshop.in/workshop`;
+https://theaiworkshop.in/workshop`;
 
 export default function SharePage() {
   usePageSeo("share");

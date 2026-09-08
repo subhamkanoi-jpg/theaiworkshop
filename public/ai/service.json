@@ -1,7 +1,7 @@
 {
   "name": "The AI Workshop",
   "description": "An offline space for non-techies to put AI to work, one real use-case project at a time.",
-  "url": "https://www.theaiworkshop.in",
+  "url": "https://theaiworkshop.in",
   "capabilities": [
     "Offline, hands-on AI workshops for non-techies",
     "One practical use-case project per session",
@@ -13,5 +13,5 @@
   ],
   "next_workshop": "Build a Complete AI Video Ad From Scratch",
   "priceINR": 799,
-  "updated": "2026-09-07"
+  "updated": "2026-09-08"
 }

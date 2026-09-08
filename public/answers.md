@@ -36,7 +36,7 @@ You leave with a finished, rendered ad. Whether it converts depends on your offe
 
 ### Can I attend with only a phone?
 
-Not usefully. Image and video generation, prompt management, and stitching the edit all need a browser and a real screen. Bring a laptop and a charger. Power at the tables is limited, so arrive charged.
+Not usefully. Image and video generation, prompt management, and stitching the edit all need a browser and a real screen. Bring a laptop and a charger — power strips and table Wi-Fi are provided at the venue.
 
 ### What about faces, brands, and confidential material?
 
@@ -46,4 +46,4 @@ Do not upload photographs of real people without their permission, and do not br
 
 Offline in Salt Lake, Kolkata, on Sunday 27 September 2026, 11:00 AM to 2:00 PM. The ticket is ₹799 for the three-hour production run, the table captains, and the prompt system you keep. There are 50 seats. The exact venue is shared after reservation. Full refund up to 48 hours before the session; venue holds are released 15 minutes after kickoff.
 
-[Workshop details](https://www.theaiworkshop.in/workshop)
+[Workshop details](https://theaiworkshop.in/workshop)
