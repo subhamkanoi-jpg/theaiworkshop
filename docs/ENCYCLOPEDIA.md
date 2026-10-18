@@ -2,7 +2,7 @@
 
 *A live catalog, not a blog. Written so a stranger in Salt Lake can read it on a phone and know what this place is, what they will learn, and what happens on a Sunday.*
 
-Last updated: 30 August 2026. Next SKU: Workshop #3, 27 September 2026.
+Last updated: 19 October 2026. Next SKU: Workshop #4, 25 October 2026 — Build Your First AI Automation, led by Neeraj Kanoi.
 
 If a sentence in this file cannot be shown on the website, it is too internal. If the website says something this file does not, the website is wrong.
 
@@ -74,6 +74,8 @@ The reason “useful” becomes “livelihood.”
 
 **On the Sell shelf (starting October)**
 
+- **#4 · 25 October 2026 — Build Your First AI Automation.** Every enquiry gets an AI-written reply in minutes, three follow-ups that stop when the lead replies, and a Telegram bot that answers from the price list. Runbook: [WORKSHOP-04-AI-AUTOMATION.md](./WORKSHOP-04-AI-AUTOMATION.md).
+
 - WhatsApp that brings customers: catalogues, replies, follow-ups, a broadcast that does not sound like a broadcast.
 - An offer, written and priced, that a stranger understands.
 - Outreach that is specific (one person, one problem, one next step) instead of “Dear Sir I am an AI expert.”
@@ -144,6 +146,8 @@ A short shelf. We add a tool only if a beginner can finish a Sunday with it.
 | **Canva** | Layout when the model has written the words | Free | Make (content) |
 | **A website builder the Sunday names** | Ship a URL | Free tier | Make (site) |
 | **WhatsApp** | The corridor. Broadcasts. Community. | Free | Sell, Room |
+| **Make** | Wiring: form → sheet → AI → email, and the bot | Free plan | Sell (#4) |
+| **Telegram + BotFather** | A real FAQ bot in two minutes | Free | Sell (#4) |
 | **Razorpay on this site** | Tickets | — | Storefront |
 
 We do not demo twenty tools. We do not make the brand of the model the brand of the room. **The brief is the product. The logo on the chat is a rental car.**
@@ -230,7 +234,8 @@ The showroom. Always visible. A store with no memory is a pop-up.
 |---|---|---|---|
 | #1 · 28 Jun 2026 | Make | Live websites for real local work | Laptop mix is real; samples must exist; people will deploy if the URL is the prize |
 | #2 · 30 Aug 2026 | Make | Subtitled reels from phone footage | Installs and files do not scale; this stays a 25-person room |
-| #3 · 27 Sep 2026 | Talk | The Magic of AI — a week of work from how they talk | *To be written that night* |
+| #3 · 27 Sep 2026 | Make | AI video ads — a vertical ad built from a brief | *To be written* |
+| #4 · 25 Oct 2026 | Sell | One automation running: AI replies, follow-ups, a FAQ bot | *To be written that night* |
 
 After every Sunday, the same day, we add: 4 photos, 1 paragraph of what actually happened (not the brochure), 1 thing we will change.
 

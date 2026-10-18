@@ -38,7 +38,7 @@ mindmap
         Aug 30 Reel
         Images docs decks
       3 Sell
-        Oct WhatsApp selling
+        Oct 25 AI automation: replies, follow-ups, a bot
         Offer page
         First paid skill
       4 System
@@ -168,7 +168,7 @@ timeline
   Jun 2026 : #1 Make — Build a website
   Aug 2026 : #2 Make — Automate video editing
   Sep 2026 : #3 System — Make a second you (100-person assembly)
-  Oct 2026 : #4 Sell — WhatsApp that brings customers
+  Oct 2026 : #4 Sell — AI automation: every lead gets a reply (led by Neeraj)
   Nov 2026 : #5 Make — 30 days of content in one afternoon
   Dec 2026 : #6 Sell — Your first offer, priced and written
   Jan 2027 : #7 Talk — Briefing mastery / evals for beginners
