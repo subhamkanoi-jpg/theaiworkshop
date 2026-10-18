@@ -13,9 +13,9 @@ const pack = JSON.parse(readFileSync(join(root, "src/seo/elmo.json"), "utf8"));
 // these between www and non-www is what splits the ranking signal, so the
 // value lives in workshop.json and nothing here hardcodes a host.
 const origin = w.origin;
-const modified = "2026-09-08";
-// The event card is the share image wherever the page is about 27 September;
-// pages about the room or the archive keep the photograph of the room.
+const modified = w.seo.updated;
+// The event card is the share image wherever the page is about the current
+// workshop; pages about the room or the archive keep the photograph of the room.
 const eventImage = `${origin}${w.ogImage}`;
 const roomImage = `${origin}/meetup1/group-selfie.jpg`;
 const EVENT_PAGES = ["home", "workshop", "book", "kolkata", "share", "answers"];
@@ -31,26 +31,35 @@ const esc = (value) =>
         c
       ],
   );
+// Date parts come from dateIso and timeLabel, so a new workshop date or time
+// reaches every title, description and sentence below without a second edit.
+const MONTHS = [
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December",
+];
+const [year, monthNumber, dayNumber] = w.dateIso.split("-").map(Number);
+const monthName = MONTHS[monthNumber - 1];
+const dayMonth = `${dayNumber} ${monthName}`;
+const dayMonthShort = `${dayNumber} ${monthName.slice(0, 3)}`;
+const startTime = w.timeLabel.split("–")[0].trim();
 const facts = `${w.dateLabel}, ${w.timeLabel}. ${w.location}. ${w.totalSeats} seats. ₹${w.price}.`;
-const history =
-  "Our first workshop in June 2026 was about making websites and hosting them. Each workshop stands alone; no earlier session is required.";
+const history = w.seo.history;
 const descriptions = {
-  home: "Build a complete AI video ad in 3 hours. Hands-on offline workshop in Salt Lake, Kolkata on 27 Sept 2026. Consistent faces, motion & voiceover. 50 seats.",
-  workshop: `Build one finished vertical AI video ad in three hours: face lock, base stills, Veo motion, ElevenLabs voice. 27 September 2026, Salt Lake, Kolkata. ₹${w.price}. No filmmaking background.`,
-  book: `Reserve ${w.title}. ${facts} Laptop required. No filmmaking background needed.`,
+  home: w.seo.homeDescription,
+  workshop: w.seo.workshopDescription,
+  book: `Reserve ${w.title}. ${facts} ${w.seo.bookTail}`,
   path: "Learn AI through one real use-case project at a time. Offline workshops for non-techies in Salt Lake, Kolkata. Each session stands alone.",
   room: "Photos, hosts, and websites from The AI Workshop’s first session in June 2026. An offline learning space for non-techies in Salt Lake, Kolkata.",
   host: "Help non-techies build a practical AI project in person. Host a table with The AI Workshop in Salt Lake, Kolkata.",
   about: `${w.mission} Based in Salt Lake, Kolkata, and hosted by Yogesh, Neeraj, and Subham Kanoi.`,
-  kolkata: `Learn AI in Kolkata, one practical project at a time. Next: ${w.title}, 27 September 2026. Salt Lake, offline, ₹${w.price}.`,
-  answers:
-    "Practical answers about The AI Workshop: September’s AI video ad build, the tools and credits it needs, privacy, venue, ticket, and what to bring.",
-  share: `Invite a friend to ${w.title}. ${facts} One finished ad, built in the room, in three hours.`,
+  kolkata: `Learn AI in Kolkata, one practical project at a time. Next: ${w.title}, ${dayMonth} ${year}. Salt Lake, offline, ₹${w.price}.`,
+  answers: w.seo.answersDescription,
+  share: `Invite a friend to ${w.title}. ${facts} ${w.seo.shareTail}`,
 };
 const titles = {
-  home: "AI Video Ad Workshop Kolkata | 27 Sept · Salt Lake",
-  workshop: `${w.title} | 27 September, Kolkata`,
-  book: `Book Your Seat | ${w.title}, 27 September`,
+  home: w.seo.homeTitle,
+  workshop: `${w.title} | ${dayMonth}, Kolkata`,
+  book: `Book Your Seat | ${w.title}, ${dayMonth}`,
   path: "How We Learn | One Real AI Project at a Time",
   room: "The Room | Our First AI Workshop, June 2026",
   host: "Host a Table | The AI Workshop, Kolkata",
@@ -66,24 +75,14 @@ const pages = Object.fromEntries(
       path: key === "home" ? "/" : `/${key}`,
       title: titles[key],
       description: descriptions[key],
-      ogTitle:
-        key === "home"
-          ? "AI Video Ad Workshop Kolkata · 27 Sept, Salt Lake"
-          : titles[key],
+      ogTitle: key === "home" ? w.seo.homeOgTitle : titles[key],
       ogDescription: descriptions[key],
       ogImage: imageFor(key),
     },
   ]),
 );
 json("src/seo/pages.json", pages);
-pack.personas = [
-  { id: "founder", label: "D2C founders and local business owners running their own ads" },
-  { id: "agency", label: "Agency owners and video creators producing client work" },
-  {
-    id: "freelancer",
-    label: "Freelancers and marketers with no filmmaking background",
-  },
-];
+pack.personas = w.seo.personas;
 pack.prompts = w.faqs.map((faq, index) => ({
   id: `workshop-question-${index + 1}`,
   value: faq.q,
@@ -168,7 +167,12 @@ const event = {
     url: origin,
     "@id": `${origin}/#organization`,
   },
-  performer: { "@type": "Organization", name: "The AI Workshop Core Team" },
+  performer: {
+    "@type": "Person",
+    name: w.lead.name,
+    jobTitle: w.lead.role,
+    worksFor: { "@type": "Organization", name: w.lead.org },
+  },
   location: {
     "@type": "Place",
     name: w.venue.name,
@@ -192,7 +196,7 @@ const faqHtml = faqListHtml(w.faqs);
 // fallback has to carry their text too — structured data may not answer
 // questions the page itself does not.
 const localFaqHtml = faqListHtml(w.localFaqs);
-const gettingThereHtml = `<h2>Getting to the workshop</h2><p>${esc(w.venue.name)}, ${esc(w.venue.streetAddress)}, ${esc(w.venue.addressLocality)}, ${esc(w.venue.addressRegion)} ${esc(w.venue.postalCode)}. Doors open at 10:30 AM for an 11:00 AM start. <a href="${esc(w.venue.hasMap)}">Open in Google Maps</a>.</p>`;
+const gettingThereHtml = `<h2>Getting to the workshop</h2><p>${esc(w.venue.name)}, ${esc(w.venue.streetAddress)}, ${esc(w.venue.addressLocality)}, ${esc(w.venue.addressRegion)} ${esc(w.venue.postalCode)}. Doors open at ${w.doorLabel} for a ${startTime} start. <a href="${esc(w.venue.hasMap)}">Open in Google Maps</a>.</p>`;
 const outcomesHtml = `<ul>${w.outcomes.map((outcome) => `<li>${esc(outcome)}</li>`).join("")}</ul>`;
 const agendaHtml = `<ol>${w.agenda.map((step) => `<li><strong>${esc(step.time)}: ${esc(step.title)}</strong><p>${esc(step.body)}</p></li>`).join("")}</ol>`;
 const baseHtml = `<h2>${esc(w.title)}</h2><p>${esc(w.description)}</p><p>${esc(facts)}</p><h2>What you build</h2>${outcomesHtml}<h3>What to bring</h3><p>${esc(w.bringLabel)}</p><h2>Our first workshop</h2><p>${esc(history)}</p><h3>Visit us in Kolkata</h3><p>Salt Lake is also known as <a href="https://en.wikipedia.org/wiki/Bidhannagar">Bidhannagar</a>. The exact workshop venue is shared after reservation. Ask about travel or accessibility before booking.</p><p><a href="tel:${esc(w.phoneTel)}">${esc(w.phoneDisplay)}</a> · <a href="mailto:${esc(w.supportEmail)}">${esc(w.supportEmail)}</a></p>`;
@@ -235,7 +239,7 @@ for (const [key, page] of Object.entries(pages)) {
     null,
     2,
   ).replace(/</g, "\\u003c");
-  const fallback = `<h1>${esc(key === "home" ? "AI Video Ad Workshop in Kolkata" : page.title)}</h1><p>${esc(descriptions[key])}</p>${baseHtml}${["home", "kolkata"].includes(key) ? gettingThereHtml : ""}${key === "workshop" ? `<h2>The three-hour plan</h2>${agendaHtml}` : ""}${key === "home" ? `<h2>Venue, travel and refunds</h2>${localFaqHtml}` : ""}${["workshop", "answers"].includes(key) ? `<h2>Questions and answers</h2>${faqListHtml(faqsFor(key))}` : ""}<p><a href="/workshop">Workshop details</a> · <a href="/book">Reserve your seat</a> · <a href="/room">The June workshop</a> · <a href="/about">About</a></p>`;
+  const fallback = `<h1>${esc(key === "home" ? w.seo.homeHeading : page.title)}</h1><p>${esc(descriptions[key])}</p>${baseHtml}${["home", "kolkata"].includes(key) ? gettingThereHtml : ""}${key === "workshop" ? `<h2>${esc(w.seo.planHeading)}</h2>${agendaHtml}` : ""}${key === "home" ? `<h2>Venue, travel and refunds</h2>${localFaqHtml}` : ""}${["workshop", "answers"].includes(key) ? `<h2>Questions and answers</h2>${faqListHtml(faqsFor(key))}` : ""}<p><a href="/workshop">Workshop details</a> · <a href="/book">Reserve your seat</a> · <a href="/room">The June workshop</a> · <a href="/about">About</a></p>`;
   write(
     key === "home" ? "index.html" : `${key}.html`,
     `<!DOCTYPE html>
@@ -264,7 +268,7 @@ for (const [key, page] of Object.entries(pages)) {
   <meta property="og:image" content="${page.ogImage}" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="${page.ogImage === eventImage ? "630" : "900"}" />
-  <meta property="og:image:alt" content="${esc(page.ogImage === eventImage ? `${w.title} — 27 September 2026, Salt Lake, Kolkata` : "Participants at The AI Workshop’s first session in June 2026")}" />
+  <meta property="og:image:alt" content="${esc(page.ogImage === eventImage ? `${w.title} — ${dayMonth} ${year}, Salt Lake, Kolkata` : "Participants at The AI Workshop’s first session in June 2026")}" />
   <meta property="article:modified_time" content="${modified}" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="${esc(page.ogTitle)}" />
@@ -335,7 +339,7 @@ const brief = `# The AI Workshop\n\n> ${w.mission}\n\nUpdated ${modified}.\n\n##
 write("public/llms.txt", brief);
 write(
   "public/llms-full.txt",
-  `${brief}\n## Session plan\n\n${w.agenda.map((a) => `### ${a.time}: ${a.title}\n\n${a.body}`).join("\n\n")}\n\n## Contact\n\n${w.phoneDisplay} · ${w.supportEmail}\n\nHosts: Yogesh Kanoi, Neeraj Kanoi, Subham Kanoi.\n\n## Scope\n\nParticipants build one ad for their own product using generated characters, not clones of real people. Image, video, and voice tools run on credits the participant supplies; the ticket does not include them. The session does not buy media, run campaigns, or promise advertising results. Future workshop topics and dates have not been announced.\n`,
+  `${brief}\n## Session plan\n\n${w.agenda.map((a) => `### ${a.time}: ${a.title}\n\n${a.body}`).join("\n\n")}\n\n## Before the session\n\n${w.prep.map((item) => `- ${item}`).join("\n")}\n\n## Contact\n\n${w.phoneDisplay} · ${w.supportEmail}\n\nLed by ${w.lead.name}, ${w.lead.role} at ${w.lead.org}. Hosts: Yogesh Kanoi, Neeraj Kanoi, Subham Kanoi.\n\n## Scope\n\n${w.seo.scope}\n`,
 );
 for (const key of ["about", "kolkata", "answers"])
   write(

@@ -2,43 +2,43 @@
 
 > An offline space for non-techies to put AI to work, one real use-case project at a time.
 
-Updated 2026-09-08.
+Updated 2026-10-19.
 
 ## Next workshop
 
-Build a Complete AI Video Ad From Scratch
+Build Your First AI Automation: Leads, Emails and a Bot
 
-Sunday, 27 September 2026, 11:00 AM – 2:00 PM. Salt Lake, Kolkata. 50 seats. ₹799.
+Sunday, 25 October 2026, 12:00 PM – 4:00 PM. Salt Lake, Kolkata. 50 seats. ₹699.
 
-Walk in with an idea. Walk out at 2:00 PM with a finished vertical ad: one face-locked character, 4 to 6 production stills, motion clips, and a natural voiceover, built on one repeatable prompt system. Three hours, offline, no filmmaking background required.
+Walk in with the questions your customers keep asking. Walk out at 4:00 PM with an automation running for your business: every new enquiry gets a personal AI-written reply within minutes, three follow-up emails that stop once the lead replies, and a Telegram bot that answers from your own price list. Four hours, offline, no coding.
 
 ## What participants take home
 
-- The locked actor: one continuity-safe face reference with real skin texture, so the same person survives every scene
-- Four to six production base stills: vertical 9:16 scenes planned through explicit camera, lens, and lighting instructions
-- The motion clips: your approved stills turned into controlled video in Google Flow and Veo, with handheld movement instead of random morphing
-- A human voiceover: natural cadence built with ElevenLabs bracketed delivery cues, or your own recorded take run through voice changing
-- The recipe: the master prompt stack saved on your laptop, so the next ad starts at step one instead of a blank chat window
+- The business brief: one page that teaches every automation your offer, your prices, your tone, and the things it must never say
+- Lead capture: a live form that drops every enquiry into one Google Sheet, with nothing copied by hand
+- The AI first reply: a personal email in your voice, written from your brief and sent within minutes of the enquiry
+- The follow-up sequence: three emails on day 2, day 5 and day 9 that stop once the lead replies, plus the same pipeline to send a campaign to people who asked to hear from you
+- The FAQ bot: a Telegram bot that answers customer questions from your own price list, and hands the conversation to you when it is not sure
 
 ## First workshop
 
-Our first workshop in June 2026 was about making websites and hosting them. Each workshop stands alone; no earlier session is required.
+Our first workshop in June 2026 was about making websites and hosting them; in September 2026 the session was AI video ads. Each workshop stands alone; no earlier session is required.
 
 ## Preparation
 
-A laptop and charger. This is three hours of building, not a talk. Bring headphones, your phone, and one product, service, or offer you actually sell. If you would rather practise on something else, we hand you a brief at the table.
+A laptop and charger. This is four hours of building, not a talk. Bring your phone with Telegram installed, your price list or menu, the five questions customers ask you most, and the email you send when someone enquires. No business of your own yet? We hand you a sample one at the table.
 
 ## Pages
 
-- [AI Video Ad Workshop Kolkata | 27 Sept · Salt Lake](https://theaiworkshop.in/): Build a complete AI video ad in 3 hours. Hands-on offline workshop in Salt Lake, Kolkata on 27 Sept 2026. Consistent faces, motion & voiceover. 50 seats.
-- [Build a Complete AI Video Ad From Scratch | 27 September, Kolkata](https://theaiworkshop.in/workshop): Build one finished vertical AI video ad in three hours: face lock, base stills, Veo motion, ElevenLabs voice. 27 September 2026, Salt Lake, Kolkata. ₹799. No filmmaking background.
+- [AI Automation Workshop Kolkata | 25 Oct · Salt Lake](https://theaiworkshop.in/): Build your first AI automation in 4 hours: AI replies to leads, a 3-email follow-up and a FAQ bot. Offline in Salt Lake, Kolkata, 25 Oct 2026. 50 seats.
+- [Build Your First AI Automation: Leads, Emails and a Bot | 25 October, Kolkata](https://theaiworkshop.in/workshop): Build one AI automation for your business in four hours: lead capture, AI first replies, a three-email follow-up and a Telegram FAQ bot. 25 October 2026, Salt Lake, Kolkata. ₹699. No coding.
 - [How We Learn | One Real AI Project at a Time](https://theaiworkshop.in/path): Learn AI through one real use-case project at a time. Offline workshops for non-techies in Salt Lake, Kolkata. Each session stands alone.
 - [The Room | Our First AI Workshop, June 2026](https://theaiworkshop.in/room): Photos, hosts, and websites from The AI Workshop’s first session in June 2026. An offline learning space for non-techies in Salt Lake, Kolkata.
 - [Host a Table | The AI Workshop, Kolkata](https://theaiworkshop.in/host): Help non-techies build a practical AI project in person. Host a table with The AI Workshop in Salt Lake, Kolkata.
 - [About The AI Workshop | Offline AI for Non-Techies](https://theaiworkshop.in/about): An offline space for non-techies to put AI to work, one real use-case project at a time. Based in Salt Lake, Kolkata, and hosted by Yogesh, Neeraj, and Subham Kanoi.
-- [Learn AI in Kolkata | Offline Workshop in Salt Lake](https://theaiworkshop.in/kolkata): Learn AI in Kolkata, one practical project at a time. Next: Build a Complete AI Video Ad From Scratch, 27 September 2026. Salt Lake, offline, ₹799.
-- [Questions and Answers | The AI Workshop](https://theaiworkshop.in/answers): Practical answers about The AI Workshop: September’s AI video ad build, the tools and credits it needs, privacy, venue, ticket, and what to bring.
-- [Share Build a Complete AI Video Ad From Scratch | The AI Workshop](https://theaiworkshop.in/share): Invite a friend to Build a Complete AI Video Ad From Scratch. Sunday, 27 September 2026, 11:00 AM – 2:00 PM. Salt Lake, Kolkata. 50 seats. ₹799. One finished ad, built in the room, in three hours.
+- [Learn AI in Kolkata | Offline Workshop in Salt Lake](https://theaiworkshop.in/kolkata): Learn AI in Kolkata, one practical project at a time. Next: Build Your First AI Automation: Leads, Emails and a Bot, 25 October 2026. Salt Lake, offline, ₹699.
+- [Questions and Answers | The AI Workshop](https://theaiworkshop.in/answers): Practical answers about The AI Workshop: October’s AI automation build, the free tools it runs on, privacy, venue, ticket, and what to bring.
+- [Share Build Your First AI Automation: Leads, Emails and a Bot | The AI Workshop](https://theaiworkshop.in/share): Invite a friend to Build Your First AI Automation: Leads, Emails and a Bot. Sunday, 25 October 2026, 12:00 PM – 4:00 PM. Salt Lake, Kolkata. 50 seats. ₹699. One automation for your business, built in the room, in four hours.
 
 ## Optional
 
@@ -48,70 +48,90 @@ A laptop and charger. This is three hours of building, not a talk. Bring headpho
 
 ## Questions
 
-### Need a filmmaking background?
+### Who is leading it?
 
-No. The system replaces the film-school parts with written instructions: what the camera does, how the light falls, what stays the same between shots. If you can type and follow steps in order, you can produce the ad. We start from an empty chat window in the room.
+Neeraj Kanoi, the solo growth lead at Wokelo AI. He is building Wokelo’s growth funnel single-handedly, with AI doing the work a team would. He opens the session by walking through how that system runs, then builds a smaller version with the room. Yogesh and Subham Kanoi host alongside him, and every table of eight has a captain.
 
-### What is finished by 2:00 PM?
+### Do I need to know coding?
 
-One vertical ad for one product or offer: a face-locked character, four to six base stills, the motion clips generated from them, a voiceover, and the stitched edit on your laptop. You also leave with the prompt stack saved, so the second ad does not start from scratch.
+No. Every step happens in visual tools: you connect boxes, paste in your facts, and write instructions in plain English, Hindi or Bangla. If you can fill in a Google Form and send an email, you can build this. A captain sits at every table to unblock you when a connection fails.
+
+### What is running by 4:00 PM?
+
+One automation for your own business: a form that captures each enquiry into a Google Sheet, an AI-written first reply in your voice sent within minutes, three follow-up emails on day 2, day 5 and day 9 that stop once the lead replies, and a Telegram bot that answers from your price list. You also keep the brief, the prompts and the exported blueprint, so the second one does not start from scratch.
 
 ### Do the tools cost money?
 
-Some do, and we will not pretend otherwise. Strategy and prompt writing run on the free tiers of ChatGPT or Claude. Image generation, Veo video generation, and ElevenLabs voice all work on credits, and free allowances are small and change often. Budget roughly ₹500 to ₹1,500 of your own credits if you want to render a full ad on the day. We will show you where credits get wasted so you spend fewer of them.
+Not on the day. The build runs on free tiers: Make’s free plan, a free Gemini API key from Google AI Studio, Gmail, Google Sheets and Telegram. Free tiers limit how often an automation runs and how much it sends, and those limits change. We show you how to stay inside them, and what the first paid upgrade would be if your volume grows. The ticket does not include any paid plan.
 
-### Why do my AI videos look plastic?
+### Can I use my own business?
 
-Usually because the prompt gave the tool an idea instead of a production plan, and because a weak base image was pushed straight into video. A person melting between frames is almost always a base image problem, not a video problem. The session fixes the order of operations: lock the face, approve the still, then add motion.
+Please do. Bring your price list or menu, the five questions customers ask most, and the email you send when someone enquires. Shop owners, clinics, coaches, freelancers and agency owners get the most out of the day, because the automation is theirs on Monday. No business yet? We hand you a sample one at the table.
 
-### Can I use my own product?
+### Why Telegram and not WhatsApp?
 
-Bring your own. D2C founders, agency owners, freelancers, and local business owners get the most out of the day because the output is an ad they can actually run. If you do not have one ready, we hand you a brief at the table and you build with that.
+Because anyone can create a working Telegram bot in two minutes, free. WhatsApp’s official bot access needs Meta business verification and charges per conversation, which takes days, not an afternoon. The bot’s brain — your facts, your tone, your hand-over rule — is the same on both. We build it on Telegram and show you the path to WhatsApp once your business is verified.
+
+### Will this spam people?
+
+Not the way we build it. Every email goes to someone who contacted you or asked to hear from you, every sequence stops when they reply, and campaigns carry a way to opt out. We do not buy lists, scrape contacts or send cold blasts, and Gmail would block you if you tried. If you want to email ten thousand strangers, skip this Sunday.
 
 ### Can I join from home?
 
-No. It is offline in Salt Lake, Kolkata, and there is no recording or livestream. The room is the method: fifty people, tables of eight, and a captain at each table who can look at your screen when a render comes back wrong.
-
-### Is the ad ready to run?
-
-You leave with a finished, rendered ad. Whether it converts depends on your offer, your targeting, and your budget, and no workshop can promise that. What we can promise is that you will know how the file was made and be able to make the next one without us.
+No. It is offline in Salt Lake, Kolkata, and there is no recording or livestream. The room is the method: fifty people, tables of eight, and a captain at each table who can look at your screen when a connection fails.
 
 ### Can I attend with only a phone?
 
-Not usefully. Image and video generation, prompt management, and stitching the edit all need a browser and a real screen. Bring a laptop and a charger — power strips and table Wi-Fi are provided at the venue.
+Not usefully. Building the automations needs a laptop browser and a real screen. Your phone is for testing: you send the fake lead and talk to your bot from it. Bring a laptop and a charger — power strips and table Wi-Fi are provided at the venue.
 
-### What about faces and confidential material?
+### What about customer data and privacy?
 
-Do not upload photographs of real people without their permission, and do not bring confidential client files, contracts, or unreleased product material. The characters we build are generated, not cloned from a real person. If you clone your own voice, use your own recording. Follow your employer's AI policy.
+Build with test leads, not your real customer list. Do not bring confidential client files, and do not paste anything you would not want stored by a third-party service: free AI tiers may use what you send to improve their products. When you switch on with real customers, tell them how you will contact them, and follow your employer’s AI policy.
 
 ### Where is it, and what is included?
 
-Offline in Salt Lake, Kolkata, on Sunday 27 September 2026, 11:00 AM to 2:00 PM. The ticket is ₹799 for the three-hour production run, the table captains, and the prompt system you keep. There are 50 seats. The exact venue is shared after reservation. Full refund up to 48 hours before the session; venue holds are released 15 minutes after kickoff.
+Offline in Salt Lake, Kolkata, on Sunday 25 October 2026, 12:00 PM to 4:00 PM. The ticket is ₹699 for the four-hour build, the table captains, and the brief, prompts and blueprint you keep. There are 50 seats. The exact venue is shared after reservation. Full refund up to 48 hours before the session; venue holds are released 15 minutes after kickoff.
 
 ## Session plan
 
-### 11:00–11:40: The brief and the face lock
+### 12:00–12:30: Neeraj’s funnel, then yours on paper
 
-Write the brand brief in plain words, lock who the ad is for and what it must make them believe, then choose one format: UGC or cinematic. Generate the master character anchor — one headshot, one person, no collage — and save the face-lock block you will reuse all day.
+Neeraj walks through the growth system he runs alone at Wokelo AI: what runs without him, and what he still does by hand. Then you map your own: where enquiries come from, the first thing people ask, and the one step you want them to take. You write the one-page business brief that every automation will read.
 
-### 11:40–12:40: Scene breakdown and the base image pipeline
+### 12:30–1:30: Lead in, AI reply out
 
-Turn the script into scene-by-scene visual beats, then convert each beat into a standalone 9:16 image prompt with the skin-enhancer protocol attached. Generate, inspect, and approve one still per scene before anything moves.
+Build the first workflow in Make: a form drops each enquiry into a Google Sheet, Gemini writes a personal reply from your brief, and Gmail sends it. It stays in draft mode until you have read five replies and trust them.
 
-### 12:40–1:30: Motion and voice injection
+### 1:30–1:45: Break
 
-Feed approved stills into Veo with prompts that describe movement only — camera behaviour, subject movement, continuity notes, negative motion rules. In parallel, build the ElevenLabs prompt with bracketed cues and test one line before generating the whole script.
+Chai. Table captains check that every first workflow has run once, end to end.
 
-### 1:30–2:00: QC and final packaging
+### 1:45–2:45: The follow-up sequence
 
-Run the checklist: nightmare hands, distorted text, broken continuity, background strangers, robotic delivery. Fix only what matters, stitch the edit, then save the named folder structure and the prompt stack you will open again on Tuesday.
+Write three follow-ups for day 2, day 5 and day 9 from your brief, then let the sheet schedule them. Every send checks your inbox first and stops the moment the lead replies. The same pipeline sends one campaign to people who asked to hear from you.
+
+### 2:45–3:30: The FAQ bot
+
+Create a Telegram bot in two minutes, then give it your price list, your FAQ and one rule: if the answer is not in your facts, it says so and passes the question to you. Test it from your own phone.
+
+### 3:30–4:00: Break it, then switch it on
+
+Send a fake lead from your phone through the whole machine. Run the checklist: wrong names, invented prices, double sends, the spam folder, a bot that guesses. Fix what matters, switch it on, and export the blueprint you will open again on Tuesday.
+
+## Before the session
+
+- Create a free account at make.com
+- Sign in to a Google account with Gmail and Google Sheets
+- Install Telegram on your phone
+- Write down your price list and the five questions customers ask most
+- Copy the email you send when someone enquires
 
 ## Contact
 
 +91 98307 15557 · theaiworkshop.in@gmail.com
 
-Hosts: Yogesh Kanoi, Neeraj Kanoi, Subham Kanoi.
+Led by Neeraj Kanoi, Growth Lead at Wokelo AI. Hosts: Yogesh Kanoi, Neeraj Kanoi, Subham Kanoi.
 
 ## Scope
 
-Participants build one ad for their own product using generated characters, not clones of real people. Image, video, and voice tools run on credits the participant supplies; the ticket does not include them. The session does not buy media, run campaigns, or promise advertising results. Future workshop topics and dates have not been announced.
+Participants build one automation for their own business using test leads and their own facts. The build runs on the free tiers of Make, Gemini, Google Sheets, Gmail and Telegram; the ticket does not include paid plans. The session does not buy or scrape email lists, send unsolicited bulk email, or promise sales results. Future workshop topics and dates have not been announced.
