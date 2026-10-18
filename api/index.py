@@ -3,7 +3,8 @@
 Payment rules:
 - The ticket price is server-side only. Clients cannot pick an amount.
 - A seat is only confirmed after a Razorpay signature check (or a venue hold).
-- The 25-seat cap is enforced before creating an order or a venue hold.
+- The seat cap (`totalSeats` in workshop.json) is enforced per workshop, by `notes.workshop`.
+  It is checked before creating an order or a venue hold.
 - Razorpay is the source of truth (serverless has no durable local disk).
 """
 
@@ -36,16 +37,24 @@ IST = timezone(timedelta(hours=5, minutes=30))
 EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 
 _FALLBACK = {
-    "amountPaise": 79900,
-    "price": 799,
+    "slug": "ai-automation-leads-emails-bot",
+    "amountPaise": 69900,
+    "price": 699,
     "marketValue": 4999,
     "totalSeats": 50,
-    "dateLabel": "Sunday, 27 September 2026",
-    "timeLabel": "11:00 AM – 2:00 PM",
-    "durationLabel": "3 hours",
+    "dateLabel": "Sunday, 25 October 2026",
+    "timeLabel": "12:00 PM – 4:00 PM",
+    "durationLabel": "4 hours",
     "location": "Salt Lake, Kolkata",
-    "title": "Build a Complete AI Video Ad From Scratch",
-    "bringLabel": "a laptop and charger, headphones, your phone, and one product, service, or offer you actually sell. A brief is provided at the table if you would rather practise on ours.",
+    "title": "Build Your First AI Automation: Leads, Emails and a Bot",
+    "bringLabel": "A laptop and charger. This is four hours of building, not a talk. Bring your phone with Telegram installed, your price list or menu, the five questions customers ask you most, and the email you send when someone enquires. No business of your own yet? We hand you a sample one at the table.",
+    "prep": [
+        "Create a free account at make.com",
+        "Sign in to a Google account with Gmail and Google Sheets",
+        "Install Telegram on your phone",
+        "Write down your price list and the five questions customers ask most",
+        "Copy the email you send when someone enquires",
+    ],
     "whatsappWorkshop": "https://chat.whatsapp.com/DNIePdAGNfL2cs1LDIs0DG",
     "phoneTel": "+919830715557",
     "phoneDisplay": "+91 98307 15557",
@@ -81,6 +90,8 @@ PHONE_DISPLAY = str(W["phoneDisplay"])
 SUPPORT_EMAIL = str(W["supportEmail"])
 WORKSHOP_TITLE = str(W.get("title") or "The AI Workshop")
 BRING_LABEL = str(W.get("bringLabel") or "a phone, a charger, and a free Google account")
+WORKSHOP_SLUG = str(W["slug"])
+PREP = [str(p) for p in W.get("prep") or []]
 
 
 # ── helpers ────────────────────────────────────────────────────────────────
@@ -110,13 +121,19 @@ def iter_orders(client) -> list:
 
 
 def order_takes_seat(order: dict) -> bool:
-    """Paid online tickets and open venue holds both occupy a seat."""
+    """Paid online tickets and open venue holds both occupy a seat.
+
+    Only orders tagged with this workshop's slug count. Orders from earlier
+    workshops, including ones created before tagging existed, never do.
+    """
+    notes = order.get("notes") or {}
+    if notes.get("workshop") != WORKSHOP_SLUG:
+        return False
     status = (order.get("status") or "").lower()
     if status == "cancelled":
         return False
     if status == "paid":
         return True
-    notes = order.get("notes") or {}
     return notes.get("hold") == "venue"
 
 
@@ -239,6 +256,7 @@ def send_confirmation_email(name: str, email: str, pay_at_venue: bool = False) -
         if pay_at_venue
         else "<p>Your payment is confirmed and your spot is secured for <strong>The AI Workshop</strong>.</p>"
     )
+    prep_items = "\n".join(f"                <li>{html.escape(item)}</li>" for item in PREP)
     html_body = f"""\
     <html>
     <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
@@ -251,7 +269,11 @@ def send_confirmation_email(name: str, email: str, pay_at_venue: bool = False) -
                 <p style="margin: 5px 0;"><strong>Location:</strong> {html.escape(WORKSHOP_LOCATION)} (exact venue shared on WhatsApp)</p>
             </div>
             <p><strong>Workshop:</strong> {html.escape(WORKSHOP_TITLE)}</p>
-            <p><strong>What to bring:</strong> {html.escape(BRING_LABEL)} If you can, three WhatsApp messages or captions you already wrote that sound like you. No material? We'll have samples.</p>
+            <p><strong>What to bring:</strong> {html.escape(BRING_LABEL)}</p>
+            <p><strong>Before Sunday:</strong></p>
+            <ul>
+{prep_items}
+            </ul>
             <p>Join the workshop WhatsApp group — venue, timings and reminders live there:<br>
             <a href="{html.escape(WHATSAPP_URL, quote=True)}">{html.escape(WHATSAPP_URL)}</a></p>
             <p style="margin-top: 30px;">See you there!<br><strong>Team AI Workshop</strong></p>
@@ -461,6 +483,7 @@ def create_order(req: PersonRequest):
                     "email": email,
                     "phone": phone,
                     "hold": "online",
+                    "workshop": WORKSHOP_SLUG,
                 },
             }
         )
@@ -496,6 +519,7 @@ def reserve_venue(req: PersonRequest):
                     "email": email,
                     "phone": phone,
                     "hold": "venue",
+                    "workshop": WORKSHOP_SLUG,
                 },
             }
         )
@@ -627,7 +651,13 @@ def admin_data(x_admin_key: str = Header(default="")):
     except Exception as exc:
         print(f"[ADMIN] {exc}")
         raise HTTPException(status_code=500, detail="Failed to fetch orders") from exc
-    return {"total": len(rows), "total_seats": TOTAL_SEATS, "rows": rows}
+    return {
+        "total": len(rows),
+        "total_seats": TOTAL_SEATS,
+        "workshop_title": WORKSHOP_TITLE,
+        "workshop_date": WORKSHOP_DATE_LABEL,
+        "rows": rows,
+    }
 
 
 @app.get("/api/admin", response_class=HTMLResponse)
@@ -654,6 +684,7 @@ ADMIN_HTML = """<!doctype html>
   th,td{text-align:left;padding:10px 12px;border-bottom:1px solid #eee;font-size:14px;white-space:nowrap}
   th{background:#fdf6f4;color:#8a4030;font-weight:600}
   tr:last-child td{border-bottom:none}
+  .meta{color:#6b6880;font-size:14px;margin:-8px 0 16px}
   .empty{padding:24px;color:#888}
   .gate{max-width:360px;margin:15vh auto;background:#fff;padding:28px;border-radius:16px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
   label{display:block;font-size:13px;font-weight:600;margin-bottom:8px}
@@ -695,7 +726,8 @@ function render(data) {
   const table = rows.length
     ? "<table><thead><tr><th>#</th><th>Name</th><th>Email</th><th>Phone</th><th>Amount</th><th>Reference</th><th>Date</th></tr></thead><tbody>" + body + "</tbody></table>"
     : '<p class="empty">No registrations yet.</p>';
-  app.innerHTML = "<h1>Workshop Registrations · <span class=\\"count\\">" + rows.length + "</span> / " + (data.total_seats || "") + "</h1>" + table;
+  const meta = [data.workshop_title, data.workshop_date].filter(Boolean).map(escapeHtml).join(" · ");
+  app.innerHTML = "<h1>Workshop Registrations · <span class=\\"count\\">" + rows.length + "</span> / " + (data.total_seats || "") + "</h1>" + (meta ? '<p class="meta">' + meta + "</p>" : "") + table;
   gate.hidden = true;
   app.hidden = false;
 }

@@ -1,3 +1,4 @@
+import html
 import os
 
 os.environ.setdefault("RAZORPAY_KEY_ID", "rzp_test_dummy")
@@ -7,7 +8,11 @@ os.environ.setdefault("ADMIN_ACCESS_KEY", "test-admin-key")
 from fastapi.testclient import TestClient
 
 from api.index import (
+    PREP,
     WORKSHOP_AMOUNT,
+    WORKSHOP_DATE_LABEL,
+    WORKSHOP_SLUG,
+    WORKSHOP_TITLE,
     TOTAL_SEATS,
     app,
     confirm_registration,
@@ -153,7 +158,7 @@ def test_reserve_enforces_capacity(monkeypatch):
         {
             "id": f"order_{i}",
             "status": "paid",
-            "notes": {"email": f"p{i}@x.com", "hold": "online"},
+            "notes": {"email": f"p{i}@x.com", "hold": "online", "workshop": WORKSHOP_SLUG},
         }
         for i in range(TOTAL_SEATS)
     ]
@@ -171,7 +176,12 @@ def test_reserve_blocks_duplicate_email(monkeypatch):
         {
             "id": "order_1",
             "status": "created",
-            "notes": {"email": "ada@example.com", "hold": "venue", "name": "Ada"},
+            "notes": {
+                "email": "ada@example.com",
+                "hold": "venue",
+                "name": "Ada",
+                "workshop": WORKSHOP_SLUG,
+            },
         }
     ]
     fake = FakeClient(existing)
@@ -279,7 +289,12 @@ def test_admin_data_with_key(monkeypatch):
                 "status": "paid",
                 "amount": WORKSHOP_AMOUNT,
                 "created_at": 1_700_000_000,
-                "notes": {"name": "Ada", "email": "ada@example.com", "phone": "9830715557"},
+                "notes": {
+                    "name": "Ada",
+                    "email": "ada@example.com",
+                    "phone": "9830715557",
+                    "workshop": WORKSHOP_SLUG,
+                },
             }
         ]
     )
@@ -288,13 +303,80 @@ def test_admin_data_with_key(monkeypatch):
     assert res.status_code == 200
     assert res.json()["total"] == 1
     assert res.json()["rows"][0]["email"] == "ada@example.com"
+    assert res.json()["workshop_title"] == WORKSHOP_TITLE
+    assert res.json()["workshop_date"] == WORKSHOP_DATE_LABEL
 
 
 def test_order_takes_seat():
-    assert order_takes_seat({"status": "paid", "notes": {}})
-    assert order_takes_seat({"status": "created", "notes": {"hold": "venue"}})
-    assert not order_takes_seat({"status": "created", "notes": {"hold": "online"}})
-    assert not order_takes_seat({"status": "cancelled", "notes": {"hold": "venue"}})
+    mine = {"workshop": WORKSHOP_SLUG}
+    assert order_takes_seat({"status": "paid", "notes": dict(mine)})
+    assert order_takes_seat({"status": "created", "notes": {**mine, "hold": "venue"}})
+    assert not order_takes_seat({"status": "created", "notes": {**mine, "hold": "online"}})
+    assert not order_takes_seat({"status": "cancelled", "notes": {**mine, "hold": "venue"}})
+
+
+def test_order_takes_seat_only_for_this_workshop():
+    mine = {"workshop": WORKSHOP_SLUG}
+    assert order_takes_seat({"status": "paid", "notes": dict(mine)})
+    assert order_takes_seat({"status": "created", "notes": {**mine, "hold": "venue"}})
+    assert not order_takes_seat({"status": "paid", "notes": {"workshop": "ai-video-ad-from-scratch"}})
+    assert not order_takes_seat({"status": "paid", "notes": {}})  # legacy, pre-tagging orders
+    assert not order_takes_seat(
+        {"status": "created", "notes": {"workshop": "ai-video-ad-from-scratch", "hold": "venue"}}
+    )
+
+
+def test_previous_workshop_attendee_can_book_again(monkeypatch):
+    september = [
+        {
+            "id": "order_sep",
+            "status": "paid",
+            "amount": 79900,
+            "notes": {"name": "Ada", "email": "ada@example.com", "phone": "9830715557", "hold": "online"},
+        }
+    ]
+    fake = FakeClient(september)
+    monkeypatch.setattr("api.index.get_client", lambda: (fake, "rzp_test_dummy"))
+    res = client.post(
+        "/api/create-order",
+        json={"name": "Ada Lovelace", "email": "ada@example.com", "phone": "9830715557"},
+    )
+    assert res.status_code == 200
+    assert fake.store[-1]["id"] != "order_sep"
+    assert fake.store[-1]["notes"]["workshop"] == WORKSHOP_SLUG
+
+
+def test_previous_workshop_does_not_fill_this_one(monkeypatch):
+    september = [
+        {
+            "id": f"order_{i}",
+            "status": "paid",
+            "notes": {"email": f"p{i}@x.com", "hold": "online", "workshop": "ai-video-ad-from-scratch"},
+        }
+        for i in range(TOTAL_SEATS)
+    ]
+    fake = FakeClient(september)
+    monkeypatch.setattr("api.index.get_client", lambda: (fake, "rzp_test_dummy"))
+    monkeypatch.setattr("api.index.send_confirmation_email", lambda *a, **k: True)
+    monkeypatch.setattr("api.index.send_admin_notification", lambda *a, **k: True)
+    res = client.post(
+        "/api/reserve",
+        json={"name": "Ada Lovelace", "email": "ada@example.com", "phone": "9830715557"},
+    )
+    assert res.status_code == 200
+
+
+def test_reserve_tags_the_order_with_this_workshop(monkeypatch):
+    fake = FakeClient()
+    monkeypatch.setattr("api.index.get_client", lambda: (fake, "rzp_test_dummy"))
+    monkeypatch.setattr("api.index.send_confirmation_email", lambda *a, **k: True)
+    monkeypatch.setattr("api.index.send_admin_notification", lambda *a, **k: True)
+    res = client.post(
+        "/api/reserve",
+        json={"name": "Ada Lovelace", "email": "ada@example.com", "phone": "9830715557"},
+    )
+    assert res.status_code == 200
+    assert fake.store[0]["notes"]["workshop"] == WORKSHOP_SLUG
 
 
 def test_confirmation_email_escapes_html(monkeypatch):
@@ -328,6 +410,25 @@ def test_confirmation_email_escapes_html(monkeypatch):
     decoded = "".join(base64.b64decode(b).decode("utf-8", "ignore") for b in blobs if "html" not in b[:20].lower())
     assert "&lt;img src=x onerror=alert(1)&gt;" in decoded
     assert "ada@example.com" in captured["to"]
+
+
+def test_confirmation_email_lists_the_prep(monkeypatch):
+    sent = []
+
+    def fake_send(msg, _smtp_email, _smtp_password, to_addr):
+        sent.append((msg, to_addr))
+        return True
+
+    monkeypatch.setattr("api.index._smtp", lambda: ("from@example.com", "pw"))
+    monkeypatch.setattr("api.index._send", fake_send)
+    assert send_confirmation_email("Ada", "ada@example.com")
+    msg, to_addr = sent[0]
+    assert to_addr == "ada@example.com"
+    body = msg.get_payload()[0].get_payload(decode=True).decode("utf-8")
+    assert PREP
+    for item in PREP:
+        assert html.escape(item) in body
+    assert "three WhatsApp messages" not in body
 
 
 def test_confirm_registration_is_idempotent(monkeypatch):
