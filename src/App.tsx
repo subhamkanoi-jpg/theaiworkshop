@@ -5,6 +5,7 @@ import { SiteShell } from "@/components/SiteChrome";
 import { AutomationRun } from "@/components/AutomationRun";
 import { KitchenRule } from "@/components/KitchenRule";
 import { ReserveButton } from "@/components/ReserveButton";
+import { RunRail } from "@/components/RunRail";
 import {
   WORKSHOP_DATE_LABEL,
   WORKSHOP_DATE_SHORT,
@@ -20,7 +21,6 @@ import {
   HERO,
   STAGES,
   ARTIFACTS_HEADING,
-  RUN,
   RUN_HEADING,
   FINISH_LINE,
   BELONG,
@@ -206,26 +206,7 @@ export default function App() {
           >
             {RUN_HEADING}
           </h2>
-          {/* Five blocks in three columns: the last one takes the spare cell,
-              so the hairline grid has no empty tile. */}
-          <ol className="mt-9 grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-3 lg:grid-cols-5">
-            {RUN.map(({ time, title }, i) => (
-              <li
-                key={time}
-                className="flex flex-col gap-2 bg-card p-5 sm:last:col-span-2 lg:last:col-span-1"
-              >
-                <span className="text-[10px] font-bold uppercase tracking-[0.14em] text-muted-foreground">
-                  Block {String(i + 1).padStart(2, "0")}
-                </span>
-                <span className="font-serif text-2xl font-semibold text-primary tabular-nums">
-                  {time}
-                </span>
-                <span className="text-base font-medium leading-snug">
-                  {title}
-                </span>
-              </li>
-            ))}
-          </ol>
+          <RunRail className="mt-9" />
           <p className="mt-5 text-base text-muted-foreground">
             {FINISH_LINE}
           </p>

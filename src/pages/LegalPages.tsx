@@ -1,7 +1,16 @@
 import { useEffect, type ReactNode } from "react";
 import { Logo } from "@/components/Logo";
 import { ScrollButtons } from "@/components/ScrollToTop";
-import { PHONE_DISPLAY, PHONE_TEL, SUPPORT_EMAIL, PRICE, inr } from "@/config";
+import {
+  PHONE_DISPLAY,
+  PHONE_TEL,
+  SUPPORT_EMAIL,
+  PRICE,
+  WORKSHOP_ARTIFACT,
+  WORKSHOP_DATE_LABEL,
+  WORKSHOP_DURATION_LABEL,
+  inr,
+} from "@/config";
 
 function LegalLayout({
   title,
@@ -114,18 +123,18 @@ export function PrivacyPage() {
 
 export function TermsPage() {
   return (
-    <LegalLayout title="Terms of use" updated="16 August 2026">
+    <LegalLayout title="Terms of use" updated="19 October 2026">
       <p>
         By reserving a seat you agree to these terms. The workshop is an in-person, beginner-friendly
         session in Salt Lake, Kolkata.
       </p>
       <Section title="The workshop">
         <p>
-          You get a three-hour live session in Salt Lake, Kolkata, a finished week-of-work kit made
-          from how you talk (bio, offer line, posts, and a saved recipe), and access to the workshop
-          WhatsApp group. A free Google account is enough. Any paid AI subscription you already have
-          is optional and billed by that provider, not by us. The ticket price of {inr(PRICE)}{" "}
-          covers the hall and running costs.
+          You get a live, hands-on session in Salt Lake, Kolkata ({WORKSHOP_DURATION_LABEL},{" "}
+          {WORKSHOP_DATE_LABEL}), what you build in it: {WORKSHOP_ARTIFACT}, and access to the
+          workshop WhatsApp group. Sessions use third-party tools on their free tiers where
+          possible; any paid plan or credits you choose are billed by that provider, not by us. The
+          ticket price of {inr(PRICE)} covers the hall, the table captains and running costs.
         </p>
       </Section>
       <Section title="Your responsibilities">

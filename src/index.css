@@ -944,8 +944,14 @@ html[data-nav="back"]::view-transition-new(root) {
   font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
   font-size: 11.5px;
   line-height: 1.65;
-  color: #f4eee4;
   overflow-wrap: anywhere;
+}
+/* The default ink is ivory, for the dark gate. It sits in :where() so it has no
+   specificity: this rule is unlayered and comes after @tailwind utilities, so a
+   plain `.gate-term { color }` would beat every `text-*` class on the element
+   (and leave the spec labels on the light slate cards ivory on ivory). */
+:where(.gate-term) {
+  color: #f4eee4;
 }
 .gate-term-dim {
   color: rgba(244, 238, 228, 0.45);
@@ -1007,9 +1013,12 @@ html[data-nav="back"]::view-transition-new(root) {
 
 /* ── The run log ───────────────────────────────────────────────────────────
    What the gate shows now: one automation, mid-run, a line at a time. Same
-   dark hardware and mono type as the prompt readout. Each row draws in on its
-   own delay and the whole log replays every 14s; reduced motion gets every
-   row, already there. */
+   dark hardware and mono type as the prompt readout. Each row draws in once,
+   on its own delay (--i); the list holds, then fades out as a whole over the
+   end of a 14s cycle. A row's delay only applies to its first run, so
+   AutomationRun re-keys the list every 14s: that remounts it and every
+   animation starts again from an empty log. Reduced motion has no animation
+   and no restart, and every row is simply there. */
 .run-screen {
   display: flex;
   flex-direction: column;
@@ -1061,6 +1070,7 @@ html[data-nav="back"]::view-transition-new(root) {
   list-style: none;
   font-size: 11.5px;
   line-height: 1.55;
+  animation: run-log-cycle 14s linear forwards;
 }
 .run-log li {
   /* Spare height in a tall frame is shared out between the rows, so the log
@@ -1079,7 +1089,7 @@ html[data-nav="back"]::view-transition-new(root) {
       rgba(244, 238, 228, 0.07) 1.1rem
     )
     top / 100% 1px no-repeat;
-  animation: run-row 14s ease infinite backwards;
+  animation: run-row-in 0.5s ease-out both;
   animation-delay: calc(var(--i) * 1.2s);
 }
 .run-log li:first-child {
@@ -1094,22 +1104,23 @@ html[data-nav="back"]::view-transition-new(root) {
   min-width: 0;
   color: #f4eee4;
 }
-@keyframes run-row {
-  0% {
+@keyframes run-row-in {
+  from {
     opacity: 0;
     transform: translateY(8px);
   }
-  4% {
+  to {
     opacity: 1;
     transform: translateY(0);
   }
-  93% {
+}
+@keyframes run-log-cycle {
+  0%,
+  94% {
     opacity: 1;
-    transform: translateY(0);
   }
   100% {
     opacity: 0;
-    transform: translateY(0);
   }
 }
 @keyframes run-pulse {
@@ -1122,6 +1133,7 @@ html[data-nav="back"]::view-transition-new(root) {
   }
 }
 @media (prefers-reduced-motion: reduce) {
+  .run-log,
   .run-log li,
   .run-dot {
     animation: none;

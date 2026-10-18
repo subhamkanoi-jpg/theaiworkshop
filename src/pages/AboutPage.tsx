@@ -18,7 +18,7 @@ export default function AboutPage() {
         name: "About The AI Workshop",
         description:
           LOCAL.name + " is Kolkata's offline AI workshop in Salt Lake.",
-        dateModified: "2026-08-30",
+        dateModified: "2026-10-19",
         inLanguage: "en-IN",
         isPartOf: { "@id": "https://theaiworkshop.in/#website" },
         about: { "@id": "https://theaiworkshop.in/#organization" },

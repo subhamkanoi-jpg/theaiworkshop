@@ -2,6 +2,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { SiteShell } from "@/components/SiteChrome";
 import { usePageSeo } from "@/hooks/usePageSeo";
 import { ReserveButton } from "@/components/ReserveButton";
+import { RunRail } from "@/components/RunRail";
 import {
   WORKSHOP_DATE_LABEL,
   WORKSHOP_DAY_MONTH,
@@ -18,7 +19,6 @@ import {
   HERO,
   LEAD,
   ARTIFACTS_HEADING,
-  RUN,
   RUN_HEADING,
   DO_NOT_BRING,
   PREP,
@@ -111,26 +111,7 @@ export default function WorkshopPage() {
           <h2 className="font-serif text-3xl font-semibold leading-tight">
             {RUN_HEADING}
           </h2>
-          {/* Five blocks in three columns: the last one takes the spare cell,
-              so the hairline grid has no empty tile. */}
-          <ol className="mt-8 grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-3 lg:grid-cols-5">
-            {RUN.map(({ time, title }, i) => (
-              <li
-                key={time}
-                className="flex flex-col gap-2 bg-card p-5 sm:last:col-span-2 lg:last:col-span-1"
-              >
-                <span className="text-[10px] font-bold uppercase tracking-[0.14em] text-muted-foreground">
-                  Block {String(i + 1).padStart(2, "0")}
-                </span>
-                <span className="font-serif text-2xl font-semibold tabular-nums text-primary">
-                  {time}
-                </span>
-                <span className="text-base font-medium leading-snug">
-                  {title}
-                </span>
-              </li>
-            ))}
-          </ol>
+          <RunRail className="mt-8" />
         </div>
       </section>
 
@@ -169,26 +150,28 @@ export default function WorkshopPage() {
       </section>
 
       {/* What to set up at home, so the four hours go on building. */}
-      <section className="border-b border-border bg-muted/30 py-12 sm:py-16">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6">
-          <h2 className="font-serif text-3xl font-semibold leading-tight">
-            Before Sunday
-          </h2>
-          <ol className="mt-7 grid max-w-3xl gap-3">
-            {PREP.map((step, i) => (
-              <li
-                key={step}
-                className="flex gap-4 rounded-xl border border-border bg-card p-4 text-base leading-snug"
-              >
-                <span className="font-serif text-xl font-semibold leading-none text-primary tabular-nums">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <span>{step}</span>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
+      {PREP.length > 0 && (
+        <section className="border-b border-border bg-muted/30 py-12 sm:py-16">
+          <div className="mx-auto max-w-5xl px-4 sm:px-6">
+            <h2 className="font-serif text-3xl font-semibold leading-tight">
+              Before Sunday
+            </h2>
+            <ol className="mt-7 grid max-w-3xl gap-3">
+              {PREP.map((step, i) => (
+                <li
+                  key={step}
+                  className="flex gap-4 rounded-xl border border-border bg-card p-4 text-base leading-snug"
+                >
+                  <span className="font-serif text-xl font-semibold leading-none text-primary tabular-nums">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span>{step}</span>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+      )}
 
       {/* Questions that decide the booking. */}
       <section className="border-b border-border py-12 sm:py-16">

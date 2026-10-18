@@ -48,7 +48,7 @@ export default function PathPage() {
           <h2 className="font-serif text-3xl font-semibold">
             Where we started. What is next.
           </h2>
-          <div className="mt-8 grid gap-5 sm:grid-cols-3">
+          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {archive.map((event) => (
               <article
                 key={event.number}

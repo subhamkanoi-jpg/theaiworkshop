@@ -16,7 +16,7 @@ export default function AnswersPage() {
         "@id": "https://theaiworkshop.in/answers#faq",
         url: "https://theaiworkshop.in/answers",
         name: "The AI Workshop, answers Kolkata asks",
-        dateModified: "2026-08-30",
+        dateModified: "2026-10-19",
         inLanguage: "en-IN",
         isPartOf: { "@id": "https://theaiworkshop.in/#website" },
         about: { "@id": "https://theaiworkshop.in/#organization" },
