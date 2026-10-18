@@ -23,6 +23,8 @@ import {
   WHATSAPP_URL,
   PHONE_TEL,
   PHONE_DISPLAY,
+  TICKET_CHIPS,
+  TICKET_NOTE,
 } from "@/config";
 
 /**
@@ -203,11 +205,7 @@ export function Registration() {
           </div>
 
           <ul className="mt-6 flex flex-wrap gap-2 border-t border-border pt-5 text-xs text-muted-foreground">
-            {[
-              "Refund up to 48h before",
-              "Holds released 15 min after kickoff",
-              "Tool credits ₹500–1,500, yours",
-            ].map((chip) => (
+            {TICKET_CHIPS.map((chip) => (
               <li key={chip} className="rounded-full border border-border px-3 py-1.5">
                 {chip}
               </li>
@@ -216,7 +214,7 @@ export function Registration() {
 
           <p className="mt-4 flex gap-2 text-sm text-muted-foreground">
             <ShieldCheck className="h-5 w-5 flex-shrink-0 text-accent" />
-            Bring one thing you sell. Leave with the ad for it.
+            {TICKET_NOTE}
           </p>
         </CardContent>
       </Card>

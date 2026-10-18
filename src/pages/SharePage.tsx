@@ -6,19 +6,21 @@ import {
   WORKSHOP_TIME_LABEL,
   WORKSHOP_TITLE,
   PRICE,
+  TOTAL_SEATS,
+  SHARE,
   inr,
 } from "@/config";
 import { Copy, Share2 } from "lucide-react";
 
-const SHARE_TEXT = `Still paying per reel, or still getting plastic-looking AI video?
+const SHARE_TEXT = `${SHARE.hook}
 
 Join The AI Workshop in Salt Lake, Kolkata: ${WORKSHOP_TITLE}.
 
-Three hours, one continuous workflow — brief, face lock, base stills, motion, voice. You walk in with an idea and walk out with a finished vertical ad on your laptop, plus the prompt stack to build the next one. No filmmaking background needed.
+${SHARE.body}
 
 ${WORKSHOP_DATE_LABEL}
 ${WORKSHOP_TIME_LABEL} · ${inr(PRICE)} · Offline
-Laptop required. 50 seats, tables of eight.
+Laptop required. ${TOTAL_SEATS} seats, tables of eight.
 
 https://theaiworkshop.in/workshop`;
 
@@ -48,9 +50,7 @@ export default function SharePage() {
             better with a friend.
           </h1>
           <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-            Know someone whose ads cost more than they earn, or who keeps
-            deleting distorted AI renders? Send them the plan. No filmmaking
-            background needed.
+            {SHARE.pitch}
           </p>
           <div className="mt-7 overflow-hidden rounded-2xl border border-border bg-card text-card-foreground">
             <img

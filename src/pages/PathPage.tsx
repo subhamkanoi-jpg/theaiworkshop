@@ -48,7 +48,7 @@ export default function PathPage() {
           <h2 className="font-serif text-3xl font-semibold">
             Where we started. What is next.
           </h2>
-          <div className="mt-8 grid gap-5 sm:grid-cols-2">
+          <div className="mt-8 grid gap-5 sm:grid-cols-3">
             {archive.map((event) => (
               <article
                 key={event.number}
@@ -61,14 +61,14 @@ export default function PathPage() {
                 <p className="mt-3 text-base leading-relaxed text-muted-foreground">
                   {event.artifact}
                 </p>
-                <a
-                  href={event.status === "next" ? "/workshop" : "/room"}
-                  className="mt-4 inline-flex min-h-11 items-center text-sm font-semibold text-primary"
-                >
-                  {event.status === "next"
-                    ? "See the September plan →"
-                    : "See the June workshop →"}
-                </a>
+                {event.href && (
+                  <a
+                    href={event.href}
+                    className="mt-4 inline-flex min-h-11 items-center text-sm font-semibold text-primary"
+                  >
+                    {event.linkLabel}
+                  </a>
+                )}
               </article>
             ))}
           </div>

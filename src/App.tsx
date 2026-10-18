@@ -2,10 +2,13 @@ import { useEffect } from "react";
 import { trackViewContent } from "@/analytics";
 import { usePageSeo } from "@/hooks/usePageSeo";
 import { SiteShell } from "@/components/SiteChrome";
+import { AutomationRun } from "@/components/AutomationRun";
 import { KitchenRule } from "@/components/KitchenRule";
 import { ReserveButton } from "@/components/ReserveButton";
 import {
   WORKSHOP_DATE_LABEL,
+  WORKSHOP_DATE_SHORT,
+  WORKSHOP_DOOR_LABEL,
   WORKSHOP_TIME_LABEL,
   PRICE,
   MARKET_VALUE,
@@ -14,31 +17,23 @@ import {
   hosts,
   artifacts,
   workshopContent,
+  HERO,
+  STAGES,
+  ARTIFACTS_HEADING,
+  RUN,
+  RUN_HEADING,
+  FINISH_LINE,
+  BELONG,
+  STAY_HOME,
+  TICKET_CHIPS,
+  LEAD,
 } from "@/config";
 import { LOCAL } from "@/seo/local";
 import { ArrowRight, Check, Minus, MapPin } from "lucide-react";
 
-const STAGES = ["Brief", "Face lock", "Base stills", "Motion", "Voice"];
-
-/** Times and three-word titles. The detail lives on /workshop. */
-const RUN = [
-  ["11:00", "Brief + face lock"],
-  ["11:40", "Scenes + base stills"],
-  ["12:40", "Motion + voice"],
-  ["13:30", "QC + packaging"],
-];
-
-const BELONG = [
-  "You sell something",
-  "Zero filmmaking background",
-  "Three hours, own laptop",
-];
-
-const STAY_HOME = [
-  "You want a webinar",
-  "You collect certificates",
-  "You would rather debate than export",
-];
+/** "12:00 PM – 4:00 PM" → "4:00 PM". */
+const END_TIME =
+  WORKSHOP_TIME_LABEL.split("–").pop()?.trim() || WORKSHOP_TIME_LABEL;
 
 export default function App() {
   usePageSeo("home");
@@ -53,7 +48,7 @@ export default function App() {
         <div className="mx-auto max-w-5xl px-4 py-2.5 sm:px-6">
           <p className="text-center text-[11px] font-bold uppercase tracking-[0.12em] sm:text-xs">
             Offline<span className="text-[#e8a090]"> · </span>Salt Lake, Kolkata
-            <span className="text-[#e8a090]"> · </span>Sun 27 Sept
+            <span className="text-[#e8a090]"> · </span>Sun {WORKSHOP_DATE_SHORT}
             <span className="text-[#e8a090]"> · </span>
             {WORKSHOP_TIME_LABEL}
           </p>
@@ -66,12 +61,12 @@ export default function App() {
           <div className="grid items-center gap-10 lg:grid-cols-2">
             <div className="flex flex-col gap-6">
               <h1 className="font-serif text-4xl font-semibold leading-[1.05] tracking-tight text-balance sm:text-5xl lg:text-6xl">
-                Stop prompting sludge.
+                {HERO.lines[0]}
                 <br />
-                <span className="text-primary">Leave with a finished ad.</span>
+                <span className="text-primary">{HERO.lines[1]}</span>
               </h1>
               <p className="text-lg leading-relaxed text-muted-foreground">
-                Three hours. Five stages. One rendered ad.
+                {HERO.sub}
               </p>
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
                 <ReserveButton
@@ -90,29 +85,11 @@ export default function App() {
                 <li aria-hidden>·</li>
                 <li>Tables of 8</li>
                 <li aria-hidden>·</li>
-                <li>No experience</li>
+                <li>No coding</li>
               </ul>
             </div>
             <div className="mx-auto w-full max-w-[19rem] sm:max-w-[21rem]">
-              <div className="cinema-gate">
-                <div className="cinema-screen cinema-screen-vert">
-                  {/* VP9 first at a third the bytes; H.264 for everything
-                      that will not take it. */}
-                  <video
-                    className="h-full w-full object-cover"
-                    poster="/cinema/teaser-poster.jpg"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="metadata"
-                    aria-label="A twenty-second ad built with the workshop's own system"
-                  >
-                    <source src="/cinema/teaser-9x16.webm" type="video/webm" />
-                    <source src="/cinema/teaser-9x16.mp4" type="video/mp4" />
-                  </video>
-                </div>
-              </div>
+              <AutomationRun />
               <ul className="stage-rail" aria-label="The five stages">
                 {STAGES.map((stage, i) => (
                   <li key={stage} className="stage-cell">
@@ -122,7 +99,7 @@ export default function App() {
                 ))}
               </ul>
               <p className="mt-3 text-center text-xs text-muted-foreground">
-                Made with the system you will learn.
+                What yours looks like by {END_TIME}
               </p>
             </div>
           </div>
@@ -140,7 +117,7 @@ export default function App() {
             id="artifact-heading"
             className="font-serif text-3xl font-semibold leading-tight text-balance sm:text-4xl"
           >
-            You leave with five files.
+            {ARTIFACTS_HEADING}
             <span className="text-muted-foreground"> Not a certificate.</span>
           </h2>
 
@@ -162,16 +139,54 @@ export default function App() {
             ))}
             <li className="invite-card flex flex-col justify-between rounded-xl border border-border bg-muted/40 p-5">
               <p className="font-serif text-xl font-semibold leading-snug">
-                Plus the recipe.
+                Plus the blueprint.
               </p>
               <a
                 href="/workshop"
                 className="mt-4 inline-flex min-h-11 items-center gap-2 font-semibold text-primary"
               >
-                The full three hours <ArrowRight className="size-4" />
+                See the full plan <ArrowRight className="size-4" />
               </a>
             </li>
           </ol>
+        </div>
+      </section>
+
+      {/* ── Led by ────────────────────────────────────────────────────── */}
+      <section
+        id="lead"
+        className="border-b border-border py-14 sm:py-20"
+        aria-labelledby="lead-heading"
+      >
+        <div className="mx-auto max-w-5xl px-4 sm:px-6">
+          <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:gap-9">
+            <img
+              src={LEAD.photo}
+              alt={LEAD.name}
+              width={144}
+              height={144}
+              loading="lazy"
+              className="size-36 shrink-0 rounded-2xl object-cover"
+              style={{ objectPosition: LEAD.photoPosition }}
+            />
+            <div className="max-w-2xl">
+              <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.16em] text-primary">
+                Led by
+              </p>
+              <h2
+                id="lead-heading"
+                className="font-serif text-3xl font-semibold leading-tight sm:text-4xl"
+              >
+                {LEAD.name}
+              </h2>
+              <p className="mt-2 text-base font-medium">
+                {LEAD.role}, {LEAD.org}
+              </p>
+              <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+                {LEAD.bio}
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -189,11 +204,16 @@ export default function App() {
             id="run-heading"
             className="font-serif text-3xl font-semibold leading-tight sm:text-4xl"
           >
-            The three hours.
+            {RUN_HEADING}
           </h2>
-          <ol className="mt-9 grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-4">
-            {RUN.map(([time, title], i) => (
-              <li key={time} className="flex flex-col gap-2 bg-card p-5">
+          {/* Five blocks in three columns: the last one takes the spare cell,
+              so the hairline grid has no empty tile. */}
+          <ol className="mt-9 grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-3 lg:grid-cols-5">
+            {RUN.map(({ time, title }, i) => (
+              <li
+                key={time}
+                className="flex flex-col gap-2 bg-card p-5 sm:last:col-span-2 lg:last:col-span-1"
+              >
                 <span className="text-[10px] font-bold uppercase tracking-[0.14em] text-muted-foreground">
                   Block {String(i + 1).padStart(2, "0")}
                 </span>
@@ -207,7 +227,7 @@ export default function App() {
             ))}
           </ol>
           <p className="mt-5 text-base text-muted-foreground">
-            2:00 PM — your ad exists.
+            {FINISH_LINE}
           </p>
         </div>
       </section>
@@ -255,7 +275,14 @@ export default function App() {
                     className="size-13 rounded-full object-cover"
                     style={{ objectPosition: h.pos, height: 52, width: 52 }}
                   />
-                  <p className="text-sm font-semibold">{h.name}</p>
+                  <div>
+                    <p className="text-sm font-semibold">{h.name}</p>
+                    {h.name === LEAD.name && (
+                      <p className="text-xs text-muted-foreground">
+                        Leads this session
+                      </p>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>
@@ -325,11 +352,7 @@ export default function App() {
               />
             </div>
             <ul className="mt-7 flex flex-wrap gap-2 border-t border-border pt-6 text-sm text-muted-foreground">
-              {[
-                "Refund up to 48h before",
-                "Holds released 15 min after kickoff",
-                "Tool credits ₹500–1,500, yours",
-              ].map((chip) => (
+              {TICKET_CHIPS.map((chip) => (
                 <li
                   key={chip}
                   className="rounded-full border border-border px-3 py-1.5"
@@ -366,7 +389,7 @@ export default function App() {
                 <br />
                 {LOCAL.areaLine}
                 <br />
-                Doors 10:30 AM
+                Doors {WORKSHOP_DOOR_LABEL}
               </address>
               <a
                 href={LOCAL.mapsUrl}

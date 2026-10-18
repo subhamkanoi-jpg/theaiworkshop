@@ -28,7 +28,7 @@ import { cn } from "@/lib/utils";
 export type NavId = "home" | "path" | "workshop" | "room" | "host";
 
 const links: { id: NavId; href: string; label: string }[] = [
-  { id: "workshop", href: "/workshop", label: "27 Sept" },
+  { id: "workshop", href: "/workshop", label: WORKSHOP_DATE_SHORT },
   { id: "path", href: "/path", label: "How we learn" },
   { id: "room", href: "/room", label: "The Room" },
 ];

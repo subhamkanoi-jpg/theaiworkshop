@@ -1,21 +1,45 @@
-import { workshopContent } from "@/config";
+import { workshopContent, WORKSHOP_MONTH } from "@/config";
 
-export const archive = [
+type Workshop = {
+  number: number;
+  date: string;
+  title: string;
+  chapter: string;
+  artifact: string;
+  status: "shipped" | "next";
+  /** Where the card links, if anywhere. September has no page of its own. */
+  href?: string;
+  linkLabel?: string;
+};
+
+export const archive: Workshop[] = [
   {
     number: 1,
     date: "June 2026",
     title: "Build and host a website",
     chapter: "First workshop",
     artifact: "Websites, live by the end of the day.",
-    status: "shipped" as const,
+    status: "shipped",
+    href: "/room",
+    linkLabel: "See the June workshop →",
+  },
+  {
+    number: 3,
+    date: "September 2026",
+    title: "AI video ads",
+    chapter: "Third workshop",
+    artifact: "A vertical AI video ad, built from a brief.",
+    status: "shipped",
   },
   {
     number: workshopContent.number,
     date: workshopContent.dateLabel,
     title: workshopContent.title,
     chapter: "Next project",
-    artifact: "One rendered vertical ad, plus the recipe.",
-    status: "next" as const,
+    artifact: "One automation running, plus the blueprint.",
+    status: "next",
+    href: "/workshop",
+    linkLabel: `See the ${WORKSHOP_MONTH} plan →`,
   },
 ];
 

@@ -2,6 +2,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { SiteShell } from "@/components/SiteChrome";
 import { usePageSeo } from "@/hooks/usePageSeo";
 import { BecomeHost } from "@/components/BecomeHost";
+import { CAPTAIN_TASK, WORKSHOP_DAY_MONTH } from "@/config";
 
 export default function HostPage() {
   usePageSeo("host");
@@ -18,7 +19,7 @@ export default function HostPage() {
             Captain a table. Then teach.
           </h1>
           <p className="mt-5 text-xl text-muted-foreground leading-relaxed">
-            Help eight people render a finished ad on 27 September. Guide at
+            Help eight people {CAPTAIN_TASK} on {WORKSHOP_DAY_MONTH}. Guide at
             their device; let them build.
           </p>
         </div>
