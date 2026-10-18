@@ -139,7 +139,10 @@ export function TermsPage() {
       </Section>
       <Section title="Your responsibilities">
         <ul className="list-disc pl-5 space-y-1">
-          <li>Show up on time with a phone (and a laptop if you have one)</li>
+          <li>
+            Show up on time with a laptop, its charger and your phone, plus anything the workshop
+            page asks you to bring
+          </li>
           <li>Behave respectfully toward hosts and other participants</li>
           <li>Do not record or republish the session without our written permission</li>
         </ul>

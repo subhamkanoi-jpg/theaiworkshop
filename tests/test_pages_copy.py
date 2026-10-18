@@ -76,5 +76,5 @@ def test_gate_term_colour_does_not_outrank_utilities():
 def test_terms_read_the_live_workshop():
     terms = read("src/pages/LegalPages.tsx")
     assert "WORKSHOP_ARTIFACT" in terms and "WORKSHOP_DURATION_LABEL" in terms
-    for stale in ("three-hour", "week-of-work"):
+    for stale in ("three-hour", "week-of-work", "a laptop if you have one"):
         assert stale not in terms, stale
