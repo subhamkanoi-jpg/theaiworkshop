@@ -28,7 +28,7 @@ Please do. Bring your price list or menu, the five questions customers ask most,
 
 ### Why Telegram and not WhatsApp?
 
-Because anyone can create a working Telegram bot in two minutes, free. WhatsApp’s official bot access needs Meta business verification and charges per conversation, which takes days, not an afternoon. The bot’s brain — your facts, your tone, your hand-over rule — is the same on both. We build it on Telegram and show you the path to WhatsApp once your business is verified.
+Because anyone can create a working Telegram bot in two minutes, free. WhatsApp’s official bot access needs Meta business verification and charges per conversation; setting it up takes days, not an afternoon. The bot’s brain — your facts, your tone, your hand-over rule — is the same on both. We build it on Telegram and show you the path to WhatsApp once your business is verified.
 
 ### Will this spam people?
 

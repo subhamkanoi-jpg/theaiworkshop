@@ -20,7 +20,7 @@ Walk in with the questions your customers keep asking. Walk out at 4:00 PM with 
 - The follow-up sequence: three emails on day 2, day 5 and day 9 that stop once the lead replies, plus the same pipeline to send a campaign to people who asked to hear from you
 - The FAQ bot: a Telegram bot that answers customer questions from your own price list, and hands the conversation to you when it is not sure
 
-## First workshop
+## Earlier workshops
 
 Our first workshop in June 2026 was about making websites and hosting them; in September 2026 the session was AI video ads. Each workshop stands alone; no earlier session is required.
 
@@ -70,7 +70,7 @@ Please do. Bring your price list or menu, the five questions customers ask most,
 
 ### Why Telegram and not WhatsApp?
 
-Because anyone can create a working Telegram bot in two minutes, free. WhatsApp’s official bot access needs Meta business verification and charges per conversation, which takes days, not an afternoon. The bot’s brain — your facts, your tone, your hand-over rule — is the same on both. We build it on Telegram and show you the path to WhatsApp once your business is verified.
+Because anyone can create a working Telegram bot in two minutes, free. WhatsApp’s official bot access needs Meta business verification and charges per conversation; setting it up takes days, not an afternoon. The bot’s brain — your facts, your tone, your hand-over rule — is the same on both. We build it on Telegram and show you the path to WhatsApp once your business is verified.
 
 ### Will this spam people?
 

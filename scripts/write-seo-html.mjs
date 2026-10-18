@@ -40,7 +40,10 @@ const MONTHS = [
 const [year, monthNumber, dayNumber] = w.dateIso.split("-").map(Number);
 const monthName = MONTHS[monthNumber - 1];
 const dayMonth = `${dayNumber} ${monthName}`;
-const dayMonthShort = `${dayNumber} ${monthName.slice(0, 3)}`;
+if (!w.timeLabel.includes("–"))
+  throw new Error(
+    `workshop.json timeLabel must read "start – end" with an en dash, got ${JSON.stringify(w.timeLabel)}`,
+  );
 const startTime = w.timeLabel.split("–")[0].trim();
 const facts = `${w.dateLabel}, ${w.timeLabel}. ${w.location}. ${w.totalSeats} seats. ₹${w.price}.`;
 const history = w.seo.history;
@@ -196,10 +199,10 @@ const faqHtml = faqListHtml(w.faqs);
 // fallback has to carry their text too — structured data may not answer
 // questions the page itself does not.
 const localFaqHtml = faqListHtml(w.localFaqs);
-const gettingThereHtml = `<h2>Getting to the workshop</h2><p>${esc(w.venue.name)}, ${esc(w.venue.streetAddress)}, ${esc(w.venue.addressLocality)}, ${esc(w.venue.addressRegion)} ${esc(w.venue.postalCode)}. Doors open at ${w.doorLabel} for a ${startTime} start. <a href="${esc(w.venue.hasMap)}">Open in Google Maps</a>.</p>`;
+const gettingThereHtml = `<h2>Getting to the workshop</h2><p>${esc(w.venue.name)}, ${esc(w.venue.streetAddress)}, ${esc(w.venue.addressLocality)}, ${esc(w.venue.addressRegion)} ${esc(w.venue.postalCode)}. Doors open at ${esc(w.doorLabel)} for a ${esc(startTime)} start. <a href="${esc(w.venue.hasMap)}">Open in Google Maps</a>.</p>`;
 const outcomesHtml = `<ul>${w.outcomes.map((outcome) => `<li>${esc(outcome)}</li>`).join("")}</ul>`;
 const agendaHtml = `<ol>${w.agenda.map((step) => `<li><strong>${esc(step.time)}: ${esc(step.title)}</strong><p>${esc(step.body)}</p></li>`).join("")}</ol>`;
-const baseHtml = `<h2>${esc(w.title)}</h2><p>${esc(w.description)}</p><p>${esc(facts)}</p><h2>What you build</h2>${outcomesHtml}<h3>What to bring</h3><p>${esc(w.bringLabel)}</p><h2>Our first workshop</h2><p>${esc(history)}</p><h3>Visit us in Kolkata</h3><p>Salt Lake is also known as <a href="https://en.wikipedia.org/wiki/Bidhannagar">Bidhannagar</a>. The exact workshop venue is shared after reservation. Ask about travel or accessibility before booking.</p><p><a href="tel:${esc(w.phoneTel)}">${esc(w.phoneDisplay)}</a> · <a href="mailto:${esc(w.supportEmail)}">${esc(w.supportEmail)}</a></p>`;
+const baseHtml = `<h2>${esc(w.title)}</h2><p>${esc(w.description)}</p><p>${esc(facts)}</p><h2>What you build</h2>${outcomesHtml}<h3>What to bring</h3><p>${esc(w.bringLabel)}</p><h2>Earlier workshops</h2><p>${esc(history)}</p><h3>Visit us in Kolkata</h3><p>Salt Lake is also known as <a href="https://en.wikipedia.org/wiki/Bidhannagar">Bidhannagar</a>. The exact workshop venue is shared after reservation. Ask about travel or accessibility before booking.</p><p><a href="tel:${esc(w.phoneTel)}">${esc(w.phoneDisplay)}</a> · <a href="mailto:${esc(w.supportEmail)}">${esc(w.supportEmail)}</a></p>`;
 
 for (const [key, page] of Object.entries(pages)) {
   const graphs = [
@@ -335,7 +338,7 @@ const links = Object.entries(pages)
   )
   .join("\n");
 const faqText = w.faqs.map((f) => `### ${f.q}\n\n${f.a}`).join("\n\n");
-const brief = `# The AI Workshop\n\n> ${w.mission}\n\nUpdated ${modified}.\n\n## Next workshop\n\n${w.title}\n\n${facts}\n\n${w.description}\n\n## What participants take home\n\n${w.outcomes.map((o) => `- ${o}`).join("\n")}\n\n## First workshop\n\n${history}\n\n## Preparation\n\n${w.bringLabel}\n\n## Pages\n\n${links}\n\n## Optional\n\n- [About in Markdown](${origin}/about.md)\n- [Kolkata in Markdown](${origin}/kolkata.md)\n- [Full public brief](${origin}/llms-full.txt)\n\n## Questions\n\n${faqText}\n`;
+const brief = `# The AI Workshop\n\n> ${w.mission}\n\nUpdated ${modified}.\n\n## Next workshop\n\n${w.title}\n\n${facts}\n\n${w.description}\n\n## What participants take home\n\n${w.outcomes.map((o) => `- ${o}`).join("\n")}\n\n## Earlier workshops\n\n${history}\n\n## Preparation\n\n${w.bringLabel}\n\n## Pages\n\n${links}\n\n## Optional\n\n- [About in Markdown](${origin}/about.md)\n- [Kolkata in Markdown](${origin}/kolkata.md)\n- [Full public brief](${origin}/llms-full.txt)\n\n## Questions\n\n${faqText}\n`;
 write("public/llms.txt", brief);
 write(
   "public/llms-full.txt",

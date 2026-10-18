@@ -2,6 +2,8 @@ import json
 import re
 from pathlib import Path
 
+import pytest
+
 ROOT = Path(__file__).resolve().parent.parent
 CFG = json.loads((ROOT / "workshop.json").read_text(encoding="utf-8"))
 ORIGIN = CFG["origin"]
@@ -55,6 +57,8 @@ def test_public_copy_has_one_current_offer():
         "ElevenLabs", "₹799", "11:00 AM",
     )
     paths = list(ROOT.glob("*.html")) + list((ROOT / "public").glob("*.txt")) + list((ROOT / "public").glob("*.md")) + list((ROOT / "public/ai").glob("*.json"))
+    paths += [ROOT / "public/feed.xml", ROOT / "public/sitemap.xml", ROOT / "public/.well-known/ai.txt"]
+    paths += list((ROOT / "src/seo").glob("*.json"))
     for path in paths:
         text = path.read_text(encoding="utf-8")
         for phrase in stale:
@@ -163,8 +167,13 @@ def test_seo_copy_names_the_current_offer():
         assert short in seo[key], f"seo.{key} should name {short!r}"
     assert f"{day} {month_name}" in seo["workshopDescription"]
     assert f"₹{CFG['price']}" in seo["workshopDescription"]
+    lead = CFG["lead"]
     llms_full = (ROOT / "public/llms-full.txt").read_text(encoding="utf-8")
-    assert CFG["lead"]["name"] in llms_full
+    assert f"Led by {lead['name']}, {lead['role']} at {lead['org']}." in llms_full
+    before = llms_full.split("## Before the session", 1)[1].split("\n## ", 1)[0]
+    for item in CFG["prep"]:
+        assert f"- {item}" in before, f"Prep item missing from the llms brief: {item}"
+    assert seo["scope"] in llms_full.split("## Scope", 1)[1]
 
 
 def test_event_carries_the_full_local_entity():
@@ -276,9 +285,9 @@ def test_any_page_playing_the_teaser_matches_the_live_offer():
         if "teaser-9x16" in path.read_text(encoding="utf-8")
     ]
     if not users:
-        return
+        pytest.skip("no page plays the teaser")
     composition = (ROOT / "video/teaser/index.html").read_text(encoding="utf-8")
-    year, month, day = (int(part) for part in CFG["dateIso"].split("-"))
+    _, month, day = (int(part) for part in CFG["dateIso"].split("-"))
     month_name = [
         "January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December",
@@ -295,7 +304,6 @@ def test_any_page_playing_the_teaser_matches_the_live_offer():
             "Update video/teaser/index.html and re-render into public/cinema/ "
             "(see video/teaser/README.md)."
         )
-    assert year == 2026
     for asset in ("teaser-9x16.webm", "teaser-9x16.mp4", "teaser-poster.jpg"):
         path = ROOT / "public/cinema" / asset
         assert path.is_file(), f"Missing hero video asset: {asset}"
