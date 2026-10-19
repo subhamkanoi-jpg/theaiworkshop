@@ -27,7 +27,7 @@ A named, working machine for their own business, or for the sample business we h
 | 5 | **FAQ bot** (`@YourBusiness_bot`) | Their Telegram bot answers a price question correctly and hands over a question that is not in the brief. |
 | + | **Blueprint** | Both Make scenarios exported as `.json`, plus the brief and prompts, in one folder named after the business. |
 
-If someone only finishes 1–3, they still leave with the part that saves the most money: no lead waits for a reply. Say this out loud at 3:30 so nobody leaves feeling they failed.
+If someone only finishes 1–3, they still leave with the part that saves the most money: no lead waits more than an hour in working hours. Say this out loud at 3:30 so nobody leaves feeling they failed.
 
 ## 3. The stack, and why
 
@@ -41,6 +41,8 @@ If someone only finishes 1–3, they still leave with the part that saves the mo
 
 **Free-tier facts to check in the dry run, because they change:** Make's free plan has had 2 active scenarios, about 1,000 operations a month and a 15-minute minimum schedule interval. The build below is designed to fit that: one scenario for email, one for the bot. Gemini's free tier rate-limits and may use inputs to improve Google's products, which is why nobody pastes real customer data on the day.
 
+**Do the arithmetic out loud.** Hourly checks from 9 AM to 9 PM are about 400 runs a month before any lead arrives; each lead costs roughly 15 operations over its life (reply plus three follow-ups); each bot message about 3. One lead a day and ten bot messages a day is roughly 1,500–1,800 operations a month — above the free plan. The free plan carries a quiet month; a busy one needs Make's entry paid plan. Say this on the 3:45 slide; never promise free forever.
+
 **Swapping tools is fine.** If Neeraj prefers n8n or another builder, the shape of the build does not change. Edit the tool names in `workshop.json` (`faqs`, `prep`, `seo.scope`), run `node scripts/write-seo-html.mjs`, and the site follows.
 
 ## 4. Before Sunday
@@ -49,11 +51,11 @@ If someone only finishes 1–3, they still leave with the part that saves the mo
 
 Build the whole thing once on a **fresh personal `@gmail.com` account**, not a work account, on a Windows laptop, following §7 exactly. Time each block. The risks to retire:
 
-1. **Make ↔ Gmail with a personal Gmail account.** Google restricts third-party apps' access to Gmail, and Make has at times required a custom Google Cloud OAuth client for `@gmail.com` accounts. If that is still true, it is 15 fiddly minutes per person and must not happen live. Fallbacks, in order: (a) Make's built-in **Email → Send an email** module over Gmail SMTP with an app password (needs 2-Step Verification on); (b) **Brevo** free plan as the sender, connected by API key. Decide before Thursday's reminder goes out, because it changes the pre-work.
+1. **Make ↔ Gmail with a personal Gmail account.** Google restricts third-party apps' access to Gmail, and Make has at times required a custom Google Cloud OAuth client for `@gmail.com` accounts. If that is still true, it is 15 fiddly minutes per person and must not happen live. Fallbacks, in order: (a) Make's **Email** app over IMAP/SMTP with a Google **app password** (needs 2-Step Verification on). It must do all three Gmail jobs in this build — create a draft, send, and search the inbox by sender — so confirm each one in the dry run. (b) **Brevo** free plan for sending, with draft mode replaced by sending to yourself first, and stop-on-reply still using (a)'s inbox search. If (a) is chosen, Thursday's message must add "Turn on 2-Step Verification on your Google account and create an app password — we show you where", because the confirmation email early bookers received does not say it. Decide before Thursday's reminder goes out, because it changes the pre-work.
 2. **Gemini key in Make.** Create a key at aistudio.google.com, connect Make's Gemini module, generate one reply. Note the exact module name in today's Make UI and put it on the slide.
-3. **Gmail "Search emails" for stop-on-reply.** Confirm the search query in §7.3 finds a reply sent from a phone within one scenario run.
+3. **Stop-on-reply, both ways.** Build §7.3 and run both tests at the end of it. Confirm the aggregator really turns an empty Gmail search into `count = 0` and reaches the send branch — that is the one Make behaviour the whole sequence depends on.
 4. **Spam folder.** Send three test replies to an Outlook and a Gmail address. If they land in spam, keep emails plain-text, short, no links in email 1.
-5. **Operations count.** Leave the email scenario on for an hour at a 15-minute interval and read the ops used. Put the "how to stay free" number on the 3:30 slide.
+5. **Operations count.** Leave both scenarios on for an hour (email at a 15-minute interval, and send the bot ten messages) and read the ops used. Check the §3 arithmetic against what Make reports and put the real numbers on the 3:45 slide.
 6. **Telegram from venue Wi-Fi.** BotFather and Make's Telegram webhook both need outbound access; test on the venue network if possible.
 
 ### Captains (call on Friday 23 October, 7:00 PM, one hour)
@@ -93,7 +95,7 @@ Every captain builds parts 2–5 once, on their own account, before Sunday. They
 
 | Time | Big screen | People do | Captains check |
 |---|---|---|---|
-| 11:30 | Wi-Fi name, the five accounts they need | Sign in to Make, Gmail, AI Studio, Telegram | Every laptop signed in to all four before 12:00 |
+| 11:30 | Wi-Fi name, the four accounts they need (Make, Google, AI Studio, Telegram) | Sign in to Make, Gmail, AI Studio, Telegram | Every laptop signed in to all four before 12:00 |
 | 12:00 | Neeraj: why automation, in one picture | Listen (10 min max) | — |
 | 12:10 | Neeraj's own funnel: what runs without him, what he still does by hand, one thing that broke | Listen, note one idea | — |
 | 12:20 | The brief template (§8.1) | Fill it in for their business | Brief has real prices and a never-say list |
@@ -102,7 +104,7 @@ Every captain builds parts 2–5 once, on their own account, before Sunday. They
 | 1:20 | — | Read five drafts, fix the brief, then switch to send | They read the drafts before switching |
 | 1:30 | **Break** | Chai | Every table: first workflow ran end to end |
 | 1:45 | §7.3 Follow-ups | Add route 2 to scenario A | Next-send dates appear in the sheet |
-| 2:30 | §7.4 Campaign (optional) | Run once to a 3-row opted-in test list | Opt-out line present |
+| 2:30 | §7.4 Campaign | Run once to a 3-row opted-in test list | Opt-out line present |
 | 2:45 | §7.5 FAQ bot | BotFather, scenario B, test from phone | Bot answers a price; hands over an unknown |
 | 3:30 | §9 Break it | Fake lead from phone through everything; run the checklist | Each person ticks the checklist |
 | 3:45 | "How to stay free" + switch on | Schedule scenario A, turn both ON, export blueprints | Both scenarios show ON |
@@ -122,40 +124,57 @@ Module names are Make's as of writing; confirm them in the dry run and update th
 
 ### 7.2 Lead in, AI reply out — scenario A, route 1 (12:50)
 
+One search feeds both routes, so follow-ups still run on a day with no new leads:
+
 ```
-Google Sheets: Search Rows (Leads, Status is empty)
-  → Gemini: generate a response  (First reply prompt, §8.2)
-  → Gmail: Create a draft        (switch to "Send an email" after five good drafts)
-  → Google Sheets: Update a Row  (Status = replied, Step = 1,
-                                  Next send = today + 2 days, Last email = the reply)
+Google Sheets: Search Rows (Leads)
+    filter: Status is empty
+        OR (Status = replied AND Next send ≤ today AND Step ≤ 3)
+  → Router
+      ├─ Route 1 · new lead      (filter: Status is empty)
+      │    → Gemini: generate a response   (First reply prompt, §8.2)
+      │    → Gmail: Create a draft         (switch to "Send an email" after five good drafts)
+      │    → Google Sheets: Update a Row
+      │         draft mode:  Status = drafted
+      │         sending:     Status = replied, Step = 1,
+      │                      Next send = today + 2 days, Last email = the reply
+      └─ Route 2 · follow-ups    (filter: Status = replied) — built in §7.3
 ```
 
+- **Subject and body.** Gemini's first line is the subject. In the Gmail module map
+  Subject = `trim(replace(first(split(<Gemini output>; newline)); "Subject:"; ""))` and
+  Content = `trim(replace(<Gemini output>; first(split(<Gemini output>; newline)); ""))`.
+  Use the same mapping in every Gmail send below.
 - Set the scenario's timezone to **Asia/Kolkata** (Scenario settings). Dates go wrong otherwise.
 - "Run once" while building. Do not schedule yet.
-- **Draft mode is not optional.** Nobody sends to a real address until they have read five drafts and the brief has been fixed at least once.
+- **Draft mode is not optional.** Nobody sends to a real address until they have read five drafts and the brief has been fixed at least once. When you switch the Gmail module to send, clear `Status` on your test rows so they run again.
 
 ### 7.3 The follow-up sequence — scenario A, route 2 (1:45)
-
-Add a **Router** after the trigger, or a second search in the same scenario (the free plan allows two active scenarios, and the bot needs the other one):
 
 `Step` counts the emails already sent: 1 after the first reply, 4 after the last follow-up.
 
 ```
-Google Sheets: Search Rows (Status = replied, Next send ≤ today, Step ≤ 3)
-  → Gmail: Search emails   query: from:{{Email}} newer_than:14d
+Route 2 · follow-ups (filter: Status = replied)
+  → Gmail: Search emails       query: from:{{Email}} newer_than:14d   (limit 1)
+  → Tools: Numeric aggregator  COUNT, source module = Gmail: Search emails,
+                               "Stop processing after an empty aggregation" = No
   → Router
-      ├─ reply found     → Update a Row (Status = lead replied)           ← sequence stops
-      └─ no reply found  → Gemini (Follow-up prompt, §8.3 — follow-up number = {{Step}})
-                           → Gmail: Send an email
-                           → Update a Row (Step = Step + 1;
-                                           new Step 2 → Next send + 3 days,
-                                           new Step 3 → Next send + 4 days,
-                                           new Step 4 → Status = done)
+      ├─ count > 0   → Update a Row (Status = lead replied)            ← sequence stops
+      └─ count = 0   → Gemini (Follow-up prompt, §8.3 — follow-up number = {{Step}})
+                       → Gmail: Send an email (Subject/Content mapping as in §7.2)
+                       → Update a Row (Step = Step + 1; Last email = this email;
+                                       new Step 2 → Next send + 3 days,
+                                       new Step 3 → Next send + 4 days,
+                                       new Step 4 → Status = done)
 ```
 
-Schedule: follow-up 1 on day 2, follow-up 2 on day 5, follow-up 3 on day 9. To test today, set `Next send` to today by hand on the test row, run once, and reply from the phone. The next run must mark it `lead replied` and send nothing.
+Why the aggregator: a search that finds no reply outputs nothing, and the route would stop before the send. The aggregator turns "found nothing" into one bundle with `count = 0`, so the send branch runs.
 
-### 7.4 One campaign, the honest way (2:30, optional)
+Schedule: follow-up 1 on day 2, follow-up 2 on day 5, follow-up 3 on day 9.
+
+**Test both paths, in this order.** (1) On the test row set `Next send` to today, run once: follow-up 1 must arrive on the phone. (2) Reply to it from the phone, set `Next send` to today again, run once: the row must turn `lead replied` and nothing is sent. A follow-up that never sends passes test (2) on its own, so test (1) is the one that proves the sequence works.
+
+### 7.4 One campaign, the honest way (2:30)
 
 - New tab `Campaign`: Name · Email · Note · Opted in (yes/no) · Sent.
 - Three test rows only, all `Opted in = yes`, all addresses the person owns.
@@ -166,12 +185,12 @@ Schedule: follow-up 1 on day 2, follow-up 2 on day 5, follow-up 3 on day 9. To t
 
 1. Telegram → **@BotFather** → `/newbot` → name "{Business} Help" → username ending in `_bot` → copy the token.
 2. Make → new scenario: `Telegram Bot: Watch Updates` → `Gemini: generate a response` (Bot prompt, §8.4, with the message text) → `Telegram Bot: Send a Text Message or a Reply` (chat ID from the trigger).
-3. Optional: a filter on `[HANDOVER]` in the reply → `Telegram Bot: Send a Text Message` to the owner's own chat ID, and `Google Sheets: Add a Row` to a `Bot questions` tab.
+3. **Required — the hand-over.** After Gemini add a Router. Route `text contains [HANDOVER]` → `Telegram Bot: Send a Text Message` to **your own** chat ID ("Customer {{first name}} asked: {{message text}}") and `Google Sheets: Add a Row` to a `Bot questions` tab. Get your chat ID by messaging your own bot once and reading it from the trigger's output. In every message sent to the customer, map the text as `trim(replace(<Gemini output>; "[HANDOVER]"; ""))` so the marker never shows.
 4. Turn it ON. From the phone: open the bot, press **Start**, ask a price, then ask something not in the brief.
 
 ### 7.6 Switch on (3:45)
 
-- Scenario A: schedule every 15 minutes for today. From Monday, **hourly from 9 AM to 9 PM**, which stays inside the free operations. Scenario B: instant.
+- Scenario A: schedule every 15 minutes for today. From Monday, **hourly from 9 AM to 9 PM**. That keeps a quiet month inside the free operations; see §3 for when it does not. Scenario B: instant.
 - Both ON. Export both blueprints (`…` menu → Export Blueprint) into a folder named after the business, next to the brief and the prompts.
 
 ## 8. The prompts
@@ -263,10 +282,11 @@ Print one per seat. Every box gets a tick or a fix.
 - [ ] The email is short and sounds like **them**, not like a brochure
 - [ ] It did **not** land in spam (if it did: shorter, plain, no links)
 - [ ] One enquiry produced **one** reply, not two (row status updated)
+- [ ] A row due today with no reply **sent** follow-up 1
 - [ ] Replying from the phone **stopped** the follow-ups
 - [ ] Follow-ups and campaign carry the **STOP** line
 - [ ] The bot answered a **price** correctly
-- [ ] The bot said "a person will reply" to a question **not** in the brief
+- [ ] The bot said "a person will reply" to a question **not** in the brief, **your own Telegram got the alert**, and the customer never saw `[HANDOVER]`
 - [ ] Scenario timezone is **Asia/Kolkata**; both scenarios are **ON**
 - [ ] Blueprints **exported** to the business folder
 
@@ -287,8 +307,8 @@ Print one per seat. Every box gets a tick or a fix.
 - **Only people who contacted you or asked to hear from you.** No bought lists, no scraped contacts, no cold blasts. "If you want to email ten thousand strangers, skip this Sunday" is on the website; mean it in the room.
 - **Every sequence stops on reply; every campaign carries an opt-out.**
 - **Test leads on the day.** Free AI tiers may use inputs to improve products; no real customer data, no confidential client files.
-- **WhatsApp:** the official WhatsApp Business Platform needs Meta business verification, a provider, and per-conversation charges. It takes days. The bot's brain (brief + rules + handover) moves across unchanged. Show the path; do not attempt it live.
-- **No promises of sales.** We promise that no lead waits for a reply. Whether they buy is their offer, not our automation.
+- **WhatsApp:** the official WhatsApp Business Platform needs a Meta business account, business verification, a dedicated number and a provider, and Meta charges for many message types. It takes days. The bot's brain (brief + rules + handover) moves across unchanged. Show the path; do not attempt it live.
+- **No promises of sales.** We promise that no lead waits more than an hour in working hours. Whether they buy is their offer, not our automation.
 
 ## 11. The last ten minutes
 

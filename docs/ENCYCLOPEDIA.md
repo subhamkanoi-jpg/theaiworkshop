@@ -74,7 +74,7 @@ The reason “useful” becomes “livelihood.”
 
 **On the Sell shelf (starting October)**
 
-- **#4 · 25 October 2026 — Build Your First AI Automation.** Every enquiry gets an AI-written reply in minutes, three follow-ups that stop when the lead replies, and a Telegram bot that answers from the price list. Runbook: [WORKSHOP-04-AI-AUTOMATION.md](./WORKSHOP-04-AI-AUTOMATION.md).
+- **#4 · 25 October 2026 — Build Your First AI Automation.** Every enquiry gets an AI-written reply within the hour, three follow-ups that stop when the lead replies, and a Telegram bot that answers from the price list. Runbook: [WORKSHOP-04-AI-AUTOMATION.md](./WORKSHOP-04-AI-AUTOMATION.md).
 
 - WhatsApp that brings customers: catalogues, replies, follow-ups, a broadcast that does not sound like a broadcast.
 - An offer, written and priced, that a stranger understands.
