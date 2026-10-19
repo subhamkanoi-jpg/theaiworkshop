@@ -11,6 +11,7 @@ from api.index import (
     PREP,
     WORKSHOP_AMOUNT,
     WORKSHOP_DATE_LABEL,
+    WORKSHOP_KEY,
     WORKSHOP_SLUG,
     WORKSHOP_TITLE,
     TOTAL_SEATS,
@@ -158,7 +159,7 @@ def test_reserve_enforces_capacity(monkeypatch):
         {
             "id": f"order_{i}",
             "status": "paid",
-            "notes": {"email": f"p{i}@x.com", "hold": "online", "workshop": WORKSHOP_SLUG},
+            "notes": {"email": f"p{i}@x.com", "hold": "online", "workshop": WORKSHOP_KEY},
         }
         for i in range(TOTAL_SEATS)
     ]
@@ -180,7 +181,7 @@ def test_reserve_blocks_duplicate_email(monkeypatch):
                 "email": "ada@example.com",
                 "hold": "venue",
                 "name": "Ada",
-                "workshop": WORKSHOP_SLUG,
+                "workshop": WORKSHOP_KEY,
             },
         }
     ]
@@ -293,7 +294,7 @@ def test_admin_data_with_key(monkeypatch):
                     "name": "Ada",
                     "email": "ada@example.com",
                     "phone": "9830715557",
-                    "workshop": WORKSHOP_SLUG,
+                    "workshop": WORKSHOP_KEY,
                 },
             }
         ]
@@ -308,7 +309,7 @@ def test_admin_data_with_key(monkeypatch):
 
 
 def test_order_takes_seat():
-    mine = {"workshop": WORKSHOP_SLUG}
+    mine = {"workshop": WORKSHOP_KEY}
     assert order_takes_seat({"status": "paid", "notes": dict(mine)})
     assert order_takes_seat({"status": "created", "notes": {**mine, "hold": "venue"}})
     assert not order_takes_seat({"status": "created", "notes": {**mine, "hold": "online"}})
@@ -316,7 +317,7 @@ def test_order_takes_seat():
 
 
 def test_order_takes_seat_only_for_this_workshop():
-    mine = {"workshop": WORKSHOP_SLUG}
+    mine = {"workshop": WORKSHOP_KEY}
     assert order_takes_seat({"status": "paid", "notes": dict(mine)})
     assert order_takes_seat({"status": "created", "notes": {**mine, "hold": "venue"}})
     assert not order_takes_seat({"status": "paid", "notes": {"workshop": "ai-video-ad-from-scratch"}})
@@ -324,6 +325,15 @@ def test_order_takes_seat_only_for_this_workshop():
     assert not order_takes_seat(
         {"status": "created", "notes": {"workshop": "ai-video-ad-from-scratch", "hold": "venue"}}
     )
+
+
+def test_order_tagged_with_the_bare_slug_does_not_take_a_seat():
+    """Seats are scoped by slug and date; a slug alone is not this session."""
+    assert WORKSHOP_KEY != WORKSHOP_SLUG
+    assert WORKSHOP_KEY.startswith(WORKSHOP_SLUG + "@")
+    bare = {"workshop": WORKSHOP_SLUG}
+    assert not order_takes_seat({"status": "paid", "notes": dict(bare)})
+    assert not order_takes_seat({"status": "created", "notes": {**bare, "hold": "venue"}})
 
 
 def test_previous_workshop_attendee_can_book_again(monkeypatch):
@@ -343,7 +353,7 @@ def test_previous_workshop_attendee_can_book_again(monkeypatch):
     )
     assert res.status_code == 200
     assert fake.store[-1]["id"] != "order_sep"
-    assert fake.store[-1]["notes"]["workshop"] == WORKSHOP_SLUG
+    assert fake.store[-1]["notes"]["workshop"] == WORKSHOP_KEY
 
 
 def test_previous_workshop_does_not_fill_this_one(monkeypatch):
@@ -376,7 +386,7 @@ def test_reserve_tags_the_order_with_this_workshop(monkeypatch):
         json={"name": "Ada Lovelace", "email": "ada@example.com", "phone": "9830715557"},
     )
     assert res.status_code == 200
-    assert fake.store[0]["notes"]["workshop"] == WORKSHOP_SLUG
+    assert fake.store[0]["notes"]["workshop"] == WORKSHOP_KEY
 
 
 def test_confirmation_email_escapes_html(monkeypatch):
@@ -429,6 +439,33 @@ def test_confirmation_email_lists_the_prep(monkeypatch):
     for item in PREP:
         assert html.escape(item) in body
     assert "three WhatsApp messages" not in body
+
+
+def _confirmation_body(monkeypatch):
+    sent = []
+
+    def fake_send(msg, _smtp_email, _smtp_password, to_addr):
+        sent.append(msg)
+        return True
+
+    monkeypatch.setattr("api.index._smtp", lambda: ("from@example.com", "pw"))
+    monkeypatch.setattr("api.index._send", fake_send)
+    assert send_confirmation_email("Ada", "ada@example.com")
+    return sent[0].get_payload()[0].get_payload(decode=True).decode("utf-8")
+
+
+def test_confirmation_email_names_the_workshop_weekday(monkeypatch):
+    body = _confirmation_body(monkeypatch)
+    assert "Before Sunday:" in body
+    assert WORKSHOP_DATE_LABEL.split(",")[0] == "Sunday"
+
+
+def test_confirmation_email_omits_the_prep_block_when_there_is_no_prep(monkeypatch):
+    monkeypatch.setattr("api.index.PREP", [])
+    body = _confirmation_body(monkeypatch)
+    assert "Before Sunday" not in body
+    assert "<ul>" not in body
+    assert "Join the workshop WhatsApp group" in body
 
 
 def test_confirm_registration_is_idempotent(monkeypatch):

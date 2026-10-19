@@ -91,6 +91,9 @@ SUPPORT_EMAIL = str(W["supportEmail"])
 WORKSHOP_TITLE = str(W.get("title") or "The AI Workshop")
 BRING_LABEL = str(W.get("bringLabel") or "a phone, a charger, and a free Google account")
 WORKSHOP_SLUG = str(W["slug"])
+# Orders are tagged with slug and date, so a forgotten slug change next month
+# still scopes seats to this session.
+WORKSHOP_KEY = f"{WORKSHOP_SLUG}@{W['dateIso']}"
 PREP = [str(p) for p in W.get("prep") or []]
 
 
@@ -123,11 +126,12 @@ def iter_orders(client) -> list:
 def order_takes_seat(order: dict) -> bool:
     """Paid online tickets and open venue holds both occupy a seat.
 
-    Only orders tagged with this workshop's slug count. Orders from earlier
-    workshops, including ones created before tagging existed, never do.
+    Only orders tagged with this workshop's key (slug and date) count. Orders
+    from earlier workshops, including ones created before tagging existed or
+    tagged with the bare slug, never do.
     """
     notes = order.get("notes") or {}
-    if notes.get("workshop") != WORKSHOP_SLUG:
+    if notes.get("workshop") != WORKSHOP_KEY:
         return False
     status = (order.get("status") or "").lower()
     if status == "cancelled":
@@ -252,11 +256,22 @@ def send_confirmation_email(name: str, email: str, pay_at_venue: bool = False) -
     )
     payment_note = (
         f"<p>Your seat is <strong>reserved</strong> — please bring <strong>₹{PRICE} cash</strong> "
-        "to pay at the venue. We'll hold your spot until 15 minutes before the session starts.</p>"
+        "to pay at the venue. We'll hold your spot until 15 minutes after the session starts.</p>"
         if pay_at_venue
         else "<p>Your payment is confirmed and your spot is secured for <strong>The AI Workshop</strong>.</p>"
     )
     prep_items = "\n".join(f"                <li>{html.escape(item)}</li>" for item in PREP)
+    weekday = WORKSHOP_DATE_LABEL.split(",")[0]
+    prep_block = (
+        f"""\
+            <p><strong>Before {html.escape(weekday)}:</strong></p>
+            <ul>
+{prep_items}
+            </ul>
+"""
+        if PREP
+        else ""
+    )
     html_body = f"""\
     <html>
     <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
@@ -270,11 +285,7 @@ def send_confirmation_email(name: str, email: str, pay_at_venue: bool = False) -
             </div>
             <p><strong>Workshop:</strong> {html.escape(WORKSHOP_TITLE)}</p>
             <p><strong>What to bring:</strong> {html.escape(BRING_LABEL)}</p>
-            <p><strong>Before Sunday:</strong></p>
-            <ul>
-{prep_items}
-            </ul>
-            <p>Join the workshop WhatsApp group — venue, timings and reminders live there:<br>
+{prep_block}            <p>Join the workshop WhatsApp group — venue, timings and reminders live there:<br>
             <a href="{html.escape(WHATSAPP_URL, quote=True)}">{html.escape(WHATSAPP_URL)}</a></p>
             <p style="margin-top: 30px;">See you there!<br><strong>Team AI Workshop</strong></p>
             <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;">
@@ -483,7 +494,7 @@ def create_order(req: PersonRequest):
                     "email": email,
                     "phone": phone,
                     "hold": "online",
-                    "workshop": WORKSHOP_SLUG,
+                    "workshop": WORKSHOP_KEY,
                 },
             }
         )
@@ -519,7 +530,7 @@ def reserve_venue(req: PersonRequest):
                     "email": email,
                     "phone": phone,
                     "hold": "venue",
-                    "workshop": WORKSHOP_SLUG,
+                    "workshop": WORKSHOP_KEY,
                 },
             }
         )

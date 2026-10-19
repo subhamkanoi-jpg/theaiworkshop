@@ -1013,12 +1013,10 @@ html[data-nav="back"]::view-transition-new(root) {
 
 /* ── The run log ───────────────────────────────────────────────────────────
    What the gate shows now: one automation, mid-run, a line at a time. Same
-   dark hardware and mono type as the prompt readout. Each row draws in once,
-   on its own delay (--i); the list holds, then fades out as a whole over the
-   end of a 14s cycle. A row's delay only applies to its first run, so
-   AutomationRun re-keys the list every 14s: that remounts it and every
-   animation starts again from an empty log. Reduced motion has no animation
-   and no restart, and every row is simply there. */
+   dark hardware and mono type as the prompt readout. Each row draws in once
+   on mount, on its own delay (--i), and then the log holds: no timer, no
+   hidden-tab blanking, nothing looping. Reduced motion has no animation and
+   every row is simply there. */
 .run-screen {
   display: flex;
   flex-direction: column;
@@ -1070,7 +1068,6 @@ html[data-nav="back"]::view-transition-new(root) {
   list-style: none;
   font-size: 11.5px;
   line-height: 1.55;
-  animation: run-log-cycle 14s linear forwards;
 }
 .run-log li {
   /* Spare height in a tall frame is shared out between the rows, so the log
@@ -1114,15 +1111,6 @@ html[data-nav="back"]::view-transition-new(root) {
     transform: translateY(0);
   }
 }
-@keyframes run-log-cycle {
-  0%,
-  94% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
 @keyframes run-pulse {
   0% {
     box-shadow: 0 0 0 0 rgba(200, 85, 61, 0.6);
@@ -1133,7 +1121,6 @@ html[data-nav="back"]::view-transition-new(root) {
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .run-log,
   .run-log li,
   .run-dot {
     animation: none;

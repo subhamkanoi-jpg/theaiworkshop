@@ -131,10 +131,10 @@ export function TermsPage() {
       <Section title="The workshop">
         <p>
           You get a live, hands-on session in Salt Lake, Kolkata ({WORKSHOP_DURATION_LABEL},{" "}
-          {WORKSHOP_DATE_LABEL}), what you build in it: {WORKSHOP_ARTIFACT}, and access to the
-          workshop WhatsApp group. Sessions use third-party tools on their free tiers where
-          possible; any paid plan or credits you choose are billed by that provider, not by us. The
-          ticket price of {inr(PRICE)} covers the hall, the table captains and running costs.
+          {WORKSHOP_DATE_LABEL}) and access to the workshop WhatsApp group. What you build in it:{" "}
+          {WORKSHOP_ARTIFACT}. Sessions use third-party tools on their free tiers where possible;
+          any paid plan or credits you choose are billed by that provider, not by us. The ticket
+          price of {inr(PRICE)} covers the hall, the table captains and running costs.
         </p>
       </Section>
       <Section title="Your responsibilities">

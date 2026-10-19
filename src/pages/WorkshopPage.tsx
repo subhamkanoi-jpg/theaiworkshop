@@ -7,6 +7,7 @@ import {
   WORKSHOP_DATE_LABEL,
   WORKSHOP_DAY_MONTH,
   WORKSHOP_TIME_LABEL,
+  WORKSHOP_WEEKDAY,
   WORKSHOP_TITLE,
   PRICE,
   MARKET_VALUE,
@@ -154,7 +155,7 @@ export default function WorkshopPage() {
         <section className="border-b border-border bg-muted/30 py-12 sm:py-16">
           <div className="mx-auto max-w-5xl px-4 sm:px-6">
             <h2 className="font-serif text-3xl font-semibold leading-tight">
-              Before Sunday
+              Before {WORKSHOP_WEEKDAY}
             </h2>
             <ol className="mt-7 grid max-w-3xl gap-3">
               {PREP.map((step, i) => (

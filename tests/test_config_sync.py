@@ -315,3 +315,23 @@ def test_any_page_playing_the_teaser_matches_the_live_offer():
     for path in users:
         source = path.read_text(encoding="utf-8")
         assert source.index("teaser-9x16.webm") < source.index("teaser-9x16.mp4"), path.name
+
+
+def test_share_card_source_matches_the_live_offer():
+    """The OG share card is rendered from an HTML source; it must read the live offer."""
+    source = ROOT / "scripts" / Path(CFG["ogImage"]).name.replace(".png", ".html")
+    assert source.is_file(), f"Missing share card source: {source.name}"
+    text = source.read_text(encoding="utf-8")
+    _, month, day = (int(part) for part in CFG["dateIso"].split("-"))
+    months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    short_date = f"{day} {months[month - 1]}"
+    expected = {
+        "price": f"₹{CFG['price']}",
+        "date": short_date,
+        "seats": f"{CFG['totalSeats']} seats",
+    }
+    for label, value in expected.items():
+        assert value in text, (
+            f"Share card source is stale: {label} should read {value!r}. "
+            f"Update scripts/{source.name} and re-render {CFG['ogImage']}."
+        )

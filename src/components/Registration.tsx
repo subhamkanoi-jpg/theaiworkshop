@@ -234,7 +234,7 @@ export function Registration() {
               </h3>
               <p className="text-muted-foreground">
                 {paymentMethod === "venue"
-                  ? `Your seat for ${WORKSHOP_DATE_LABEL} is reserved. Please bring ${inr(PRICE)} cash to pay at the venue, we'll hold your spot until 15 minutes before the session.`
+                  ? `Your seat for ${WORKSHOP_DATE_LABEL} is reserved. Please bring ${inr(PRICE)} cash to pay at the venue, we'll hold your spot until 15 minutes after the session starts.`
                   : `Payment successful, your seat for ${WORKSHOP_DATE_LABEL} is confirmed, and a confirmation email is on its way.`}
               </p>
 
@@ -306,7 +306,7 @@ export function Registration() {
                     <strong className="text-foreground">
                       {inr(PRICE)} cash
                     </strong>{" "}
-                    on the day. We'll hold your spot until 15 minutes before the
+                    on the day. We'll hold your spot until 15 minutes after the
                     session starts.
                   </p>
                 )}

@@ -59,6 +59,8 @@ export const WORKSHOP_NUMBER = workshop.number;
 export const WORKSHOP_CHAPTER = workshop.chapter;
 export const WORKSHOP_ARTIFACT = workshop.artifact;
 export const WORKSHOP_SLUG = workshop.slug;
+/** "Sunday": the first word of the date label, for "Before Sunday". */
+export const WORKSHOP_WEEKDAY = workshop.dateLabel.split(",")[0];
 export const BRING_LABEL = workshop.bringLabel;
 
 export const SAVINGS = MARKET_VALUE - PRICE;

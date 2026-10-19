@@ -94,7 +94,7 @@ export function KitchenRule() {
             </dl>
             <p className="mt-5 flex flex-wrap items-baseline gap-x-3">
               <span className="font-serif text-5xl leading-none text-[#c8553d]">
-                15 min
+                1 hour
               </span>
               <span className="text-sm text-[#e8a090]/70">to reply</span>
             </p>

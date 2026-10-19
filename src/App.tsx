@@ -90,7 +90,7 @@ export default function App() {
             </div>
             <div className="mx-auto w-full max-w-[19rem] sm:max-w-[21rem]">
               <AutomationRun />
-              <ul className="stage-rail" aria-label="The five stages">
+              <ul className="stage-rail" aria-label="The stages">
                 {STAGES.map((stage, i) => (
                   <li key={stage} className="stage-cell">
                     <b>{String(i + 1).padStart(2, "0")}</b>
@@ -162,7 +162,7 @@ export default function App() {
           <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:gap-9">
             <img
               src={LEAD.photo}
-              alt={LEAD.name}
+              alt=""
               width={144}
               height={144}
               loading="lazy"
