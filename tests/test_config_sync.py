@@ -335,3 +335,37 @@ def test_share_card_source_matches_the_live_offer():
             f"Share card source is stale: {label} should read {value!r}. "
             f"Update scripts/{source.name} and re-render {CFG['ogImage']}."
         )
+
+
+def test_october_teaser_end_card_matches_the_live_offer():
+    """The 25 October teaser types its end card; pin it while it is the live offer.
+
+    The card names the workshop it sells in data-workshop. Once workshop.json
+    moves on, the teaser is an archive of a past Sunday and the check stands down.
+    """
+    card = (ROOT / "video/teaser-oct25/compositions/frames/04-card.html").read_text(encoding="utf-8")
+    sells = re.search(r'data-workshop="([^"]+)"', card)
+    assert sells, "The teaser end card must say which workshop it sells (data-workshop)"
+    if sells.group(1) != CFG["slug"]:
+        pytest.skip("teaser-oct25 advertises a past workshop")
+    _, month, day = (int(part) for part in CFG["dateIso"].split("-"))
+    months = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December",
+    ]
+    expected = {
+        "date": f"{day} {months[month - 1]}",
+        "price": f"₹{CFG['price']}",
+        "seats": f"{CFG['totalSeats']} seats",
+        "host": ORIGIN.removeprefix("https://"),
+        "lead": f"Led by {CFG['lead']['name']}",
+    }
+    for label, value in expected.items():
+        assert value in card, (
+            f"Teaser end card is stale: {label} should read {value!r}. Update "
+            "video/teaser-oct25/compositions/frames/04-card.html and re-render "
+            "public/cinema/teaser-oct25-9x16.* (see video/teaser-oct25/README.md)."
+        )
+    for asset in ("teaser-oct25-9x16.webm", "teaser-oct25-9x16.mp4", "teaser-oct25-poster.jpg"):
+        path = ROOT / "public/cinema" / asset
+        assert path.is_file() and path.stat().st_size > 1024, f"Missing teaser render: {asset}"

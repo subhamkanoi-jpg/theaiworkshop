@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en-IN">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root { position: absolute; inset: 0; }
+        #f2-scene { gap: 48px; }
+        .f2-card {
+          display: block; position: relative;
+          padding: 46px 46px 18px; border-radius: 36px;
+          background: #1a1613; border: 3px solid rgba(244, 238, 228, 0.12);
+        }
+        .f2-head {
+          display: flex; align-items: center; justify-content: space-between;
+          padding-bottom: 30px;
+        }
+        .f2-title {
+          font-weight: 640;
+          font-size: 56px; letter-spacing: -0.01em;
+        }
+        .f2-live {
+          display: inline-flex; align-items: center; gap: 14px;
+          font-size: 26px; font-weight: 700; letter-spacing: 0.14em;
+          text-transform: uppercase; color: #e8a090;
+        }
+        .f2-dot { display: block; width: 18px; height: 18px; border-radius: 50%; background: #c8553d; }
+        .f2-rows { list-style: none; display: block; }
+        .f2-row {
+          display: grid; grid-template-columns: 124px minmax(0, 1fr) 60px;
+          column-gap: 26px; align-items: center;
+          padding: 28px 0;
+          border-top: 3px solid rgba(244, 238, 228, 0.08);
+        }
+        .f2-time { font-size: 30px; color: #e8a090; white-space: nowrap; }
+        .f2-text { font-size: 35px; font-weight: 500; line-height: 1.28; color: #f4eee4; }
+        .f2-text-strong { color: #e8a090; font-weight: 700; }
+        .f2-badge { position: relative; display: block; width: 56px; height: 56px; }
+        .f2-num, .f2-done {
+          position: absolute; inset: 0;
+          display: flex; align-items: center; justify-content: center;
+          border-radius: 50%;
+        }
+        .f2-num {
+          border: 3px solid rgba(244, 238, 228, 0.32);
+          font-size: 26px; color: rgba(244, 238, 228, 0.86);
+        }
+        .f2-done { background: #c8553d; }
+        .f2-done svg { display: block; width: 30px; height: 30px; }
+        .f2-done path {
+          fill: none; stroke: #fbf6ea; stroke-width: 3.4;
+          stroke-linecap: round; stroke-linejoin: round;
+        }
+      </style>
+      <div data-hf-id="hf-42bk" id="root" data-composition-id="f2-run-log" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-gne0" id="f2-scene" class="scene room">
+          <div data-hf-id="hf-h60x" class="grain"></div>
+          <div data-hf-id="hf-haud" id="f2-glow" class="glow" data-layout-allow-overflow style="right: -520px; top: -260px"></div>
+          <span data-hf-id="hf-357x" id="f2-eyebrow" class="eyebrow">What you build on 25 October</span>
+          <div data-hf-id="hf-rnh4" id="f2-card" class="f2-card">
+            <div data-hf-id="hf-ieuv" class="f2-head">
+              <span data-hf-id="hf-splj" class="f2-title serif">Your automation</span>
+              <span data-hf-id="hf-m49j" class="f2-live"><span data-hf-id="hf-ls4j" id="f2-dot" class="f2-dot"></span>Running</span>
+            </div>
+            <ol data-hf-id="hf-6w9w" class="f2-rows">
+              <li data-hf-id="hf-8zzx" class="f2-row">
+                <span data-hf-id="hf-l42a" class="f2-time mono">12:41</span>
+                <span data-hf-id="hf-6z4k" class="f2-text">New lead · Riya asks “Do you deliver to Salt Lake?”</span>
+                <span data-hf-id="hf-0hpf" class="f2-badge"><span data-hf-id="hf-d7jg" class="f2-num mono" data-layout-allow-occlusion>1</span><span data-hf-id="hf-b8bm" class="f2-done" data-layout-allow-occlusion><svg data-hf-id="hf-ulu9" viewBox="0 0 24 24"><path data-hf-id="hf-v1df" d="M5 12.5l4.2 4.2L19 7" /></svg></span></span>
+              </li>
+              <li data-hf-id="hf-7nm9" class="f2-row">
+                <span data-hf-id="hf-nu3a" class="f2-time mono">12:41</span>
+                <span data-hf-id="hf-uifn" class="f2-text">Added to Leads.gsheet</span>
+                <span data-hf-id="hf-02w3" class="f2-badge"><span data-hf-id="hf-c0md" class="f2-num mono" data-layout-allow-occlusion>2</span><span data-hf-id="hf-qt3a" class="f2-done" data-layout-allow-occlusion><svg data-hf-id="hf-1tol" viewBox="0 0 24 24"><path data-hf-id="hf-5es3" d="M5 12.5l4.2 4.2L19 7" /></svg></span></span>
+              </li>
+              <li data-hf-id="hf-8ujc" class="f2-row">
+                <span data-hf-id="hf-rxp5" class="f2-time mono">1:00</span>
+                <span data-hf-id="hf-wedt" class="f2-text">AI reply written from your brief</span>
+                <span data-hf-id="hf-zol2" class="f2-badge"><span data-hf-id="hf-cexe" class="f2-num mono" data-layout-allow-occlusion>3</span><span data-hf-id="hf-r7eb" class="f2-done" data-layout-allow-occlusion><svg data-hf-id="hf-30lo" viewBox="0 0 24 24"><path data-hf-id="hf-50h2" d="M5 12.5l4.2 4.2L19 7" /></svg></span></span>
+              </li>
+              <li data-hf-id="hf-8g8b" class="f2-row">
+                <span data-hf-id="hf-z4tp" class="f2-time mono">1:00</span>
+                <span data-hf-id="hf-tmwt" class="f2-text">Email sent — “Yes, we deliver across Sectors 1 to 5…”</span>
+                <span data-hf-id="hf-zaa1" class="f2-badge"><span data-hf-id="hf-eegj" class="f2-num mono" data-layout-allow-occlusion>4</span><span data-hf-id="hf-rlpc" class="f2-done" data-layout-allow-occlusion><svg data-hf-id="hf-2man" viewBox="0 0 24 24"><path data-hf-id="hf-4m61" d="M5 12.5l4.2 4.2L19 7" /></svg></span></span>
+              </li>
+              <li data-hf-id="hf-6gp6" class="f2-row">
+                <span data-hf-id="hf-yf9a" class="f2-time mono">Day 2</span>
+                <span data-hf-id="hf-qltj" class="f2-text">Follow-up 1 sent</span>
+                <span data-hf-id="hf-yvz0" class="f2-badge"><span data-hf-id="hf-esrk" class="f2-num mono" data-layout-allow-occlusion>5</span><span data-hf-id="hf-otk5" class="f2-done" data-layout-allow-occlusion><svg data-hf-id="hf-3t7q" viewBox="0 0 24 24"><path data-hf-id="hf-47v0" d="M5 12.5l4.2 4.2L19 7" /></svg></span></span>
+              </li>
+              <li data-hf-id="hf-62e5" class="f2-row">
+                <span data-hf-id="hf-xmn8" class="f2-time mono">Day 4</span>
+                <span data-hf-id="hf-dugq" class="f2-text f2-text-strong">Riya replied — follow-ups stopped</span>
+                <span data-hf-id="hf-yhnz" class="f2-badge"><span data-hf-id="hf-dluh" class="f2-num mono" data-layout-allow-occlusion>6</span><span data-hf-id="hf-p7v6" class="f2-done" data-layout-allow-occlusion><svg data-hf-id="hf-3ewp" viewBox="0 0 24 24"><path data-hf-id="hf-3tjz" d="M5 12.5l4.2 4.2L19 7" /></svg></span></span>
+              </li>
+            </ol>
+          </div>
+          <span data-hf-id="hf-hobw" id="f2-cap" class="caption">Every enquiry gets a reply <span data-hf-id="hf-orsd" class="blush">within the hour.</span></span>
+        </div>
+      </div>
+      <script>
+        // agent-progress-theater (checklist): rows arrive as events and each
+        // badge flips from its number to a done check. Local time: 0–6.4s.
+        const tl = gsap.timeline({ paused: true });
+        tl.fromTo("#f2-glow", { scale: 0.94 },
+          { scale: 1.08, duration: 2.1, ease: "sine.inOut", yoyo: true, repeat: 2 }, 0);
+        tl.fromTo("#f2-eyebrow", { opacity: 0, y: -16 },
+          { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 0.15);
+        tl.fromTo("#f2-card", { scale: 0.94, opacity: 0, y: 40 },
+          { scale: 1, opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.3);
+        // "Running" is diegetic — the machine is working. Finite: 12 half-cycles
+        // of 0.45s from 0.6s end at 6.0s, before the scene fades.
+        tl.fromTo("#f2-dot", { opacity: 1 },
+          { opacity: 0.25, duration: 0.45, ease: "sine.inOut", yoyo: true, repeat: 11 }, 0.6);
+
+        gsap.utils.toArray("#f2-scene .f2-row").forEach((row, i) => {
+          const at = 0.85 + i * 0.68;
+          tl.fromTo(row, { opacity: 0, y: 26 },
+            { opacity: 1, y: 0, duration: 0.42, ease: "power3.out" }, at);
+          // Number out, check in, at the same centre (scale-swap).
+          tl.fromTo(row.querySelector(".f2-num"), { scale: 1, opacity: 1 },
+            { scale: 0.4, opacity: 0, duration: 0.24, ease: "power2.in" }, at + 0.3);
+          tl.fromTo(row.querySelector(".f2-done"), { scale: 0, opacity: 0 },
+            { scale: 1, opacity: 1, duration: 0.36, ease: "power3.out" }, at + 0.36);
+        });
+
+        tl.fromTo("#f2-cap", { opacity: 0, y: 24 },
+          { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 5.0);
+        tl.fromTo("#f2-scene", { opacity: 1 },
+          { opacity: 0, duration: 0.3, ease: "power2.in" }, 6.1);
+        window.__timelines["f2-run-log"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

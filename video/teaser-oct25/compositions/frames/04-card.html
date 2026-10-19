@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en-IN">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root { position: absolute; inset: 0; }
+        #f4-scene { padding: 0 96px; }
+        .f4-edge {
+          position: absolute; left: 0; top: 0; bottom: 0; width: 14px;
+          background: #c8553d;
+        }
+        .f4-eyebrow { color: #b4462f; }
+        .f4-title { font-size: 98px; }
+        .f4-facts { display: block; position: relative; margin-top: 60px; }
+        .f4-fact { display: block; font-size: 44px; line-height: 1.6; color: #5c5049; }
+        .f4-fact-strong { color: #241d18; font-weight: 700; }
+        .f4-pill {
+          display: inline-block; align-self: flex-start; margin-top: 54px;
+          padding: 28px 54px; border-radius: 999px;
+          background: #b4462f; color: #fbf6ea;
+          font-size: 44px; font-weight: 700;
+          transform-origin: 0% 50%;
+        }
+        .f4-url {
+          display: block; position: relative; margin-top: 44px;
+          font-size: 40px; font-weight: 700; letter-spacing: 0.02em; color: #241d18;
+        }
+      </style>
+      <div data-hf-id="hf-g972" id="root" data-composition-id="f4-card" data-width="1080" data-height="1920">
+        <!-- The facts below are pinned to workshop.json by
+             tests/test_config_sync.py while data-workshop matches its slug. -->
+        <div data-hf-id="hf-1qd8" id="f4-scene" class="scene paper" data-workshop="ai-automation-leads-emails-bot">
+          <div data-hf-id="hf-h60x" class="grain"></div>
+          <div data-hf-id="hf-ujpw" class="f4-edge"></div>
+          <span data-hf-id="hf-mxay" id="f4-eyebrow" class="eyebrow f4-eyebrow">Offline · Salt Lake, Kolkata</span>
+          <span data-hf-id="hf-m088" id="f4-h1" class="display f4-title">Build your first AI automation</span>
+          <span data-hf-id="hf-e1sh" id="f4-h2" class="display f4-title accent">in 4 hours.</span>
+          <span data-hf-id="hf-gao7" id="f4-facts" class="f4-facts">
+            <span data-hf-id="hf-iy7u" class="f4-fact f4-fact-strong">Sunday 25 October · 12 – 4 PM</span>
+            <span data-hf-id="hf-y8kp" class="f4-fact">50 seats · Led by Neeraj Kanoi</span>
+          </span>
+          <span data-hf-id="hf-ao5x" id="f4-pill" class="f4-pill">Reserve your seat · ₹699</span>
+          <span data-hf-id="hf-1qq2" id="f4-url" class="f4-url">theaiworkshop.in</span>
+        </div>
+      </div>
+      <script>
+        // titlecard-reveal (CTA): one calm reveal, then the card holds to the
+        // last frame. Local time: 0–4.4s.
+        const tl = gsap.timeline({ paused: true });
+        tl.fromTo("#f4-scene", { opacity: 0 },
+          { opacity: 1, duration: 0.3, ease: "power1.out" }, 0);
+        tl.fromTo("#f4-eyebrow", { opacity: 0, y: -16 },
+          { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 0.15);
+        tl.fromTo(["#f4-h1", "#f4-h2"], { opacity: 0, y: 44 },
+          { opacity: 1, y: 0, duration: 0.6, ease: "power3.out", stagger: 0.3 }, 0.35);
+        tl.fromTo("#f4-facts", { opacity: 0, y: 24 },
+          { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 1.1);
+        tl.fromTo("#f4-pill", { scale: 0, opacity: 0 },
+          { scale: 1, opacity: 1, duration: 0.5, ease: "power3.out" }, 1.55);
+        tl.fromTo("#f4-url", { opacity: 0 },
+          { opacity: 1, duration: 0.4, ease: "power2.out" }, 2.0);
+        window.__timelines["f4-card"] = tl;
+      </script>
+    </template>
+  </body>
+</html>
