@@ -10,13 +10,13 @@ Build Your First AI Automation: Leads, Emails and a Bot
 
 Sunday, 25 October 2026, 12:00 PM – 4:00 PM. Salt Lake, Kolkata. 50 seats. ₹699.
 
-Walk in with the questions your customers keep asking. Walk out at 4:00 PM with an automation running for your business: every new enquiry gets a personal AI-written reply within minutes, three follow-up emails that stop once the lead replies, and a Telegram bot that answers from your own price list. Four hours, offline, no coding.
+Walk in with the questions your customers keep asking. Walk out at 4:00 PM with an automation running for your business: every new enquiry gets a personal AI-written reply within the hour, three follow-up emails that stop once the lead replies, and a Telegram bot that answers from your own price list. Four hours, offline, no coding.
 
 ## What participants take home
 
 - The business brief: one page that teaches every automation your offer, your prices, your tone, and the things it must never say
 - Lead capture: a live form that drops every enquiry into one Google Sheet, with nothing copied by hand
-- The AI first reply: a personal email in your voice, written from your brief and sent within minutes of the enquiry
+- The AI first reply: a personal email in your voice, written from your brief and sent within the hour, during your working hours
 - The follow-up sequence: three emails on day 2, day 5 and day 9 that stop once the lead replies, plus the same pipeline to send a campaign to people who asked to hear from you
 - The FAQ bot: a Telegram bot that answers customer questions from your own price list, and hands the conversation to you when it is not sure
 
@@ -58,7 +58,7 @@ No. Every step happens in visual tools: you connect boxes, paste in your facts, 
 
 ### What is running by 4:00 PM?
 
-One automation for your own business: a form that captures each enquiry into a Google Sheet, an AI-written first reply in your voice sent within minutes, three follow-up emails on day 2, day 5 and day 9 that stop once the lead replies, and a Telegram bot that answers from your price list. You also keep the brief, the prompts and the exported blueprint, so the second one does not start from scratch.
+One automation for your own business: a form that captures each enquiry into a Google Sheet, an AI-written first reply in your voice, sent within the hour during your working hours, three follow-up emails on day 2, day 5 and day 9 that stop once the lead replies, and a Telegram bot that answers from your price list. You also keep the brief, the prompts and the exported blueprint, so the second one does not start from scratch.
 
 ### Do the tools cost money?
 
@@ -70,7 +70,7 @@ Please do. Bring your price list or menu, the five questions customers ask most,
 
 ### Why Telegram and not WhatsApp?
 
-Because anyone can create a working Telegram bot in two minutes, free. WhatsApp’s official bot access needs Meta business verification and charges per conversation; setting it up takes days, not an afternoon. The bot’s brain — your facts, your tone, your hand-over rule — is the same on both. We build it on Telegram and show you the path to WhatsApp once your business is verified.
+Because anyone can create a working Telegram bot in two minutes, free. WhatsApp’s official bot access needs a Meta business account, business verification and a dedicated number, and Meta charges for many message types; setting it up takes days, not an afternoon. The bot’s brain — your facts, your tone, your hand-over rule — is the same on both. We build it on Telegram and show you the path to WhatsApp once your business is verified.
 
 ### Will this spam people?
 

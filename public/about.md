@@ -16,7 +16,7 @@ No. Every step happens in visual tools: you connect boxes, paste in your facts, 
 
 ### What is running by 4:00 PM?
 
-One automation for your own business: a form that captures each enquiry into a Google Sheet, an AI-written first reply in your voice sent within minutes, three follow-up emails on day 2, day 5 and day 9 that stop once the lead replies, and a Telegram bot that answers from your price list. You also keep the brief, the prompts and the exported blueprint, so the second one does not start from scratch.
+One automation for your own business: a form that captures each enquiry into a Google Sheet, an AI-written first reply in your voice, sent within the hour during your working hours, three follow-up emails on day 2, day 5 and day 9 that stop once the lead replies, and a Telegram bot that answers from your price list. You also keep the brief, the prompts and the exported blueprint, so the second one does not start from scratch.
 
 ### Do the tools cost money?
 
@@ -28,7 +28,7 @@ Please do. Bring your price list or menu, the five questions customers ask most,
 
 ### Why Telegram and not WhatsApp?
 
-Because anyone can create a working Telegram bot in two minutes, free. WhatsApp’s official bot access needs Meta business verification and charges per conversation; setting it up takes days, not an afternoon. The bot’s brain — your facts, your tone, your hand-over rule — is the same on both. We build it on Telegram and show you the path to WhatsApp once your business is verified.
+Because anyone can create a working Telegram bot in two minutes, free. WhatsApp’s official bot access needs a Meta business account, business verification and a dedicated number, and Meta charges for many message types; setting it up takes days, not an afternoon. The bot’s brain — your facts, your tone, your hand-over rule — is the same on both. We build it on Telegram and show you the path to WhatsApp once your business is verified.
 
 ### Will this spam people?
 
