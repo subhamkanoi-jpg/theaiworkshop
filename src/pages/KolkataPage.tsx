@@ -4,10 +4,12 @@ import { SiteShell } from "@/components/SiteChrome";
 import { usePageSeo } from "@/hooks/usePageSeo";
 import {
   WORKSHOP_DATE_LABEL,
+  WORKSHOP_DAY_MONTH,
   WORKSHOP_TIME_LABEL,
   WORKSHOP_TITLE,
   PRICE,
   TOTAL_SEATS,
+  HERO,
   inr,
 } from "@/config";
 import { LOCAL } from "@/seo/local";
@@ -44,7 +46,7 @@ export default function KolkataPage() {
             Next: {WORKSHOP_TITLE}
           </h2>
           <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-            Three hours. Five stages. One rendered ad.
+            {HERO.sub}
           </p>
           <p className="mt-4 text-base leading-relaxed">
             {WORKSHOP_DATE_LABEL} · {WORKSHOP_TIME_LABEL}
@@ -113,7 +115,8 @@ export default function KolkataPage() {
             Built around real projects since June 2026
           </h2>
           <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-            June 2026: websites. 27 September: a complete AI video ad.
+            June 2026: websites. September: AI video ads. {WORKSHOP_DAY_MONTH}:
+            your first AI automation.
           </p>
           <a
             href="/room"

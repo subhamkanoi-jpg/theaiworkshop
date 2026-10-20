@@ -5,13 +5,13 @@
   "capabilities": [
     "Offline, hands-on AI workshops for non-techies",
     "One practical use-case project per session",
-    "The locked actor: one continuity-safe face reference with real skin texture, so the same person survives every scene",
-    "Four to six production base stills: vertical 9:16 scenes planned through explicit camera, lens, and lighting instructions",
-    "The motion clips: your approved stills turned into controlled video in Google Flow and Veo, with handheld movement instead of random morphing",
-    "A human voiceover: natural cadence built with ElevenLabs bracketed delivery cues, or your own recorded take run through voice changing",
-    "The recipe: the master prompt stack saved on your laptop, so the next ad starts at step one instead of a blank chat window"
+    "The business brief: one page that teaches every automation your offer, your prices, your tone, and the things it must never say",
+    "Lead capture: a live form that drops every enquiry into one Google Sheet, with nothing copied by hand",
+    "The AI first reply: a personal email in your voice, written from your brief and sent within the hour, during your working hours",
+    "The follow-up sequence: three emails on day 2, day 5 and day 9 that stop once the lead replies, plus the same pipeline to send a campaign to people who asked to hear from you",
+    "The FAQ bot: a Telegram bot that answers customer questions from your own price list, and hands the conversation to you when it is not sure"
   ],
-  "next_workshop": "Build a Complete AI Video Ad From Scratch",
-  "priceINR": 799,
-  "updated": "2026-09-08"
+  "next_workshop": "Build Your First AI Automation: Leads, Emails and a Bot",
+  "priceINR": 699,
+  "updated": "2026-10-19"
 }

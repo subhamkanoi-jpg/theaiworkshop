@@ -2,9 +2,12 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { SiteShell } from "@/components/SiteChrome";
 import { usePageSeo } from "@/hooks/usePageSeo";
 import { ReserveButton } from "@/components/ReserveButton";
+import { RunRail } from "@/components/RunRail";
 import {
   WORKSHOP_DATE_LABEL,
+  WORKSHOP_DAY_MONTH,
   WORKSHOP_TIME_LABEL,
+  WORKSHOP_WEEKDAY,
   WORKSHOP_TITLE,
   PRICE,
   MARKET_VALUE,
@@ -14,16 +17,14 @@ import {
   inr,
   artifacts,
   workshopContent,
+  HERO,
+  LEAD,
+  ARTIFACTS_HEADING,
+  RUN_HEADING,
+  DO_NOT_BRING,
+  PREP,
 } from "@/config";
 import { ArrowRight, Calendar, Clock, MapPin } from "lucide-react";
-
-/** Times and short titles; the long descriptions are gone. */
-const RUN = [
-  ["11:00", "Brief + face lock"],
-  ["11:40", "Scenes + base stills"],
-  ["12:40", "Motion + voice"],
-  ["13:30", "QC + packaging"],
-];
 
 /** The five that decide whether to book. The rest live on /answers. */
 const PRIMARY_FAQS = workshopContent.faqs.slice(0, 5);
@@ -34,12 +35,12 @@ export default function WorkshopPage() {
     <SiteShell current="workshop">
       <section id="hero" className="border-b border-border py-10 sm:py-16">
         <div className="mx-auto max-w-3xl px-4 sm:px-6">
-          <Breadcrumbs items={[{ label: "27 September workshop" }]} />
+          <Breadcrumbs items={[{ label: `${WORKSHOP_DAY_MONTH} workshop` }]} />
           <h1 className="font-serif text-4xl font-semibold leading-[1.05] tracking-tight text-balance sm:text-5xl">
             {WORKSHOP_TITLE}
           </h1>
           <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
-            Three hours. Five stages. One rendered ad.
+            {HERO.sub}
           </p>
           <ul className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm font-medium text-muted-foreground">
             <li className="inline-flex items-center gap-2">
@@ -55,6 +56,21 @@ export default function WorkshopPage() {
               Salt Lake, Kolkata
             </li>
           </ul>
+          <p className="mt-5 flex items-center gap-3 text-sm text-muted-foreground">
+            <img
+              src={LEAD.photo}
+              alt=""
+              width={40}
+              height={40}
+              className="size-10 shrink-0 rounded-full object-cover"
+              style={{ objectPosition: LEAD.photoPosition }}
+            />
+            <span>
+              Led by{" "}
+              <span className="font-semibold text-foreground">{LEAD.name}</span>{" "}
+              · {LEAD.role}, {LEAD.org}
+            </span>
+          </p>
           <div className="mt-7">
             <ReserveButton
               className="whitespace-nowrap"
@@ -64,11 +80,11 @@ export default function WorkshopPage() {
         </div>
       </section>
 
-      {/* Five files, no prose. */}
+      {/* Five parts, no prose. */}
       <section className="border-b border-border py-12 sm:py-16">
         <div className="mx-auto max-w-5xl px-4 sm:px-6">
           <h2 className="font-serif text-3xl font-semibold leading-tight">
-            You leave with five files.
+            {ARTIFACTS_HEADING}
           </h2>
           <ol className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {artifacts.map((a, i) => (
@@ -94,23 +110,9 @@ export default function WorkshopPage() {
       <section className="border-b border-border bg-muted/30 py-12 sm:py-16">
         <div className="mx-auto max-w-5xl px-4 sm:px-6">
           <h2 className="font-serif text-3xl font-semibold leading-tight">
-            The three hours.
+            {RUN_HEADING}
           </h2>
-          <ol className="mt-8 grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-4">
-            {RUN.map(([time, title], i) => (
-              <li key={time} className="flex flex-col gap-2 bg-card p-5">
-                <span className="text-[10px] font-bold uppercase tracking-[0.14em] text-muted-foreground">
-                  Block {String(i + 1).padStart(2, "0")}
-                </span>
-                <span className="font-serif text-2xl font-semibold tabular-nums text-primary">
-                  {time}
-                </span>
-                <span className="text-base font-medium leading-snug">
-                  {title}
-                </span>
-              </li>
-            ))}
-          </ol>
+          <RunRail className="mt-8" />
         </div>
       </section>
 
@@ -134,11 +136,7 @@ export default function WorkshopPage() {
             <div>
               <h2 className="font-serif text-2xl font-semibold">Do not bring</h2>
               <ul className="mt-5 flex flex-wrap gap-2">
-                {[
-                  "Photos of other people",
-                  "A voice that is not yours",
-                  "Confidential client files",
-                ].map((item) => (
+                {DO_NOT_BRING.map((item) => (
                   <li
                     key={item}
                     className="rounded-full border border-border bg-card px-4 py-2 text-sm font-medium text-muted-foreground"
@@ -151,6 +149,30 @@ export default function WorkshopPage() {
           </div>
         </div>
       </section>
+
+      {/* What to set up at home, so the four hours go on building. */}
+      {PREP.length > 0 && (
+        <section className="border-b border-border bg-muted/30 py-12 sm:py-16">
+          <div className="mx-auto max-w-5xl px-4 sm:px-6">
+            <h2 className="font-serif text-3xl font-semibold leading-tight">
+              Before {WORKSHOP_WEEKDAY}
+            </h2>
+            <ol className="mt-7 grid max-w-3xl gap-3">
+              {PREP.map((step, i) => (
+                <li
+                  key={step}
+                  className="flex gap-4 rounded-xl border border-border bg-card p-4 text-base leading-snug"
+                >
+                  <span className="font-serif text-xl font-semibold leading-none text-primary tabular-nums">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span>{step}</span>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+      )}
 
       {/* Questions that decide the booking. */}
       <section className="border-b border-border py-12 sm:py-16">

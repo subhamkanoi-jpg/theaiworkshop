@@ -50,4 +50,6 @@ export const LOCAL_KEYWORDS = [
   "learn ChatGPT Kolkata",
   "Sunday AI workshop Kolkata",
   "AI workshop Sector V",
+  "AI automation workshop Kolkata",
+  "AI automation course Kolkata",
 ] as const;

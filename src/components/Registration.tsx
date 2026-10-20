@@ -23,6 +23,8 @@ import {
   WHATSAPP_URL,
   PHONE_TEL,
   PHONE_DISPLAY,
+  TICKET_CHIPS,
+  TICKET_NOTE,
 } from "@/config";
 
 /**
@@ -203,11 +205,7 @@ export function Registration() {
           </div>
 
           <ul className="mt-6 flex flex-wrap gap-2 border-t border-border pt-5 text-xs text-muted-foreground">
-            {[
-              "Refund up to 48h before",
-              "Holds released 15 min after kickoff",
-              "Tool credits ₹500–1,500, yours",
-            ].map((chip) => (
+            {TICKET_CHIPS.map((chip) => (
               <li key={chip} className="rounded-full border border-border px-3 py-1.5">
                 {chip}
               </li>
@@ -216,7 +214,7 @@ export function Registration() {
 
           <p className="mt-4 flex gap-2 text-sm text-muted-foreground">
             <ShieldCheck className="h-5 w-5 flex-shrink-0 text-accent" />
-            Bring one thing you sell. Leave with the ad for it.
+            {TICKET_NOTE}
           </p>
         </CardContent>
       </Card>
@@ -236,7 +234,7 @@ export function Registration() {
               </h3>
               <p className="text-muted-foreground">
                 {paymentMethod === "venue"
-                  ? `Your seat for ${WORKSHOP_DATE_LABEL} is reserved. Please bring ${inr(PRICE)} cash to pay at the venue, we'll hold your spot until 15 minutes before the session.`
+                  ? `Your seat for ${WORKSHOP_DATE_LABEL} is reserved. Please bring ${inr(PRICE)} cash to pay at the venue, we'll hold your spot until 15 minutes after the session starts.`
                   : `Payment successful, your seat for ${WORKSHOP_DATE_LABEL} is confirmed, and a confirmation email is on its way.`}
               </p>
 
@@ -308,7 +306,7 @@ export function Registration() {
                     <strong className="text-foreground">
                       {inr(PRICE)} cash
                     </strong>{" "}
-                    on the day. We'll hold your spot until 15 minutes before the
+                    on the day. We'll hold your spot until 15 minutes after the
                     session starts.
                   </p>
                 )}

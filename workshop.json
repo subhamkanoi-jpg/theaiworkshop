@@ -1,111 +1,209 @@
 {
-  "slug": "ai-video-ad-from-scratch",
+  "slug": "ai-automation-leads-emails-bot",
   "origin": "https://theaiworkshop.in",
-  "number": 3,
-  "chapter": "Make it move",
-  "title": "Build a Complete AI Video Ad From Scratch",
-  "artifact": "One finished vertical ad — locked face, base stills, motion clips, human voiceover — and the prompt recipe to build the next one",
-  "description": "Walk in with an idea. Walk out at 2:00 PM with a finished vertical ad: one face-locked character, 4 to 6 production stills, motion clips, and a natural voiceover, built on one repeatable prompt system. Three hours, offline, no filmmaking background required.",
+  "number": 4,
+  "chapter": "Let it run",
+  "title": "Build Your First AI Automation: Leads, Emails and a Bot",
+  "artifact": "One automation running for your own business — lead capture, an AI-written first reply, a three-email follow-up and a FAQ bot — plus the brief, prompts and blueprint to build the next one",
+  "description": "Walk in with the questions your customers keep asking. Walk out at 4:00 PM with an automation running for your business: every new enquiry gets a personal AI-written reply within the hour, three follow-up emails that stop once the lead replies, and a Telegram bot that answers from your own price list. Four hours, offline, no coding.",
   "mission": "An offline space for non-techies to put AI to work, one real use-case project at a time.",
-  "amountPaise": 79900,
-  "price": 799,
+  "amountPaise": 69900,
+  "price": 699,
   "marketValue": 4999,
   "totalSeats": 50,
-  "dateLabel": "Sunday, 27 September 2026",
-  "timeLabel": "11:00 AM – 2:00 PM",
-  "durationLabel": "3 hours",
+  "dateLabel": "Sunday, 25 October 2026",
+  "timeLabel": "12:00 PM – 4:00 PM",
+  "durationLabel": "4 hours",
+  "doorLabel": "11:30 AM",
   "location": "Salt Lake, Kolkata",
-  "dateIso": "2026-09-27",
-  "startDate": "2026-09-27T11:00:00+05:30",
-  "endDate": "2026-09-27T14:00:00+05:30",
+  "dateIso": "2026-10-25",
+  "startDate": "2026-10-25T12:00:00+05:30",
+  "endDate": "2026-10-25T16:00:00+05:30",
   "whatsappWorkshop": "https://chat.whatsapp.com/DNIePdAGNfL2cs1LDIs0DG",
   "whatsappHost": "https://chat.whatsapp.com/EeAC3WtfJdGIDIt1AeWyLK",
   "phoneTel": "+919830715557",
   "phoneDisplay": "+91 98307 15557",
   "supportEmail": "theaiworkshop.in@gmail.com",
-  "bringLabel": "A laptop and charger. This is three hours of building, not a talk. Bring headphones, your phone, and one product, service, or offer you actually sell. If you would rather practise on something else, we hand you a brief at the table.",
+  "lead": {
+    "name": "Neeraj Kanoi",
+    "role": "Growth Lead",
+    "org": "Wokelo AI",
+    "photo": "/neeraj.jpg",
+    "photoPosition": "center 12%",
+    "bio": "Neeraj is the solo growth lead at Wokelo AI. With no team under him, he is building Wokelo’s growth funnel single-handedly, with AI doing the work a team would. On 25 October he shows how that works, then builds a smaller version with you, for your business."
+  },
+  "hero": {
+    "lines": ["Stop replying by hand.", "Leave with a machine that follows up."],
+    "sub": "Four hours. Five parts. One automation, running."
+  },
+  "stages": ["Brief", "Capture", "AI reply", "Follow-up", "Bot"],
+  "artifactsHeading": "You leave with five working parts.",
+  "artifactSpecs": [
+    "Business_Brief.txt",
+    "Leads.gsheet",
+    "First_Reply_Prompt.txt",
+    "Follow_Up_x3.txt",
+    "@YourBusiness_bot"
+  ],
+  "runHeading": "The four hours.",
+  "run": [
+    { "time": "12:00", "title": "Funnel + brief" },
+    { "time": "12:30", "title": "Lead → AI reply" },
+    { "time": "1:45", "title": "Follow-up sequence" },
+    { "time": "2:45", "title": "FAQ bot" },
+    { "time": "3:30", "title": "Test + switch on" }
+  ],
+  "finishLine": "4:00 PM — it runs without you.",
+  "belong": [
+    "You sell something",
+    "Zero coding background",
+    "Four hours, own laptop"
+  ],
+  "stayHome": [
+    "You want a webinar",
+    "You want to blast strangers",
+    "You collect certificates"
+  ],
+  "doNotBring": [
+    "Real customer lists",
+    "Bought email lists",
+    "Confidential client files"
+  ],
+  "ticketChips": [
+    "Refund up to 48h before",
+    "Holds released 15 min after kickoff",
+    "Starts on free tool tiers"
+  ],
+  "ticketNote": "Bring the questions customers ask you. Leave with a bot that answers them.",
+  "captainTask": "switch on a working automation",
+  "bringLabel": "A laptop and charger. This is four hours of building, not a talk. Bring your phone with Telegram installed, your price list or menu, the five questions customers ask you most, and the email you send when someone enquires. No business of your own yet? We hand you a sample one at the table.",
   "bringShort": [
     "Laptop + charger",
-    "Headphones",
-    "One product you sell",
-    "Tool accounts signed in"
+    "Phone with Telegram",
+    "Price list + top 5 questions",
+    "Free accounts signed in"
+  ],
+  "prep": [
+    "Create a free account at make.com",
+    "Sign in to a Google account with Gmail and Google Sheets",
+    "Install Telegram on your phone",
+    "Write down your price list and the five questions customers ask most",
+    "Copy the email you send when someone enquires"
   ],
   "outcomes": [
-    "The locked actor: one continuity-safe face reference with real skin texture, so the same person survives every scene",
-    "Four to six production base stills: vertical 9:16 scenes planned through explicit camera, lens, and lighting instructions",
-    "The motion clips: your approved stills turned into controlled video in Google Flow and Veo, with handheld movement instead of random morphing",
-    "A human voiceover: natural cadence built with ElevenLabs bracketed delivery cues, or your own recorded take run through voice changing",
-    "The recipe: the master prompt stack saved on your laptop, so the next ad starts at step one instead of a blank chat window"
+    "The business brief: one page that teaches every automation your offer, your prices, your tone, and the things it must never say",
+    "Lead capture: a live form that drops every enquiry into one Google Sheet, with nothing copied by hand",
+    "The AI first reply: a personal email in your voice, written from your brief and sent within the hour, during your working hours",
+    "The follow-up sequence: three emails on day 2, day 5 and day 9 that stop once the lead replies, plus the same pipeline to send a campaign to people who asked to hear from you",
+    "The FAQ bot: a Telegram bot that answers customer questions from your own price list, and hands the conversation to you when it is not sure"
   ],
   "agenda": [
     {
-      "time": "11:00–11:40",
-      "title": "The brief and the face lock",
-      "body": "Write the brand brief in plain words, lock who the ad is for and what it must make them believe, then choose one format: UGC or cinematic. Generate the master character anchor — one headshot, one person, no collage — and save the face-lock block you will reuse all day."
+      "time": "12:00–12:30",
+      "title": "Neeraj’s funnel, then yours on paper",
+      "body": "Neeraj walks through the growth system he runs alone at Wokelo AI: what runs without him, and what he still does by hand. Then you map your own: where enquiries come from, the first thing people ask, and the one step you want them to take. You write the one-page business brief that every automation will read."
     },
     {
-      "time": "11:40–12:40",
-      "title": "Scene breakdown and the base image pipeline",
-      "body": "Turn the script into scene-by-scene visual beats, then convert each beat into a standalone 9:16 image prompt with the skin-enhancer protocol attached. Generate, inspect, and approve one still per scene before anything moves."
+      "time": "12:30–1:30",
+      "title": "Lead in, AI reply out",
+      "body": "Build the first workflow in Make: a form drops each enquiry into a Google Sheet, Gemini writes a personal reply from your brief, and Gmail sends it. It stays in draft mode until you have read five replies and trust them."
     },
     {
-      "time": "12:40–1:30",
-      "title": "Motion and voice injection",
-      "body": "Feed approved stills into Veo with prompts that describe movement only — camera behaviour, subject movement, continuity notes, negative motion rules. In parallel, build the ElevenLabs prompt with bracketed cues and test one line before generating the whole script."
+      "time": "1:30–1:45",
+      "title": "Break",
+      "body": "Chai. Table captains check that every first workflow has run once, end to end."
     },
     {
-      "time": "1:30–2:00",
-      "title": "QC and final packaging",
-      "body": "Run the checklist: nightmare hands, distorted text, broken continuity, background strangers, robotic delivery. Fix only what matters, stitch the edit, then save the named folder structure and the prompt stack you will open again on Tuesday."
+      "time": "1:45–2:45",
+      "title": "The follow-up sequence",
+      "body": "Write three follow-ups for day 2, day 5 and day 9 from your brief, then let the sheet schedule them. Every send checks your inbox first and stops the moment the lead replies. The same pipeline sends one campaign to people who asked to hear from you."
+    },
+    {
+      "time": "2:45–3:30",
+      "title": "The FAQ bot",
+      "body": "Create a Telegram bot in two minutes, then give it your price list, your FAQ and one rule: if the answer is not in your facts, it says so and passes the question to you. Test it from your own phone."
+    },
+    {
+      "time": "3:30–4:00",
+      "title": "Break it, then switch it on",
+      "body": "Send a fake lead from your phone through the whole machine. Run the checklist: wrong names, invented prices, double sends, the spam folder, a bot that guesses. Fix what matters, switch it on, and export the blueprint you will open again on Tuesday."
     }
   ],
   "faqs": [
     {
-      "q": "Need a filmmaking background?",
-      "a": "No. The system replaces the film-school parts with written instructions: what the camera does, how the light falls, what stays the same between shots. If you can type and follow steps in order, you can produce the ad. We start from an empty chat window in the room."
+      "q": "Who is leading it?",
+      "a": "Neeraj Kanoi, the solo growth lead at Wokelo AI. He is building Wokelo’s growth funnel single-handedly, with AI doing the work a team would. He opens the session by walking through how that system runs, then builds a smaller version with the room. Yogesh and Subham Kanoi host alongside him, and every table of eight has a captain."
     },
     {
-      "q": "What is finished by 2:00 PM?",
-      "a": "One vertical ad for one product or offer: a face-locked character, four to six base stills, the motion clips generated from them, a voiceover, and the stitched edit on your laptop. You also leave with the prompt stack saved, so the second ad does not start from scratch."
+      "q": "Do I need to know coding?",
+      "a": "No. Every step happens in visual tools: you connect boxes, paste in your facts, and write instructions in plain English, Hindi or Bangla. If you can fill in a Google Form and send an email, you can build this. A captain sits at every table to unblock you when a connection fails."
+    },
+    {
+      "q": "What is running by 4:00 PM?",
+      "a": "One automation for your own business: a form that captures each enquiry into a Google Sheet, an AI-written first reply in your voice, sent within the hour during your working hours, three follow-up emails on day 2, day 5 and day 9 that stop once the lead replies, and a Telegram bot that answers from your price list. You also keep the brief, the prompts and the exported blueprint, so the second one does not start from scratch."
     },
     {
       "q": "Do the tools cost money?",
-      "a": "Some do, and we will not pretend otherwise. Strategy and prompt writing run on the free tiers of ChatGPT or Claude. Image generation, Veo video generation, and ElevenLabs voice all work on credits, and free allowances are small and change often. Budget roughly ₹500 to ₹1,500 of your own credits if you want to render a full ad on the day. We will show you where credits get wasted so you spend fewer of them."
+      "a": "Not on the day. The build runs on free tiers: Make’s free plan, a free Gemini API key from Google AI Studio, Gmail, Google Sheets and Telegram. Free tiers limit how often an automation runs and how much it sends, and those limits change. We show you how to stay inside them, and what the first paid upgrade would be if your volume grows. The ticket does not include any paid plan."
     },
     {
-      "q": "Why do my AI videos look plastic?",
-      "a": "Usually because the prompt gave the tool an idea instead of a production plan, and because a weak base image was pushed straight into video. A person melting between frames is almost always a base image problem, not a video problem. The session fixes the order of operations: lock the face, approve the still, then add motion."
+      "q": "Can I use my own business?",
+      "a": "Please do. Bring your price list or menu, the five questions customers ask most, and the email you send when someone enquires. Shop owners, clinics, coaches, freelancers and agency owners get the most out of the day, because the automation is theirs on Monday. No business yet? We hand you a sample one at the table."
     },
     {
-      "q": "Can I use my own product?",
-      "a": "Bring your own. D2C founders, agency owners, freelancers, and local business owners get the most out of the day because the output is an ad they can actually run. If you do not have one ready, we hand you a brief at the table and you build with that."
+      "q": "Why Telegram and not WhatsApp?",
+      "a": "Because anyone can create a working Telegram bot in two minutes, free. WhatsApp’s official bot access needs a Meta business account, business verification and a dedicated number, and Meta charges for many message types; setting it up takes days, not an afternoon. The bot’s brain — your facts, your tone, your hand-over rule — is the same on both. We build it on Telegram and show you the path to WhatsApp once your business is verified."
+    },
+    {
+      "q": "Will this spam people?",
+      "a": "Not the way we build it. Every email goes to someone who contacted you or asked to hear from you, every sequence stops when they reply, and campaigns carry a way to opt out. We do not buy lists, scrape contacts or send cold blasts, and Gmail would block you if you tried. If you want to email ten thousand strangers, skip this Sunday."
     },
     {
       "q": "Can I join from home?",
-      "a": "No. It is offline in Salt Lake, Kolkata, and there is no recording or livestream. The room is the method: fifty people, tables of eight, and a captain at each table who can look at your screen when a render comes back wrong."
-    },
-    {
-      "q": "Is the ad ready to run?",
-      "a": "You leave with a finished, rendered ad. Whether it converts depends on your offer, your targeting, and your budget, and no workshop can promise that. What we can promise is that you will know how the file was made and be able to make the next one without us."
+      "a": "No. It is offline in Salt Lake, Kolkata, and there is no recording or livestream. The room is the method: fifty people, tables of eight, and a captain at each table who can look at your screen when a connection fails."
     },
     {
       "q": "Can I attend with only a phone?",
-      "a": "Not usefully. Image and video generation, prompt management, and stitching the edit all need a browser and a real screen. Bring a laptop and a charger — power strips and table Wi-Fi are provided at the venue."
+      "a": "Not usefully. Building the automations needs a laptop browser and a real screen. Your phone is for testing: you send the fake lead and talk to your bot from it. Bring a laptop and a charger — power strips and table Wi-Fi are provided at the venue."
     },
     {
-      "q": "What about faces and confidential material?",
-      "a": "Do not upload photographs of real people without their permission, and do not bring confidential client files, contracts, or unreleased product material. The characters we build are generated, not cloned from a real person. If you clone your own voice, use your own recording. Follow your employer's AI policy."
+      "q": "What about customer data and privacy?",
+      "a": "Build with test leads, not your real customer list. Do not bring confidential client files, and do not paste anything you would not want stored by a third-party service: free AI tiers may use what you send to improve their products. When you switch on with real customers, tell them how you will contact them, and follow your employer’s AI policy."
     },
     {
       "q": "Where is it, and what is included?",
-      "a": "Offline in Salt Lake, Kolkata, on Sunday 27 September 2026, 11:00 AM to 2:00 PM. The ticket is ₹799 for the three-hour production run, the table captains, and the prompt system you keep. There are 50 seats. The exact venue is shared after reservation. Full refund up to 48 hours before the session; venue holds are released 15 minutes after kickoff."
+      "a": "Offline in Salt Lake, Kolkata, on Sunday 25 October 2026, 12:00 PM to 4:00 PM. The ticket is ₹699 for the four-hour build, the table captains, and the brief, prompts and blueprint you keep. There are 50 seats. The exact venue is shared after reservation. Full refund up to 48 hours before the session; venue holds are released 15 minutes after kickoff."
     }
   ],
-  "eventName": "TOW Master Prompt System: 3-Hour Offline AI Video Ad Workshop",
-  "eventDescription": "Learn to produce production-grade UGC and cinematic AI video ads using face-locking, prompt chaining, and voice cloning in an offline, hands-on workshop in Kolkata.",
-  "doorTime": "2026-09-27T10:30:00+05:30",
-  "offerValidFrom": "2026-09-01T00:00:00+05:30",
-  "ogImage": "/assets/og-kolkata-sept27.png",
+  "eventName": "TOW Automation Build: 4-Hour Offline AI Automation Workshop",
+  "eventDescription": "Build an AI automation for your own business — lead capture, AI-written replies, a three-email follow-up sequence and a Telegram FAQ bot — in an offline, hands-on workshop in Salt Lake, Kolkata, led by Wokelo AI’s growth lead Neeraj Kanoi.",
+  "doorTime": "2026-10-25T11:30:00+05:30",
+  "offerValidFrom": "2026-10-19T00:00:00+05:30",
+  "ogImage": "/assets/og-kolkata-oct25.png",
+  "share": {
+    "pitch": "Know someone who loses leads because they reply too late, or answers the same ten questions every day? Send them the plan. No coding needed.",
+    "hook": "Still replying to every enquiry by hand, or forgetting to follow up?",
+    "body": "Four hours, one working system — brief, lead capture, AI reply, follow-up emails, FAQ bot. Led by Neeraj Kanoi, who is building Wokelo AI’s growth funnel on his own with AI. You walk out with the automation running for your business, plus the blueprint to build the next one. No coding needed."
+  },
+  "seo": {
+    "updated": "2026-10-19",
+    "homeTitle": "AI Automation Workshop Kolkata | 25 Oct · Salt Lake",
+    "homeOgTitle": "AI Automation Workshop Kolkata · 25 Oct, Salt Lake",
+    "homeHeading": "AI Automation Workshop in Kolkata",
+    "homeDescription": "Build your first AI automation in 4 hours: AI replies to leads, a 3-email follow-up and a FAQ bot. Offline in Salt Lake, Kolkata, 25 Oct 2026. 50 seats.",
+    "workshopDescription": "Build one AI automation for your business in four hours: lead capture, AI first replies, a three-email follow-up and a Telegram FAQ bot. 25 October 2026, Salt Lake, Kolkata. ₹699. No coding.",
+    "answersDescription": "Practical answers about The AI Workshop: October’s AI automation build, the free tools it runs on, privacy, venue, ticket, and what to bring.",
+    "bookTail": "Laptop required. No coding background needed.",
+    "shareTail": "One automation for your business, built in the room, in four hours.",
+    "planHeading": "The four-hour plan",
+    "history": "Our first workshop in June 2026 was about making websites and hosting them; in September 2026 the session was AI video ads. Each workshop stands alone; no earlier session is required.",
+    "scope": "Participants build one automation for their own business using test leads and their own facts. The build runs on the free tiers of Make, Gemini, Google Sheets, Gmail and Telegram; the ticket does not include paid plans. The session does not buy or scrape email lists, send unsolicited bulk email, or promise sales results. Future workshop topics and dates have not been announced.",
+    "personas": [
+      { "id": "owner", "label": "Shop, clinic and service business owners who answer enquiries themselves" },
+      { "id": "freelancer", "label": "Freelancers, coaches and agency owners who lose leads to slow follow-up" },
+      { "id": "marketer", "label": "Marketers and founders with no coding background who want email and bots to run on their own" }
+    ]
+  },
   "venue": {
     "name": "The AI Workshop Hub",
     "streetAddress": "Salt Lake, Sector 1",
@@ -128,15 +226,15 @@
     },
     {
       "q": "What hardware and software do I need to bring?",
-      "a": "Bring a laptop (Mac or Windows) with a working browser and charger. High-speed table Wi-Fi and power strips are provided. No heavy local GPU hardware is required as all tools run in the cloud."
+      "a": "Bring a laptop (Mac or Windows) with a working browser and charger, and your phone with Telegram installed. High-speed table Wi-Fi and power strips are provided. Nothing needs installing on the laptop: every tool runs in the browser."
     },
     {
-      "q": "What will I have built by 2:00 PM?",
-      "a": "You will leave with a complete, rendered 9:16 vertical AI video commercial (UGC or Cinematic) featuring consistent character face-locking, controlled motion, and natural ElevenLabs voiceover, plus the complete reusable prompt stack."
+      "q": "What will I have built by 4:00 PM?",
+      "a": "You will leave with one automation running for your own business: AI-written replies to new enquiries, a three-email follow-up sequence that stops when the lead replies, and a Telegram bot that answers from your price list — plus the brief, the prompts and the exported blueprint to build the next one."
     },
     {
       "q": "What is the cancellation and refund policy?",
-      "a": "Full refund requests are supported up to 48 hours before the event starts (by Friday, 25 September at 11:00 AM IST). Unclaimed seats are released 15 minutes after kickoff."
+      "a": "Full refund requests are supported up to 48 hours before the event starts (by Friday, 23 October at 12:00 PM IST). Unclaimed seats are released 15 minutes after kickoff."
     }
   ]
 }

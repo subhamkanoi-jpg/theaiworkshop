@@ -2,6 +2,8 @@ import json
 import re
 from pathlib import Path
 
+import pytest
+
 ROOT = Path(__file__).resolve().parent.parent
 CFG = json.loads((ROOT / "workshop.json").read_text(encoding="utf-8"))
 ORIGIN = CFG["origin"]
@@ -49,8 +51,14 @@ def test_local_seo_pages_exist():
 
 
 def test_public_copy_has_one_current_offer():
-    stale = ("The Magic of AI", "seven posts", "week of finished work", "#2 shipped reels", "Zero follow-through")
+    stale = (
+        "The Magic of AI", "seven posts", "week of finished work", "#2 shipped reels", "Zero follow-through",
+        "27 Sept", "27 September", "Build a Complete AI Video Ad", "face lock", "Face lock",
+        "ElevenLabs", "₹799", "11:00 AM",
+    )
     paths = list(ROOT.glob("*.html")) + list((ROOT / "public").glob("*.txt")) + list((ROOT / "public").glob("*.md")) + list((ROOT / "public/ai").glob("*.json"))
+    paths += [ROOT / "public/feed.xml", ROOT / "public/sitemap.xml", ROOT / "public/.well-known/ai.txt"]
+    paths += list((ROOT / "src/seo").glob("*.json"))
     for path in paths:
         text = path.read_text(encoding="utf-8")
         for phrase in stale:
@@ -136,14 +144,36 @@ def test_geo_meta_tags_on_every_shell():
 
 def test_home_head_targets_the_local_query():
     text = html("index.html")
-    assert "<title>AI Video Ad Workshop Kolkata | 27 Sept · Salt Lake</title>" in text
-    assert "Build a complete AI video ad in 3 hours." in text
+    assert f"<title>{CFG['seo']['homeTitle']}</title>" in text
+    assert CFG["seo"]["homeDescription"] in text
     assert (
         'content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"'
         in text
     )
     assert f'<meta property="og:image" content="{ORIGIN}{CFG["ogImage"]}" />' in text
     assert (ROOT / "public" / CFG["ogImage"].lstrip("/")).is_file()
+
+
+def test_seo_copy_names_the_current_offer():
+    """The head copy is hand-written in workshop.json, so pin it to the live date."""
+    _, month, day = (int(part) for part in CFG["dateIso"].split("-"))
+    month_name = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December",
+    ][month - 1]
+    short = f"{day} {month_name[:3]}"
+    seo = CFG["seo"]
+    for key in ("homeTitle", "homeOgTitle", "homeDescription"):
+        assert short in seo[key], f"seo.{key} should name {short!r}"
+    assert f"{day} {month_name}" in seo["workshopDescription"]
+    assert f"₹{CFG['price']}" in seo["workshopDescription"]
+    lead = CFG["lead"]
+    llms_full = (ROOT / "public/llms-full.txt").read_text(encoding="utf-8")
+    assert f"Led by {lead['name']}, {lead['role']} at {lead['org']}." in llms_full
+    before = llms_full.split("## Before the session", 1)[1].split("\n## ", 1)[0]
+    for item in CFG["prep"]:
+        assert f"- {item}" in before, f"Prep item missing from the llms brief: {item}"
+    assert seo["scope"] in llms_full.split("## Scope", 1)[1]
 
 
 def test_event_carries_the_full_local_entity():
@@ -153,7 +183,13 @@ def test_event_carries_the_full_local_entity():
     assert event["doorTime"] == CFG["doorTime"]
     assert event["offers"]["availability"].endswith("InStock")
     assert event["offers"]["validFrom"] == CFG["offerValidFrom"]
-    assert event["performer"]["name"] == "The AI Workshop Core Team"
+    lead = CFG["lead"]
+    assert event["performer"] == {
+        "@type": "Person",
+        "name": lead["name"],
+        "jobTitle": lead["role"],
+        "worksFor": {"@type": "Organization", "name": lead["org"]},
+    }
     place = event["location"]
     assert place["name"] == venue["name"]
     assert place["hasMap"] == venue["hasMap"]
@@ -235,15 +271,23 @@ def test_booking_page_keeps_its_payment_path():
         assert marker in registration, f"Booking flow lost {marker}"
 
 
-def test_teaser_end_card_matches_the_live_offer():
-    """The teaser's end card is typed into the composition, not read from JSON.
+def test_any_page_playing_the_teaser_matches_the_live_offer():
+    """If a page plays the teaser, its end card and sources must match the live offer.
 
-    Nothing else stops the video from advertising last month's price after
-    workshop.json moves on, and the rendered MP4/WebM in public/cinema/ are
-    built from this file — so the facts are pinned here instead.
+    The end card is typed into the composition, not read from JSON, and the
+    rendered MP4/WebM in public/cinema/ are built from it, so nothing else stops
+    the video advertising last month's price after workshop.json moves on. A
+    page that no longer plays the teaser has nothing to pin.
     """
+    users = [
+        path
+        for path in sorted(ROOT.glob("src/**/*.tsx"))
+        if "teaser-9x16" in path.read_text(encoding="utf-8")
+    ]
+    if not users:
+        pytest.skip("no page plays the teaser")
     composition = (ROOT / "video/teaser/index.html").read_text(encoding="utf-8")
-    year, month, day = (int(part) for part in CFG["dateIso"].split("-"))
+    _, month, day = (int(part) for part in CFG["dateIso"].split("-"))
     month_name = [
         "January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December",
@@ -260,11 +304,6 @@ def test_teaser_end_card_matches_the_live_offer():
             "Update video/teaser/index.html and re-render into public/cinema/ "
             "(see video/teaser/README.md)."
         )
-    assert year == 2026
-
-
-def test_teaser_renders_are_served_from_public():
-    """The hero plays these; a missing source silently falls back to the poster."""
     for asset in ("teaser-9x16.webm", "teaser-9x16.mp4", "teaser-poster.jpg"):
         path = ROOT / "public/cinema" / asset
         assert path.is_file(), f"Missing hero video asset: {asset}"
@@ -273,5 +312,60 @@ def test_teaser_renders_are_served_from_public():
     webm = (ROOT / "public/cinema/teaser-9x16.webm").stat().st_size
     mp4 = (ROOT / "public/cinema/teaser-9x16.mp4").stat().st_size
     assert webm < mp4, "WebM should be the smaller source, or it should not go first"
-    app = (ROOT / "src/App.tsx").read_text(encoding="utf-8")
-    assert app.index("teaser-9x16.webm") < app.index("teaser-9x16.mp4")
+    for path in users:
+        source = path.read_text(encoding="utf-8")
+        assert source.index("teaser-9x16.webm") < source.index("teaser-9x16.mp4"), path.name
+
+
+def test_share_card_source_matches_the_live_offer():
+    """The OG share card is rendered from an HTML source; it must read the live offer."""
+    source = ROOT / "scripts" / Path(CFG["ogImage"]).name.replace(".png", ".html")
+    assert source.is_file(), f"Missing share card source: {source.name}"
+    text = source.read_text(encoding="utf-8")
+    _, month, day = (int(part) for part in CFG["dateIso"].split("-"))
+    months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    short_date = f"{day} {months[month - 1]}"
+    expected = {
+        "price": f"₹{CFG['price']}",
+        "date": short_date,
+        "seats": f"{CFG['totalSeats']} seats",
+    }
+    for label, value in expected.items():
+        assert value in text, (
+            f"Share card source is stale: {label} should read {value!r}. "
+            f"Update scripts/{source.name} and re-render {CFG['ogImage']}."
+        )
+
+
+def test_october_teaser_end_card_matches_the_live_offer():
+    """The 25 October teaser types its end card; pin it while it is the live offer.
+
+    The card names the workshop it sells in data-workshop. Once workshop.json
+    moves on, the teaser is an archive of a past Sunday and the check stands down.
+    """
+    card = (ROOT / "video/teaser-oct25/compositions/frames/04-card.html").read_text(encoding="utf-8")
+    sells = re.search(r'data-workshop="([^"]+)"', card)
+    assert sells, "The teaser end card must say which workshop it sells (data-workshop)"
+    if sells.group(1) != CFG["slug"]:
+        pytest.skip("teaser-oct25 advertises a past workshop")
+    _, month, day = (int(part) for part in CFG["dateIso"].split("-"))
+    months = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December",
+    ]
+    expected = {
+        "date": f"{day} {months[month - 1]}",
+        "price": f"₹{CFG['price']}",
+        "seats": f"{CFG['totalSeats']} seats",
+        "host": ORIGIN.removeprefix("https://"),
+        "lead": f"Led by {CFG['lead']['name']}",
+    }
+    for label, value in expected.items():
+        assert value in card, (
+            f"Teaser end card is stale: {label} should read {value!r}. Update "
+            "video/teaser-oct25/compositions/frames/04-card.html and re-render "
+            "public/cinema/teaser-oct25-9x16.* (see video/teaser-oct25/README.md)."
+        )
+    for asset in ("teaser-oct25-9x16.webm", "teaser-oct25-9x16.mp4", "teaser-oct25-poster.jpg"):
+        path = ROOT / "public/cinema" / asset
+        assert path.is_file() and path.stat().st_size > 1024, f"Missing teaser render: {asset}"

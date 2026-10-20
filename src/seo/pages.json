@@ -1,27 +1,27 @@
 {
   "home": {
     "path": "/",
-    "title": "AI Video Ad Workshop Kolkata | 27 Sept · Salt Lake",
-    "description": "Build a complete AI video ad in 3 hours. Hands-on offline workshop in Salt Lake, Kolkata on 27 Sept 2026. Consistent faces, motion & voiceover. 50 seats.",
-    "ogTitle": "AI Video Ad Workshop Kolkata · 27 Sept, Salt Lake",
-    "ogDescription": "Build a complete AI video ad in 3 hours. Hands-on offline workshop in Salt Lake, Kolkata on 27 Sept 2026. Consistent faces, motion & voiceover. 50 seats.",
-    "ogImage": "https://theaiworkshop.in/assets/og-kolkata-sept27.png"
+    "title": "AI Automation Workshop Kolkata | 25 Oct · Salt Lake",
+    "description": "Build your first AI automation in 4 hours: AI replies to leads, a 3-email follow-up and a FAQ bot. Offline in Salt Lake, Kolkata, 25 Oct 2026. 50 seats.",
+    "ogTitle": "AI Automation Workshop Kolkata · 25 Oct, Salt Lake",
+    "ogDescription": "Build your first AI automation in 4 hours: AI replies to leads, a 3-email follow-up and a FAQ bot. Offline in Salt Lake, Kolkata, 25 Oct 2026. 50 seats.",
+    "ogImage": "https://theaiworkshop.in/assets/og-kolkata-oct25.png"
   },
   "workshop": {
     "path": "/workshop",
-    "title": "Build a Complete AI Video Ad From Scratch | 27 September, Kolkata",
-    "description": "Build one finished vertical AI video ad in three hours: face lock, base stills, Veo motion, ElevenLabs voice. 27 September 2026, Salt Lake, Kolkata. ₹799. No filmmaking background.",
-    "ogTitle": "Build a Complete AI Video Ad From Scratch | 27 September, Kolkata",
-    "ogDescription": "Build one finished vertical AI video ad in three hours: face lock, base stills, Veo motion, ElevenLabs voice. 27 September 2026, Salt Lake, Kolkata. ₹799. No filmmaking background.",
-    "ogImage": "https://theaiworkshop.in/assets/og-kolkata-sept27.png"
+    "title": "Build Your First AI Automation: Leads, Emails and a Bot | 25 October, Kolkata",
+    "description": "Build one AI automation for your business in four hours: lead capture, AI first replies, a three-email follow-up and a Telegram FAQ bot. 25 October 2026, Salt Lake, Kolkata. ₹699. No coding.",
+    "ogTitle": "Build Your First AI Automation: Leads, Emails and a Bot | 25 October, Kolkata",
+    "ogDescription": "Build one AI automation for your business in four hours: lead capture, AI first replies, a three-email follow-up and a Telegram FAQ bot. 25 October 2026, Salt Lake, Kolkata. ₹699. No coding.",
+    "ogImage": "https://theaiworkshop.in/assets/og-kolkata-oct25.png"
   },
   "book": {
     "path": "/book",
-    "title": "Book Your Seat | Build a Complete AI Video Ad From Scratch, 27 September",
-    "description": "Reserve Build a Complete AI Video Ad From Scratch. Sunday, 27 September 2026, 11:00 AM – 2:00 PM. Salt Lake, Kolkata. 50 seats. ₹799. Laptop required. No filmmaking background needed.",
-    "ogTitle": "Book Your Seat | Build a Complete AI Video Ad From Scratch, 27 September",
-    "ogDescription": "Reserve Build a Complete AI Video Ad From Scratch. Sunday, 27 September 2026, 11:00 AM – 2:00 PM. Salt Lake, Kolkata. 50 seats. ₹799. Laptop required. No filmmaking background needed.",
-    "ogImage": "https://theaiworkshop.in/assets/og-kolkata-sept27.png"
+    "title": "Book Your Seat | Build Your First AI Automation: Leads, Emails and a Bot, 25 October",
+    "description": "Reserve Build Your First AI Automation: Leads, Emails and a Bot. Sunday, 25 October 2026, 12:00 PM – 4:00 PM. Salt Lake, Kolkata. 50 seats. ₹699. Laptop required. No coding background needed.",
+    "ogTitle": "Book Your Seat | Build Your First AI Automation: Leads, Emails and a Bot, 25 October",
+    "ogDescription": "Reserve Build Your First AI Automation: Leads, Emails and a Bot. Sunday, 25 October 2026, 12:00 PM – 4:00 PM. Salt Lake, Kolkata. 50 seats. ₹699. Laptop required. No coding background needed.",
+    "ogImage": "https://theaiworkshop.in/assets/og-kolkata-oct25.png"
   },
   "path": {
     "path": "/path",
@@ -58,25 +58,25 @@
   "kolkata": {
     "path": "/kolkata",
     "title": "Learn AI in Kolkata | Offline Workshop in Salt Lake",
-    "description": "Learn AI in Kolkata, one practical project at a time. Next: Build a Complete AI Video Ad From Scratch, 27 September 2026. Salt Lake, offline, ₹799.",
+    "description": "Learn AI in Kolkata, one practical project at a time. Next: Build Your First AI Automation: Leads, Emails and a Bot, 25 October 2026. Salt Lake, offline, ₹699.",
     "ogTitle": "Learn AI in Kolkata | Offline Workshop in Salt Lake",
-    "ogDescription": "Learn AI in Kolkata, one practical project at a time. Next: Build a Complete AI Video Ad From Scratch, 27 September 2026. Salt Lake, offline, ₹799.",
-    "ogImage": "https://theaiworkshop.in/assets/og-kolkata-sept27.png"
+    "ogDescription": "Learn AI in Kolkata, one practical project at a time. Next: Build Your First AI Automation: Leads, Emails and a Bot, 25 October 2026. Salt Lake, offline, ₹699.",
+    "ogImage": "https://theaiworkshop.in/assets/og-kolkata-oct25.png"
   },
   "answers": {
     "path": "/answers",
     "title": "Questions and Answers | The AI Workshop",
-    "description": "Practical answers about The AI Workshop: September’s AI video ad build, the tools and credits it needs, privacy, venue, ticket, and what to bring.",
+    "description": "Practical answers about The AI Workshop: October’s AI automation build, the free tools it runs on, privacy, venue, ticket, and what to bring.",
     "ogTitle": "Questions and Answers | The AI Workshop",
-    "ogDescription": "Practical answers about The AI Workshop: September’s AI video ad build, the tools and credits it needs, privacy, venue, ticket, and what to bring.",
-    "ogImage": "https://theaiworkshop.in/assets/og-kolkata-sept27.png"
+    "ogDescription": "Practical answers about The AI Workshop: October’s AI automation build, the free tools it runs on, privacy, venue, ticket, and what to bring.",
+    "ogImage": "https://theaiworkshop.in/assets/og-kolkata-oct25.png"
   },
   "share": {
     "path": "/share",
-    "title": "Share Build a Complete AI Video Ad From Scratch | The AI Workshop",
-    "description": "Invite a friend to Build a Complete AI Video Ad From Scratch. Sunday, 27 September 2026, 11:00 AM – 2:00 PM. Salt Lake, Kolkata. 50 seats. ₹799. One finished ad, built in the room, in three hours.",
-    "ogTitle": "Share Build a Complete AI Video Ad From Scratch | The AI Workshop",
-    "ogDescription": "Invite a friend to Build a Complete AI Video Ad From Scratch. Sunday, 27 September 2026, 11:00 AM – 2:00 PM. Salt Lake, Kolkata. 50 seats. ₹799. One finished ad, built in the room, in three hours.",
-    "ogImage": "https://theaiworkshop.in/assets/og-kolkata-sept27.png"
+    "title": "Share Build Your First AI Automation: Leads, Emails and a Bot | The AI Workshop",
+    "description": "Invite a friend to Build Your First AI Automation: Leads, Emails and a Bot. Sunday, 25 October 2026, 12:00 PM – 4:00 PM. Salt Lake, Kolkata. 50 seats. ₹699. One automation for your business, built in the room, in four hours.",
+    "ogTitle": "Share Build Your First AI Automation: Leads, Emails and a Bot | The AI Workshop",
+    "ogDescription": "Invite a friend to Build Your First AI Automation: Leads, Emails and a Bot. Sunday, 25 October 2026, 12:00 PM – 4:00 PM. Salt Lake, Kolkata. 50 seats. ₹699. One automation for your business, built in the room, in four hours.",
+    "ogImage": "https://theaiworkshop.in/assets/og-kolkata-oct25.png"
   }
 }

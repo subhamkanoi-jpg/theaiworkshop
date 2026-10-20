@@ -2,7 +2,7 @@
   "name": "The AI Workshop",
   "description": "An offline space for non-techies to put AI to work, one real use-case project at a time.",
   "url": "https://theaiworkshop.in",
-  "updated": "2026-09-08",
+  "updated": "2026-10-19",
   "offline_only": true,
   "location": "Salt Lake, Kolkata",
   "contact": {
@@ -10,12 +10,12 @@
     "telephone": "+919830715557"
   },
   "next_workshop": {
-    "title": "Build a Complete AI Video Ad From Scratch",
-    "date": "2026-09-27",
-    "startDate": "2026-09-27T11:00:00+05:30",
-    "endDate": "2026-09-27T14:00:00+05:30",
-    "priceINR": 799,
+    "title": "Build Your First AI Automation: Leads, Emails and a Bot",
+    "date": "2026-10-25",
+    "startDate": "2026-10-25T12:00:00+05:30",
+    "endDate": "2026-10-25T16:00:00+05:30",
+    "priceINR": 699,
     "seats": 50,
-    "artifact": "One finished vertical ad — locked face, base stills, motion clips, human voiceover — and the prompt recipe to build the next one"
+    "artifact": "One automation running for your own business — lead capture, an AI-written first reply, a three-email follow-up and a FAQ bot — plus the brief, prompts and blueprint to build the next one"
   }
 }

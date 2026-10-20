@@ -22,13 +22,36 @@ const MONTHS_SHORT = [
   "Nov",
   "Dec",
 ];
-export const WORKSHOP_DATE_SHORT = (() => {
-  const parts = workshop.dateIso.split("-").map(Number);
-  const month = parts[1];
-  const day = parts[2];
-  if (!month || !day) return workshop.dateLabel;
-  return `${day} ${MONTHS_SHORT[month - 1]}`;
-})();
+const MONTHS_LONG = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+const [, ISO_MONTH, ISO_DAY] = workshop.dateIso.split("-").map(Number);
+/** "25 Oct" — nav label and announcement bar. */
+export const WORKSHOP_DATE_SHORT =
+  ISO_MONTH && ISO_DAY
+    ? `${ISO_DAY} ${MONTHS_SHORT[ISO_MONTH - 1]}`
+    : workshop.dateLabel;
+/** "25 October" — breadcrumbs and sentences. */
+export const WORKSHOP_DAY_MONTH =
+  ISO_MONTH && ISO_DAY
+    ? `${ISO_DAY} ${MONTHS_LONG[ISO_MONTH - 1]}`
+    : workshop.dateLabel;
+/** "October" */
+export const WORKSHOP_MONTH = ISO_MONTH
+  ? MONTHS_LONG[ISO_MONTH - 1]
+  : workshop.dateLabel;
+export const WORKSHOP_DOOR_LABEL = workshop.doorLabel;
 export const WORKSHOP_TIME_LABEL = workshop.timeLabel;
 export const WORKSHOP_DURATION_LABEL = workshop.durationLabel;
 export const WORKSHOP_TITLE = workshop.title;
@@ -36,6 +59,8 @@ export const WORKSHOP_NUMBER = workshop.number;
 export const WORKSHOP_CHAPTER = workshop.chapter;
 export const WORKSHOP_ARTIFACT = workshop.artifact;
 export const WORKSHOP_SLUG = workshop.slug;
+/** "Sunday": the first word of the date label, for "Before Sunday". */
+export const WORKSHOP_WEEKDAY = workshop.dateLabel.split(",")[0];
 export const BRING_LABEL = workshop.bringLabel;
 
 export const SAVINGS = MARKET_VALUE - PRICE;
@@ -50,16 +75,10 @@ export const SUPPORT_EMAIL = workshop.supportEmail;
 
 export const workshopContent = workshop;
 
-/** The file each stage leaves on your laptop, named the way the system names
- *  it. The landing page and the booking summary both render this, so the list
- *  lives here rather than in either of them. */
-export const ARTIFACT_SPECS = [
-  "Face_Lock_Master.png",
-  "Scene_01_BaseImage.png",
-  "Scene_01_Video.mp4",
-  "VO_Final.mp3",
-  "TOW_Prompt_Stack.txt",
-] as const;
+/** What each part leaves behind, named the way the build names it. The
+ *  landing page and the booking summary both render this, so the list lives
+ *  in workshop.json, one entry per outcome. */
+export const ARTIFACT_SPECS = workshop.artifactSpecs;
 
 export const artifacts = workshop.outcomes.map((outcome, i) => ({
   title: outcome.slice(0, outcome.indexOf(":")),
@@ -73,6 +92,26 @@ export const valueStack = artifacts.map((a) => ({
 }));
 
 export const BRING_SHORT = workshop.bringShort;
+
+/** Page copy that changes with every workshop. Pages read it from here so the
+ *  next workshop is an edit to workshop.json, not to six components. */
+export const HERO = workshop.hero;
+export const STAGES = workshop.stages;
+export const ARTIFACTS_HEADING = workshop.artifactsHeading;
+export const RUN = workshop.run;
+export const RUN_HEADING = workshop.runHeading;
+export const FINISH_LINE = workshop.finishLine;
+export const BELONG = workshop.belong;
+export const STAY_HOME = workshop.stayHome;
+export const DO_NOT_BRING = workshop.doNotBring;
+export const TICKET_CHIPS = workshop.ticketChips;
+export const TICKET_NOTE = workshop.ticketNote;
+export const CAPTAIN_TASK = workshop.captainTask;
+export const PREP = workshop.prep;
+export const SHARE = workshop.share;
+
+/** The person leading this workshop. Also one of the hosts below. */
+export const LEAD = workshop.lead;
 
 export const hosts = [
   { name: "Yogesh Kanoi", src: "/yogesh.jpg", pos: "center 15%" },

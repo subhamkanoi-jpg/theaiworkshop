@@ -3,7 +3,7 @@ import { SiteShell } from "@/components/SiteChrome";
 import { usePageSeo } from "@/hooks/usePageSeo";
 import { glimpses } from "@/components/GlimpseReel";
 import { ReserveButton } from "@/components/ReserveButton";
-import { hosts } from "@/config";
+import { hosts, LEAD, WORKSHOP_DAY_MONTH } from "@/config";
 import { cn } from "@/lib/utils";
 
 const portfolio = [
@@ -117,6 +117,12 @@ export default function RoomPage() {
                   <p className="text-sm text-muted-foreground">
                     Hosts the room in Salt Lake. Same Sunday as you.
                   </p>
+                  {h.name === LEAD.name && (
+                    <p className="mt-1 text-sm font-medium text-foreground">
+                      Leads the {WORKSHOP_DAY_MONTH} workshop · {LEAD.role},{" "}
+                      {LEAD.org}
+                    </p>
+                  )}
                 </div>
               </div>
             ))}
@@ -130,7 +136,7 @@ export default function RoomPage() {
       <section className="py-14 sm:py-16">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 text-center">
           <p className="font-serif text-2xl font-semibold text-foreground mb-6">
-            Come sit in it on 27 September.
+            Come sit in it on {WORKSHOP_DAY_MONTH}.
           </p>
           <ReserveButton />
         </div>

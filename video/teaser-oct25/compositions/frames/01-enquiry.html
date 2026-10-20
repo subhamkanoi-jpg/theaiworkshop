@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en-IN">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root { position: absolute; inset: 0; }
+        #f1-scene { gap: 110px; }
+        .f1-top { display: flex; flex-direction: column; gap: 30px; position: relative; }
+        .f1-msg {
+          display: block; align-self: flex-start; max-width: 860px;
+          padding: 40px 46px; border-radius: 34px 34px 34px 10px;
+          background: #1f1a17; border: 3px solid rgba(244, 238, 228, 0.14);
+          transform-origin: 0% 100%;
+        }
+        .f1-from { display: block; font-size: 30px; font-weight: 700; color: #e8a090; }
+        .f1-text { display: block; margin-top: 12px; font-size: 52px; font-weight: 500; line-height: 1.2; }
+        .f1-unread {
+          display: inline-block; align-self: flex-start;
+          padding: 10px 24px; border-radius: 999px;
+          border: 3px solid rgba(232, 160, 144, 0.6);
+          font-size: 28px; color: #e8a090; letter-spacing: 0.04em;
+        }
+        .f1-lines { display: flex; flex-direction: column; gap: 22px; position: relative; }
+        .f1-note {
+          display: block; margin-top: 26px;
+          font-size: 42px; line-height: 1.3; color: rgba(244, 238, 228, 0.8);
+        }
+      </style>
+      <div data-hf-id="hf-4056" id="root" data-composition-id="f1-enquiry" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-7n8b" id="f1-scene" class="scene room">
+          <div data-hf-id="hf-h60x" class="grain"></div>
+          <div data-hf-id="hf-1aw6" id="f1-glow" class="glow" data-layout-allow-overflow style="left: -420px; top: 120px"></div>
+          <div data-hf-id="hf-6o7p" class="f1-top">
+            <span data-hf-id="hf-1mfm" id="f1-eyebrow" class="eyebrow">New enquiry · 9:12 PM</span>
+            <div data-hf-id="hf-oa1p" id="f1-card" class="f1-msg">
+              <span data-hf-id="hf-83jl" class="f1-from">Riya S.</span>
+              <span data-hf-id="hf-24j6" class="f1-text">Do you deliver to Salt Lake?</span>
+            </div>
+            <span data-hf-id="hf-a5cl" id="f1-unread" class="f1-unread mono">Unread</span>
+          </div>
+          <div data-hf-id="hf-nu79" class="f1-lines">
+            <span data-hf-id="hf-6ms4" id="f1-l1" class="display">She asks at 9:12 PM.</span>
+            <span data-hf-id="hf-ubpb" id="f1-l2" class="display">You reply on <span data-hf-id="hf-ie19" class="accent">Thursday.</span></span>
+            <span data-hf-id="hf-lvkv" id="f1-note" class="f1-note">By then, she has moved on.</span>
+          </div>
+        </div>
+      </div>
+      <script>
+        // kinetic-type-beats (Problem): the message pops, then the statement
+        // builds beat by beat. Local time: 0–4s.
+        const tl = gsap.timeline({ paused: true });
+        tl.fromTo("#f1-glow", { scale: 0.92 },
+          { scale: 1.06, duration: 2, ease: "sine.inOut", yoyo: true, repeat: 1 }, 0);
+        tl.fromTo("#f1-eyebrow", { opacity: 0, y: -18 },
+          { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 0.15);
+        tl.fromTo("#f1-card", { scale: 0, opacity: 0 },
+          { scale: 1, opacity: 1, duration: 0.55, ease: "power3.out" }, 0.3);
+        tl.fromTo("#f1-unread", { opacity: 0, x: -24 },
+          { opacity: 1, x: 0, duration: 0.4, ease: "expo.out" }, 0.75);
+        tl.fromTo("#f1-l1", { opacity: 0, y: 46 },
+          { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" }, 1.05);
+        tl.fromTo("#f1-l2", { opacity: 0, y: 46 },
+          { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" }, 1.85);
+        tl.fromTo("#f1-note", { opacity: 0, y: 18 },
+          { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 2.75);
+        tl.fromTo("#f1-scene", { opacity: 1 },
+          { opacity: 0, duration: 0.3, ease: "power2.in" }, 3.7);
+        window.__timelines["f1-enquiry"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

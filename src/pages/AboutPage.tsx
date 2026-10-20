@@ -2,7 +2,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { JsonLd } from "@/components/JsonLd";
 import { ReserveButton } from "@/components/ReserveButton";
 import { SiteShell } from "@/components/SiteChrome";
-import { hosts } from "@/config";
+import { hosts, LEAD } from "@/config";
 import { usePageSeo } from "@/hooks/usePageSeo";
 import { LOCAL } from "@/seo/local";
 
@@ -18,7 +18,7 @@ export default function AboutPage() {
         name: "About The AI Workshop",
         description:
           LOCAL.name + " is Kolkata's offline AI workshop in Salt Lake.",
-        dateModified: "2026-08-30",
+        dateModified: "2026-10-19",
         inLanguage: "en-IN",
         isPartOf: { "@id": "https://theaiworkshop.in/#website" },
         about: { "@id": "https://theaiworkshop.in/#organization" },
@@ -27,6 +27,7 @@ export default function AboutPage() {
         "@type": "Person",
         name: h.name,
         jobTitle: "Host",
+        ...(h.name === LEAD.name ? { description: LEAD.bio } : {}),
         worksFor: { "@id": "https://theaiworkshop.in/#organization" },
         image: `https://theaiworkshop.in${h.src}`,
         address: {
@@ -82,7 +83,9 @@ export default function AboutPage() {
                 <div>
                   <p className="font-semibold text-foreground">{h.name}</p>
                   <p className="text-sm text-muted-foreground">
-                    Host · Salt Lake
+                    {h.name === LEAD.name
+                      ? `${LEAD.role}, ${LEAD.org} · Host`
+                      : "Host · Salt Lake"}
                   </p>
                 </div>
               </div>

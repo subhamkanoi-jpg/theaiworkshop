@@ -36,13 +36,13 @@ mindmap
       2 Make
         Jun 28 Website
         Aug 30 Reel
+        Sep 27 AI video ad
         Images docs decks
       3 Sell
-        Oct WhatsApp selling
+        Oct 25 AI automation: replies, follow-ups, a bot
         Offer page
         First paid skill
       4 System
-        Sep 27 Make a second you
         Weekly rhythm
         Prompt kit that is yours
       5 Lead
@@ -50,10 +50,10 @@ mindmap
         Host a Sunday
         Teach your use case
     This month SKU
-      Workshop 3
-      Sunday 27 Sep 2026
-      The Magic of AI
-      Talk then a week of work
+      Workshop 4
+      Sunday 25 Oct 2026
+      Build your first AI automation
+      Led by Neeraj Kanoi
       50 people tables of 8
     The Room
       Salt Lake
@@ -141,7 +141,7 @@ flowchart TB
 │  WINDOW (hero)                                              │
 │  The AI Workshop · Kolkata                                  │
 │  “AI is for the ones who show up.”                          │
-│  THIS SUNDAY: Make a second you · 27 Sept · ₹799 · 100 seats│
+│  THIS SUNDAY: AI automation · 25 Oct · ₹699 · 50 seats      │
 │  [ Reserve your seat ]        [ See the Path ]              │
 ├──────────────┬──────────────────────────────┬───────────────┤
 │ AISLE GUIDE  │  SHOWROOM TABLE              │  THE ROOM     │
@@ -167,8 +167,8 @@ timeline
   title The Path as a year of Sundays
   Jun 2026 : #1 Make — Build a website
   Aug 2026 : #2 Make — Automate video editing
-  Sep 2026 : #3 System — Make a second you (100-person assembly)
-  Oct 2026 : #4 Sell — WhatsApp that brings customers
+  Sep 2026 : #3 Make — AI video ad from a brief
+  Oct 2026 : #4 Sell — AI automation: every lead gets a reply (led by Neeraj)
   Nov 2026 : #5 Make — 30 days of content in one afternoon
   Dec 2026 : #6 Sell — Your first offer, priced and written
   Jan 2027 : #7 Talk — Briefing mastery / evals for beginners

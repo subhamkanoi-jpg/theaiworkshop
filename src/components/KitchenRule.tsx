@@ -4,21 +4,27 @@ import { LogoMark } from "@/components/LogoMark";
  * The system, argued visually.
  *
  * The first version of this section made the case in three essays. It does not
- * need them: put the nine-word prompt beside the shape of a real one and the
- * asymmetry lands before anybody reads a line. The maxims are the only prose
- * left standing.
+ * need them: put what most people do with an enquiry beside the shape of the
+ * machine we build, and the wait for a reply lands before anybody reads a line.
+ * The maxims are the only prose left standing.
  */
 
+const HABITS = [
+  "Reply when there is time",
+  "Forget the second follow-up",
+  "Type the price list out again",
+];
+
 const PLAN = [
-  { label: "Premise", line: "Man alone in a blizzard, UGC…" },
-  { label: "Constraints", line: "Accent · jacket · snow · alone…" },
-  { label: "Structure lock", line: "Exactly 6 shots, in order…" },
-  { label: "Shot breakdown", line: "Duration, camera, lens, action…" },
+  { label: "Trigger", line: "New form entry → Leads sheet" },
+  { label: "AI step", line: "Gemini writes from your brief" },
+  { label: "Sequence", line: "Day 2 · 5 · 9, stops on reply" },
+  { label: "Bot", line: "Answers from your price list" },
 ];
 
 const MAXIMS = [
-  "One output moves forward",
-  "A plan, not an idea",
+  "Draft before you send",
+  "Your facts, not its guesses",
 ];
 
 export function KitchenRule() {
@@ -39,33 +45,42 @@ export function KitchenRule() {
               id="recipe-heading"
               className="font-serif text-[1.85rem] font-semibold leading-[1.05] tracking-tight text-balance text-[#f4eee4] sm:text-4xl lg:text-[2.7rem]"
             >
-              Same model. Same afternoon.
+              Same leads. Same Monday.
               <br />
-              <span className="italic text-[#e8a090]">Different prompt.</span>
+              <span className="italic text-[#e8a090]">Different system.</span>
             </h2>
           </div>
           <LogoMark className="hidden h-14 w-14 opacity-90 sm:block" />
         </div>
 
         <div className="mt-9 grid items-start gap-4 lg:grid-cols-2">
-          {/* Weak — the emptiness is the argument. */}
+          {/* Weak — the habits are the argument. */}
           <div className="rounded-xl border border-[#f4eee4]/12 bg-[#f4eee4]/[0.04] p-5">
             <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#f4eee4]/45">
-              Most people type
+              Most people do
             </p>
-            <p className="gate-term mt-4 text-[#f4eee4]/85">
-              <span className="gate-term-dim">&gt;&nbsp;</span>
-              Make a video of a man making coffee in snow.
-            </p>
-            <p className="mt-8 font-serif text-5xl leading-none text-[#f4eee4]/30">
-              9 words
+            <ul className="mt-4 grid gap-1">
+              {HABITS.map((habit) => (
+                <li key={habit} className="gate-term text-[#f4eee4]/55">
+                  <span className="gate-term-dim" aria-hidden>
+                    –&nbsp;
+                  </span>
+                  {habit}
+                </li>
+              ))}
+            </ul>
+            <p className="mt-8 flex flex-wrap items-baseline gap-x-3">
+              <span className="font-serif text-5xl leading-none text-[#f4eee4]/30">
+                Whenever
+              </span>
+              <span className="text-sm text-[#f4eee4]/45">to reply</span>
             </p>
           </div>
 
-          {/* Strong — the density is the argument. */}
+          {/* Strong — the shape of the machine is the argument. */}
           <div className="rounded-xl border border-[#c8553d]/35 bg-[#c8553d]/[0.07] p-5">
             <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#e8a090]">
-              We type
+              We build
             </p>
             <dl className="mt-4 grid gap-2.5">
               {PLAN.map((b) => (
@@ -77,8 +92,11 @@ export function KitchenRule() {
                 </div>
               ))}
             </dl>
-            <p className="mt-5 font-serif text-5xl leading-none text-[#c8553d]">
-              180 words
+            <p className="mt-5 flex flex-wrap items-baseline gap-x-3">
+              <span className="font-serif text-5xl leading-none text-[#c8553d]">
+                1 hour
+              </span>
+              <span className="text-sm text-[#e8a090]/70">to reply</span>
             </p>
           </div>
         </div>

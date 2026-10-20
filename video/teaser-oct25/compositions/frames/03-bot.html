@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en-IN">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        #root { position: absolute; inset: 0; }
+        #f3-scene { gap: 46px; }
+        .f3-chat {
+          display: block; position: relative;
+          border-radius: 36px; overflow: hidden;
+          background: #1a1613; border: 3px solid rgba(244, 238, 228, 0.12);
+        }
+        .f3-head {
+          display: flex; align-items: center; gap: 24px;
+          padding: 30px 40px; background: #221d19;
+          border-bottom: 3px solid rgba(244, 238, 228, 0.08);
+        }
+        .f3-avatar {
+          display: flex; align-items: center; justify-content: center; flex: none;
+          width: 84px; height: 84px; border-radius: 50%;
+          background: #c8553d; color: #fbf6ea;
+          font-weight: 700; font-size: 38px;
+        }
+        .f3-name { display: block; font-size: 38px; font-weight: 700; }
+        .f3-handle { display: block; margin-top: 4px; font-size: 26px; color: rgba(244, 238, 228, 0.72); }
+        .f3-body {
+          display: flex; flex-direction: column; gap: 22px;
+          padding: 40px 36px 44px;
+        }
+        .f3-bub {
+          display: block; max-width: 760px;
+          padding: 26px 34px; border-radius: 30px;
+          font-size: 38px; line-height: 1.3;
+          text-wrap: pretty;
+        }
+        .f3-me {
+          align-self: flex-end; border-bottom-right-radius: 10px;
+          background: #b4462f; color: #fbf6ea; transform-origin: 100% 100%;
+        }
+        .f3-bot {
+          border-bottom-left-radius: 10px;
+          background: #2b2420; color: #f4eee4; transform-origin: 0% 100%;
+        }
+        /* The typing dots sit where the reply will land, so nothing reflows. */
+        .f3-slot { position: relative; display: flex; flex-direction: column; align-items: flex-start; }
+        .f3-typing {
+          position: absolute; left: 0; top: 0;
+          display: flex; gap: 12px; padding: 30px 34px;
+          border-radius: 30px; border-bottom-left-radius: 10px; background: #2b2420;
+          transform-origin: 0% 100%;
+        }
+        .f3-typing i { display: block; width: 16px; height: 16px; border-radius: 50%; background: #e8a090; }
+        .f3-handed {
+          display: inline-block; margin-top: 14px;
+          padding: 8px 22px; border-radius: 999px;
+          border: 3px solid rgba(232, 160, 144, 0.6);
+          font-size: 26px; font-weight: 700; color: #e8a090; letter-spacing: 0.06em;
+          text-transform: uppercase;
+        }
+      </style>
+      <div data-hf-id="hf-9318" id="root" data-composition-id="f3-bot" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-ygx5" id="f3-scene" class="scene room">
+          <div data-hf-id="hf-h60x" class="grain"></div>
+          <div data-hf-id="hf-d8cc" id="f3-glow" class="glow" data-layout-allow-overflow style="left: -560px; bottom: -380px"></div>
+          <span data-hf-id="hf-m4ov" id="f3-eyebrow" class="eyebrow">And a bot for the questions</span>
+          <div data-hf-id="hf-vf1y" id="f3-chat" class="f3-chat">
+            <div data-hf-id="hf-4if0" class="f3-head">
+              <span data-hf-id="hf-b6ib" class="f3-avatar serif">T</span>
+              <span data-hf-id="hf-uckh">
+                <span data-hf-id="hf-n0tk" class="f3-name">Tiffin Ghar</span>
+                <span data-hf-id="hf-spgm" class="f3-handle mono">@TiffinGhar_bot · Telegram</span>
+              </span>
+            </div>
+            <div data-hf-id="hf-uwpm" class="f3-body">
+              <span data-hf-id="hf-b1mc" id="f3-q1" class="f3-bub f3-me">How much is the monthly tiffin?</span>
+              <div data-hf-id="hf-h16q" class="f3-slot">
+                <div data-hf-id="hf-59is" id="f3-t1" class="f3-typing"><i data-hf-id="hf-wt6k"></i><i data-hf-id="hf-zeb8"></i><i data-hf-id="hf-y7e5"></i></div>
+                <span data-hf-id="hf-qcu8" id="f3-a1" class="f3-bub f3-bot">₹2,600 a month, delivered across Sectors 1 to 5.</span>
+              </div>
+              <span data-hf-id="hf-uvke" id="f3-q2" class="f3-bub f3-me">Can you do Jain food?</span>
+              <div data-hf-id="hf-41wm" class="f3-slot">
+                <div data-hf-id="hf-dxen" id="f3-t2" class="f3-typing"><i data-hf-id="hf-ylp6"></i><i data-hf-id="hf-0l8b"></i><i data-hf-id="hf-0zjc"></i></div>
+                <span data-hf-id="hf-h7o6" id="f3-a2" class="f3-bub f3-bot">Good question. A person will reply soon.</span>
+                <span data-hf-id="hf-cg7i" id="f3-hand" class="f3-handed">Handed to you</span>
+              </div>
+            </div>
+          </div>
+          <span data-hf-id="hf-q8j4" id="f3-cap" class="caption">It answers from <span data-hf-id="hf-x6sy" class="blush">your</span> price list.</span>
+        </div>
+      </div>
+      <script>
+        // agent-progress-theater (message thread): question → typing dots →
+        // answer; an unknown question is handed to a person. Local time: 0–4.2s.
+        const tl = gsap.timeline({ paused: true });
+        tl.fromTo("#f3-glow", { scale: 0.92 },
+          { scale: 1.06, duration: 2.1, ease: "sine.inOut", yoyo: true, repeat: 1 }, 0);
+        tl.fromTo("#f3-eyebrow", { opacity: 0, y: -16 },
+          { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 0.15);
+        tl.fromTo("#f3-chat", { scale: 0.95, opacity: 0, y: 36 },
+          { scale: 1, opacity: 1, y: 0, duration: 0.55, ease: "power3.out" }, 0.2);
+        tl.fromTo("#f3-cap", { opacity: 0, y: 22 },
+          { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.55);
+
+        const pop = (sel, at) =>
+          tl.fromTo(sel, { scale: 0, opacity: 0 },
+            { scale: 1, opacity: 1, duration: 0.45, ease: "power3.out" }, at);
+
+        // Typing dots: a finite pulse, killed the instant the reply lands.
+        const typing = (wrap, from, until) => {
+          tl.fromTo(wrap, { opacity: 0, scale: 0.6 },
+            { opacity: 1, scale: 1, duration: 0.22, ease: "power3.out" }, from);
+          gsap.utils.toArray(wrap + " i").forEach((dot, i) => {
+            tl.fromTo(dot, { opacity: 0.3 },
+              { opacity: 1, duration: 0.18, ease: "sine.inOut", yoyo: true, repeat: 1 },
+              from + 0.06 + i * 0.1);
+          });
+          tl.set(wrap, { opacity: 0 }, until);
+        };
+
+        pop("#f3-q1", 0.65);
+        typing("#f3-t1", 1.05, 1.55);
+        pop("#f3-a1", 1.55);
+        pop("#f3-q2", 2.2);
+        typing("#f3-t2", 2.6, 3.1);
+        pop("#f3-a2", 3.1);
+        tl.fromTo("#f3-hand", { opacity: 0, x: -20 },
+          { opacity: 1, x: 0, duration: 0.4, ease: "expo.out" }, 3.45);
+        tl.fromTo("#f3-scene", { opacity: 1 },
+          { opacity: 0, duration: 0.3, ease: "power2.in" }, 3.9);
+        window.__timelines["f3-bot"] = tl;
+      </script>
+    </template>
+  </body>
+</html>
